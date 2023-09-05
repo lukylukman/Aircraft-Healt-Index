@@ -1,0 +1,80 @@
+<div class="form-control relative">
+  <div class="flex flex-row items-center justify-between">
+    <div class="flex flex-row items-center">
+      <label
+        [for]="inputId"
+        class="font-jakarta flex items-center text-sm text-center"
+        >{{ label }}
+        <span class="ml-2 text-xs font-light" *ngIf="description"
+          >( Desc. : {{ description }} )</span
+        >
+      </label>
+    </div>
+    <div class="h-4" *ngIf="focus || control.pristine"></div>
+    <div *ngIf="validatorIcon" class="flex flex-row gap-[2px]">
+      <div *ngIf="tooltip" class="hovertext flex items-center" [attr.data-hover]="tooltip">
+        <hero-icon
+          name="exclamation-circle"
+          class="h-4 w-4 cursor-pointer flex text-right fill-tms-blue-500 text-white"
+        ></hero-icon>
+      </div>
+      <hero-icon
+        *ngIf="control.invalid && control.dirty && control.touched"
+        name="x-circle"
+        class="h-4 w-4 fill-tms-error-600 text-white"
+      ></hero-icon>
+      <hero-icon
+        *ngIf="control.valid"
+        name="check-circle"
+        class="h-4 w-4 fill-tms-green-500 text-white"
+      ></hero-icon>
+    </div>
+  </div>
+  <div *ngIf="isPassword" class="absolute right-2 top-1/2 text-tms-neutral-500 focus:ring-blue-500 focus:border-blue-500">
+    <hero-icon
+          (click)="togglePasswordVisibility()"
+          [name]="inputTypePassword === 'text'? 'eye-off':'eye'"
+          [ngClass]="inputTypePassword === 'text'? '  text-tms-error-500':' text-tms-neutral-500'"
+          class="h-5 w-5 cursor-pointer duration-200 "
+        ></hero-icon>
+  </div>
+  <input
+    *ngIf="isUppercase"
+    oninput="this.value = this.value.toUpperCase()"
+    [formControl]="control"
+    [type]="isPassword? inputTypePassword : inputType"
+    [id]="inputId"
+    [class.invalid]="control.invalid && control.dirty && control.touched"
+    class="bg-gray-100 disabled:bg-tms-neutral-600 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full"
+    [ngClass]="border ? 'border-gray-300 border' : 'border-transparent border'"
+    [ngClass]="size"
+    [placeholder]="placeholder"
+    [style]="style"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+    [attr.border-data]="borderData"
+  />
+  <input
+    *ngIf="!isUppercase"
+    [formControl]="control"
+    [type]="isPassword? inputTypePassword : inputType"
+    [id]="inputId"
+    [class.invalid]="control.invalid && control.dirty && control.touched"
+    class="bg-gray-100 disabled:bg-tms-neutral-600 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full"
+    [ngClass]="border ? 'border-gray-300 border' : 'border-transparent border'"
+    [ngClass]="size"
+    [placeholder]="placeholder"
+    [style]="style"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+    [attr.border-data]="borderData"
+  />
+  <ng-container *ngIf="control.invalid && control.dirty && control.touched">
+    <div
+      *ngFor="let err of control.errors | keyvalue"
+      class="text-xs font-jakarta text-tms-error-700"
+    >
+      {{ errorMessage[err.key] }}
+    </div>
+  </ng-container>
+</div>

@@ -1,1 +1,208 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+
+  
+  .content-container {
+    @apply flex flex-col;
+  }
+
+  .spacer {
+    @apply mt-8;
+  }
+
+  .card {
+    @apply bg-white max-w-full mt-2 rounded overflow-hidden shadow-md p-2;
+  }
+
+  .highlight-title{
+    @apply font-jakarta font-bold md:text-lg sm:text-2xl;
+  }
+
+  .highlight-subtitle {
+    @apply font-jakarta font-semibold md:text-sm;
+  }
+
+  .page-title {
+    @apply font-jakarta font-bold text-2xl;
+  }
+
+  .page-subtitle {
+    @apply font-jakarta text-lg;
+  }
+
+  .page-section-title {
+    @apply font-jakarta font-semibold text-lg;
+  }
+
+  /*------------------------------------
+    Badges
+
+    ------------------------------------
+  */
+  .badge {
+    @apply inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold font-jakarta rounded;
+  }
+
+  .badge-info {
+    @apply inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-dbx-blue-500 font-jakarta text-white rounded;
+  }
+
+  .badge-info {
+    @apply inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-dbx-blue-500 font-jakarta text-white rounded;
+  }
+
+  .badge-warning {
+    @apply inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-dbx-warning-200 font-jakarta text-dbx-warning-800 rounded;
+  }
+
+  .badge-error {
+    @apply inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-dbx-error-200 font-jakarta text-dbx-error-700 rounded;
+  }
+
+  .badge-success {
+    @apply inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-dbx-green-200 font-jakarta text-dbx-green-700 rounded;
+  }
+
+  .chip {
+    @apply py-1 inline-block leading-none text-center whitespace-nowrap align-baseline font-jakarta rounded;
+  }
+}
+
+@layer utilities {
+    @variants responsive {
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .no-scrollbar::-webkit-scrollbar {
+          display: none;
+      }
+
+      /* Hide scrollbar for IE, Edge and Firefox */
+      .no-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+      }
+    }
+  }
+
+/* Sweetalert */
+
+.swal2-deny {
+background-color:#F3F4F6;
+border-radius: 0.25em;
+font-size: 1em;
+border: 2px solid #7F859F;
+padding-left: 16px;
+padding-right: 16px;
+padding-top: 4px;
+padding-bottom: 4px;
+margin-left: 4px;
+font-family: sans-serif;
+color: #202122;
+}
+
+.swal2-confirm {
+background-color:#1F569D;
+border-radius: 0.25em;
+font-size: 1em;
+border: 2px solid #1F569D;
+padding-left: 16px;
+padding-right: 16px;
+padding-top: 4px;
+padding-bottom: 4px;
+margin-right: 4px;
+color: #FCFCFD;
+font-family: sans-serif;
+}
+
+.swal2-confirm:hover {
+background-color:#184177;
+border: 2px solid #184177;
+}
+
+.swal2-deny:hover {
+background-color:#FCFCFD;
+}
+
+.swal2-title {
+font-family: Plus Jakarta Sans, sans-serif;
+padding: 0.8em 0.7 0;
+}
+
+.swal2-html-container {
+font-family: Plus Jakarta Sans, sans-serif;
+}
+
+.swal2-icon {
+font-size: 1em;
+margin: 0.5em;
+}
+
+.swal2-popup {
+padding:0 0 0 0 1.25em;
+}
+
+.toggle button {
+  background-color: #FFFFFF;
+  color: #1F569D;
+  transition: 300ms;
+
+}
+
+.toggle button:hover {
+  background-color: #505050;
+  color: white;
+  transition: 300ms;
+
+}
+
+.toggle button.selected {
+  background-color: #184177;
+  color: white;
+  transition: 300ms;
+}
+
+.swal2-cancel {
+  background-color:#51566C;
+  border-radius: 0.25em;
+  font-size: 1em;
+  border: 2px solid #7F859F;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  margin-left: 4px;
+  font-family: sans-serif;
+  color: #FCFCFD;
+  }
+
+.swal2-cancel:hover {
+  background-color:#7F859F;
+  }
+
+
+.ng2-tag-input__text-input {
+  display: inline;
+  vertical-align: middle;
+  border-radius: 2px;
+  padding: 0 0.5rem;
+  height: 38px;
+  margin-top: 4px;
+  font-size:small;
+  font-family: Plus Jakarta Sans, sans-serif;
+}
+
+.tag__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 2px;
+  white-space: nowrap;
+  font-size:small;
+  font-family: Plus Jakarta Sans, sans-serif;
+}
+
+.ng2-tag-theme{
+  background-color: #1F569D;
+}

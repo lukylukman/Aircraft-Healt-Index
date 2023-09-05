@@ -1,0 +1,142 @@
+<ng-container
+  *ngrxLet="
+    this.masterDataManagementState$ | ngrxPush as _masterDataManagementState
+  "
+>
+  <!--start of header-->
+  <app-headerbar
+    [title]="'AHI'"
+    [subTitle]="'Master Data Management'"
+    class="fixed w-full mb-16 z-20"
+    bgcolor="bg-white dark:bg-dbx-blue-700 transition-all duration-300"
+    title-color="text-black dark:text-white"
+    subtitle-color="text-black dark:text-dbx-neutral-400"
+  >
+    <div
+      (click)="onStartTour()"
+      data-hover="Start tour"
+      class="flex mx-1 pr-[4px] my-auto group hovertext justify-end duration-300 bg-transparent rounded-full border-0 p-1 font-bold"
+    >
+      <hero-icon
+        name="cursor-click"
+        type="solid"
+        class="h-4 w-4 cursor-pointer text-transparent group-hover:fill-tms-warning-600 fill-tms-neutral-600 duration-200"
+      ></hero-icon>
+    </div>
+  </app-headerbar>
+  <!--end of header-->
+
+  <!--start of content-->
+  <div class="flex flex-row w-full items-center">
+    <div
+      class="grid grid-cols-3 gap-4 mt-[70px] mx-4 rounded-md bg-white shadow-right-dark w-full"
+    >
+      <div
+        class="col-start-1 col-end-3 rounded-sm bg-tms-blue-50 my-4 ml-4 flex flex-col"
+      >
+        <!--start of store header-->
+        <div class="flex flex-row justify-between">
+          <span class="font-semibold text-lg pl-2 text-tms-neutral-900"
+            >Stores</span
+          >
+          <div
+            class="flex flex-row items-center gap-2 rounded-r-md pr-2 pl-2 justify-end border-l-2 border-tms-neutral-200 hover:bg-tms-neutral-50"
+          >
+            <div
+              data-hover="Add Store"
+              (click)="showAddStore()"
+              class="add-store flex hovertext cursor-pointer w-6 items-center justify-center"
+            >
+              <hero-icon
+                name="plus"
+                class="h-5 w-5 text-tms-green-600 duration-200 hover:text-tms-green-500 hover:h-[22px] hover:w-[22px]"
+              ></hero-icon>
+            </div>
+          </div>
+        </div>
+        <!--end of store header-->
+
+        <!--start of store list -->
+        <div
+          class="flex flex-col h-[294px] bg-slate-100 overflow-y-auto pl-2 pt-1 overflow-x-hidden"
+        >
+          <div
+            @fadeSlideTop
+            *ngFor="let store of _masterDataManagementState.stores"
+            class="flex flex-row justify-between hover:bg-tms-blue-50 border-b-[1px] border-tms-neutral-200"
+          >
+            <div class="flex flex-row justify-start gap-2">
+              <span class="text-tms-blue-700 font-semibold w-6">{{
+                store.store
+              }}</span>
+              <span class="text-tms-neutral-700 pl-2 w-56"
+                >address : {{ store.address }}</span
+              >
+              <span class="text-tms-blue-500 pl-2">{{ store.unit }}</span>
+            </div>
+
+            <!--start of store edit button-->
+            <div class="flex flex-row">
+              <div
+                (click)="showEditStore(store)"
+                data-hover="Edit"
+                class="edit-store flex mr-1 hovertext cursor-pointer w-6 items-center"
+              >
+                <hero-icon
+                  name="pencil"
+                  class="edit-store h-4 w-4 text-tms-warning-600 duration-200 hover:text-tms-warning-500 hover:h-[18px] hover:w-[18px]"
+                ></hero-icon>
+              </div>
+              <div
+                (click)="onRemoveStore(store)"
+                data-hover="Delete"
+                class="delete-store flex mr-1 hovertext cursor-pointer w-6 items-center"
+              >
+                <hero-icon
+                  name="trash"
+                  class="delete-store h-4 w-4 text-tms-error-600 duration-200 hover:text-tms-error-500 hover:h-[18px] hover:w-[18px]"
+                ></hero-icon>
+              </div>
+            </div>
+            <!--end of store edit button-->
+          </div>
+        </div>
+        <!--end of store list -->
+      </div>
+
+      <div
+        class="col-start-3 col-end-4 rounded-sm bg-tms-blue-50 my-4 mr-4 flex flex-col"
+      >
+        <!--start of unit header-->
+        <div class="flex flex-row justify-between">
+          <span class="font-semibold text-lg pl-2 text-tms-neutral-900"
+            >Units</span
+          >
+        </div>
+        <!--end of unit header-->
+
+        <!--start of unit list-->
+        <div
+          class="grid grid-cols-2 h-[294px] bg-slate-100 overflow-y-auto pt-1 overflow-x-hidden"
+        >
+          <div
+            @fadeSlideTop
+            *ngFor="let unit of _masterDataManagementState?.units!"
+            class="flex flex-row justify-between hover:bg-tms-blue-50 border-b-[1px] border-tms-neutral-200 ml-2 pl-2"
+          >
+            <span class="text-tms-blue-700">{{ unit?.unit }}</span>
+          </div>
+        </div>
+        <!--end of unit list-->
+      </div>
+    </div>
+  </div>
+  <!--end of content-->
+
+  <!--start of modals-->
+  <app-add-store-modal></app-add-store-modal>
+  <app-edit-store-modal
+    [storeData]="_masterDataManagementState?.selectedStore"
+  ></app-edit-store-modal>
+  <!--end of modals-->
+</ng-container>

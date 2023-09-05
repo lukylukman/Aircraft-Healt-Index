@@ -1,0 +1,45 @@
+<div class="form-control">
+  <div class="flex flex-row items-center justify-between">
+    <label [for]="id" *ngIf="label" class="font-jakarta text-sm"
+      >{{ label }}
+      <span class="ml-2 text-xs font-light" *ngIf="description"
+        >( Desc. : {{ description }} )</span
+      ></label
+    >
+    <div class="flex flex-col gap-2">
+      <div
+        *ngIf="tooltip"
+        class="hovertext flex items-center"
+        [attr.data-hover]="tooltip"
+      >
+        <hero-icon
+          name="exclamation-circle"
+          class="h-4 w-4 cursor-pointer flex text-right fill-tms-blue-500 text-white"
+        ></hero-icon>
+      </div>
+      <hero-icon
+        *ngIf="control.invalid && control.dirty && control.touched"
+        name="x-circle"
+        class="h-4 w-4 cursor-pointer fill-tms-error-600 text-white"
+      ></hero-icon>
+      <hero-icon
+        *ngIf="control.valid && validator"
+        name="check-circle"
+        class="h-4 w-4 cursor-pointer fill-tms-green-500 text-white"
+      ></hero-icon>
+    </div>
+  </div>
+  <select
+    [formControl]="control"
+    [id]="id"
+    [name]="id"
+    [attr.border-data]="validatorBorder?'1px solid #84bd00':''"
+    [ngClass]="size==='p-1'?'p-1 pl-2 text-xs':size"
+    [ngClass]="borderColor"
+    class="bg-gray-100 border text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full"
+  >
+    <option *ngFor="let dropdown of dropdowns" [ngValue]="dropdown.value === undefined? dropdown.name : dropdown.value">
+      {{ dropdown.name | uppercase }}
+    </option>
+  </select>
+</div>

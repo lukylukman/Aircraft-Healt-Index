@@ -1,0 +1,10 @@
+<div @fadeSlideTop [hidden]="!active">
+  <ng-content></ng-content>
+
+  {{ template }}
+  <ng-container @fadeSlideTop *ngIf="template"
+    [ngTemplateOutlet]="template"
+    [ngTemplateOutletContext]="{ person: dataContext }"
+  >
+  </ng-container>
+</div>

@@ -1,0 +1,8 @@
+<div class="flex flex-col gap-4 align-middle items-center rounded">
+  <img [ngClass]="picSize" class="object-fit rounded-lg" src="/assets/images/no-data-ilu.jpg" alt="">
+  <div class="flex flex-col items-center">
+    <span class="font-bold text-lg text-dbx-neutral-900">{{ title }}</span>
+    <span class="font-normal text-md text-dbx-neutral-900">{{ desc }}</span>
+  </div>
+  <ng-content></ng-content>
+</div>

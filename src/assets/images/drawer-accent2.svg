@@ -1,0 +1,15 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 255 900" width="255" height="900">
+	<title>drawer-accent-svg</title>
+	<defs>
+		<linearGradient id="g1" x1="127.5" y1="216" x2="127.5" y2="600" gradientUnits="userSpaceOnUse">
+			<stop offset="0" stop-color="#dff1f3" stop-opacity="1"/>
+			<stop offset="1" stop-color="#dff1f3" stop-opacity="0"/>
+		</linearGradient>
+	</defs>
+	<style>
+		.s0 { opacity: .1;fill: url(#g1) } 
+		.s1 { opacity: .1;fill: #dff1f3 } 
+	</style>
+	<path id="Layer" class="s0" d="m0 564v303h255v-651z"/>
+	<path id="Layer" class="s1" d="m255 478.3v388.7h-255v-835z"/>
+</svg>

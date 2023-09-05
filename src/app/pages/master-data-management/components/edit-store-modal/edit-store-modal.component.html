@@ -1,0 +1,45 @@
+<ng-container
+  *ngrxLet="
+    this.masterDataManagementState$ | ngrxPush as _masterDataManagementState
+  "
+>  
+  <app-modal
+      (modaltoClose)="resetForm()"
+      size="4xl"
+      title="Edit Store"
+      idSelector="editStore"
+    >
+      <form class="flex flex-col gap-4 w-full">
+        <div class="flex flex-col w-full">
+            <span class="text-3xl font-bold text-center text-tms-blue-700">{{_masterDataManagementState.selectedStore?.store}}</span>
+            <span class=" text-center mb-4 text-tms-neutral-700">store</span>
+        </div>
+        <!-- <app-dropdown [control]="formGroup.controls.store" label="Store" [dropdowns]="storeList"></app-dropdown> -->
+        <app-input label="Store" [control]="formGroup.controls.store" placeholder="H1" ></app-input>
+        <app-input label="Address" [control]="formGroup.controls.address" placeholder="Hangar 1 CGK" ></app-input>
+        <div class="flex flex-col">
+          <label for="dinas" class="font-jakarta text-sm"
+            >Unit</label
+          >
+          <ng-multiselect-dropdown
+            [formControl]="formGroup.controls.unit"
+            [placeholder]="'None'"
+            [settings]="dropdownSettings"
+            [data]="_masterDataManagementState?.units"
+            (onSelect)="onItemSelect($event)"
+          >
+          </ng-multiselect-dropdown>
+          <span *ngIf="formGroup.controls.unit.invalid && formGroup.controls.unit.dirty && formGroup.controls.unit.touched" class="font-jakarta text-tms-error-700 text-xs">The field is required</span>
+          <span class="font-jakarta text-xs mt-1">Previous unit : {{_masterDataManagementState.selectedStore?.unit}}</span>
+        </div>
+      </form>
+      <div class="flex justify-end w-full mt-4">
+        <app-button
+          (click)="onSubmit(_masterDataManagementState?.selectedStore)"
+          color="success"
+          size="medium"
+          >Submit Store</app-button
+        >
+      </div>
+    </app-modal>
+</ng-container>

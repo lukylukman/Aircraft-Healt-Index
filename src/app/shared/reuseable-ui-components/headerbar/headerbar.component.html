@@ -1,0 +1,28 @@
+<!-- Header -->
+<div class="fixed w-full z-[1055] top-0">
+  <nav
+    [ngClass]="this.bgColor"
+    class="h-14 px-8 flex flex-row items-center justify-between shadow-sm"
+  >
+    <div class="flex flex-row space-x-1 justify-start">
+      <div
+        [ngClass]="
+          this.getCurrentSidebarState() === 'show' ? 'hidden' : 'block'
+        "
+        class="duration-500 flex flex-row space-x-1 items-center -ml-4"
+      ></div>
+      <div class="md:flex pl-4 hidden flex-col">
+        <span [ngClass]="this.titleColor" class="font-jakarta font-semibold">{{
+          title
+        }}</span>
+        <span [ngClass]="this.subTitleColor" class="font-jakarta text-xs">{{
+          subTitle
+        }}</span>
+      </div>
+    </div>
+    <div class="mr-16">
+      <ng-content></ng-content>
+    </div>
+  </nav>
+</div>
+<!-- Header -->

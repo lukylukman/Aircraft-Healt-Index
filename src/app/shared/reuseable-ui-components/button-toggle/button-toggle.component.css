@@ -1,0 +1,19 @@
+.toggle button {
+    background-color: #FFFFFF;
+    color: #2E73B8;
+    transition: 300ms;
+
+  }
+
+  .toggle button:hover {
+    background-color: #505050;
+    color: white;
+    transition: 300ms;
+
+  }
+  
+  .toggle button.selected {
+    background-color: #205081;
+    color: white;
+    transition: 300ms;
+  }

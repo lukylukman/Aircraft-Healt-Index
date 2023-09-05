@@ -1,0 +1,1 @@
+export type ModalSize = 'md' | 'lg' | '4xl' | '7xl';

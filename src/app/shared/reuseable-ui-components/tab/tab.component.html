@@ -1,0 +1,45 @@
+<div class="w-full border-b border-gray-200 dark:border-gray-700">
+  <ul
+    class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400"
+    id="tabs-tab"
+    role="tablist"
+  >
+    <!-- TODO: Implement Tailwind Components -->
+    <li
+      *ngFor="let tab of tabs"
+      class="mr-2"
+      role="presentation"
+      (click)="selectTab(tab)"
+    >
+      <a
+        href="javascript:void(0)"
+        class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+        [ngClass]="tab.active ? 'active' : ''"
+        data-bs-toggle="pill"
+        role="tab"
+        aria-selected="true"
+        >{{ tab.title }}</a
+      >
+    </li>
+
+    <li
+      *ngFor="let tab of dynamicTabs"
+      class="mr-2"
+      role="presentation"
+      (click)="selectTab(tab)"
+    >
+      <a
+        href="javascript:void(0)"
+        class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+        [ngClass]="tab.active ? 'text-tms-blue-700' : ''"
+        data-bs-toggle="pill"
+        role="tab"
+        aria-selected="true"
+        >{{ tab.title }}</a
+      >
+    </li>
+  </ul>
+</div>
+<div>
+  <ng-content class="tab-pane fade show active"></ng-content>
+</div>

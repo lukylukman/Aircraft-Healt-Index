@@ -1,0 +1,16 @@
+<button 
+[disabled]="disableTerm"
+class="flex justify-center disabled:bg-neutral-300 font-jakarta items-center shadow-sm focus:outline-none "
+[ngClass]="roundClass + sizeClass + colorClass"
+(click)="onClick()"
+>
+  <div class="flex "
+    *ngIf="isIconEmpty()"
+    [ngClass]="heroContainer+heroStyle">
+    <hero-icon 
+      class=""
+      [name]="icon">
+    </hero-icon>
+  </div> 
+  <ng-content></ng-content>
+</button>
