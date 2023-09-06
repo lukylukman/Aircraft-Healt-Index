@@ -84,7 +84,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
       'font-weight: bold; font-size: 50px;color: #A6C5ED; text-shadow: 3px 3px 0 rgb(2,135,206) , 6px 6px 0 rgb(4,77,145) , 9px 9px 0 rgb(42,21,113) , 12px 12px 0 rgb(5,148,68)'
     );
     console.log(
-      '%c @abdurrahimhilmy & @antoniosai',
+      '%c Fulan bin Fulan',
       'font-weight: bold; font-size: 50px;color: #A6C5ED; text-shadow: 3px 3px 0 rgb(2,135,206) , 6px 6px 0 rgb(4,77,145) , 9px 9px 0 rgb(42,21,113) , 12px 12px 0 rgb(5,148,68)'
     );
     /**
