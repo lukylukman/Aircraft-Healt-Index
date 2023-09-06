@@ -17,7 +17,6 @@ import { MediaService } from 'src/app/core/services/media.service';
 import { SAPService } from 'src/app/core/services/sap.service';
 import { UserSoeService } from 'src/app/core/services/user.soe.service';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { HomeRoutingModule } from '../home/home-routing.module';
 import { HomeService } from '../home/home.service';
 import { MasterDataManagementModule } from '../master-data-management/master-data-management.module';
 import { MasterDataManagementService } from '../master-data-management/master-data-management.service';
@@ -29,7 +28,7 @@ import { MasterDataManagementFeature } from '../master-data-management/states/ma
     LetModule,
     PushModule,
     CommonModule,
-    HomeRoutingModule,
+    DashboardRoutingModule,
     SharedModule,
     HeroIconModule,
     ReactiveFormsModule,

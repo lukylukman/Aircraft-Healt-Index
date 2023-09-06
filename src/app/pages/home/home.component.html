@@ -13,77 +13,82 @@
 </nav>
 <!-- End Navbar -->
 
+<div class="bg-cover bg-center" style="background-image:url(../../../assets/images/bg-home-ahi.png);">
 <!-- Header -->
-<div class="grid grid-cols-2 content-between mt-10">
-  <div class="flex flex-row text-left text-white">
-    <h1 class="text-5xl font-extralight">30</h1>
-    <div class="flex-col ml-2 p-0">
-      <h1 class="text-base font-normal">MAY 2023</h1>
-      <h1 class="text-base font-normal">THURSDAY</h1>
+  <div class="grid grid-cols-2 content-between mt-10">
+    <div class="flex flex-row text-left text-white">
+      <h1 class="text-5xl font-extralight">30</h1>
+      <div class="flex-col ml-2 p-0">
+        <h1 class="text-base font-normal">MAY 2023</h1>
+        <h1 class="text-base font-normal">THURSDAY</h1>
+      </div>
+    </div>
+
+    <div class="flex items-start">
+      <!-- Image -->
+      <img
+        src="../../../../assets/images/tick.png"
+        alt="Image Alt Text"
+        class="w-20 h-20 mr-5"
+      />
+
+      <!-- Text -->
+      <p class="text-left text-white text-sm font-normal">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum laboriosam
+        pariatur, doloribus quod amet voluptatibus. Aliquam aut laborum neque ex
+        sed esse vero ut libero! Quas laboriosam veritatis necessitatibus sint
+        similique maxime nostrum optio ipsa maiores iste, id consequatur non
+        voluptas sunt, exercitationem minima placeat suscipit voluptates!
+        Praesentium, esse porro.
+      </p>
     </div>
   </div>
+  <!-- End Header -->
 
-  <div class="flex items-center">
-    <!-- Image -->
-    <img
-      src="../../../../assets/images/tick.png"
-      alt="Image Alt Text"
-      class="w-16 h-16 mr-5"
-    />
+  <!-- User Name -->
+  <div class="text-right mr-8 mt-3">
+    <span class="inline-block text-left px-7 pb-2.5 pt-3 text-white bg-tms-blue-600">
+      <p class="text-base font-bold">Andi Fahrurozi</p>
+      <p class="text-sm">CEO GMF Aeroasia</p>
+    </span>
+  </div>
+  <!-- End User Name -->
 
-    <!-- Text -->
-    <p class="text-right text-white text-base font-normal">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum laboriosam
-      pariatur, doloribus quod amet voluptatibus. Aliquam aut laborum neque ex
-      sed esse vero ut libero! Quas laboriosam veritatis necessitatibus sint
-      similique maxime nostrum optio ipsa maiores iste, id consequatur non
-      voluptas sunt, exercitationem minima placeat suscipit voluptates!
-      Praesentium, esse porro.
+  <h1 class="text-center text-3xl text-white font-light uppercase mt-3">
+    Welcome Back
+  </h1>
+
+  <div class="text-right text-3xl text-white font-light uppercase mt-3 m-8">
+    <p>IT’S A GOOD DAY</p>
+    <p>
+      Status:
+      <a href="" class="text-tms-green-500 font-semibold cursor-default">Green</a>
     </p>
   </div>
-</div>
-<!-- End Header -->
 
-<!-- User Name -->
-<div class="text-right mt-3">
-  <span class="inline-block text-left px-7 pb-2.5 pt-3 text-white bg-blue-700">
-    <p class="text-xl font-bold">Andi Fahrurozi</p>
-    <p class="text-sm">CEO GMF Aeroasia</p>
-  </span>
-</div>
-<!-- End User Name -->
+  <h1 class="text-center text-lg text-white font-light uppercase mt-2">
+    Today Performance
+  </h1>
 
-<h1 class="text-center text-3xl text-white font-light uppercase mt-3">
-  Welcome Back
-</h1>
 
-<div class="text-right text-3xl text-white font-light uppercase mt-3">
-  <p>IT’S A GOOD DAY</p>
-  <p>
-    Status:
-    <a href="" class="text-lime-500 cursor-default">Green</a>
-  </p>
-</div>
-
-<h1 class="text-center text-lg text-white font-light uppercase mt-3">
-  Today Performance
-</h1>
-
-<div class="text-center mx-auto">
-  <h2
-    class="text-8xl flex text-center drop-shadow-lg font-light items-center text-white"
-  >
-    <div class="flex-col text-center">
-      <app-svg [width]="'32'" [height]="'49'" direction="up"> </app-svg>
-      <h4 class="text-xl drop-shadow-xl font-semibold">2</h4>
+  <div class="text-center flex flex-row justify-center items-center">
+    <div class="flex flex-col text-center text-white mr-2"><img
+        src="../../../../assets/images/arrow-green.png"
+        alt="Image Alt Text"
+        class="w-6 h-10"
+      />12.1</div>
+    <div class="flex flex-row items-end">
+      <h2 class="text-8xl drop-shadow-lg font-bold text-white">
+        82.
+      </h2>
+      <h1 class="text-5xl text-white font-semibold">52</h1>
     </div>
-    100
-  </h2>
+  </div>
+
 </div>
 
-<div class="grid grid-cols-3 mt-5">
-  <div></div>
-  <div class="grid grid-cols-3">
+<div class="mt-5">
+  <div class="grid gap-8 grid-cols-3">
     <div class="text-center">
       <p class="text-5xl font-extralight text-white mb-2">20</p>
       <button
@@ -112,11 +117,10 @@
       </button>
     </div>
   </div>
-  <div></div>
 </div>
 
 <div class="mx-auto text-center mt-3">
-  <button
+  <button routerLink="/dashboard"
     type="button"
     class="inline-block rounded-full border-2 border-gray-200 px-6 pb-[6px] pt-2 text-md font-medium leading-normal text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:bg-gray-200 hover:bg-opacity-10 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
     data-te-ripple-init
