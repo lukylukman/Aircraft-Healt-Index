@@ -28,6 +28,7 @@ import { StepperComponent } from './reuseable-ui-components/stepper/stepper.comp
 import { TabItemComponent } from './reuseable-ui-components/tab/components/tab-item/tab-item.component';
 import { TabComponent } from './reuseable-ui-components/tab/tab.component';
 import { TooltipModule } from './reuseable-ui-components/tooltip/tooltip.module';
+import { SvgIconComponent } from './reuseable-ui-components/svg/svg.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { TooltipModule } from './reuseable-ui-components/tooltip/tooltip.module'
     TabComponent,
     TabItemComponent,
     NoDataComponent,
+    SvgIconComponent
   ],
   imports: [
     RouterModule,
@@ -78,6 +80,7 @@ import { TooltipModule } from './reuseable-ui-components/tooltip/tooltip.module'
     TabComponent,
     TabItemComponent,
     NoDataComponent,
+    SvgIconComponent
   ],
   providers: [UserSoeService],
 })
