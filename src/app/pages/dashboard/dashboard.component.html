@@ -1,60 +1,18 @@
-<div class="container h-screen mx-auto">
-  <div class="grid grid-cols-4 gap-4">
-    <!-- Baris 1 -->
-    <app-card-dashboard
-      [title]="'PK-GMF'"
-      [count]="2"
-      [total]="100"
-      [subtitle]="'Last Flight'"
-      [time]="'14:20'"
-      [timePeriod]="'PM'"
-      [date]="'08 JAN'"
-      [year]="'2023'"
-      [direction]="'up'"
-      [themeColor]="'green'" 
-    ></app-card-dashboard>
-
-    <!-- Baris 1 -->
-    <app-card-dashboard
-      [title]="'PK-GMF'"
-      [count]="2"
-      [total]="73"
-      [subtitle]="'Last Flight'"
-      [time]="'14:20'"
-      [timePeriod]="'PM'"
-      [date]="'08 JAN'"
-      [year]="'2023'"
-      [direction]="'up'"
-      [themeColor]="'yellow'"
-    ></app-card-dashboard>
-
-    <!-- Baris 1 -->
-    <app-card-dashboard
-      [title]="'PK-GMF'"
-      [count]="2"
-      [total]="30"
-      [subtitle]="'Last Flight'"
-      [time]="'14:20'"
-      [timePeriod]="'PM'"
-      [date]="'08 JAN'"
-      [year]="'2023'"
-      [direction]="'down'"
-      [themeColor]="'red'"
-    ></app-card-dashboard>
-
-    <!-- Baris 1 -->
-    <app-card-dashboard
-      [title]="'PK-GMF'"
-      [count]="2"
-      [total]="30"
-      [subtitle]="'Last Flight'"
-      [time]="'14:20'"
-      [timePeriod]="'PM'"
-      [date]="'08 JAN'"
-      [year]="'2023'"
-      [direction]="'down'"
-      [themeColor]="'green'"
-    ></app-card-dashboard>
+<div class="container h-full bg-black mx-auto">
+  <div class="grid grid-cols-4 gap-4 mr-2">
+    <ng-container *ngFor="let card of cardData">
+      <app-card-dashboard
+        [title]="card.title"
+        [count]="card.count"
+        [total]="card.total"
+        [subtitle]="card.subtitle"
+        [time]="card.time"
+        [timePeriod]="card.timePeriod"
+        [date]="card.date"
+        [year]="card.year"
+        [direction]="card.total < 45 ? 'down' : 'up'"
+        [themeColor]="card.total >= 75 ? 'green' : (card.total >= 55 ? 'yellow' : 'red')"
+      ></app-card-dashboard>
+    </ng-container>
   </div>
-
 </div>

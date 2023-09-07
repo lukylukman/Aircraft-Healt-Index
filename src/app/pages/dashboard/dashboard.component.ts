@@ -112,4 +112,170 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribe$.unsubscribe();
   }
+
+  cardData = [
+    {
+    title: 'PK-GMF',
+    count: 2,
+    total: 40,
+    subtitle: 'Last Flight',
+    time: '14:20',
+    timePeriod: 'PM',
+    date: '08 JAN',
+    year: '2023'
+  },
+  {
+    title: 'ABC Airlines',
+    count: 5,
+    total: 75,
+    subtitle: 'Next Departure',
+    time: '10:15',
+    timePeriod: 'AM',
+    date: '12 FEB',
+    year: '2023'
+  },
+  {
+    title: 'XYZ Airways',
+    count: 1,
+    total: 15,
+    subtitle: 'Arrival Time',
+    time: '18:45',
+    timePeriod: 'PM',
+    date: '21 MAR',
+    year: '2023'
+  },
+  {
+    title: 'Air Travel Inc.',
+    count: 3,
+    total: 60,
+    subtitle: 'Scheduled Departure',
+    time: '09:30',
+    timePeriod: 'AM',
+    date: '05 APR',
+    year: '2023'
+  },
+  {
+    title: 'JetStream Airlines',
+    count: 4,
+    total: 55,
+    subtitle: 'Last Arrival',
+    time: '21:55',
+    timePeriod: 'PM',
+    date: '15 MAY',
+    year: '2023'
+  },
+  {
+    title: 'SkyExpress',
+    count: 1,
+    total: 25,
+    subtitle: 'Next Flight',
+    time: '08:10',
+    timePeriod: 'AM',
+    date: '30 JUN',
+    year: '2023'
+  },
+  {
+    title: 'FlyGlobal',
+    count: 2,
+    total: 35,
+    subtitle: 'Scheduled Arrival',
+    time: '17:30',
+    timePeriod: 'PM',
+    date: '18 JUL',
+    year: '2023'
+  },
+  {
+    title: 'AirWings',
+    count: 5,
+    total: 80,
+    subtitle: 'Upcoming Departure',
+    time: '11:45',
+    timePeriod: 'AM',
+    date: '09 AUG',
+    year: '2023'
+  },
+  {
+    title: 'Swift Airlines',
+    count: 3,
+    total: 50,
+    subtitle: 'Last Departure',
+    time: '19:20',
+    timePeriod: 'PM',
+    date: '27 SEP',
+    year: '2023'
+  },
+  {
+    title: 'Horizon Flights',
+    count: 4,
+    total: 65,
+    subtitle: 'Next Arrival',
+    time: '13:05',
+    timePeriod: 'PM',
+    date: '14 OCT',
+    year: '2023'
+  },
+  {
+    title: 'Blue Skies Airways',
+    count: 2,
+    total: 30,
+    subtitle: 'Arrival Time',
+    time: '22:40',
+    timePeriod: 'PM',
+    date: '05 NOV',
+    year: '2023'
+  },
+  {
+    title: 'AeroJet',
+    count: 6,
+    total: 95,
+    subtitle: 'Scheduled Departure',
+    time: '07:15',
+    timePeriod: 'AM',
+    date: '23 DEC',
+    year: '2023'
+  }
+  ,
+  {
+    title: 'Horizon Flights',
+    count: 4,
+    total: 65,
+    subtitle: 'Next Arrival',
+    time: '13:05',
+    timePeriod: 'PM',
+    date: '14 OCT',
+    year: '2023'
+  },
+  {
+    title: 'Blue Skies Airways',
+    count: 2,
+    total: 30,
+    subtitle: 'Arrival Time',
+    time: '22:40',
+    timePeriod: 'PM',
+    date: '05 NOV',
+    year: '2023'
+  },
+  {
+    title: 'AeroJet',
+    count: 6,
+    total: 95,
+    subtitle: 'Scheduled Departure',
+    time: '07:15',
+    timePeriod: 'AM',
+    date: '23 DEC',
+    year: '2023'
+  }
+  ,
+  {
+    title: 'AeroJet',
+    count: 6,
+    total: 95,
+    subtitle: 'Scheduled Departure',
+    time: '07:15',
+    timePeriod: 'AM',
+    date: '23 DEC',
+    year: '2023'
+  }
+    // Add more card data objects as needed
+  ];
 }
