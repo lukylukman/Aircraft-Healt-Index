@@ -5,10 +5,7 @@ import {
   Observable,
   Subject,
   debounceTime,
-  firstValueFrom,
-  map,
-  takeUntil,
-  tap,
+  takeUntil
 } from 'rxjs';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { RouteHelperService } from 'src/app/core/services/route-helper.service';
@@ -18,13 +15,10 @@ import Shepherd from 'shepherd.js';
 import { LocalStorageServiceInterface } from 'src/app/core/interfaces/localstorage.service.interface';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
 import { UserSoeService } from 'src/app/core/services/user.soe.service';
-import * as MasterDataManagementAction from 'src/app/pages/master-data-management/states/master-data-management.action';
-import { TourGuideConst } from 'src/app/shared/const/tour-guide.const';
 import { PersonalInformation } from 'src/app/shared/layout/sidebar/interfaces/sidebar.interface';
 import { SidebarService } from 'src/app/shared/layout/sidebar/sidebar.service';
 import { SelectionDTO } from 'src/app/shared/reuseable-ui-components/dropdown/interface/selection.dto';
 import { environment } from 'src/environments/environment';
-import Swal from 'sweetalert2';
 import { MasterDataManagementService } from '../master-data-management/master-data-management.service';
 import { MasterDataManagementFeatureState } from '../master-data-management/states/master-data-management.feature';
 import { MasterDataManagementState } from '../master-data-management/states/master-data-management.selector';
