@@ -1,328 +1,60 @@
-<div class="container mx-auto">
+<div class="container h-screen mx-auto">
   <div class="grid grid-cols-4 gap-4">
     <!-- Baris 1 -->
-    <div
-      class="bg-gradient-to-r from-ahi-green-400 to-ahi-green-500 p-2 shadow-lg rounded-lg"
-    >
-      <h1 class="w-full h-26 object-cover">PK-GMF</h1>
-      <h2
-        class="text-8xl flex drop-shadow-lg flex-row justify-end font-light items-center text-white text-right"
-      >
-        <div class="flex-col text-center">
-          <app-svg [width]="'32'" [height]="'49'" direction="up"> </app-svg>
-          <h4 class="text-xl drop-shadow-xl font-semibold">2</h4>
-        </div>
-        100
-      </h2>
-      <p class="text-xs font-semibold">Last Flight</p>
-      <span class="flex flex-row items-end">
-        <p class="text-2xl font-extralight">14:20</p>
-        <p class="text-XS ml-1 font-extralight">PM</p>
-      </span>
-      <span class="flex flex-row items-end">
-        <p class="text-xl font-extralight">08 JAN</p>
-        <p class="text-xs ml-1 font-extralight">2023</p>
-      </span>
-    </div>
+    <app-card-dashboard
+      [title]="'PK-GMF'"
+      [count]="2"
+      [total]="100"
+      [subtitle]="'Last Flight'"
+      [time]="'14:20'"
+      [timePeriod]="'PM'"
+      [date]="'08 JAN'"
+      [year]="'2023'"
+      [direction]="'up'"
+      [themeColor]="'green'" 
+    ></app-card-dashboard>
+
     <!-- Baris 1 -->
-    <div
-      class="bg-gradient-to-r from-ahi-green-400 to-ahi-green-500 p-2 shadow-lg rounded-lg"
-    >
-      <h1 class="w-full h-26 object-cover">PK-GMF</h1>
-      <h2
-        class="text-8xl flex flex-row justify-end font-light text-white text-right"
-      >
-        <app-svg [width]="'32'" [height]="'59'" direction="up"></app-svg>85
-      </h2>
-      <p class="text-xs font-semibold">Last Flight</p>
-      <span class="flex flex-row items-end">
-        <p class="text-2xl font-extralight">14:20</p>
-        <p class="text-XS ml-1 font-extralight">PM</p>
-      </span>
-      <span class="flex flex-row items-end">
-        <p class="text-xl font-extralight">08 JAN</p>
-        <p class="text-xs ml-1 font-extralight">2023</p>
-      </span>
-    </div>
+    <app-card-dashboard
+      [title]="'PK-GMF'"
+      [count]="2"
+      [total]="73"
+      [subtitle]="'Last Flight'"
+      [time]="'14:20'"
+      [timePeriod]="'PM'"
+      [date]="'08 JAN'"
+      [year]="'2023'"
+      [direction]="'up'"
+      [themeColor]="'yellow'"
+    ></app-card-dashboard>
+
     <!-- Baris 1 -->
-    <div
-      class="bg-gradient-to-r from-tms-warning-300 to-tms-warning-600 p-2 shadow-lg rounded-lg"
-    >
-      <h1 class="w-full h-26 object-cover">PK-GMF</h1>
-      <h2
-        class="text-8xl flex flex-row justify-end font-light text-white text-right"
-      >
-        <app-svg [width]="'32'" [height]="'59'" direction="down"></app-svg> 74
-      </h2>
-      <p class="text-xs font-semibold">Last Flight</p>
-      <span class="flex flex-row items-end">
-        <p class="text-2xl font-extralight">14:20</p>
-        <p class="text-XS ml-1 font-extralight">PM</p>
-      </span>
-      <span class="flex flex-row items-end">
-        <p class="text-xl font-extralight">08 JAN</p>
-        <p class="text-xs ml-1 font-extralight">2023</p>
-      </span>
-    </div>
+    <app-card-dashboard
+      [title]="'PK-GMF'"
+      [count]="2"
+      [total]="30"
+      [subtitle]="'Last Flight'"
+      [time]="'14:20'"
+      [timePeriod]="'PM'"
+      [date]="'08 JAN'"
+      [year]="'2023'"
+      [direction]="'down'"
+      [themeColor]="'red'"
+    ></app-card-dashboard>
+
     <!-- Baris 1 -->
-    <div
-      class="bg-gradient-to-r from-ahi-green-400 to-ahi-green-500 p-2 shadow-lg rounded-lg"
-    >
-      <h1 class="w-full h-26 object-cover">PK-GMF</h1>
-      <h2
-        class="text-8xl flex flex-row justify-end font-light text-white text-right"
-      >
-        <app-svg [width]="'32'" [height]="'59'" direction="up"></app-svg>90
-      </h2>
-      <p class="text-xs font-semibold">Last Flight</p>
-      <span class="flex flex-row items-end">
-        <p class="text-2xl font-extralight">14:20</p>
-        <p class="text-XS ml-1 font-extralight">PM</p>
-      </span>
-      <span class="flex flex-row items-end">
-        <p class="text-xl font-extralight">08 JAN</p>
-        <p class="text-xs ml-1 font-extralight">2023</p>
-      </span>
-    </div>
-    <!-- Baris 1 -->
-    <div
-      class="bg-gradient-to-r from-ahi-green-400 to-ahi-green-500 p-2 shadow-lg rounded-lg"
-    >
-      <h1 class="w-full h-26 object-cover">PK-GMF</h1>
-      <h2
-        class="text-8xl flex flex-row justify-end font-light text-white text-right"
-      >
-        <app-svg [width]="'32'" [height]="'59'" direction="up"></app-svg>95
-      </h2>
-      <p class="text-xs font-semibold">Last Flight</p>
-      <span class="flex flex-row items-end">
-        <p class="text-2xl font-extralight">14:20</p>
-        <p class="text-XS ml-1 font-extralight">PM</p>
-      </span>
-      <span class="flex flex-row items-end">
-        <p class="text-xl font-extralight">08 JAN</p>
-        <p class="text-xs ml-1 font-extralight">2023</p>
-      </span>
-    </div>
-    <!-- Baris 1 -->
-    <div
-      class="bg-gradient-to-r from-tms-error-300 to-tms-error-600 p-2 shadow-lg rounded-lg"
-    >
-      <h1 class="w-full h-26 object-cover">PK-GMF</h1>
-      <h2
-        class="text-8xl flex flex-row justify-end font-light text-white text-right"
-      >
-        <app-svg [width]="'32'" [height]="'59'" direction="down"></app-svg>43
-      </h2>
-      <p class="text-xs font-semibold">Last Flight</p>
-      <span class="flex flex-row items-end">
-        <p class="text-2xl font-extralight">14:20</p>
-        <p class="text-XS ml-1 font-extralight">PM</p>
-      </span>
-      <span class="flex flex-row items-end">
-        <p class="text-xl font-extralight">08 JAN</p>
-        <p class="text-xs ml-1 font-extralight">2023</p>
-      </span>
-    </div>
-    <!-- Baris 1 -->
-    <div
-      class="bg-gradient-to-r from-tms-warning-300 to-tms-warning-600 p-2 shadow-lg rounded-lg"
-    >
-      <h1 class="w-full h-26 object-cover">PK-GMF</h1>
-      <h2
-        class="text-8xl flex flex-row justify-end font-light text-white text-right"
-      >
-        <app-svg [width]="'32'" [height]="'59'" direction="up"></app-svg>72
-      </h2>
-      <p class="text-xs font-semibold">Last Flight</p>
-      <span class="flex flex-row items-end">
-        <p class="text-2xl font-extralight">14:20</p>
-        <p class="text-XS ml-1 font-extralight">PM</p>
-      </span>
-      <span class="flex flex-row items-end">
-        <p class="text-xl font-extralight">08 JAN</p>
-        <p class="text-xs ml-1 font-extralight">2023</p>
-      </span>
-    </div>
-    <!-- Baris 1 -->
-    <div
-      class="bg-gradient-to-r from-ahi-green-400 to-ahi-green-500 p-2 shadow-lg rounded-lg"
-    >
-      <h1 class="w-full h-26 object-cover">PK-GMF</h1>
-      <h2
-        class="text-8xl flex flex-row justify-end font-light text-white text-right"
-      >
-        <app-svg [width]="'32'" [height]="'59'" direction="up"></app-svg>100
-      </h2>
-      <p class="text-xs font-semibold">Last Flight</p>
-      <span class="flex flex-row items-end">
-        <p class="text-2xl font-extralight">14:20</p>
-        <p class="text-XS ml-1 font-extralight">PM</p>
-      </span>
-      <span class="flex flex-row items-end">
-        <p class="text-xl font-extralight">08 JAN</p>
-        <p class="text-xs ml-1 font-extralight">2023</p>
-      </span>
-    </div>
-    <!-- Baris 1 -->
-    <div
-      class="bg-gradient-to-r from-ahi-green-400 to-ahi-green-500 p-2 shadow-lg rounded-lg"
-    >
-      <h1 class="w-full h-26 object-cover">PK-GMF</h1>
-      <h2
-        class="text-8xl flex flex-row justify-end font-light text-white text-right"
-      >
-        <app-svg [width]="'32'" [height]="'59'" direction="up"></app-svg>80
-      </h2>
-      <p class="text-xs font-semibold">Last Flight</p>
-      <span class="flex flex-row items-end">
-        <p class="text-2xl font-extralight">14:20</p>
-        <p class="text-XS ml-1 font-extralight">PM</p>
-      </span>
-      <span class="flex flex-row items-end">
-        <p class="text-xl font-extralight">08 JAN</p>
-        <p class="text-xs ml-1 font-extralight">2023</p>
-      </span>
-    </div>
-    <!-- Baris 1 -->
-    <div
-      class="bg-gradient-to-r from-tms-warning-300 to-tms-warning-600 p-2 shadow-lg rounded-lg"
-    >
-      <h1 class="w-full h-26 object-cover">PK-GMF</h1>
-      <h2
-        class="text-8xl flex flex-row justify-end font-light text-white text-right"
-      >
-        <app-svg [width]="'32'" [height]="'59'" direction="down"></app-svg>68
-      </h2>
-      <p class="text-xs font-semibold">Last Flight</p>
-      <span class="flex flex-row items-end">
-        <p class="text-2xl font-extralight">14:20</p>
-        <p class="text-XS ml-1 font-extralight">PM</p>
-      </span>
-      <span class="flex flex-row items-end">
-        <p class="text-xl font-extralight">08 JAN</p>
-        <p class="text-xs ml-1 font-extralight">2023</p>
-      </span>
-    </div>
-    <!-- Baris 1 -->
-    <div
-      class="bg-gradient-to-r from-ahi-green-400 to-ahi-green-500 p-2 shadow-lg rounded-lg"
-    >
-      <h1 class="w-full h-26 object-cover">PK-GMF</h1>
-      <h2
-        class="text-8xl flex flex-row justify-end font-light text-white text-right"
-      >
-        <app-svg [width]="'32'" [height]="'59'" direction="up"></app-svg>100
-      </h2>
-      <p class="text-xs font-semibold">Last Flight</p>
-      <span class="flex flex-row items-end">
-        <p class="text-2xl font-extralight">14:20</p>
-        <p class="text-XS ml-1 font-extralight">PM</p>
-      </span>
-      <span class="flex flex-row items-end">
-        <p class="text-xl font-extralight">08 JAN</p>
-        <p class="text-xs ml-1 font-extralight">2023</p>
-      </span>
-    </div>
-    <!-- Baris 1 -->
-    <div
-      class="bg-gradient-to-r from-tms-error-300 to-tms-error-600 p-2 shadow-lg rounded-lg"
-    >
-      <h1 class="w-full h-26 object-cover">PK-GMF</h1>
-      <h2
-        class="text-8xl flex flex-row justify-end font-light text-white text-right"
-      >
-        <app-svg [width]="'32'" [height]="'59'" direction="down"></app-svg>45
-      </h2>
-      <p class="text-xs font-semibold">Last Flight</p>
-      <span class="flex flex-row items-end">
-        <p class="text-2xl font-extralight">14:20</p>
-        <p class="text-XS ml-1 font-extralight">PM</p>
-      </span>
-      <span class="flex flex-row items-end">
-        <p class="text-xl font-extralight">08 JAN</p>
-        <p class="text-xs ml-1 font-extralight">2023</p>
-      </span>
-    </div>
-    <!-- Baris 1 -->
-    <div
-      class="bg-gradient-to-r from-ahi-green-400 to-ahi-green-500 p-2 shadow-lg rounded-lg"
-    >
-      <h1 class="w-full h-26 object-cover">PK-GMF</h1>
-      <h2
-        class="text-8xl flex flex-row justify-end font-light text-white text-right"
-      >
-        <app-svg [width]="'32'" [height]="'59'" direction="up"></app-svg>100
-      </h2>
-      <p class="text-xs font-semibold">Last Flight</p>
-      <span class="flex flex-row items-end">
-        <p class="text-2xl font-extralight">14:20</p>
-        <p class="text-XS ml-1 font-extralight">PM</p>
-      </span>
-      <span class="flex flex-row items-end">
-        <p class="text-xl font-extralight">08 JAN</p>
-        <p class="text-xs ml-1 font-extralight">2023</p>
-      </span>
-    </div>
-    <!-- Baris 1 -->
-    <div
-      class="bg-gradient-to-r from-ahi-green-400 to-ahi-green-500 p-2 shadow-lg rounded-lg"
-    >
-      <h1 class="w-full h-26 object-cover">PK-GMF</h1>
-      <h2
-        class="text-8xl flex flex-row justify-end font-light text-white text-right"
-      >
-        <app-svg [width]="'32'" [height]="'59'" direction="up"></app-svg>100
-      </h2>
-      <p class="text-xs font-semibold">Last Flight</p>
-      <span class="flex flex-row items-end">
-        <p class="text-2xl font-extralight">14:20</p>
-        <p class="text-XS ml-1 font-extralight">PM</p>
-      </span>
-      <span class="flex flex-row items-end">
-        <p class="text-xl font-extralight">08 JAN</p>
-        <p class="text-xs ml-1 font-extralight">2023</p>
-      </span>
-    </div>
-    <!-- Baris 1 -->
-    <div
-      class="bg-gradient-to-r from-ahi-green-400 to-ahi-green-500 p-2 shadow-lg rounded-lg"
-    >
-      <h1 class="w-full h-26 object-cover">PK-GMF</h1>
-      <h2
-        class="text-8xl flex flex-row justify-end font-light text-white text-right"
-      >
-        <app-svg [width]="'32'" [height]="'59'" direction="up"></app-svg>100
-      </h2>
-      <p class="text-xs font-semibold">Last Flight</p>
-      <span class="flex flex-row items-end">
-        <p class="text-2xl font-extralight">14:20</p>
-        <p class="text-XS ml-1 font-extralight">PM</p>
-      </span>
-      <span class="flex flex-row items-end">
-        <p class="text-xl font-extralight">08 JAN</p>
-        <p class="text-xs ml-1 font-extralight">2023</p>
-      </span>
-    </div>
-    <!-- Baris 1 -->
-    <div
-      class="bg-gradient-to-r from-ahi-green-400 to-ahi-green-500 p-2 shadow-lg rounded-lg"
-    >
-      <h1 class="w-full h-26 object-cover">PK-GMF</h1>
-      <h2
-        class="text-8xl flex flex-row justify-end font-light text-white text-right"
-      >
-        <app-svg [width]="'32'" [height]="'59'" direction="up"></app-svg>100
-      </h2>
-      <p class="text-xs font-semibold">Last Flight</p>
-      <span class="flex flex-row items-end">
-        <p class="text-2xl font-extralight">14:20</p>
-        <p class="text-XS ml-1 font-extralight">PM</p>
-      </span>
-      <span class="flex flex-row items-end">
-        <p class="text-xl font-extralight">08 JAN</p>
-        <p class="text-xs ml-1 font-extralight">2023</p>
-      </span>
-    </div>
+    <app-card-dashboard
+      [title]="'PK-GMF'"
+      [count]="2"
+      [total]="30"
+      [subtitle]="'Last Flight'"
+      [time]="'14:20'"
+      [timePeriod]="'PM'"
+      [date]="'08 JAN'"
+      [year]="'2023'"
+      [direction]="'down'"
+      [themeColor]="'green'"
+    ></app-card-dashboard>
   </div>
+
 </div>

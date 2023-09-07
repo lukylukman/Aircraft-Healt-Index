@@ -1,0 +1,28 @@
+<div [ngClass]="{
+  'from-ahi-green-400': themeColor === 'green',
+  'to-ahi-green-500': themeColor === 'green',
+  'from-tms-warning-300': themeColor === 'yellow',
+  'to-tms-warning-600': themeColor === 'yellow',
+  'from-tms-error-300': themeColor === 'red',
+  'to-tms-error-600': themeColor === 'red'
+}" class="p-2 bg-gradient-to-r shadow-lg rounded-lg">
+  <h1 class="w-full h-26 object-cover">{{ title }}</h1>
+  <h2 class="text-8xl flex drop-shadow-lg flex-row justify-end font-light items-center text-white text-right">
+    <div class="flex-col text-center">
+      <app-svg [width]="'32'" [height]="'49'" [direction]="direction"></app-svg>
+      <h4 class="text-xl drop-shadow-xl font-semibold">{{ count }}</h4>
+    </div>
+    {{ total }}
+  </h2>
+  <p class="text-xs font-semibold">{{ subtitle }}</p>
+  <span class="flex flex-row items-end">
+    <p class="text-2xl font-extralight">{{ time }}</p>
+    <p class="text-XS ml-1 font-extralight">{{ timePeriod }}</p>
+  </span>
+  <span class="flex flex-row items-end">
+    <p class="text-xl font-extralight">{{ date }}</p>
+    <p class="text-xs ml-1 font-extralight">{{ year }}</p>
+  </span>
+</div>
+<!-- 'bg-gradient-to-r from-tms-warning-300 to-tms-warning-600': themeColor === 'yellow',
+  'bg-gradient-to-r from-tms-error-300 to-tms-error-600': themeColor === 'red' -->
