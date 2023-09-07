@@ -21,9 +21,11 @@ import { HomeService } from '../home/home.service';
 import { MasterDataManagementModule } from '../master-data-management/master-data-management.module';
 import { MasterDataManagementService } from '../master-data-management/master-data-management.service';
 import { MasterDataManagementFeature } from '../master-data-management/states/master-data-management.feature';
+import { CardDashboardComponent } from './component/card/card.component';
+
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, CardDashboardComponent ],
   imports: [
     LetModule,
     PushModule,
