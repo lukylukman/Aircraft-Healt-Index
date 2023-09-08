@@ -29,6 +29,8 @@ import { TabItemComponent } from './reuseable-ui-components/tab/components/tab-i
 import { TabComponent } from './reuseable-ui-components/tab/tab.component';
 import { TooltipModule } from './reuseable-ui-components/tooltip/tooltip.module';
 import { SvgIconComponent } from './reuseable-ui-components/svg/svg.component';
+import { LayoutAdminComponent } from './layout/layout-admin/layout-admin.component';
+import { SidebarAdminComponent } from './layout/sidebar-admin/sidebar-admin.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { SvgIconComponent } from './reuseable-ui-components/svg/svg.component';
     TransformAcronymPipe,
     HeaderbarComponent,
     InputComponent,
+    SidebarAdminComponent,
+    LayoutAdminComponent,
     AccordionComponent,
     AccordionItemComponent,
     AlertComponent,
@@ -56,7 +60,7 @@ import { SvgIconComponent } from './reuseable-ui-components/svg/svg.component';
     TabComponent,
     TabItemComponent,
     NoDataComponent,
-    SvgIconComponent
+    SvgIconComponent,
   ],
   imports: [
     RouterModule,
@@ -69,6 +73,7 @@ import { SvgIconComponent } from './reuseable-ui-components/svg/svg.component';
   exports: [
     MainComponent,
     HeaderbarComponent,
+    SidebarComponent,
     InputComponent,
     ModalComponent,
     ButtonComponent,
@@ -80,7 +85,7 @@ import { SvgIconComponent } from './reuseable-ui-components/svg/svg.component';
     TabComponent,
     TabItemComponent,
     NoDataComponent,
-    SvgIconComponent
+    SvgIconComponent,
   ],
   providers: [UserSoeService],
 })

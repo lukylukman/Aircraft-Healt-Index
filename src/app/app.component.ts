@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ahi-angular';
+  login: boolean;
+
+  //Checking is Admin or User
+  isAdmin: boolean = true;
 }
