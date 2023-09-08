@@ -17,6 +17,7 @@ import { environment } from 'src/environments/environment';
 import { MasterDataManagementService } from '../master-data-management/master-data-management.service';
 import { MasterDataManagementFeatureState } from '../master-data-management/states/master-data-management.feature';
 import { MasterDataManagementState } from '../master-data-management/states/master-data-management.selector';
+import { trigger, transition, style, animate, state } from '@angular/animations';
 
 export interface SearchSelection {
   key: string;
@@ -27,6 +28,31 @@ export interface SearchSelection {
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('0.4s', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [animate('0.4s', style({ opacity: 0 }))]),
+    ]),
+    trigger('scaleAnimation', [
+      state(
+        'true',
+        style({
+          transform: 'scale(1.10)', // Scale to 105%
+        }),
+      ),
+      state(
+        'false',
+        style({
+          transform: 'scale(1)', // Default scale (100%)
+        }),
+      ),
+      transition('false => true', animate('200ms ease-out')),
+      transition('true => false', animate('200ms ease-out')),
+    ]),
+  ],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   private readonly unsubscribe$ = new Subject();
@@ -55,6 +81,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
     //   value: 'TZ Equipment',
     // },
   ];
+
+  showModal: boolean = false;
+  openModal() {
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+  }
 
   tour = new Shepherd.Tour({
     useModalOverlay: true,

@@ -1,41 +1,7 @@
-<div
-  [ngClass]="{
-    'from-ahi-green-400': themeColor === 'green',
-    'to-ahi-green-500': themeColor === 'green',
-    'from-tms-warning-300': themeColor === 'yellow',
-    'to-tms-warning-500': themeColor === 'yellow',
-    'from-tms-error-300': themeColor === 'red',
-    'to-tms-error-600': themeColor === 'red'
-  }"
-  class="p-2 bg-gradient-to-r shadow-lg rounded-lg cursor-pointer"
-  onclick="my_modal_3.showModal()"
->
-  <h1 class="w-full h-26 object-cover">{{ title }}</h1>
-  <h2
-    class="text-8xl flex drop-shadow-lg flex-row justify-end font-light items-center text-white text-right"
-  >
-    <div class="flex-col text-center">
-      <app-svg [width]="'32'" [height]="'49'" [direction]="direction"></app-svg>
-      <h4 class="text-xl drop-shadow-xl font-semibold">{{ count }}</h4>
-    </div>
-    {{ total }}
-  </h2>
-  <p class="text-xs font-semibold">{{ subtitle }}</p>
-  <span class="flex flex-row items-end">
-    <p class="text-2xl font-extralight">{{ time }}</p>
-    <p class="text-XS ml-1 font-extralight">{{ timePeriod }}</p>
-  </span>
-  <span class="flex flex-row items-end">
-    <p class="text-xl font-extralight">{{ date }}</p>
-    <p class="text-xs ml-1 font-extralight">{{ year }}</p>
-  </span>
-  <!-- <p class="text-xl font-extralight text-right">{{ date }}</p> -->
-</div>
-
-<dialog id="my_modal_3" class="modal w-11/12 rounded-lg">
+<div class="modal w-11/12 rounded-lg bg-gray-50" [hidden]="!showModal">
   <div class="modal-box backdrop-blur-2xl rounded-lg">
     <form method="dialog">
-      <button class="absolute right-1 top-1">
+      <button class="absolute right-1 top-1" (click)="closeModal()">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
         </svg>
@@ -65,6 +31,7 @@
     <!-- Table -->
     <div class="grid grid-cols-2 gap-2">
       <!-- Tabel 1 -->
+       <!-- Tabel 1 -->
       <div class="flex flex-col">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
@@ -303,7 +270,8 @@
             </div>
           </div>
         </div>
-      </div>
+      <!-- Tabel 2 -->
+      <!-- ... (Repeat the structure for other tables) ... -->
     </div>
   </div>
-</dialog>
+</div>
