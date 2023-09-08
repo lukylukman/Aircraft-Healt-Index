@@ -11,7 +11,9 @@
         [date]="card.date"
         [year]="card.year"
         [direction]="card.total < 45 ? 'down' : 'up'"
-        [themeColor]="card.total >= 75 ? 'green' : (card.total >= 55 ? 'yellow' : 'red')"
+        [themeColor]="
+          card.total >= 75 ? 'green' : card.total >= 55 ? 'yellow' : 'red'
+        "
       ></app-card-dashboard>
     </ng-container>
   </div>
