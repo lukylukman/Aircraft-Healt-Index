@@ -1,13 +1,19 @@
-<div [ngClass]="{
-  'from-ahi-green-400': themeColor === 'green',
-  'to-ahi-green-500': themeColor === 'green',
-  'from-tms-warning-300': themeColor === 'yellow',
-  'to-tms-warning-500': themeColor === 'yellow',
-  'from-tms-error-300': themeColor === 'red',
-  'to-tms-error-600': themeColor === 'red'
-}" class="p-2 bg-gradient-to-r shadow-lg rounded-lg">
+<div
+  [ngClass]="{
+    'from-ahi-green-400': themeColor === 'green',
+    'to-ahi-green-500': themeColor === 'green',
+    'from-tms-warning-300': themeColor === 'yellow',
+    'to-tms-warning-500': themeColor === 'yellow',
+    'from-tms-error-300': themeColor === 'red',
+    'to-tms-error-600': themeColor === 'red'
+  }"
+  class="p-2 bg-gradient-to-r shadow-lg rounded-lg cursor-pointer"
+  onclick="my_modal_3.showModal()"
+>
   <h1 class="w-full h-26 object-cover">{{ title }}</h1>
-  <h2 class="text-8xl flex drop-shadow-lg flex-row justify-end font-light items-center text-white text-right">
+  <h2
+    class="text-8xl flex drop-shadow-lg flex-row justify-end font-light items-center text-white text-right"
+  >
     <div class="flex-col text-center">
       <app-svg [width]="'32'" [height]="'49'" [direction]="direction"></app-svg>
       <h4 class="text-xl drop-shadow-xl font-semibold">{{ count }}</h4>
@@ -25,3 +31,253 @@
   </span>
   <!-- <p class="text-xl font-extralight text-right">{{ date }}</p> -->
 </div>
+
+<dialog id="my_modal_3" class="modal">
+  <div class="modal-box">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+        ✕
+      </button>
+    </form>
+    <!-- header -->
+    <div class="grid grid-cols-4">
+      <div class="border-r-2 border-b-2 pl-28 pr-10 pb-3">
+        <h1 class="text-2xl">PK-GMF</h1>
+        <h4 class="text-xs font-semibold">B737-800</h4>
+      </div>
+      <div class="border-b-2 border-r-2 pl-10">
+        <h4 class="text-xs">Last Flight</h4>
+        <h1 class="text-2xl">08 Jan 2023</h1>
+      </div>
+      <div class="border-b-2 border-r-2 pl-10">
+        <h4 class="text-xs">Last Assignment</h4>
+        <h1 class="text-2xl">BA124</h1>
+      </div>
+      <div class="border-b-2 pl-10">
+        <h4 class="text-xs">Score</h4>
+        <h1 class="text-2xl">BA124</h1>
+      </div>
+    </div>
+    <!-- end header -->
+
+    <!-- Table -->
+    <div class="grid grid-cols-2 gap-2">
+      <!-- Tabel 1 -->
+      <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+              <table class="min-w-full text-center text-sm font-light">
+                <thead class="border-b bg-blue-800 text-left">
+                  <tr>
+                    <th
+                      scope="col"
+                      class="px-6 py-4 font-semibold text-white"
+                      colspan="3"
+                    >
+                      Hold Item List
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b">
+                    <td
+                      class="whitespace-nowrap px-6 py-4 font-medium bg-gray-200"
+                    >
+                      Icon
+                    </td>
+                    <td class="whitespace-nowrap px-6 py-4">
+                      <p class="text-blue-500 text-left font-semibold">
+                        CAT C - Air Conditioning
+                      </p>
+                      Raised on 09-01-2023 03:00 Expired on 19-01-2023 03:00
+                    </td>
+                    <td class="whitespace-nowrap px-6 py-4">
+                      <p class="text-blue-500 text-left font-semibold">
+                        Last Follow Up
+                      </p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod..
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Tabel 2 -->
+      <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+              <table class="min-w-full text-center text-sm font-light">
+                <thead class="border-b bg-blue-800 text-left">
+                  <tr>
+                    <th
+                      scope="col"
+                      class="px-6 py-4 font-semibold text-white"
+                      colspan="2"
+                    >
+                      Repetitive Problem
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b">
+                    <td
+                      class="whitespace-nowrap px-6 py-4 font-medium bg-gray-200"
+                    >
+                      Icon
+                    </td>
+                    <td class="whitespace-nowrap px-6 py-4">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Tabel 3 -->
+      <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+              <table class="min-w-full text-center text-sm font-light">
+                <thead class="border-b bg-blue-800 text-left">
+                  <tr>
+                    <th
+                      scope="col"
+                      class="px-6 py-4 font-semibold text-white"
+                      colspan="2"
+                    >
+                      Hold Item List
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b">
+                    <td
+                      class="whitespace-nowrap px-6 py-4 font-medium bg-gray-200"
+                    >
+                      Icon
+                    </td>
+                    <td class="whitespace-nowrap px-6 py-4">
+                      APU listed on-watch since 03-01-2023
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Tabel 4 -->
+      <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+              <table class="min-w-full text-center text-sm font-light">
+                <thead class="border-b bg-blue-800 text-left">
+                  <tr>
+                    <th
+                      scope="col"
+                      class="px-6 py-4 font-semibold text-white"
+                      colspan="2"
+                    >
+                      Repetitive Problem
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b">
+                    <td
+                      class="whitespace-nowrap px-6 py-4 font-medium bg-gray-200"
+                    >
+                      Icon
+                    </td>
+                    <td class="whitespace-nowrap px-6 py-4">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Tabel 5 -->
+      <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+              <table class="min-w-full text-center text-sm font-light">
+                <thead class="border-b bg-blue-800 text-left">
+                  <tr>
+                    <th
+                      scope="col"
+                      class="px-6 py-4 font-semibold text-white"
+                      colspan="2"
+                    >
+                      Pirep
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b">
+                    <td
+                      class="whitespace-nowrap px-6 py-4 font-medium bg-gray-200"
+                    >
+                      Icon
+                    </td>
+                    <td class="whitespace-nowrap px-6 py-4">
+                      Pirep “xxx” appears 2x since 03-01-2023
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Tabel 6 -->
+      <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+              <table class="min-w-full text-center text-sm font-light">
+                <thead class="border-b bg-blue-800 text-left">
+                  <tr>
+                    <th
+                      scope="col"
+                      class="px-6 py-4 font-semibold text-white"
+                      colspan="2"
+                    >
+                      Pack Assesment
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b">
+                    <td
+                      class="whitespace-nowrap px-6 py-4 font-medium bg-gray-200"
+                    >
+                      Icon
+                    </td>
+                    <td class="whitespace-nowrap px-6 py-4">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
