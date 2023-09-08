@@ -22,10 +22,11 @@ import { MasterDataManagementModule } from '../master-data-management/master-dat
 import { MasterDataManagementService } from '../master-data-management/master-data-management.service';
 import { MasterDataManagementFeature } from '../master-data-management/states/master-data-management.feature';
 import { CardDashboardComponent } from './component/card/card.component';
+import { DetailCardComponent } from './component/detail-card/detail-card.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, CardDashboardComponent ],
+  declarations: [DashboardComponent, CardDashboardComponent, DetailCardComponent ],
   imports: [
     LetModule,
     PushModule,
