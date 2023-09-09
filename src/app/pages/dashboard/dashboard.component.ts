@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, debounceTime, takeUntil } from 'rxjs';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { RouteHelperService } from 'src/app/core/services/route-helper.service';
 import { DashboardService } from './dashboard.service';
+import { Modal } from 'flowbite';
 
 import Shepherd from 'shepherd.js';
 import { LocalStorageServiceInterface } from 'src/app/core/interfaces/localstorage.service.interface';
@@ -54,7 +55,7 @@ export interface SearchSelection {
     ]),
   ],
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   private readonly unsubscribe$ = new Subject();
 
   logger: LoggerService;
@@ -103,6 +104,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   version: string = environment.version;
   selectedSearchSelection: string = '';
+  isModalOpen: boolean = false;
+  selectedCardData: any; 
 
   masterDataManagementState$: Observable<MasterDataManagementFeatureState>;
 
@@ -138,6 +141,25 @@ export class DashboardComponent implements OnInit, OnDestroy {
   });
 
   ngOnInit(): void {}
+
+   ngAfterViewInit(): void {
+    const modal = new Modal(document.getElementById('modalDetailCard'), {});
+    const modalToggleButton = document.getElementById('modalDetailCardBtn');
+    if (modalToggleButton) {
+      modalToggleButton.addEventListener('click', () => {
+        this.isModalOpen = !this.isModalOpen; 
+        modal.toggle();
+      });
+    }
+
+    const closeModalButton = document.querySelector('[data-modal-toggle="closeModalDetailCard"]');
+    if (closeModalButton) {
+      closeModalButton.addEventListener('click', () => {
+        this.isModalOpen = false;
+        modal.toggle();
+      });
+    }
+  }
 
   ngOnDestroy(): void {
     this.unsubscribe$.unsubscribe();
