@@ -1,5 +1,13 @@
-import { trigger, transition, style, animate, state } from '@angular/animations';
+import {
+  trigger,
+  transition,
+  style,
+  animate,
+  state,
+} from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { KeycloakService } from 'keycloak-angular';
+import { Confirmable } from 'src/app/core/decorators/confirmable.decorator';
 
 @Component({
   selector: 'app-configuration',
@@ -18,13 +26,13 @@ import { Component, OnInit } from '@angular/core';
         'true',
         style({
           transform: 'scale(1.10)', // Scale to 105%
-        }),
+        })
       ),
       state(
         'false',
         style({
           transform: 'scale(1)', // Default scale (100%)
-        }),
+        })
       ),
       transition('false => true', animate('200ms ease-out')),
       transition('true => false', animate('200ms ease-out')),
@@ -32,10 +40,21 @@ import { Component, OnInit } from '@angular/core';
   ],
 })
 export class ConfigurationComponent implements OnInit {
+  constructor(private readonly keycloakService: KeycloakService) {}
 
-  constructor() { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  @Confirmable({
+    title: 'Logout Confirmation',
+    html: 'Are you sure you want to logout?',
+    icon: 'question',
+  })
+  doLogout(): void {
+    this.clearStorage();
+    this.keycloakService.logout().then(() => this.keycloakService.clearToken());
   }
 
+  clearStorage(): void {
+    localStorage.clear();
+  }
 }
