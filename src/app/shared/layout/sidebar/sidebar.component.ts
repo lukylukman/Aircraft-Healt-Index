@@ -6,7 +6,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Event, NavigationEnd, NavigationStart } from '@angular/router';
+import { Event, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { Confirmable } from 'src/app/core/decorators/confirmable.decorator';
@@ -68,7 +68,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
     private readonly kcService: KeycloakService,
     private _router: RouteHelperService,
     private _sidebar: SidebarService,
-    private readonly soeService: UserSoeService
+    private readonly soeService: UserSoeService,
+    private router: Router
   ) {
     this.localService = new LocalstorageService();
   }
@@ -173,5 +174,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.unsubscribe$.unsubscribe();
+  }
+
+  goHome() {
+    this.router.navigate(['/home']);
   }
 }
