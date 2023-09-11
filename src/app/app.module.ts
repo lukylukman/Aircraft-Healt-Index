@@ -24,7 +24,7 @@ import { HttpInnovationUtilsHeader } from './providers/http/http-innovation-util
 import { LoadingInterceptor } from './providers/http/http-loading.interceptor';
 import { HttpSapApiHeader } from './providers/http/http-sap-api-header.interceptor';
 import { HttpSoeApiHeader } from './providers/http/http-soe-api-header.interceptor';
-import { HttpTmsApiHeader } from './providers/http/http-tms-api-header.interceptor';
+import { HttpAhiApiHeader } from './providers/http/http-ahi-api-header.interceptor';
 import { LoadingService } from './shared/reuseable-ui-components/loading/service/loading.service';
 import { SharedModule } from './shared/shared.module';
 import { LayoutAdminComponent } from './shared/layout/layout-admin/layout-admin.component';
@@ -97,7 +97,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: HttpTmsApiHeader,
+      useClass: HttpAhiApiHeader,
       multi: true,
     },
     {

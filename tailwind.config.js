@@ -24,7 +24,7 @@ module.exports = {
         "right-dark-md": "4px 0px 16px 0px rgba(0, 0, 0, 0.2)",
       },
       colors: {
-        "tms-blue": {
+        "ahi-blue": {
           50: "#EAF1FB",
           100: "#D0E0F6",
           200: "#A6C5ED",
@@ -34,9 +34,9 @@ module.exports = {
           600: "#1F569D",
           700: "#184177",
           800: "#102C51",
-          900: "#081526"
+          900: "#081526",
         },
-        "tms-neutral": {
+        "ahi-neutral": {
           50: "#F5F5F5",
           100: "#EBEBEB",
           200: "#D9D9D9",
@@ -46,9 +46,9 @@ module.exports = {
           600: "#808080",
           700: "#5E5E5E",
           800: "#404040",
-          900: "#1F1F1F"
+          900: "#1F1F1F",
         },
-        "tms-green": {
+        "ahi-green": {
           50: "#E6F9EE",
           100: "#CDF4DD",
           200: "#9FEABE",
@@ -58,9 +58,9 @@ module.exports = {
           600: "#1F8A4B",
           700: "#176839",
           800: "#104727",
-          900: "#072112"
+          900: "#072112",
         },
-        "tms-warning": {
+        "ahi-warning": {
           50: "#FCF9ED",
           100: "#F9F1D7",
           200: "#F3E2AF",
@@ -70,9 +70,9 @@ module.exports = {
           600: "#C89D1E",
           700: "#977716",
           800: "#624D0E",
-          900: "#312607"
+          900: "#312607",
         },
-        "tms-applegreen": {
+        "ahi-applegreen": {
           50: "#F6FFE0",
           100: "#EBFFBD",
           200: "#D9FF80",
@@ -82,9 +82,9 @@ module.exports = {
           600: "#6B9900",
           700: "#4F7000",
           800: "#364D00",
-          900: "#192400"
+          900: "#192400",
         },
-        "tms-error": {
+        "ahi-error": {
           50: "#FDEDED",
           100: "#FBDFDF",
           200: "#F7BBBB",
@@ -94,7 +94,7 @@ module.exports = {
           600: "#E41B1B",
           700: "#AD1515",
           800: "#720E0E",
-          900: "#3B0707"
+          900: "#3B0707",
         },
         "ahi-green": {
           50: "#FDEDED",
@@ -106,8 +106,8 @@ module.exports = {
           600: "#628511",
           700: "#176839",
           800: "#104727",
-          900: "#072112"
-        }
+          900: "#072112",
+        },
       },
       fontFamily: {
         jakarta: ["Plus Jakarta Sans", "sans-serif"],
