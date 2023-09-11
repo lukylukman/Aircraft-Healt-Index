@@ -28,6 +28,8 @@ import Swal from 'sweetalert2';
 import { MasterDataManagementService } from '../master-data-management/master-data-management.service';
 import { MasterDataManagementFeatureState } from '../master-data-management/states/master-data-management.feature';
 import { MasterDataManagementState } from '../master-data-management/states/master-data-management.selector';
+import { Confirmable } from 'src/app/core/decorators/confirmable.decorator';
+import { KeycloakService } from 'keycloak-angular';
 
 export interface SearchSelection {
   key: string;
@@ -87,6 +89,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private readonly homeService: HomeService,
     private readonly soeService: UserSoeService,
     private readonly store: Store,
+    private readonly keycloakService: KeycloakService,
     private readonly masterDataManagementService: MasterDataManagementService,
     private _sidebar: SidebarService // public readonly tourService: TourService,
   ) {
@@ -117,5 +120,19 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.unsubscribe$.unsubscribe();
+  }
+
+  @Confirmable({
+    title: 'Logout Confirmation',
+    html: 'Are you sure you want to logout?',
+    icon: 'error',
+  })
+  doLogout(): void {
+    this.clearStorage();
+    this.keycloakService.logout().then(() => this.keycloakService.clearToken());
+  }
+
+  clearStorage(): void {
+    localStorage.clear();
   }
 }

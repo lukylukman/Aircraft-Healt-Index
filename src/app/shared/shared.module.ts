@@ -77,6 +77,8 @@ import { SidebarAdminComponent } from './layout/sidebar-admin/sidebar-admin.comp
     InputComponent,
     ModalComponent,
     ButtonComponent,
+    SidebarAdminComponent,
+    LayoutAdminComponent,
     StepperComponent,
     StepperContentComponent,
     DropdownComponent,
