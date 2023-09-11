@@ -1,17 +1,17 @@
 version: "3.6"
 services:
-  tms_angular_web:
-    image: tms/web:latest
-    container_name: tms_angular
+  ahi_angular_web:
+    image: ahi/web:latest
+    container_name: ahi_angular
     restart: always
     networks:
-      - tmsnet
+      - ahinet
     ports:
       - "3008:80"
     environment:
       APPLICATION_PORT: 3008
       NODE_ENV: prod
 networks:
-  tmsnet:
-    name: tms-project-network
+  ahinet:
+    name: ahi-project-network
     driver: bridge

@@ -15,7 +15,7 @@ export class HeaderbarComponent implements OnInit {
   subTitle: string = 'Default Sub Title';
 
   @Input('bgcolor')
-  bgColor: string = 'bg-tms-blue:800';
+  bgColor: string = 'bg-ahi-blue:800';
 
   @Input('title-color')
   titleColor: string = 'text-black';

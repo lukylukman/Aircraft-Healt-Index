@@ -2,40 +2,54 @@
   *ngrxLet="
     this.masterDataManagementState$ | ngrxPush as _masterDataManagementState
   "
->  
+>
   <app-modal
-      (modaltoClose)="resetForm()"
-      size="4xl"
-      title="Add Store"
-      idSelector="addStore"
-    >
-      <form class="flex flex-col gap-4 w-full">
-        <app-input label="Store" [control]="formGroup.controls.store" placeholder="H1  |  rules: store must be a code of 2 char"></app-input>
-        <app-input label="Address" [control]="formGroup.controls.address" placeholder="Hangar 1 CGK" ></app-input>
-        <!-- <app-dropdown [control]="formGroup.controls.store" label="Store" [dropdowns]="storeList"></app-dropdown> -->
-        <div class="flex flex-col">
-          <label for="dinas" class="font-jakarta text-sm"
-            >Unit</label
-          >
-          <ng-multiselect-dropdown
-            [formControl]="formGroup.controls.unit"
-            [placeholder]="'Select Unit'"
-            [settings]="dropdownSettings"
-            [data]="_masterDataManagementState?.units"
-            (onSelect)="onItemSelect($event)"
-          >
-          </ng-multiselect-dropdown>
-          <span *ngIf="formGroup.controls.unit.invalid && formGroup.controls.unit.dirty && formGroup.controls.unit.touched" class="font-jakarta text-tms-error-700 text-xs">The field is required</span>
-        </div>
-      </form>
-      <div class="flex justify-end w-full mt-4">
-        <app-button
-          (click)="onSubmit()"
-          [disableTerm]="formGroup.invalid"
-          color="success"
-          size="medium"
-          >Submit Store</app-button
+    (modaltoClose)="resetForm()"
+    size="4xl"
+    title="Add Store"
+    idSelector="addStore"
+  >
+    <form class="flex flex-col gap-4 w-full">
+      <app-input
+        label="Store"
+        [control]="formGroup.controls.store"
+        placeholder="H1  |  rules: store must be a code of 2 char"
+      ></app-input>
+      <app-input
+        label="Address"
+        [control]="formGroup.controls.address"
+        placeholder="Hangar 1 CGK"
+      ></app-input>
+      <!-- <app-dropdown [control]="formGroup.controls.store" label="Store" [dropdowns]="storeList"></app-dropdown> -->
+      <div class="flex flex-col">
+        <label for="dinas" class="font-jakarta text-sm">Unit</label>
+        <ng-multiselect-dropdown
+          [formControl]="formGroup.controls.unit"
+          [placeholder]="'Select Unit'"
+          [settings]="dropdownSettings"
+          [data]="_masterDataManagementState?.units"
+          (onSelect)="onItemSelect($event)"
+        >
+        </ng-multiselect-dropdown>
+        <span
+          *ngIf="
+            formGroup.controls.unit.invalid &&
+            formGroup.controls.unit.dirty &&
+            formGroup.controls.unit.touched
+          "
+          class="font-jakarta text-ahi-error-700 text-xs"
+          >The field is required</span
         >
       </div>
-    </app-modal>
+    </form>
+    <div class="flex justify-end w-full mt-4">
+      <app-button
+        (click)="onSubmit()"
+        [disableTerm]="formGroup.invalid"
+        color="success"
+        size="medium"
+        >Submit Store</app-button
+      >
+    </div>
+  </app-modal>
 </ng-container>

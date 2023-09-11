@@ -1,11 +1,19 @@
 <ul class="toggle flex flex-col p-2 items-center justify-center">
-    <li class="py-1 px-2 w-full rounded-sm" *ngFor="let title of titles">
-        <button class=" flex flex-row justify-between items-center px-4 py-2 border-2 border-tms-neutral-500 rounded-md w-full " [class.selected]="title === selectedTitle" type="button" (click)="onSelect(title)">
-        <span class="font-jakarta text-sm ">{{title.name}}</span>
-        <div class="flex flex-row gap-3 items-center">
-            <span class="font-jakarta text-sm text-tms-green-500">50%</span>
-            <hero-icon name="chevron-right" class="text-tms-darkblue-200 h-4 w-4"></hero-icon>
-        </div>
-        </button>
-    </li>
+  <li class="py-1 px-2 w-full rounded-sm" *ngFor="let title of titles">
+    <button
+      class="flex flex-row justify-between items-center px-4 py-2 border-2 border-ahi-neutral-500 rounded-md w-full"
+      [class.selected]="title === selectedTitle"
+      type="button"
+      (click)="onSelect(title)"
+    >
+      <span class="font-jakarta text-sm">{{ title.name }}</span>
+      <div class="flex flex-row gap-3 items-center">
+        <span class="font-jakarta text-sm text-ahi-green-500">50%</span>
+        <hero-icon
+          name="chevron-right"
+          class="text-ahi-darkblue-200 h-4 w-4"
+        ></hero-icon>
+      </div>
+    </button>
+  </li>
 </ul>

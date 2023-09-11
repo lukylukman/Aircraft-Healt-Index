@@ -32,10 +32,10 @@ export interface EnvironmentInterface {
   sapApiUrl: string;
 
   /**
-   * API Key header for TMS
+   * API Key header for ahi
    * @example ABCD-1234-EF123-CC41
    */
-  tmsApiKey: string;
+  ahiApiKey: string;
 
   /**
    * API Key header for Utils SAP
@@ -44,7 +44,7 @@ export interface EnvironmentInterface {
   sapApiKey: string;
 
   /**
-   * API Key header for TMS
+   * API Key header for ahi
    * @example ABCD-1234-EF123-CC41
    */
   soeApiKey: string;
@@ -57,7 +57,7 @@ export interface EnvironmentInterface {
 
   /**
    * Define Client ID for OAuth2
-   * @example 'tms-web'
+   * @example 'ahi-web'
    */
   keycloakClientId: string;
 
@@ -87,7 +87,7 @@ export interface EnvironmentInterface {
 
   /**
    * Define realm for your app
-   * @example 'tms'
+   * @example 'ahi'
    */
   realm: string;
 

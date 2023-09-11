@@ -1,18 +1,46 @@
-
-<ul class="form-control" >
-    <div class="flex flex-row items-center justify-between">
-        <label class="font-jakarta text-sm">{{ label }}</label>
-        <!-- <hero-icon *ngIf="value" name="x-circle" class="h-4 w-4 cursor-pointer fill-tms-error-600 text-white" ></hero-icon> -->
-        <hero-icon *ngIf="control.valid" name="check-circle" class="h-4 w-4 cursor-pointer fill-tms-green-500 text-white" ></hero-icon>
+<ul class="form-control">
+  <div class="flex flex-row items-center justify-between">
+    <label class="font-jakarta text-sm">{{ label }}</label>
+    <!-- <hero-icon *ngIf="value" name="x-circle" class="h-4 w-4 cursor-pointer fill-ahi-error-600 text-white" ></hero-icon> -->
+    <hero-icon
+      *ngIf="control.valid"
+      name="check-circle"
+      class="h-4 w-4 cursor-pointer fill-ahi-green-500 text-white"
+    ></hero-icon>
+  </div>
+  <li
+    [class.valid]="control.valid"
+    class="flex flex-row gap-4 py-[6px] items-center bg-ahi-neutral-50 rounded-sm border-[1px] border-gray-500"
+  >
+    <div class="items-center pl-2">
+      <input
+        [formControl]="control"
+        id="1"
+        type="radio"
+        [value]="true"
+        name="default-radio"
+        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
+      />
+      <label
+        for="1"
+        class="ml-2 text-xs font-bold font-jakarta text-gray-900"
+        >{{ labelValue1 }}</label
+      >
     </div>
-    <li [class.valid]="control.valid" class="flex flex-row gap-4 py-[6px] items-center bg-tms-neutral-50 rounded-sm border-[1px] border-gray-500" >
-        <div class="items-center pl-2">
-            <input [formControl]="control" id="1" type="radio" [value]="true" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 ">
-            <label for="1" class="ml-2 text-xs font-bold font-jakarta text-gray-900">{{labelValue1}}</label>
-        </div>
-        <div class="items-center">
-            <input [formControl]="control" id="2" type="radio" [value]="false" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 ">
-            <label for="2" class="ml-2 text-xs font-bold font-jakarta text-gray-900">{{labelValue2}}</label>
-        </div>
-    </li>
+    <div class="items-center">
+      <input
+        [formControl]="control"
+        id="2"
+        type="radio"
+        [value]="false"
+        name="default-radio"
+        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
+      />
+      <label
+        for="2"
+        class="ml-2 text-xs font-bold font-jakarta text-gray-900"
+        >{{ labelValue2 }}</label
+      >
+    </div>
+  </li>
 </ul>
