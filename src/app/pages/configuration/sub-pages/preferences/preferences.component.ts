@@ -1,10 +1,10 @@
 import { trigger, transition, style, animate, state } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-configuration',
-  templateUrl: './configuration.component.html',
-  styleUrls: ['./configuration.component.css'],
+  selector: 'app-preferences',
+  templateUrl: './preferences.component.html',
+  styleUrls: ['./preferences.component.css'],
   animations: [
     trigger('fadeInOut', [
       transition(':enter', [
@@ -31,11 +31,6 @@ import { Component, OnInit } from '@angular/core';
     ]),
   ],
 })
-export class ConfigurationComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+export class PreferencesComponent {
 
 }
