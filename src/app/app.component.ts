@@ -20,7 +20,8 @@ export class AppComponent implements OnInit {
 
     if (this.userRoles.includes('user')) {
       this.router.navigate(['/home']);
-    } else if (this.userRoles.includes('admin')) {
+    }
+    if (this.userRoles.includes('admin')) {
       this.router.navigate(['/configuration']);
     }
 

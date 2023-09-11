@@ -6,6 +6,7 @@ import {
   state,
 } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { Confirmable } from 'src/app/core/decorators/confirmable.decorator';
 
@@ -40,9 +41,19 @@ import { Confirmable } from 'src/app/core/decorators/confirmable.decorator';
   ],
 })
 export class ConfigurationComponent implements OnInit {
-  constructor(private readonly keycloakService: KeycloakService) {}
+  constructor(
+    private readonly keycloakService: KeycloakService,
+    private router: Router
+  ) {}
+  userRoles: string[] = [];
 
-  ngOnInit() {}
+  ngOnInit(): void {
+    this.userRoles = this.keycloakService.getUserRoles();
+
+    if (this.userRoles.includes('user')) {
+      this.router.navigate(['/home']);
+    }
+  }
 
   @Confirmable({
     title: 'Logout Confirmation',
