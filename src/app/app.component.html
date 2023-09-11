@@ -1,7 +1,7 @@
-<app-main></app-main>
-<!-- <div *ngIf="isAdmin == false">
+<!-- <app-main></app-main> -->
+<div *ngIf="userRoles.includes('user')">
   <app-main></app-main>
 </div>
-<div *ngIf="isAdmin == true">
+<div *ngIf="userRoles.includes('admin')">
   <app-layout-admin></app-layout-admin>
-</div> -->
+</div>

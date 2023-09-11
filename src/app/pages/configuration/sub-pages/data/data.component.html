@@ -1,5 +1,5 @@
 <div [@fadeInOut] class="h-full">
-      <nav class="bg-transparent border-b border-tms-blue-600 dark:bg-gray-900">
+      <nav class="bg-transparent border-b border-ahi-blue-600 dark:bg-gray-900">
         <div class="max-w-screen-xl flex h-20 flex-wrap items-center justify-start mx-auto pl-2 pt-6">
           <a class="flex items-center cursor-pointer" (click)="showUpdate = true; showCalculation = false">
               <span class="self-center text-base font-normal whitespace-nowrap text-white dark:text-white">Update</span>
@@ -36,19 +36,19 @@
       </nav>
       <!-- header -->
       <div class="flex justify-start mt-6 ml-2 gap-4">
-        <div class="bg-tms-blue-900 w-40 h-28 shadow-md rounded-lg">
+        <div class="bg-ahi-blue-900 w-40 h-28 shadow-md rounded-lg">
           <div class="px-4 py-2">
             <h2 class="text-sm text-white font-normal mt-12">Garuda</h2>
             <h2 class="text-sm text-white font-normal">Indonesia (GA)</h2>
           </div>
         </div>
-        <div class="bg-tms-blue-900 w-40 h-28 shadow-md rounded-lg">
+        <div class="bg-ahi-blue-900 w-40 h-28 shadow-md rounded-lg">
           <div class="px-4 py-2">
             <h2 class="text-sm text-white font-normal mt-12">Garuda</h2>
             <h2 class="text-sm text-white font-normal">Indonesia (GA)</h2>
           </div>
         </div>
-         <div class="bg-tms-blue-900 w-20 h-28 shadow-md rounded-lg">
+         <div class="bg-ahi-blue-900 w-20 h-28 shadow-md rounded-lg">
           <div class="px-2 py-2 text-white text-sm font-normal justify-center flex flex-col text-center items-center">
             <hero-icon
                     name="plus-circle"
@@ -59,15 +59,15 @@
         </div>
       </div>
 
-      <div *ngIf="showUpdate" [@fadeInOut] class="bg-gradient-to-r h-screen from-tms-blue-800 to-tms-blue-600">
+      <div *ngIf="showUpdate" [@fadeInOut] class="bg-gradient-to-r h-screen from-ahi-blue-800 to-ahi-blue-600">
         <div class="mt-6 ml-2 flex flex-row text-center">
           <h4 class="text-white">Update data</h4>
-          <input class="block ml-14 w-60 mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-tms-blue-900 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="small_size" type="file">
+          <input class="block ml-14 w-60 mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-ahi-blue-900 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="small_size" type="file">
         </div>
 
         <div class="mt-6 ml-2 text-center flex flex-row">
           <h4 class="text-white">Select data type</h4>
-          <select id="small" class="block ml-6 w-48 p-2 mb-6 text-sm text-white border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-tms-blue-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <select id="small" class="block ml-6 w-48 p-2 mb-6 text-sm text-white border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-ahi-blue-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option selected>Recently Update</option>
             <option value="US">APU</option>
             <option value="US">Bleed Monitor</option>
@@ -78,11 +78,11 @@
         </div>
       </div>
 
-      <div *ngIf="showCalculation" [@fadeInOut] class="bg-gradient-to-r h-full from-tms-blue-800 to-tms-blue-600">
+      <div *ngIf="showCalculation" [@fadeInOut] class="bg-gradient-to-r h-full from-ahi-blue-800 to-ahi-blue-600">
           <div class="ml-2 mt-6">
             <div class="mt-6 ml-2 flex flex-row text-center">
             <h4 class="text-white">Score Weight</h4>
-            <button class="block ml-16 w-60 mb-5 px-2 py-2 text-xs text-white rounded-lg cursor-pointer bg-tms-blue-900 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="small_size">
+            <button class="block ml-16 w-60 mb-5 px-2 py-2 text-xs text-white rounded-lg cursor-pointer bg-ahi-blue-900 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="small_size">
               Restore Original Weigh
               </button>
           </div>
@@ -93,7 +93,7 @@
             <span class="text-white">Aircraft System</span>
           <label class="relative inline-flex ml-32 items-center cursor-pointer">
             <input type="checkbox" value="" class="sr-only peer">
-            <div class="w-11 h-6 bg-tms-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+            <div class="w-11 h-6 bg-ahi-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
           </label>
           </div>
 
@@ -122,7 +122,7 @@
             <span class="text-white">Engine & APU</span>
           <label class="relative inline-flex ml-36 items-center cursor-pointer">
             <input type="checkbox" value="" class="sr-only peer">
-            <div class="w-11 h-6 bg-tms-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+            <div class="w-11 h-6 bg-ahi-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
           </label>
           </div>
 
@@ -143,7 +143,7 @@
             <span class="text-white">Structure</span>
           <label class="relative inline-flex ml-40 items-center cursor-pointer">
             <input type="checkbox" value="" class="sr-only peer">
-            <div class="w-11 h-6 bg-tms-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+            <div class="w-11 h-6 bg-ahi-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
           </label>
           </div>
 
@@ -159,7 +159,7 @@
             <span class="text-white">Cabin</span>
           <label class="relative inline-flex ml-36 items-center cursor-pointer">
             <input type="checkbox" value="" class="sr-only peer">
-            <div class="w-11 h-6 bg-tms-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+            <div class="w-11 h-6 bg-ahi-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
           </label>
         </div>
 

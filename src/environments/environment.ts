@@ -8,7 +8,7 @@ export const environment: EnvironmentInterface = {
   production: false,
   version: '1.0.1',
   // apiUrl: 'http://localhost:6001',
-  apiUrl: 'https://api.gmf-aeroasia.co.id/composite/tms',
+  apiUrl: 'https://api.gmf-aeroasia.co.id/composite/ahi',
   soeApiUrl: 'https://api.gmf-aeroasia.co.id/th/soe',
   keycloakUrl: 'https://dev-auth.gmf-aeroasia.co.id/auth',
   sapApiUrl: 'https://api.gmf-aeroasia.co.id/utils/sap',
@@ -17,7 +17,7 @@ export const environment: EnvironmentInterface = {
   localKey: 'st+NnHcipOHKvd0WCcBjqLKbo9nV8sY0',
   realm: 'ahi',
   keycloakClientId: 'ahi-web',
-  tmsApiKey: '4822-C85E-971C-FBCA',
+  ahiApiKey: '4822-C85E-971C-FBCA',
   soeApiKey: '343C-ED0B-4137-B27E',
   sapApiKey: 'CAD2-4CEA-99AE-314C',
   mediaApiManagement:

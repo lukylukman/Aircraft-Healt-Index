@@ -28,6 +28,8 @@ import Swal from 'sweetalert2';
 import { MasterDataManagementService } from '../master-data-management/master-data-management.service';
 import { MasterDataManagementFeatureState } from '../master-data-management/states/master-data-management.feature';
 import { MasterDataManagementState } from '../master-data-management/states/master-data-management.selector';
+import { Confirmable } from 'src/app/core/decorators/confirmable.decorator';
+import { KeycloakService } from 'keycloak-angular';
 
 export interface SearchSelection {
   key: string;
@@ -49,20 +51,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   searchSelections: SearchSelection[] = [
     {
       // TODO: Please enable later. Disabled due to data is not ready yet!
-      key: 'tms-master-tool-data',
-      // key: 'tms-master-*',
+      key: 'ahi-master-tool-data',
+      // key: 'ahi-master-*',
       value: 'All',
     },
     {
-      key: 'tms-master-tool-data',
+      key: 'ahi-master-tool-data',
       value: 'Hangar Tools',
     },
     // {
-    //   key: 'tms-master-imte',
+    //   key: 'ahi-master-imte',
     //   value: 'IMTE Tools',
     // },
     // {
-    //   key: 'tms-master-tz-equipment',
+    //   key: 'ahi-master-tz-equipment',
     //   value: 'TZ Equipment',
     // },
   ];
@@ -87,6 +89,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private readonly homeService: HomeService,
     private readonly soeService: UserSoeService,
     private readonly store: Store,
+    private readonly keycloakService: KeycloakService,
     private readonly masterDataManagementService: MasterDataManagementService,
     private _sidebar: SidebarService // public readonly tourService: TourService,
   ) {
@@ -110,12 +113,26 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   formGroup = new FormGroup({
     partNumber: new FormControl<string>('', [Validators.required]),
-    searchCategory: new FormControl('tms-master-*'),
+    searchCategory: new FormControl('ahi-master-*'),
   });
 
   ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.unsubscribe$.unsubscribe();
+  }
+
+  @Confirmable({
+    title: 'Logout Confirmation',
+    html: 'Are you sure you want to logout?',
+    icon: 'question',
+  })
+  doLogout(): void {
+    this.clearStorage();
+    this.keycloakService.logout().then(() => this.keycloakService.clearToken());
+  }
+
+  clearStorage(): void {
+    localStorage.clear();
   }
 }

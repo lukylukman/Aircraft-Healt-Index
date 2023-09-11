@@ -162,11 +162,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   @Confirmable({
-    title: 'Are you sure?',
-    html: `you wish to log out. Continue?`,
-    // icon: 'warning',
-    confirmButtonText: 'Yes, log out',
-    denyButtonText: "No, i'm not sure",
+    title: 'Logout Confirmation',
+    html: 'Are you sure you want to logout?',
+    icon: 'question',
   })
   onClickLogout() {
     this.kcService.logout(environment.baseUrl);

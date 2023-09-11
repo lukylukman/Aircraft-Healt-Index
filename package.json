@@ -1,5 +1,5 @@
 {
-  "name": "tms-frontend",
+  "name": "ahi-frontend",
   "version": "0.0.15",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "doc": "npx compodoc -p tsconfig.json -n \"tms-frontend\"",
+    "doc": "npx compodoc -p tsconfig.json -n \"ahi-frontend\"",
     "doc:serve": "npx compodoc -s"
   },
   "private": true,

@@ -18,7 +18,13 @@ import { environment } from 'src/environments/environment';
 import { MasterDataManagementService } from '../master-data-management/master-data-management.service';
 import { MasterDataManagementFeatureState } from '../master-data-management/states/master-data-management.feature';
 import { MasterDataManagementState } from '../master-data-management/states/master-data-management.selector';
-import { trigger, transition, style, animate, state } from '@angular/animations';
+import {
+  trigger,
+  transition,
+  style,
+  animate,
+  state,
+} from '@angular/animations';
 
 export interface SearchSelection {
   key: string;
@@ -42,13 +48,13 @@ export interface SearchSelection {
         'true',
         style({
           transform: 'scale(1.10)', // Scale to 105%
-        }),
+        })
       ),
       state(
         'false',
         style({
           transform: 'scale(1)', // Default scale (100%)
-        }),
+        })
       ),
       transition('false => true', animate('200ms ease-out')),
       transition('true => false', animate('200ms ease-out')),
@@ -65,20 +71,20 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   searchSelections: SearchSelection[] = [
     {
       // TODO: Please enable later. Disabled due to data is not ready yet!
-      key: 'tms-master-tool-data',
-      // key: 'tms-master-*',
+      key: 'ahi-master-tool-data',
+      // key: 'ahi-master-*',
       value: 'All',
     },
     {
-      key: 'tms-master-tool-data',
+      key: 'ahi-master-tool-data',
       value: 'Hangar Tools',
     },
     // {
-    //   key: 'tms-master-imte',
+    //   key: 'ahi-master-imte',
     //   value: 'IMTE Tools',
     // },
     // {
-    //   key: 'tms-master-tz-equipment',
+    //   key: 'ahi-master-tz-equipment',
     //   value: 'TZ Equipment',
     // },
   ];
@@ -105,7 +111,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   version: string = environment.version;
   selectedSearchSelection: string = '';
   isModalOpen: boolean = false;
-  selectedCardData: any; 
+  selectedCardData: any;
 
   masterDataManagementState$: Observable<MasterDataManagementFeatureState>;
 
@@ -137,22 +143,24 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   formGroup = new FormGroup({
     partNumber: new FormControl<string>('', [Validators.required]),
-    searchCategory: new FormControl('tms-master-*'),
+    searchCategory: new FormControl('ahi-master-*'),
   });
 
   ngOnInit(): void {}
 
-   ngAfterViewInit(): void {
+  ngAfterViewInit(): void {
     const modal = new Modal(document.getElementById('modalDetailCard'), {});
     const modalToggleButton = document.getElementById('modalDetailCardBtn');
     if (modalToggleButton) {
       modalToggleButton.addEventListener('click', () => {
-        this.isModalOpen = !this.isModalOpen; 
+        this.isModalOpen = !this.isModalOpen;
         modal.toggle();
       });
     }
 
-    const closeModalButton = document.querySelector('[data-modal-toggle="closeModalDetailCard"]');
+    const closeModalButton = document.querySelector(
+      '[data-modal-toggle="closeModalDetailCard"]'
+    );
     if (closeModalButton) {
       closeModalButton.addEventListener('click', () => {
         this.isModalOpen = false;
