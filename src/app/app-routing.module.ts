@@ -24,6 +24,17 @@ const routes: Routes = [
         (m) => m.DashboardModule,
       ),
   },
+  {
+    path: 'configuration',
+    data: {
+      title: 'Configuration',
+    },
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./pages/configuration/configuration.module').then(
+        (m) => m.ConfigurationModule,
+      ),
+  },
 ];
 
 @NgModule({
