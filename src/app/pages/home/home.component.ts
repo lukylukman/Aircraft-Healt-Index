@@ -30,6 +30,7 @@ import { MasterDataManagementFeatureState } from '../master-data-management/stat
 import { MasterDataManagementState } from '../master-data-management/states/master-data-management.selector';
 import { Confirmable } from 'src/app/core/decorators/confirmable.decorator';
 import { KeycloakService } from 'keycloak-angular';
+import { DatePipe } from '@angular/common';
 
 export interface SearchSelection {
   key: string;
@@ -40,41 +41,16 @@ export interface SearchSelection {
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
+  providers: [DatePipe],
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private readonly unsubscribe$ = new Subject();
+  currentDate: Date = new Date();
 
   logger: LoggerService;
   localservice: LocalStorageServiceInterface;
   isSearch: boolean = false;
   isAdvance: boolean = false;
-  searchSelections: SearchSelection[] = [
-    {
-      // TODO: Please enable later. Disabled due to data is not ready yet!
-      key: 'ahi-master-tool-data',
-      // key: 'ahi-master-*',
-      value: 'All',
-    },
-    {
-      key: 'ahi-master-tool-data',
-      value: 'Hangar Tools',
-    },
-    // {
-    //   key: 'ahi-master-imte',
-    //   value: 'IMTE Tools',
-    // },
-    // {
-    //   key: 'ahi-master-tz-equipment',
-    //   value: 'TZ Equipment',
-    // },
-  ];
-
-  tour = new Shepherd.Tour({
-    useModalOverlay: true,
-    defaultStepOptions: {
-      scrollTo: true,
-    },
-  });
 
   personalInformation: PersonalInformation;
   storeOption: SelectionDTO[] = [];
@@ -100,21 +76,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.logger = new LoggerService(HomeComponent.name);
     this.personalInformation =
       this.soeService.getPersonalInformationFromCache();
-
-    this.formGroup.valueChanges
-      .pipe(debounceTime(650))
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((val) => {
-        console.log('form =>', val);
-      });
+    console.log(this.personalInformation);
   }
-
-  partNumber: string = '';
-
-  formGroup = new FormGroup({
-    partNumber: new FormControl<string>('', [Validators.required]),
-    searchCategory: new FormControl('ahi-master-*'),
-  });
 
   ngOnInit(): void {}
 
