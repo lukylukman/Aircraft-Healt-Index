@@ -70,8 +70,6 @@ export class AuthGuard extends KeycloakAuthGuard implements CanActivateChild {
       location.reload();
     }
 
-    // console.log( this.keycloak.login());
-
     // Get the roles required from the route.
     const requiredRoles = route.data['roles'];
 

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
+import { AdminGuard } from './guard/admin.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -21,7 +22,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () =>
       import('./pages/dashboard/dashboard.module').then(
-        (m) => m.DashboardModule,
+        (m) => m.DashboardModule
       ),
   },
   {
@@ -32,7 +33,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () =>
       import('./pages/configuration/configuration.module').then(
-        (m) => m.ConfigurationModule,
+        (m) => m.ConfigurationModule
       ),
   },
 ];
