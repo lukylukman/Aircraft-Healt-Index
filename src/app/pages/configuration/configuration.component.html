@@ -1,6 +1,6 @@
 <div [@fadeInOut]>
 <!-- Sidebar -->
-  <div class="flex flex-col fixed top-0 left-0 z-30 px-8 h-screen bg-gradient-to-r from-tms-blue-800 to-tms-blue-700 text-white p-2">
+  <div class="flex flex-col fixed top-0 left-0 z-10 px-8 h-full bg-gradient-to-r from-tms-blue-800 to-tms-blue-700 text-white p-2">
     <!-- Logo -->
     <div class="justify-center flex flex-row items-center">
       <img
@@ -19,10 +19,24 @@
       <h4 routerLinkActive="router-link-active" routerLink="/configuration/support" class="ease-in-out transition-all duration-200 cursor-pointer text-white font-normal text-base">Support</h4>
     </div>
 
+    <div class="sm:flex sm:items-center sm:justify-between">
+              <div>
+                <button
+                  type="button"
+                  class="absolute bottom-6 left-6 px-2 py-2 rounded-full text-sm font-normal leading-normal text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:bg-gray-200 hover:bg-opacity-10 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10 flex items-center justify-center"
+                >
+                  <hero-icon
+                    name="logout"
+                    type="outline"
+                    class="h-5 w-5 mr-2 cursor-pointer text-white duration-200"
+                  ></hero-icon>Sign Out
+                </button>
+              </div>
+          </div>
   </div>
 
   <!-- righbar -->
-  <div class="flex flex-col fixed top-0 right-0 z-50 w-64 h-screen bg-tms-blue-800 text-white">
+  <div class="flex flex-col fixed top-0 right-0 z-30 w-64 h-screen bg-tms-blue-800 text-white">
     <!-- Logo -->
     <!-- Green Yellow Red -->
     <div class="absolute bottom-0">
@@ -35,8 +49,8 @@
 
   </div>
   <!-- body -->
-  <div class="ml-64 bg-gradient-to-r from-tms-blue-800 to-tms-blue-600 h-screen">
-    <div class="ml-4">
+  <div class="ml-64 bg-gradient-to-r h-full from-tms-blue-800 to-tms-blue-600">
+    <div class="ml-4 z-40">
         <!-- Content -->
         
         <router-outlet></router-outlet> 
@@ -46,7 +60,7 @@
   </div>
 
   <!-- footer -->
-  <footer class="absolute bottom-0 left-0 right-0 z-40 bg-tms-blue-800 dark:bg-gray-900">
+  <!-- <footer class="absolute bottom-0 left-0 right-0 z-10 bg-tms-blue-800 dark:bg-gray-900">
       <div class="w-screen h-32 mx-auto">
           <div class="sm:flex sm:items-center sm:justify-between">
               <div>
@@ -63,5 +77,5 @@
               </div>
           </div>
       </div>
-  </footer>
+  </footer> -->
 </div>

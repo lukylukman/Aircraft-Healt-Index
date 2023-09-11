@@ -33,4 +33,7 @@ import { Component } from '@angular/core';
 })
 export class DataComponent {
 
+  showUpdate: boolean = false;
+  showCalculation: boolean = true;
+
 }
