@@ -56,6 +56,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   userInfo: PersonalInformation = <PersonalInformation>{};
   localService: LocalStorageServiceInterface;
   sidebarState: ShowHideType = 'hide';
+  userRoles: string[] = [];
 
   private readonly unsubscribe$ = new Subject();
 
@@ -77,6 +78,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.userRoles = this.kcService.getUserRoles();
+
     // TODO: Please use an actual service
     const _tempObject: PersonalInformation =
       this.soeService.getPersonalInformationFromCache();
