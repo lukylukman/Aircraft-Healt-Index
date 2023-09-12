@@ -11,11 +11,15 @@
         class="w-36 mx-auto"
       />
     </span>
-    <div class="flex flex-row justify-center">
-      <h1 class="text-5xl font-extralight">30</h1>
+    <div class="flex flex-row justify-center mt-2">
+      <h1 class="text-5xl font-extralight">{{ currentDate | date : "dd" }}</h1>
       <div class="flex-col ml-2 p-0">
-        <h1 class="text-base font-light">MAY 2023</h1>
-        <h1 class="text-base font-light">THURSDAY</h1>
+        <h1 class="text-base font-normal uppercase">
+          {{ currentDate | date : "MMMM yyyy" }}
+        </h1>
+        <h1 class="text-base font-normal uppercase">
+          {{ currentDate | date : "EEEE" }}
+        </h1>
       </div>
     </div>
   </div>

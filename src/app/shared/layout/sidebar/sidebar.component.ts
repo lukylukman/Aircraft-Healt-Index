@@ -25,6 +25,7 @@ import {
   SidebarChildrenGroupMenu,
 } from './interfaces/sidebar.interface';
 import { SidebarService } from './sidebar.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',
@@ -48,6 +49,7 @@ import { SidebarService } from './sidebar.service';
       transition('hide => show', [animate('0.9s')]),
     ]),
   ],
+  providers: [DatePipe],
 })
 export class SidebarComponent implements OnInit, OnDestroy {
   currentDate: Date = new Date();

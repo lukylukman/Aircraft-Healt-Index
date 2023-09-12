@@ -14,18 +14,21 @@
   </nav>
   <!-- End Navbar -->
 
-  <div
-    class="bg-cover bg-center"
-    style="background-image: url(../../../assets/images/bg-home-ahi.png)"
-  >
-    <!-- Header -->
-    <div class="grid grid-cols-2 content-between mt-10">
-      <div class="flex flex-row text-left text-white ml-14">
-        <h1 class="text-5xl font-extralight">30</h1>
-        <div class="flex-col ml-2 p-0">
-          <h1 class="text-base font-normal">MAY 2023</h1>
-          <h1 class="text-base font-normal">THURSDAY</h1>
-        </div>
+<div
+  class="bg-cover bg-center"
+  style="background-image: url(../../../assets/images/bg-home-ahi.png)"
+>
+  <!-- Header -->
+  <div class="grid grid-cols-2 content-between mt-10">
+    <div class="flex flex-row text-left text-white ml-14">
+      <h1 class="text-5xl font-extralight">{{ currentDate | date : "dd" }}</h1>
+      <div class="flex-col ml-2 p-0">
+        <h1 class="text-base font-normal uppercase">
+          {{ currentDate | date : "MMMM yyyy" }}
+        </h1>
+        <h1 class="text-base font-normal uppercase">
+          {{ currentDate | date : "EEEE" }}
+        </h1>
       </div>
 
       <div class="flex items-start">
@@ -47,7 +50,19 @@
         </p>
       </div>
     </div>
-    <!-- End Header -->
+  </div>
+  <!-- End Header -->
+
+  <!-- User Name -->
+  <div class="text-right mr-8 mt-3">
+    <span
+      class="inline-block text-left px-7 pb-2.5 pt-3 text-white bg-ahi-blue-600"
+    >
+      <p class="text-base font-bold">{{ personalInformation.personalName }}</p>
+      <p class="text-sm">{{ personalInformation.personalTitle }}</p>
+    </span>
+  </div>
+  <!-- End User Name -->
 
     <!-- User Name -->
     <div class="text-right mr-8 mt-3">
