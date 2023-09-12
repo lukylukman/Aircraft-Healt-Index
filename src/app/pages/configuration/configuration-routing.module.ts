@@ -12,27 +12,32 @@ const routes: Routes = [
     path: '',
     component: ConfigurationComponent,
     children: [
-            {
-                path: 'general',
-                component: GeneralComponent
-            },
-            {
-                path: 'user',
-                component: UserComponent
-            },
-            {
-                path: 'data',
-                component: DataComponent
-            },
-            {
-                path: 'preferences',
-                component: PreferencesComponent
-            },
-            {
-                path: 'support',
-                component: SupportComponent
-            }
-        ]
+      {
+        path: '', 
+        redirectTo: 'general',
+        pathMatch: 'full'
+      },
+      {
+        path: 'general',
+        component: GeneralComponent
+      },
+      {
+        path: 'user',
+        component: UserComponent
+      },
+      {
+        path: 'data',
+        component: DataComponent
+      },
+      {
+        path: 'preferences',
+        component: PreferencesComponent
+      },
+      {
+        path: 'support',
+        component: SupportComponent
+      }
+    ]
   },
 ];
 
