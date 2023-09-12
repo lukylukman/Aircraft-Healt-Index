@@ -184,6 +184,26 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       date: '08 JAN',
       year: '2023',
     },
+    {
+      title: 'PK-GMF',
+      count: 2,
+      total: 80,
+      subtitle: 'Last Flight',
+      time: '14:20',
+      timePeriod: 'PM',
+      date: '08 JAN',
+      year: '2023',
+    },
+    {
+      title: 'PK-GMF',
+      count: 2,
+      total: 70,
+      subtitle: 'Last Flight',
+      time: '14:20',
+      timePeriod: 'PM',
+      date: '08 JAN',
+      year: '2023',
+    },
     // Add more card data objects as needed
   ];
 }
