@@ -87,83 +87,188 @@
               </button>
           </div>
         </div>
-
+        <!-- Aircraft System -->
         <div class="mt-6 ml-4">
-          <div class="flex fledx-row">
-            <span class="text-white">Aircraft System</span>
-          <label class="relative inline-flex ml-32 items-center cursor-pointer">
-            <input type="checkbox" value="" class="sr-only peer">
-            <div class="w-11 h-6 bg-ahi-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-          </label>
+          <div class="flex flex-row">
+            <table class="table-fixed border-spacing-2">
+                <tbody>
+                  <tr>
+                    <td class="px-6 py-2 text-center">
+                      <span class="text-white">Aircraft System</span>
+                    </td>
+                    <td class="px-4 py-2 text-center items-center w-1/4">
+                      <label class="relative inline-flex mx-auto items-center cursor-pointer">
+                        <input type="checkbox" value="" class="sr-only peer">
+                        <div class="w-11 h-6 bg-ahi-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                      </label>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+          <!-- Table Aircraft System  -->
+          <div class="ml-12 mt-4">
+             <table class="table-fixed border-spacing-2">
+                <tbody>
+                  <tr>
+                    <td class="px-4 py-2">
+                      <span class="text-white font-normal">HIL</span>
+                    </td>
+                    <td class="px-4 py-2 text-center items-center w-2/4">
+                      <div class="flex flex-col">
+                        <input id="small-range" type="range" [(ngModel)]="hilScore" step="1" class="w-80 mx-auto h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700">
+                        <span class="text-white text-sm font-normal">{{ hilScore }}</span>
+                      </div>
+                    </td>
+                  </tr>
+                   <tr>
+                    <td class="px-4 py-2">
+                      <span class="text-white font-normal">Repetitive Problem</span>
+                    </td>
+                    <td class="px-4 py-2 text-center items-center w-2/4">
+                      <div class="flex flex-col">
+                        <input id="small-range" type="range" [(ngModel)]="hilScore" step="1" class="w-80 mx-auto h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700">
+                        <span class="text-white text-sm font-normal">{{ hilScore }}</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2">
+                      <span class="text-white font-normal">Pack Assesment</span>
+                    </td>
+                    <td class="px-4 py-2 text-center items-center w-2/4">
+                      <div class="flex flex-col">
+                        <input id="small-range" type="range" [(ngModel)]="hilScore" step="1" class="w-80 mx-auto h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700">
+                        <span class="text-white text-sm font-normal">{{ hilScore }}</span>
+                      </div>
+                    </td>
+                  </tr>
+                   <tr>
+                    <td class="px-4 py-2">
+                      <span class="text-white font-normal">Bleed Monitor</span>
+                    </td>
+                    <td class="px-4 py-2 text-center items-center w-2/4">
+                      <div class="flex flex-col">
+                        <input id="small-range" type="range" [(ngModel)]="hilScore" step="1" class="w-80 mx-auto h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700">
+                        <span class="text-white text-sm font-normal">{{ hilScore }}</span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+        <!-- Engine & APU -->
+        <div class="mt-6 ml-4">
+          <div class="flex flex-row">
+            <table class="table-fixed border-spacing-2">
+                <tbody>
+                  <tr>
+                    <td class="px-6 py-2 text-center">
+                      <span class="text-white">Engine & APU</span>
+                    </td>
+                    <td class="px-4 py-2 text-center items-center w-1/4">
+                      <label class="relative inline-flex mx-auto items-center cursor-pointer">
+                        <input type="checkbox" value="" class="sr-only peer">
+                        <div class="w-11 h-6 bg-ahi-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                      </label>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
           </div>
 
-          <div class="ml-16 mt-4">
+          <!-- Table Engine & APU -->
+          <div class="ml-12 mt-4">
+             <table class="table-fixed border-spacing-2">
+                <tbody>
+                  <tr>
+                    <td class="px-4 py-2 1/4">
+                      <span class="text-white font-normal">Engine</span>
+                    </td>
+                    <td class="px-4 py-2 text-center items-center w-2/4">
+                      <div class="flex flex-col">
+                        <input id="small-range" type="range" [(ngModel)]="hilScore" step="1" class="w-80 mx-auto h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700">
+                        <span class="text-white text-sm font-normal">{{ hilScore }}</span>
+                      </div>
+                    </td>
+                  </tr>
+                   <tr>
+                    <td class="px-4 py-2 1/4">
+                      <span class="text-white font-normal">APU</span>
+                    </td>
+                    <td class="px-4 py-2 text-center items-center w-2/4">
+                      <div class="flex flex-col">
+                        <input id="small-range" type="range" [(ngModel)]="hilScore" step="1" class="w-80 mx-auto h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700">
+                        <span class="text-white text-sm font-normal">{{ hilScore }}</span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+        </div>
+
+        <div class="mt-6 ml-4">
+          <div class="flex flex-row">
+            <table class="table-fixed border-spacing-2">
+                <tbody>
+                  <tr>
+                    <td class="px-6 py-2">
+                      <span class="text-white">Structure</span>
+                    </td>
+                    <td class="px-4 py-2 text-center items-center w-2/4">
+                      <label class="relative inline-flex  items-center cursor-pointer">
+                        <input type="checkbox" value="" class="sr-only peer">
+                        <div class="w-11 h-6 bg-ahi-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                      </label>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+
+          <!-- Table structure -->
+          <div class="ml-12 mt-4">
+             <table class="table-fixed border-spacing-2">
+                <tbody>
+                  <tr>
+                    <td class="px-4 py-2 1/4">
+                      <span class="text-white font-normal">ASDCS</span>
+                    </td>
+                    <td class="px-4 py-2 text-center items-center w-2/4">
+                      <div class="flex flex-col">
+                        <input id="small-range" type="range" [(ngModel)]="hilScore" step="1" class="w-80 mx-auto h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700">
+                        <span class="text-white text-sm font-normal">{{ hilScore }}</span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+        </div>
+
+        <div class="mt-6 ml-4">
+          <div class="flex flex-row">
             <div class="flex flex-row">
-              <span class="text-white font-normal">HIL</span>
-              <div class="flex flex-col text-center">
-                <input id="small-range" type="range" [(ngModel)]="hilScore" step="1" class="w-80 ml-40 h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700">
-              <span class="text-white text-sm font-normal">{{ hilScore }}</span>
-              </div>
-            </div>
-            <div class=" flex flex-row mt-4">
-              <span class="text-white font-normal">Repetitive Problem</span>
-              <input id="small-range" type="range" value="50" class="w-80 ml-12 h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700">
-            </div>
-            <div class=" flex flex-row mt-4">
-              <span class="text-white font-normal">Pack Assesment</span>
-              <input id="small-range" type="range" value="50" class="w-80 ml-16 h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700">
-            </div>
-            <div class=" flex flex-row mt-4">
-              <span class="text-white font-normal">Bleed Monitor</span>
-              <input id="small-range" type="range" value="50" class="w-80 ml-20 h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700">
-            </div>
+            <table class="table-fixed border-spacing-2">
+                <tbody>
+                  <tr>
+                    <td class="px-6 py-2">
+                      <span class="text-white">Cabin</span>
+                    </td>
+                    <td class="px-4 py-2 text-center items-center w-2/4">
+                      <label class="relative inline-flex  items-center cursor-pointer">
+                        <input type="checkbox" value="" class="sr-only peer">
+                        <div class="w-11 h-6 bg-ahi-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                      </label>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
           </div>
-        </div>
-
-        <div class="mt-6 ml-4">
-          <div class="flex fledx-row">
-            <span class="text-white">Engine & APU</span>
-          <label class="relative inline-flex ml-36 items-center cursor-pointer">
-            <input type="checkbox" value="" class="sr-only peer">
-            <div class="w-11 h-6 bg-ahi-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-          </label>
-          </div>
-
-          <div class="ml-16 mt-4">
-            <div class=" flex flex-row">
-              <span class="text-white font-normal">Engine</span>
-              <input id="small-range" type="range" value="50" class="w-80 ml-32 h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700">
-            </div>
-            <div class=" flex flex-row mt-4">
-              <span class="text-white font-normal">APU</span>
-              <input id="small-range" type="range" value="50" class="w-80 ml-36 h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700">
-            </div>
-          </div>
-        </div>
-
-        <div class="mt-6 ml-4">
-          <div class="flex fledx-row">
-            <span class="text-white">Structure</span>
-          <label class="relative inline-flex ml-40 items-center cursor-pointer">
-            <input type="checkbox" value="" class="sr-only peer">
-            <div class="w-11 h-6 bg-ahi-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-          </label>
-          </div>
-
-          <div class="ml-16 mt-4">
-            <div class=" flex flex-row">
-              <span class="text-white font-normal">ASDCS</span>
-              <input id="small-range" type="range" value="50" class="w-80 ml-32 h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700">
-            </div>
-        </div>
-
-        <div class="mt-6 ml-4">
-          <div class="flex fledx-row">
-            <span class="text-white">Cabin</span>
-          <label class="relative inline-flex ml-36 items-center cursor-pointer">
-            <input type="checkbox" value="" class="sr-only peer">
-            <div class="w-11 h-6 bg-ahi-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-          </label>
         </div>
 
           
