@@ -9,10 +9,11 @@ import { UserComponent } from './sub-pages/user/user.component';
 import { DataComponent } from './sub-pages/data/data.component';
 import { PreferencesComponent } from './sub-pages/preferences/preferences.component';
 import { SupportComponent } from './sub-pages/support/support.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
-    CommonModule, ConfigurationRoutingModule, SharedModule, HeroIconModule
+    CommonModule, ConfigurationRoutingModule, SharedModule, HeroIconModule, FormsModule
   ],
   declarations: [ConfigurationComponent, GeneralComponent, UserComponent, DataComponent, PreferencesComponent, SupportComponent]
 })

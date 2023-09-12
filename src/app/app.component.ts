@@ -18,13 +18,16 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.userRoles = this.keycloak.getUserRoles();
 
-    if (this.userRoles.includes('user')) {
+   if (this.userRoles.includes('admin')) {
+      // Jika admin, maka dapat mengakses "home" dan "configuration"
       this.router.navigate(['/home']);
-    }
-    if (this.userRoles.includes('admin')) {
-      this.router.navigate(['/configuration']);
+    } else if (this.userRoles.includes('user')) {
+      // Jika pengguna, hanya dapat mengakses "home"
+      this.router.navigate(['/home']);
+    } else {
+      // Page404
     }
 
-    // console.log('Role =>', this.userRoles);
+    console.log('Role =>', this.userRoles);
   }
 }
