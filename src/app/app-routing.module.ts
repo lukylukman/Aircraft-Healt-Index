@@ -9,6 +9,7 @@ const routes: Routes = [
     path: 'home',
     data: {
       title: 'Home',
+      roles: [],
     },
     canActivate: [AuthGuard],
     loadChildren: () =>
@@ -18,6 +19,7 @@ const routes: Routes = [
     path: 'dashboard',
     data: {
       title: 'Dashboard',
+      roles: [],
     },
     canActivate: [AuthGuard],
     loadChildren: () =>
@@ -29,6 +31,7 @@ const routes: Routes = [
     path: 'configuration',
     data: {
       title: 'Configuration',
+      roles: ['admin'],
     },
     canActivate: [AuthGuard],
     loadChildren: () =>

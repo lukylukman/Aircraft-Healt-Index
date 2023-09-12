@@ -1,5 +1,7 @@
 import { trigger, transition, style, animate, state } from '@angular/animations';
 import { Component } from '@angular/core';
+import { NgModel } from '@angular/forms';
+
 
 @Component({
   selector: 'app-data',
@@ -35,5 +37,7 @@ export class DataComponent {
 
   showUpdate: boolean = false;
   showCalculation: boolean = true;
+
+  hilScore: number = 0;
 
 }
