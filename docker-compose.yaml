@@ -7,9 +7,9 @@ services:
     networks:
       - ahinet
     ports:
-      - "3008:80"
+      - "3014:80"
     environment:
-      APPLICATION_PORT: 3008
+      APPLICATION_PORT: 3014
       NODE_ENV: prod
 networks:
   ahinet:
