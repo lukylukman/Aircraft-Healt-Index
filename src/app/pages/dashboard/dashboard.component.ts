@@ -18,6 +18,7 @@ import { environment } from 'src/environments/environment';
 import { MasterDataManagementService } from '../master-data-management/master-data-management.service';
 import { MasterDataManagementFeatureState } from '../master-data-management/states/master-data-management.feature';
 import { MasterDataManagementState } from '../master-data-management/states/master-data-management.selector';
+import { AircraftDTO } from './dto/aircraft.dto';
 import {
   trigger,
   transition,
@@ -146,7 +147,12 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     searchCategory: new FormControl('ahi-master-*'),
   });
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.dashboardService.getCardData().subscribe((data) => {
+      this.cardData = data;
+      console.log('DataAircraftCard =>', this.cardData);
+    })
+  }
 
   ngAfterViewInit(): void {
     const modal = new Modal(document.getElementById('modalDetailCard'), {});
@@ -173,37 +179,5 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.unsubscribe$.unsubscribe();
   }
 
-  cardData = [
-    {
-      title: 'PK-GMF',
-      count: 2,
-      total: 40,
-      subtitle: 'Last Flight',
-      time: '14:20',
-      timePeriod: 'PM',
-      date: '08 JAN',
-      year: '2023',
-    },
-    {
-      title: 'PK-GMF',
-      count: 2,
-      total: 80,
-      subtitle: 'Last Flight',
-      time: '14:20',
-      timePeriod: 'PM',
-      date: '08 JAN',
-      year: '2023',
-    },
-    {
-      title: 'PK-GMF',
-      count: 2,
-      total: 70,
-      subtitle: 'Last Flight',
-      time: '14:20',
-      timePeriod: 'PM',
-      date: '08 JAN',
-      year: '2023',
-    },
-    // Add more card data objects as needed
-  ];
+  cardData: AircraftDTO[] = [];
 }
