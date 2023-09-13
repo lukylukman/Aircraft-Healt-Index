@@ -1,0 +1,48 @@
+{
+  "cardData": [
+    {
+      "uniqueId": "ashdi78o6sagdasjh",
+      "title": "PK-GMF",
+      "count": 2,
+      "total": 40,
+      "subtitle": "Last Flight",
+      "time": "14:20",
+      "timePeriod": "PM",
+      "date": "08 JAN",
+      "year": "2023"
+    },
+    {
+      "uniqueId": "ashdi78osssgdasjh",
+      "title": "PK-GMF",
+      "count": 2,
+      "total": 80,
+      "subtitle": "Last Flight",
+      "time": "14:20",
+      "timePeriod": "PM",
+      "date": "08 JAN",
+      "year": "2023"
+    },
+    {
+      "uniqueId": "ashdi78qw3agdasjh",
+      "title": "PK-GMF",
+      "count": 2,
+      "total": 70,
+      "subtitle": "Last Flight",
+      "time": "14:20",
+      "timePeriod": "PM",
+      "date": "08 JAN",
+      "year": "2023"
+    },
+    {
+      "uniqueId": "lwnodi78o6sagdasjh",
+      "title": "PK-GMF",
+      "count": 2,
+      "total": 100,
+      "subtitle": "Last Flight",
+      "time": "14:20",
+      "timePeriod": "PM",
+      "date": "08 JAN",
+      "year": "2023"
+    }
+  ]
+}
