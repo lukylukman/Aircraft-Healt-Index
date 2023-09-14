@@ -12,7 +12,7 @@ export const environment: EnvironmentInterface = {
       header: {
         xApiKey: '4822-C85E-971C-FBCA',
       },
-      url: baseUrl + '/utils/...',
+      url: 'http://172.16.41.107:3015',
       apiVersion: 'v1',
     },
     soe: {

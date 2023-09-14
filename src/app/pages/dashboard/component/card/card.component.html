@@ -9,31 +9,42 @@
   }"
   class="p-2 bg-gradient-to-r shadow-lg rounded-lg cursor-pointer"
 >
-  <h1 class="w-full h-26 object-cover">{{ title }}</h1>
+  <h1 class="w-full h-26 object-cover">
+    {{ aircraft.aircraftRegistration }}
+  </h1>
   <h2
     class="text-8xl flex drop-shadow-lg flex-row justify-end font-light items-center text-white text-right"
   >
     <div class="flex-col text-center">
-      <app-svg [width]="'32'" [height]="'49'" [direction]="direction"></app-svg>
-      <h4 class="text-xl drop-shadow-xl font-semibold">{{ count }}</h4>
+      <app-svg [width]="'32'" [height]="'49'" [direction]="'up'"></app-svg>
+      <h4 class="text-xl drop-shadow-xl font-semibold">{{ 21 }}</h4>
     </div>
-    {{ total }}
+    {{ 55 }}
   </h2>
-  <p class="text-xs font-bold">{{ subtitle }}</p>
+  <p class="text-xs font-bold">Last flight</p>
   <span class="flex flex-row items-end">
-    <p class="text-xl font-extralight">{{ time }}</p>
-    <p class="text-xs ml-1 font-extralight">{{ timePeriod }}</p>
+    <p class="text-xl font-extralight">
+      {{ aircraft.blockOnTime | date : "hh:mm" }}
+    </p>
+    <p class="text-xs ml-1 font-extralight">
+      {{ aircraft.blockOnTime | date : "a" }}
+    </p>
   </span>
   <span class="flex justify-between items-start">
     <div class="flex flex-row items-end">
-      <p class="text-xl font-extralight">{{ date }}</p>
-      <p class="text-xs ml-1 font-extralight">{{ year }}</p>
+      <p class="text-xl font-extralight">
+        {{ aircraft.blockOnDate | date : "d MMM" }}
+      </p>
+      <p class="text-xs ml-1 font-extralight">
+        {{ aircraft.blockOnDate | date : "yyyy" }}
+      </p>
     </div>
     <div class="flex flex-col text-left">
-      <p class="text-xl ml-1 font-normal">CGK</p>
+      <p class="text-xl ml-1 font-normal">
+        {{ aircraft.arrivalStation }}
+      </p>
       <p class="text-xs ml-1 font-normal">Last Station</p>
     </div>
-
   </span>
   <!-- <p class="text-xl font-extralight text-right">{{ date }}</p> -->
 </div>

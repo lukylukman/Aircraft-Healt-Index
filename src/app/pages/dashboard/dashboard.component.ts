@@ -1,12 +1,19 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Modal } from 'flowbite';
 import { Observable, Subject, debounceTime, takeUntil, tap } from 'rxjs';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { RouteHelperService } from 'src/app/core/services/route-helper.service';
 import { DashboardService } from './dashboard.service';
-import { Modal } from 'flowbite';
 
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import Shepherd from 'shepherd.js';
 import { LocalStorageServiceInterface } from 'src/app/core/interfaces/localstorage.service.interface';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
@@ -19,17 +26,9 @@ import { MasterDataManagementService } from '../master-data-management/master-da
 import { MasterDataManagementFeatureState } from '../master-data-management/states/master-data-management.feature';
 import { MasterDataManagementState } from '../master-data-management/states/master-data-management.selector';
 import { AircraftDTO } from './dto/aircraft.dto';
-import * as DashboardAction from './states/dashboard.action'
-import {
-  trigger,
-  transition,
-  style,
-  animate,
-  state,
-} from '@angular/animations';
+import { ImsPaginationDTO } from './dto/ims-pagination.dto';
 import { DashboardFeatureState } from './states/dashboard.feature';
 import { DashboardState } from './states/dashboard.selector';
-import { DataRequest } from './dto/dataRequest.dto';
 
 export interface SearchSelection {
   key: string;
@@ -69,6 +68,7 @@ export interface SearchSelection {
 export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   private readonly unsubscribe$ = new Subject();
 
+  cardData: AircraftDTO[] = [];
   logger: LoggerService;
   localservice: LocalStorageServiceInterface;
   isSearch: boolean = false;
@@ -118,8 +118,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedSearchSelection: string = '';
   isModalOpen: boolean = false;
   selectedCardData: any;
-  currentPage = 1;
-  perPage = 10;
+
+  paginationData: ImsPaginationDTO = {
+    page: 1,
+    size: 20,
+  };
 
   masterDataManagementState$: Observable<MasterDataManagementFeatureState>;
 
@@ -181,25 +184,18 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   fectDashboardData(): void {
-  const inboxRequest: DataRequest = {
-    orderBy: 'DESC',
-    orderColumn: 'createdAt',
-    page: this.currentPage,
-    perPage: this.perPage,
-    personalNumber: this.personalInformation.personalNumber,
-  };
-
-  this.dashboardService.getCardData()
-    .pipe(
-      tap((data) => {
-        this.cardData = data;
-        // this.store.dispatch(DashboardAction.onDashboardLoaded(data));
-        console.log('DataAircraftCard =>', this.cardData);
-      }),
-      takeUntil(this.unsubscribe$),
-    )
-    .subscribe(); // Don't forget to subscribe to trigger the observable
-}
+    this.dashboardService
+      .getCardData(this.paginationData)
+      .pipe(
+        tap((res) => {
+          res.data.forEach((el) => {
+            this.cardData = [...this.cardData, el];
+          });
+        }),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe(); // Don't forget to subscribe to trigger the observable
+  }
 
   selectedCard: any;
 
@@ -210,10 +206,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     modal.toggle();
   }
 
-
   ngOnDestroy(): void {
     this.unsubscribe$.unsubscribe();
   }
-
-  cardData: AircraftDTO[] = [];
 }
