@@ -1,3 +1,4 @@
+import { AircraftScoreDTO } from './aircraft-score.dto';
 import { TimestampDTO } from './timeStamp.dto';
 
 export interface AircraftDTO extends TimestampDTO {
@@ -7,4 +8,5 @@ export interface AircraftDTO extends TimestampDTO {
   blockOnDate: Date;
   blockOnTime: Date;
   arrivalStation: string;
+  aircraftScore?: AircraftScoreDTO;
 }
