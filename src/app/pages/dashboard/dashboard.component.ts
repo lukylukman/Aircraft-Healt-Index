@@ -128,6 +128,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedSearchSelection: string = '';
   isModalOpen: boolean = false;
   selectedCardData: any;
+  private modal: Modal;
 
   paginationData: ImsPaginationDTO = {
     page: 1,
@@ -160,6 +161,9 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
         console.log('form =>', val);
       });
   }
+  ngAfterViewInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
   partNumber: string = '';
 
@@ -170,15 +174,14 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.fectDashboardData();
-  }
 
-  ngAfterViewInit(): void {
-    const modal = new Modal(document.getElementById('modalDetailCard'), {});
+    this.modal = new Modal(document.getElementById('modalDetailCard'), {});
+
     const modalToggleButton = document.getElementById('modalDetailCardBtn');
     if (modalToggleButton) {
       modalToggleButton.addEventListener('click', () => {
         this.isModalOpen = !this.isModalOpen;
-        modal.toggle();
+        this.modal.toggle();
       });
     }
 
@@ -188,7 +191,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     if (closeModalButton) {
       closeModalButton.addEventListener('click', () => {
         this.isModalOpen = false;
-        modal.toggle();
+        this.modal.toggle();
       });
     }
   }
@@ -254,8 +257,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   openCardDetail(card: any) {
     this.selectedCard = card;
     this.isModalOpen = true; // Open the modal
-    const modal = new Modal(document.getElementById('modalDetailCard'), {});
-    modal.toggle();
+    this.modal.toggle();
   }
 
   ngOnDestroy(): void {
