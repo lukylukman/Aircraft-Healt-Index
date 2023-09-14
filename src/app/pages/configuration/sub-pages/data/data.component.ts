@@ -35,8 +35,8 @@ import { NgModel } from '@angular/forms';
 })
 export class DataComponent {
 
-  showUpdate: boolean = false;
-  showCalculation: boolean = true;
+  showUpdate: boolean = true;
+  showCalculation: boolean = false;
 
   hilScore: number = 0;
 

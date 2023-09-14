@@ -15,14 +15,14 @@
         [themeColor]="
           card.total >= 94 ? 'green' : card.total >= 75 ? 'yellow' : 'red'
         "
-        id="modalDetailCardBtn" data-modal-toggle="modalDetailCard"
+        (click)="openCardDetail(card)"
       ></app-card-dashboard>
     </ng-container>
   </div>
 </div>
 </app-sidebar>
 
-<!-- Upload document modal -->
+<!-- Detail DataAircraft modal -->
 <div id="modalDetailCard" [@fadeInOut] tabindex="-1" aria-hidden="true" [class.hidden]="!isModalOpen" class="overflow-y-auto overflow-x-hidden backdrop-blur-sm fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
     <div class="relative p-4 w-11/12 h-full md:h-auto">
         <!-- Modal content -->
@@ -41,7 +41,7 @@
             <!-- header -->
             <div class="grid grid-cols-4">
               <div class="border-r-2 border-b-2 pl-28 pr-10 pb-3">
-                <h1 class="text-2xl">PK-GMF</h1>
+                <h1 class="text-2xl">{{ selectedCard?.title }}</h1>
                 <h4 class="text-xs font-semibold">B737-800</h4>
               </div>
               <div class="border-b-2 border-r-2 pl-10">
@@ -54,7 +54,7 @@
               </div>
               <div class="border-b-2 pl-10">
                 <h4 class="text-xs text-center flex"><span class="flex w-2 h-2 mr-1 bg-red-500 rounded-full"></span>Score</h4>
-                <h1 class="text-2xl">53</h1>
+                <h1 class="text-2xl">{{ selectedCard?.total }}</h1>
               </div>
             </div>
             <!-- end header -->

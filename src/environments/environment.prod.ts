@@ -4,9 +4,27 @@
 
 import { EnvironmentInterface } from './environment.interface';
 
+const baseUrl: string = 'https://api.gmf-aeroasia.co.id';
+
 export const environment: EnvironmentInterface = {
+  host: {
+    ahi: {
+      header: {
+        xApiKey: '4822-C85E-971C-FBCA',
+      },
+      url: baseUrl + '/utils/...',
+      apiVersion: 'v1',
+    },
+    soe: {
+      header: {
+        xApiKey: '343C-ED0B-4137-B27E',
+      },
+      url: baseUrl + '/th/soe',
+      apiVersion: 'v1',
+    },
+  },
   production: false,
-  version: '0.0.1',
+  version: '1.0.1',
   // apiUrl: 'http://localhost:6001',
   apiUrl: 'https://api.gmf-aeroasia.co.id/composite/ahi',
   soeApiUrl: 'https://api.gmf-aeroasia.co.id/th/soe',
