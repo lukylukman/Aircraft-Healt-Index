@@ -1,6 +1,9 @@
 import { trigger, transition, style, animate, state } from '@angular/animations';
 import { Component } from '@angular/core';
 import { NgModel } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { RouteHelperService } from 'src/app/core/services/route-helper.service';
+import { DashboardService } from 'src/app/pages/dashboard/dashboard.service';
 
 
 @Component({
@@ -39,5 +42,34 @@ export class DataComponent {
   showCalculation: boolean = false;
 
   hilScore: number = 0;
+
+  constructor(
+    private route: RouteHelperService, // private readonly unsubscribe$ = new Subject()
+    private readonly dashboardService: DashboardService,
+    private readonly store: Store,
+  ) {
+  }
+
+  uploadFile(file: File, dataType: string): void {
+    if (!file) {
+      // Handle the case when no file is selected
+      console.log('Please select a file');
+      return;
+    }
+    if (dataType === 'Select config type') {
+      // Handle the case when no data type is selected
+      console.log('Please select a data type');
+      return;
+    }
+
+    this.dashboardService.updateDataConfiguration(file, dataType).subscribe(
+      (progress: number) => {
+        console.log(`Upload progress: ${progress}%`);
+      },
+      (error) => {
+        console.error('Upload failed:', error);
+      }
+    );
+  }
 
 }

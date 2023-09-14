@@ -60,22 +60,38 @@
       </div>
 
       <div *ngIf="showUpdate" [@fadeInOut] class="bg-gradient-to-r h-screen ml-6 from-ahi-blue-800 to-ahi-blue-600">
-        <div class="mt-6 ml-2 flex flex-row text-center">
+        <div class="mt-6 ml-2 flex flex-row items-center text-center">
           <h4 class="text-white">Update data</h4>
-          <input class="block ml-14 w-60 mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-ahi-blue-900 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="small_size" type="file">
+          <input
+            #fileInput
+            class="block ml-14 w-60 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-ahi-blue-900 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            type="file"
+          >
         </div>
 
-        <div class="mt-6 ml-2 text-center flex flex-row">
+        <div class="mt-6 ml-2 items-center text-center flex flex-row">
           <h4 class="text-white">Select data type</h4>
-          <select id="small" class="block ml-6 w-48 p-2 mb-6 text-sm text-white border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-ahi-blue-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option selected>Recently Update</option>
-            <option value="US">APU</option>
-            <option value="US">Bleed Monitor</option>
-            <option value="US">Engine</option>
-            <option value="US">Pack Assesment</option>
-            <option value="US">Repetitive Problem</option>
+          <select
+            #dataTypeSelect
+            id="small"
+            class="ml-7 w-48 p-2 text-sm text-white border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-ahi-blue-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option selected>Select config type</option>
+            <option value="APU">APU</option>
+            <option value="Bleed Monitor">Bleed Monitor</option>
+            <option value="Engine">Engine</option>
+            <option value="Pack Assessment">Pack Assessment</option>
+            <option value="Repetitive Problem">Repetitive Problem</option>
           </select>
         </div>
+
+        <button
+          type="button"
+          class="bg-ahi-green-500 mt-6 ml-2 text-white py-2 px-4 rounded hover:bg-ahi-green-600 focus:outline-none focus:bg-ahi-green-600"
+          (click)="uploadFile(fileInput.files[0], dataTypeSelect.value)"
+        >
+          Upload Data
+        </button>
       </div>
 
       <div *ngIf="showCalculation" [@fadeInOut] class="bg-gradient-to-r h-full from-ahi-blue-800 to-ahi-blue-600">
