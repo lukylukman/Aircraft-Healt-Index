@@ -1,416 +1,421 @@
-<app-sidebar>
-  <div class="container h-full bg-black">
-    <div
-      class="grid 2xl:grid-cols-6 xl:grid-cols-4 lg:grid-cols-2 gap-4 md:grid-cols-2 sm:grid-cols-1 m-2"
-    >
-      <ng-container *ngFor="let card of cardData">
-        <app-card-dashboard
-          [@fadeInOut]
-          [aircraft]="card"
-          (click)="openCardDetail(card)"
-        ></app-card-dashboard>
-      </ng-container>
-    </div>
-  </div>
-</app-sidebar>
-
-<!-- Detail DataAircraft modal -->
-<div
-  id="modalDetailCard"
-  [@fadeInOut]
-  tabindex="-1"
-  aria-hidden="true"
-  [class.hidden]="!isModalOpen"
-  class="overflow-y-auto overflow-x-hidden backdrop-blur-sm fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full"
->
-  <div class="relative p-4 w-11/12 h-full md:h-auto">
-    <!-- Modal content -->
-    <div
-      class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5"
-    >
-      <!-- Modal header -->
+<ng-container *ngIf="dashboardState$ | async as dashboardState">
+  <app-sidebar>
+    <div class="container h-full bg-black">
       <div
-        class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600"
+        class="grid 2xl:grid-cols-6 xl:grid-cols-4 lg:grid-cols-2 gap-4 md:grid-cols-2 sm:grid-cols-1 m-2"
       >
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-          Upload document
-        </h3>
-        <button
-          (click)="closeModal()"
-          type="button"
-          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-          data-modal-toggle="closeModalDetailCard"
-        >
-          <svg
-            aria-hidden="true"
-            class="w-5 h-5"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="sr-only">Close modal</span>
-        </button>
+        <ng-container *ngFor="let card of dashboardState.aircraftLists">
+          <app-card-dashboard
+            [@fadeInOut]
+            [aircraft]="card"
+            (click)="openCardDetail(card)"
+          ></app-card-dashboard>
+        </ng-container>
       </div>
-      <!-- Modal body -->
-      <!-- header -->
-      <div class="grid grid-cols-4">
-        <div class="border-r-2 border-b-2 pl-28 pr-10 pb-3">
-          <h1 class="text-2xl">{{ selectedCard?.title }}</h1>
-          <h4 class="text-xs font-semibold">B737-800</h4>
-        </div>
-        <div class="border-b-2 border-r-2 pl-10">
-          <h4 class="text-xs">Last Flight</h4>
-          <h1 class="text-2xl">08 Jan 2023</h1>
-        </div>
-        <div class="border-b-2 border-r-2 pl-10">
-          <h4 class="text-xs">Last Assignment</h4>
-          <h1 class="text-2xl">BA124</h1>
-        </div>
-        <div class="border-b-2 pl-10">
-          <h4 class="text-xs text-center flex">
-            <span class="flex w-2 h-2 mr-1 bg-red-500 rounded-full"></span>Score
-          </h4>
-          <h1 class="text-2xl">{{ selectedCard?.total }}</h1>
-        </div>
-      </div>
-      <!-- end header -->
+    </div>
+  </app-sidebar>
 
-      <!-- Table -->
-      <div class="grid grid-cols-2 gap-2">
-        <!-- Tabel 1 -->
-        <div class="flex flex-col">
-          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-              <div class="overflow-hidden">
-                <table class="min-w-full text-center text-sm font-light">
-                  <thead class="border-b bg-blue-800 text-left">
-                    <tr>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-semibold text-white"
-                        colspan="3"
-                      >
-                        Hold Item List
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b">
-                      <td
-                        class="whitespace-nowrap px-2 pt-1 font-medium bg-gray-200"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
+  <!-- Detail DataAircraft modal -->
+  <div
+    id="modalDetailCard"
+    [@fadeInOut]
+    tabindex="-1"
+    aria-hidden="true"
+    [class.hidden]="!isModalOpen"
+    class="overflow-y-auto overflow-x-hidden backdrop-blur-sm fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full"
+  >
+    <div class="relative p-4 w-11/12 h-full md:h-auto">
+      <!-- Modal content -->
+      <div
+        class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5"
+      >
+        <!-- Modal header -->
+        <div
+          class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600"
+        >
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+            Upload document
+          </h3>
+          <button
+            (click)="closeModal()"
+            type="button"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            data-modal-toggle="closeModalDetailCard"
+          >
+            <svg
+              aria-hidden="true"
+              class="w-5 h-5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+        <!-- Modal body -->
+        <!-- header -->
+        <div class="grid grid-cols-4">
+          <div class="border-r-2 border-b-2 pl-28 pr-10 pb-3">
+            <h1 class="text-2xl">{{ selectedCard?.title }}</h1>
+            <h4 class="text-xs font-semibold">B737-800</h4>
+          </div>
+          <div class="border-b-2 border-r-2 pl-10">
+            <h4 class="text-xs">Last Flight</h4>
+            <h1 class="text-2xl">08 Jan 2023</h1>
+          </div>
+          <div class="border-b-2 border-r-2 pl-10">
+            <h4 class="text-xs">Last Assignment</h4>
+            <h1 class="text-2xl">BA124</h1>
+          </div>
+          <div class="border-b-2 pl-10">
+            <h4 class="text-xs text-center flex">
+              <span class="flex w-2 h-2 mr-1 bg-red-500 rounded-full"></span
+              >Score
+            </h4>
+            <h1 class="text-2xl">{{ selectedCard?.total }}</h1>
+          </div>
+        </div>
+        <!-- end header -->
+
+        <!-- Table -->
+        <div class="grid grid-cols-2 gap-2">
+          <!-- Tabel 1 -->
+          <div class="flex flex-col">
+            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                <div class="overflow-hidden">
+                  <table class="min-w-full text-center text-sm font-light">
+                    <thead class="border-b bg-blue-800 text-left">
+                      <tr>
+                        <th
+                          scope="col"
+                          class="px-6 py-4 font-semibold text-white"
+                          colspan="3"
                         >
-                          <path
-                            d="M3.16998 7.43994L12 12.5499L20.77 7.46994M12 21.6099V12.5399"
-                            stroke="black"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M21.61 9.17V14.83C21.61 14.88 21.61 14.92 21.6 14.97C20.9 14.36 20 14 19 14C18.06 14 17.19 14.33 16.5 14.88C16.0306 15.253 15.6518 15.7275 15.392 16.2679C15.1322 16.8083 14.9982 17.4004 15 18C15 18.75 15.21 19.46 15.58 20.06C15.67 20.22 15.78 20.37 15.9 20.51L14.07 21.52C12.93 22.16 11.07 22.16 9.93001 21.52L4.59001 18.56C3.38001 17.89 2.39001 16.21 2.39001 14.83V9.17C2.39001 7.79 3.38001 6.11 4.59001 5.44L9.93001 2.48C11.07 1.84 12.93 1.84 14.07 2.48L19.41 5.44C20.62 6.11 21.61 7.79 21.61 9.17Z"
-                            stroke="black"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M23 18.0001C23 19.2001 22.47 20.2701 21.64 21.0001C20.9108 21.6432 19.9723 21.9987 19 22.0001C16.79 22.0001 15 20.2101 15 18.0001C15 16.7401 15.58 15.6101 16.5 14.8801C17.088 14.4088 17.7972 14.1132 18.5458 14.0275C19.2945 13.9417 20.0521 14.0692 20.7315 14.3953C21.4108 14.7214 21.9842 15.2328 22.3856 15.8705C22.7869 16.5083 22.9999 17.2465 23 18.0001Z"
-                            stroke="black"
-                            stroke-width="1.5"
-                            stroke-miterlimit="10"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M19.25 16.75V18.25L18 19"
-                            stroke="black"
-                            stroke-width="1.5"
-                            stroke-miterlimit="10"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      </td>
-                      <td class="whitespace-nowrap px-6 py-4">
-                        <p class="text-blue-500 text-left font-semibold">
-                          CAT C - Air Conditioning
-                        </p>
-                        <p>- Raised on 09-01-2023 03:00</p>
-                        <p>- Expired on 19-01-2023 03:00</p>
-                      </td>
-                      <td class="px-6 py-4">
-                        <p class="text-blue-500 text-left font-semibold">
-                          Last Follow Up
-                        </p>
-                        <p class="text-left">
+                          Hold Item List
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="border-b">
+                        <td
+                          class="whitespace-nowrap px-2 pt-1 font-medium bg-gray-200"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M3.16998 7.43994L12 12.5499L20.77 7.46994M12 21.6099V12.5399"
+                              stroke="black"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M21.61 9.17V14.83C21.61 14.88 21.61 14.92 21.6 14.97C20.9 14.36 20 14 19 14C18.06 14 17.19 14.33 16.5 14.88C16.0306 15.253 15.6518 15.7275 15.392 16.2679C15.1322 16.8083 14.9982 17.4004 15 18C15 18.75 15.21 19.46 15.58 20.06C15.67 20.22 15.78 20.37 15.9 20.51L14.07 21.52C12.93 22.16 11.07 22.16 9.93001 21.52L4.59001 18.56C3.38001 17.89 2.39001 16.21 2.39001 14.83V9.17C2.39001 7.79 3.38001 6.11 4.59001 5.44L9.93001 2.48C11.07 1.84 12.93 1.84 14.07 2.48L19.41 5.44C20.62 6.11 21.61 7.79 21.61 9.17Z"
+                              stroke="black"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M23 18.0001C23 19.2001 22.47 20.2701 21.64 21.0001C20.9108 21.6432 19.9723 21.9987 19 22.0001C16.79 22.0001 15 20.2101 15 18.0001C15 16.7401 15.58 15.6101 16.5 14.8801C17.088 14.4088 17.7972 14.1132 18.5458 14.0275C19.2945 13.9417 20.0521 14.0692 20.7315 14.3953C21.4108 14.7214 21.9842 15.2328 22.3856 15.8705C22.7869 16.5083 22.9999 17.2465 23 18.0001Z"
+                              stroke="black"
+                              stroke-width="1.5"
+                              stroke-miterlimit="10"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M19.25 16.75V18.25L18 19"
+                              stroke="black"
+                              stroke-width="1.5"
+                              stroke-miterlimit="10"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </td>
+                        <td class="whitespace-nowrap px-6 py-4">
+                          <p class="text-blue-500 text-left font-semibold">
+                            CAT C - Air Conditioning
+                          </p>
+                          <p>- Raised on 09-01-2023 03:00</p>
+                          <p>- Expired on 19-01-2023 03:00</p>
+                        </td>
+                        <td class="px-6 py-4">
+                          <p class="text-blue-500 text-left font-semibold">
+                            Last Follow Up
+                          </p>
+                          <p class="text-left">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit, sed do eiusmod..
+                          </p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Tabel 2 -->
+          <div class="flex flex-col">
+            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                <div class="overflow-hidden">
+                  <table class="min-w-full text-center text-sm font-light">
+                    <thead class="border-b bg-blue-800 text-left">
+                      <tr>
+                        <th
+                          scope="col"
+                          class="px-6 py-4 font-semibold text-white"
+                          colspan="2"
+                        >
+                          Repetitive Problem
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="border-b">
+                        <td class="px-2 pt-1 font-medium bg-gray-200">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M17.23 20.77L20.77 17.23M20.77 20.77L17.23 17.23M7 10.5V13.5M12 10.5V13.5M17 10.5V13.5M22 13V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22H13"
+                              stroke="black"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </td>
+                        <td class="text-left px-6 py-4">
                           Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do eiusmod..
-                        </p>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                          elit, sed do eiusmod tempor incididunt ut labore et
+                          dolore magna aliqua.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- Tabel 2 -->
-        <div class="flex flex-col">
-          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-              <div class="overflow-hidden">
-                <table class="min-w-full text-center text-sm font-light">
-                  <thead class="border-b bg-blue-800 text-left">
-                    <tr>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-semibold text-white"
-                        colspan="2"
-                      >
-                        Repetitive Problem
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b">
-                      <td class="px-2 pt-1 font-medium bg-gray-200">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
+          <!-- Tabel 3 -->
+          <div class="flex flex-col">
+            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                <div class="overflow-hidden">
+                  <table class="min-w-full text-center text-sm font-light">
+                    <thead class="border-b bg-blue-800 text-left">
+                      <tr>
+                        <th
+                          scope="col"
+                          class="px-6 py-4 font-semibold text-white"
+                          colspan="2"
                         >
-                          <path
-                            d="M17.23 20.77L20.77 17.23M20.77 20.77L17.23 17.23M7 10.5V13.5M12 10.5V13.5M17 10.5V13.5M22 13V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22H13"
-                            stroke="black"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      </td>
-                      <td class="text-left px-6 py-4">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                          Hold Item List
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="border-b">
+                        <td class="px-2 pt-1 font-medium bg-gray-200">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M12 8.50005V6.90005L7.5 4.30005L3 6.90005V12.1L7.5 14.7L12 12.1L16.5 9.50005L21 12.1V17.3L16.5 19.9L12 17.3V15.6"
+                              stroke="black"
+                              stroke-width="1.5"
+                              stroke-miterlimit="10"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </td>
+                        <td class="px-6 py-4">
+                          APU listed on-watch since 03-01-2023
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- Tabel 3 -->
-        <div class="flex flex-col">
-          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-              <div class="overflow-hidden">
-                <table class="min-w-full text-center text-sm font-light">
-                  <thead class="border-b bg-blue-800 text-left">
-                    <tr>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-semibold text-white"
-                        colspan="2"
-                      >
-                        Hold Item List
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b">
-                      <td class="px-2 pt-1 font-medium bg-gray-200">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
+          <!-- Tabel 4 -->
+          <div class="flex flex-col">
+            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                <div class="overflow-hidden">
+                  <table class="min-w-full text-center text-sm font-light">
+                    <thead class="border-b bg-blue-800 text-left">
+                      <tr>
+                        <th
+                          scope="col"
+                          class="px-6 py-4 font-semibold text-white"
+                          colspan="2"
                         >
-                          <path
-                            d="M12 8.50005V6.90005L7.5 4.30005L3 6.90005V12.1L7.5 14.7L12 12.1L16.5 9.50005L21 12.1V17.3L16.5 19.9L12 17.3V15.6"
-                            stroke="black"
-                            stroke-width="1.5"
-                            stroke-miterlimit="10"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      </td>
-                      <td class="px-6 py-4">
-                        APU listed on-watch since 03-01-2023
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                          Repetitive Problem
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="border-b">
+                        <td class="px-2 pt-1 font-medium bg-gray-200">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M12.61 2.20999C12.4358 2.07391 12.2211 2 12 2C11.779 2 11.5643 2.07391 11.39 2.20999C9.49003 3.65999 3.88003 8.38999 3.91003 13.9C3.91003 18.36 7.54003 22 12.01 22C16.48 22 20.11 18.37 20.11 13.91C20.12 8.47999 14.5 3.66999 12.61 2.20999Z"
+                              stroke="black"
+                              stroke-width="1.5"
+                              stroke-miterlimit="10"
+                            />
+                          </svg>
+                        </td>
+                        <td class="px-6 py-4">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit,
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- Tabel 4 -->
-        <div class="flex flex-col">
-          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-              <div class="overflow-hidden">
-                <table class="min-w-full text-center text-sm font-light">
-                  <thead class="border-b bg-blue-800 text-left">
-                    <tr>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-semibold text-white"
-                        colspan="2"
-                      >
-                        Repetitive Problem
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b">
-                      <td class="px-2 pt-1 font-medium bg-gray-200">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
+          <!-- Tabel 5 -->
+          <div class="flex flex-col">
+            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                <div class="overflow-hidden">
+                  <table class="min-w-full text-center text-sm font-light">
+                    <thead class="border-b bg-blue-800 text-left">
+                      <tr>
+                        <th
+                          scope="col"
+                          class="px-6 py-4 font-semibold text-white"
+                          colspan="2"
                         >
-                          <path
-                            d="M12.61 2.20999C12.4358 2.07391 12.2211 2 12 2C11.779 2 11.5643 2.07391 11.39 2.20999C9.49003 3.65999 3.88003 8.38999 3.91003 13.9C3.91003 18.36 7.54003 22 12.01 22C16.48 22 20.11 18.37 20.11 13.91C20.12 8.47999 14.5 3.66999 12.61 2.20999Z"
-                            stroke="black"
-                            stroke-width="1.5"
-                            stroke-miterlimit="10"
-                          />
-                        </svg>
-                      </td>
-                      <td class="px-6 py-4">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                          Pirep
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="border-b">
+                        <td class="px-2 pt-1 font-medium bg-gray-200">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M18 18.86H17.24C16.44 18.86 15.68 19.17 15.12 19.73L13.41 21.42C12.63 22.19 11.36 22.19 10.58 21.42L8.87 19.73C8.31 19.17 7.54 18.86 6.75 18.86H6C4.34 18.86 3 17.53 3 15.89V4.97C3 3.33 4.34 2 6 2H18C19.66 2 21 3.33 21 4.97V15.88C21 17.52 19.66 18.86 18 18.86Z"
+                              stroke="black"
+                              stroke-width="1.5"
+                              stroke-miterlimit="10"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M12.07 8.95005H11.92C11.4146 8.93315 10.9357 8.72011 10.5848 8.3561C10.2338 7.99208 10.0384 7.50569 10.04 7.00005C10.04 5.92005 10.91 5.05005 11.99 5.05005C13.07 5.05005 13.94 5.93005 13.94 7.00005C13.95 8.06005 13.12 8.92005 12.07 8.95005ZM9.25 11.96C7.92 12.85 7.92 14.3 9.25 15.19C10.76 16.2 13.24 16.2 14.75 15.19C16.08 14.3 16.08 12.85 14.75 11.96C13.24 10.96 10.77 10.96 9.25 11.96Z"
+                              stroke="black"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </td>
+                        <td class="px-6 py-4">
+                          Pirep “xxx” appears 2x since 03-01-2023
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- Tabel 5 -->
-        <div class="flex flex-col">
-          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-              <div class="overflow-hidden">
-                <table class="min-w-full text-center text-sm font-light">
-                  <thead class="border-b bg-blue-800 text-left">
-                    <tr>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-semibold text-white"
-                        colspan="2"
-                      >
-                        Pirep
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b">
-                      <td class="px-2 pt-1 font-medium bg-gray-200">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
+          <!-- Tabel 6 -->
+          <div class="flex flex-col">
+            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                <div class="overflow-hidden">
+                  <table class="min-w-full text-center text-sm font-light">
+                    <thead class="border-b bg-blue-800 text-left">
+                      <tr>
+                        <th
+                          scope="col"
+                          class="px-6 py-4 font-semibold text-white"
+                          colspan="2"
                         >
-                          <path
-                            d="M18 18.86H17.24C16.44 18.86 15.68 19.17 15.12 19.73L13.41 21.42C12.63 22.19 11.36 22.19 10.58 21.42L8.87 19.73C8.31 19.17 7.54 18.86 6.75 18.86H6C4.34 18.86 3 17.53 3 15.89V4.97C3 3.33 4.34 2 6 2H18C19.66 2 21 3.33 21 4.97V15.88C21 17.52 19.66 18.86 18 18.86Z"
-                            stroke="black"
-                            stroke-width="1.5"
-                            stroke-miterlimit="10"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M12.07 8.95005H11.92C11.4146 8.93315 10.9357 8.72011 10.5848 8.3561C10.2338 7.99208 10.0384 7.50569 10.04 7.00005C10.04 5.92005 10.91 5.05005 11.99 5.05005C13.07 5.05005 13.94 5.93005 13.94 7.00005C13.95 8.06005 13.12 8.92005 12.07 8.95005ZM9.25 11.96C7.92 12.85 7.92 14.3 9.25 15.19C10.76 16.2 13.24 16.2 14.75 15.19C16.08 14.3 16.08 12.85 14.75 11.96C13.24 10.96 10.77 10.96 9.25 11.96Z"
-                            stroke="black"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      </td>
-                      <td class="px-6 py-4">
-                        Pirep “xxx” appears 2x since 03-01-2023
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Tabel 6 -->
-        <div class="flex flex-col">
-          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-              <div class="overflow-hidden">
-                <table class="min-w-full text-center text-sm font-light">
-                  <thead class="border-b bg-blue-800 text-left">
-                    <tr>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-semibold text-white"
-                        colspan="2"
-                      >
-                        Pack Assesment
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b">
-                      <td class="px-2 pt-1 font-medium bg-gray-200">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                        >
-                          <path
-                            d="M9.86002 18.9999L11.54 17.5799C11.79 17.3699 12.21 17.3699 12.47 17.5799L14.14 18.9999C14.53 19.1999 15.01 18.9999 15.15 18.5799L15.47 17.6199C15.55 17.3899 15.47 17.0499 15.3 16.8799L13.66 15.2299C13.5337 15.089 13.4596 14.909 13.45 14.7199V12.8699C13.45 12.4499 13.76 12.2499 14.15 12.4099L17.5 13.8499C18.05 14.0899 18.51 13.7899 18.51 13.1899V12.2599C18.51 11.7799 18.15 11.2199 17.7 11.0299L13.76 9.32994C13.673 9.28763 13.5992 9.22248 13.5464 9.14146C13.4935 9.06045 13.4637 8.9666 13.46 8.86994V6.79994C13.46 6.11994 12.96 5.31994 12.36 5.00994C12.2531 4.95574 12.1349 4.92749 12.015 4.92749C11.8951 4.92749 11.7769 4.95574 11.67 5.00994C11.06 5.30994 10.57 6.11994 10.57 6.79994V8.86994C10.57 9.04994 10.43 9.25994 10.27 9.32994L6.33002 11.0299C5.89002 11.2199 5.52002 11.7799 5.52002 12.2599V13.1899C5.52002 13.7899 5.97002 14.0899 6.53002 13.8499L9.88002 12.4099C10.26 12.2399 10.58 12.4499 10.58 12.8699V14.7199C10.58 14.8899 10.48 15.1199 10.37 15.2299L8.70002 16.8699C8.53002 17.0399 8.45002 17.3799 8.53002 17.6099L8.85002 18.5699C8.99002 18.9999 9.46002 19.1999 9.86002 18.9999Z"
-                            stroke="black"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z"
-                            stroke="black"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      </td>
-                      <td class="px-6 py-4">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <!-- /Modal body -->
+                          Pack Assesment
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="border-b">
+                        <td class="px-2 pt-1 font-medium bg-gray-200">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M9.86002 18.9999L11.54 17.5799C11.79 17.3699 12.21 17.3699 12.47 17.5799L14.14 18.9999C14.53 19.1999 15.01 18.9999 15.15 18.5799L15.47 17.6199C15.55 17.3899 15.47 17.0499 15.3 16.8799L13.66 15.2299C13.5337 15.089 13.4596 14.909 13.45 14.7199V12.8699C13.45 12.4499 13.76 12.2499 14.15 12.4099L17.5 13.8499C18.05 14.0899 18.51 13.7899 18.51 13.1899V12.2599C18.51 11.7799 18.15 11.2199 17.7 11.0299L13.76 9.32994C13.673 9.28763 13.5992 9.22248 13.5464 9.14146C13.4935 9.06045 13.4637 8.9666 13.46 8.86994V6.79994C13.46 6.11994 12.96 5.31994 12.36 5.00994C12.2531 4.95574 12.1349 4.92749 12.015 4.92749C11.8951 4.92749 11.7769 4.95574 11.67 5.00994C11.06 5.30994 10.57 6.11994 10.57 6.79994V8.86994C10.57 9.04994 10.43 9.25994 10.27 9.32994L6.33002 11.0299C5.89002 11.2199 5.52002 11.7799 5.52002 12.2599V13.1899C5.52002 13.7899 5.97002 14.0899 6.53002 13.8499L9.88002 12.4099C10.26 12.2399 10.58 12.4499 10.58 12.8699V14.7199C10.58 14.8899 10.48 15.1199 10.37 15.2299L8.70002 16.8699C8.53002 17.0399 8.45002 17.3799 8.53002 17.6099L8.85002 18.5699C8.99002 18.9999 9.46002 19.1999 9.86002 18.9999Z"
+                              stroke="black"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z"
+                              stroke="black"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </td>
+                        <td class="px-6 py-4">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit,
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- /Modal body -->
+                </div>
               </div>
             </div>
           </div>
@@ -418,4 +423,4 @@
       </div>
     </div>
   </div>
-</div>
+</ng-container>

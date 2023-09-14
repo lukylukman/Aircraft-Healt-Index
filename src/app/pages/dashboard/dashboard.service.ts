@@ -8,6 +8,7 @@ import { LoggerService } from 'src/app/core/services/logger.service';
 import { UserSoeService } from 'src/app/core/services/user.soe.service';
 import { HttpService } from 'src/app/providers/http/http.service';
 import { environment } from 'src/environments/environment';
+import { AircraftScoreDTO } from './dto/aircraft-score.dto';
 import { AircraftDTO } from './dto/aircraft.dto';
 import { DataRequest } from './dto/dataRequest.dto';
 import { ImsPaginationDTO } from './dto/ims-pagination.dto';
@@ -91,4 +92,12 @@ export class DashboardService extends HttpService {
     );
   }
   
+  getAircraftScore(acReg: string): Observable<HttpResult<AircraftScoreDTO>> {
+    const params = new HttpParams().set('aircraftRegistration', acReg);
+
+    return this.http.get<HttpResult<AircraftScoreDTO>>(
+      `${environment.host.ahi.url}/ahi/_search-last`,
+      { params: params }
+    );
+  }
 }

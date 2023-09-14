@@ -1,9 +1,7 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { DashboardRoutingModule } from './dashboard-routing.module';
-import { DashboardComponent } from './dashboard.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LetModule, PushModule } from '@ngrx/component';
 import { StoreModule } from '@ngrx/store';
 import { QRCodeModule } from 'angularx-qrcode';
@@ -23,10 +21,16 @@ import { MasterDataManagementService } from '../master-data-management/master-da
 import { MasterDataManagementFeature } from '../master-data-management/states/master-data-management.feature';
 import { CardDashboardComponent } from './component/card/card.component';
 import { DetailCardComponent } from './component/detail-card/detail-card.component';
-
+import { DashboardRoutingModule } from './dashboard-routing.module';
+import { DashboardComponent } from './dashboard.component';
+import { DashboardFeature } from './states/dashboard.feature';
 
 @NgModule({
-  declarations: [DashboardComponent, CardDashboardComponent, DetailCardComponent ],
+  declarations: [
+    DashboardComponent,
+    CardDashboardComponent,
+    DetailCardComponent,
+  ],
   imports: [
     LetModule,
     PushModule,
@@ -43,6 +47,7 @@ import { DetailCardComponent } from './component/detail-card/detail-card.compone
     NgxBarcodeModule.forRoot(),
     QRCodeModule,
     StoreModule.forFeature(MasterDataManagementFeature),
+    StoreModule.forFeature(DashboardFeature),
   ],
   providers: [
     HomeService,
