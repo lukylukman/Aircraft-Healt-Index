@@ -2,7 +2,16 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Modal } from 'flowbite';
-import { Observable, Subject, debounceTime, takeUntil, tap } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  catchError,
+  debounceTime,
+  map,
+  of,
+  takeUntil,
+  tap,
+} from 'rxjs';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { RouteHelperService } from 'src/app/core/services/route-helper.service';
 import { DashboardService } from './dashboard.service';
@@ -27,10 +36,9 @@ import { MasterDataManagementFeatureState } from '../master-data-management/stat
 import { MasterDataManagementState } from '../master-data-management/states/master-data-management.selector';
 import { AircraftDTO } from './dto/aircraft.dto';
 import { ImsPaginationDTO } from './dto/ims-pagination.dto';
+import * as DashboardAction from './states/dashboard.action';
 import { DashboardFeatureState } from './states/dashboard.feature';
 import { DashboardState } from './states/dashboard.selector';
-import { onDashboardLoaded } from './states/dashboard.action';
-import { PaginationResultDTO } from 'src/app/core/dto/pagination.result.dto';
 
 export interface SearchSelection {
   key: string;
@@ -124,7 +132,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   paginationData: ImsPaginationDTO = {
     page: 1,
-    size: 20,
+    size: 24,
   };
 
   masterDataManagementState$: Observable<MasterDataManagementFeatureState>;
@@ -153,6 +161,9 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
         console.log('form =>', val);
       });
   }
+  ngAfterViewInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
   partNumber: string = '';
 
@@ -174,7 +185,9 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       });
     }
 
-    const closeModalButton = document.querySelector('[data-modal-toggle="closeModalDetailCard"]');
+    const closeModalButton = document.querySelector(
+      '[data-modal-toggle="closeModalDetailCard"]'
+    );
     if (closeModalButton) {
       closeModalButton.addEventListener('click', () => {
         this.isModalOpen = false;
@@ -183,35 +196,61 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void {
-  }
-
   fectDashboardData(): void {
-  this.dashboardService
-    .getCardData(this.paginationData)
-    .pipe(
-      tap((res) => {
-        res.data.forEach((el) => {
-          console.log('DataDashboard => ', el);
-          const paginationResult: PaginationResultDTO<AircraftDTO> = {
-            currentPage: 1,
-            totalItems: 0,
-            lastPage: 1,
-            totalItemsPerPage: 20,
-            data: [el],
-            hasNext: false,
-            hasPrev: false
-          };
+    this.dashboardService
+      .getCardData(this.paginationData)
+      .pipe(
+        tap((res) => {
+          res.data.forEach((el) => {
+            this.dashboardService
+              .getAircraftScore(el.aircraftRegistration)
 
-          this.cardData = [...this.cardData, el];
-          this.store.dispatch(onDashboardLoaded(paginationResult));
-        });
-      }),
-      takeUntil(this.unsubscribe$)
-    )
-    .subscribe();
-}
+              .pipe(
+                map((score) => {
+                  // Perform your transformation here
+                  let tempAircraft: AircraftDTO = {
+                    sapRegistration: el.sapRegistration,
+                    aircraftRegistration: el.aircraftRegistration,
+                    carrierId: el.carrierId,
+                    blockOnDate: el.blockOnDate,
+                    blockOnTime: el.blockOnTime,
+                    arrivalStation: el.arrivalStation,
+                    aircraftScore: score.data,
+                  };
 
+                  return tempAircraft;
+                }),
+                catchError((error) => {
+                  // Handle the error here
+                  console.error('An error occurred:', error);
+
+                  // Map the error to a different value and return it
+                  return of({
+                    sapRegistration: el.sapRegistration,
+                    aircraftRegistration: el.aircraftRegistration,
+                    carrierId: el.carrierId,
+                    blockOnDate: el.blockOnDate,
+                    blockOnTime: el.blockOnTime,
+                    arrivalStation: el.arrivalStation,
+                    aircraftScore: null,
+                  });
+                })
+              )
+              .pipe(
+                tap((_) => {
+                  this.cardData.push(_);
+                  this.store.dispatch(DashboardAction.onLoadAircraftList(_));
+                })
+              )
+              .pipe(takeUntil(this.unsubscribe$))
+              .subscribe();
+            console.log('all cards data => ', this.cardData);
+          });
+        }),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe(); // Don't forget to subscribe to trigger the observable
+  }
 
   selectedCard: any;
 

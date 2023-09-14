@@ -5,17 +5,28 @@ import { DashboardActionType } from './dashboard.action.type';
 
 export const onDashboardLoaded = createAction(
   DashboardActionType.ON_DASHBOARD_DATA_LOAD,
-  props<PaginationResultDTO<AircraftDTO>>(),
+  props<PaginationResultDTO<AircraftDTO>>()
 );
 
 export const onDashboardSelected = createAction(
   DashboardActionType.ON_DASHBOARD_DATA_SELECTED,
-  props<AircraftDTO>(),
+  props<AircraftDTO>()
 );
 
-export const onDashboardClear = createAction(DashboardActionType.ON_DASHBOARD_DATA_CLEAR);
+export const onDashboardClear = createAction(
+  DashboardActionType.ON_DASHBOARD_DATA_CLEAR
+);
 
 export const onDashboardLoadedToday = createAction(
   DashboardActionType.ON_DASHBOARD_DATA_LOAD_TODAY,
-  props<AircraftDTO>(),
+  props<AircraftDTO>()
+);
+
+export const onLoadAircraftList = createAction(
+  DashboardActionType.ON_DASHBOARD_LIST_LOAD,
+  props<AircraftDTO>()
+);
+
+export const onClearAircraftList = createAction(
+  DashboardActionType.ON_DASHBOARD_LIST_CLEAR
 );
