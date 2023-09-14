@@ -25,23 +25,23 @@ export class DashboardService extends HttpService {
       this.userSoeService.getPersonalInformationFromCache()!;
   }
 
-  // getAircraftDashboardByPersonalNumber(
-  //   aircraftRequest?: DataRequest,
-  // ): Observable<HttpResult<PaginationResultDTO<AircraftDTO>>> {
-  //   return this.get(
-  //     `${environment.host.digisign.url}/${environment.host.digisign.apiVersion}/api/dashboard/aircraft`,
-  //     aircraftRequest,
-  //   );
-  // }
+  getAircraftDashboardByIndex(
+    aircraftRequest?: DataRequest,
+  ): Observable<HttpResult<PaginationResultDTO<AircraftDTO>>> {
+    return this.get(
+      `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/api/dashboard/aircraft`,
+      aircraftRequest,
+    );
+  }
 
-  // getAircraftDetailByUniqueId(
-  //   aircraftRequest?: DataRequest,
-  // ): Observable<HttpResult<PaginationResultDTO<AircraftDTO>>> {
-  //   return this.get(
-  //     `${environment.host.digisign.url}/${environment.host.digisign.apiVersion}/api/dashboard/aircraft`,
-  //     aircraftRequest,
-  //   );
-  // }
+  getAircraftDetailByIndex(
+    aircraftRequest?: DataRequest,
+  ): Observable<HttpResult<PaginationResultDTO<AircraftDTO>>> {
+    return this.get(
+      `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/api/dashboard/aircraft`,
+      aircraftRequest,
+    );
+  }
 
    getCardData(): Observable<AircraftDTO[]> {
     return this.http.get<AircraftDTO[]>('http://localhost:3000/cardData');

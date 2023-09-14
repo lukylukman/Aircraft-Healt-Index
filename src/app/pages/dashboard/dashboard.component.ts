@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable, Subject, debounceTime, takeUntil } from 'rxjs';
+import { Observable, Subject, debounceTime, takeUntil, tap } from 'rxjs';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { RouteHelperService } from 'src/app/core/services/route-helper.service';
 import { DashboardService } from './dashboard.service';
@@ -19,6 +19,7 @@ import { MasterDataManagementService } from '../master-data-management/master-da
 import { MasterDataManagementFeatureState } from '../master-data-management/states/master-data-management.feature';
 import { MasterDataManagementState } from '../master-data-management/states/master-data-management.selector';
 import { AircraftDTO } from './dto/aircraft.dto';
+import * as DashboardAction from './states/dashboard.action'
 import {
   trigger,
   transition,
@@ -26,6 +27,9 @@ import {
   animate,
   state,
 } from '@angular/animations';
+import { DashboardFeatureState } from './states/dashboard.feature';
+import { DashboardState } from './states/dashboard.selector';
+import { DataRequest } from './dto/dataRequest.dto';
 
 export interface SearchSelection {
   key: string;
@@ -106,6 +110,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     },
   });
 
+  dashboardState$: Observable<DashboardFeatureState>;
   personalInformation: PersonalInformation;
   storeOption: SelectionDTO[] = [];
 
@@ -113,6 +118,8 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedSearchSelection: string = '';
   isModalOpen: boolean = false;
   selectedCardData: any;
+  currentPage = 1;
+  perPage = 10;
 
   masterDataManagementState$: Observable<MasterDataManagementFeatureState>;
 
@@ -129,6 +136,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     );
     this.localservice = new LocalstorageService();
     this.logger = new LoggerService(DashboardComponent.name);
+    this.dashboardState$ = this.store.select(DashboardState);
     this.personalInformation =
       this.soeService.getPersonalInformationFromCache();
 
@@ -148,10 +156,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   });
 
   ngOnInit(): void {
-    this.dashboardService.getCardData().subscribe((data) => {
-      this.cardData = data;
-      console.log('DataAircraftCard =>', this.cardData);
-    })
+    this.fectDashboardData();
   }
 
   ngAfterViewInit(): void {
@@ -174,6 +179,37 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       });
     }
   }
+
+  fectDashboardData(): void {
+  const inboxRequest: DataRequest = {
+    orderBy: 'DESC',
+    orderColumn: 'createdAt',
+    page: this.currentPage,
+    perPage: this.perPage,
+    personalNumber: this.personalInformation.personalNumber,
+  };
+
+  this.dashboardService.getCardData()
+    .pipe(
+      tap((data) => {
+        this.cardData = data;
+        // this.store.dispatch(DashboardAction.onDashboardLoaded(data));
+        console.log('DataAircraftCard =>', this.cardData);
+      }),
+      takeUntil(this.unsubscribe$),
+    )
+    .subscribe(); // Don't forget to subscribe to trigger the observable
+}
+
+  selectedCard: any;
+
+  openCardDetail(card: any) {
+    this.selectedCard = card;
+    this.isModalOpen = true; // Open the modal
+    const modal = new Modal(document.getElementById('modalDetailCard'), {});
+    modal.toggle();
+  }
+
 
   ngOnDestroy(): void {
     this.unsubscribe$.unsubscribe();

@@ -1,6 +1,18 @@
 import { LoggerType } from 'src/app/core/interfaces/logger.service.interface';
 
+export interface GmfAppHost {
+  url: string;
+  apiVersion: string;
+  header?: {
+    xApiKey: string;
+  };
+}
+
+type Host = 'soe' | 'ahi';
+
 export interface EnvironmentInterface {
+   host: Record<Host, GmfAppHost>;
+
   /**
    * Define API Call for take data
    * @example https://api.hostname.com/api
