@@ -29,6 +29,8 @@ import { AircraftDTO } from './dto/aircraft.dto';
 import { ImsPaginationDTO } from './dto/ims-pagination.dto';
 import { DashboardFeatureState } from './states/dashboard.feature';
 import { DashboardState } from './states/dashboard.selector';
+import { onDashboardLoaded } from './states/dashboard.action';
+import { PaginationResultDTO } from 'src/app/core/dto/pagination.result.dto';
 
 export interface SearchSelection {
   key: string;
@@ -118,6 +120,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedSearchSelection: string = '';
   isModalOpen: boolean = false;
   selectedCardData: any;
+  private modal: Modal;
 
   paginationData: ImsPaginationDTO = {
     page: 1,
@@ -160,50 +163,62 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.fectDashboardData();
-  }
 
-  ngAfterViewInit(): void {
-    const modal = new Modal(document.getElementById('modalDetailCard'), {});
+    this.modal = new Modal(document.getElementById('modalDetailCard'), {});
+
     const modalToggleButton = document.getElementById('modalDetailCardBtn');
     if (modalToggleButton) {
       modalToggleButton.addEventListener('click', () => {
         this.isModalOpen = !this.isModalOpen;
-        modal.toggle();
+        this.modal.toggle();
       });
     }
 
-    const closeModalButton = document.querySelector(
-      '[data-modal-toggle="closeModalDetailCard"]'
-    );
+    const closeModalButton = document.querySelector('[data-modal-toggle="closeModalDetailCard"]');
     if (closeModalButton) {
       closeModalButton.addEventListener('click', () => {
         this.isModalOpen = false;
-        modal.toggle();
+        this.modal.toggle();
       });
     }
   }
 
-  fectDashboardData(): void {
-    this.dashboardService
-      .getCardData(this.paginationData)
-      .pipe(
-        tap((res) => {
-          res.data.forEach((el) => {
-            this.cardData = [...this.cardData, el];
-          });
-        }),
-        takeUntil(this.unsubscribe$)
-      )
-      .subscribe(); // Don't forget to subscribe to trigger the observable
+  ngAfterViewInit(): void {
   }
+
+  fectDashboardData(): void {
+  this.dashboardService
+    .getCardData(this.paginationData)
+    .pipe(
+      tap((res) => {
+        res.data.forEach((el) => {
+          console.log('DataDashboard => ', el);
+          const paginationResult: PaginationResultDTO<AircraftDTO> = {
+            currentPage: 1,
+            totalItems: 0,
+            lastPage: 1,
+            totalItemsPerPage: 20,
+            data: [el],
+            hasNext: false,
+            hasPrev: false
+          };
+
+          this.cardData = [...this.cardData, el];
+          this.store.dispatch(onDashboardLoaded(paginationResult));
+        });
+      }),
+      takeUntil(this.unsubscribe$)
+    )
+    .subscribe();
+}
+
 
   selectedCard: any;
 
   openCardDetail(card: any) {
     this.selectedCard = card;
     this.isModalOpen = true; // Open the modal
-    const modal = new Modal(document.getElementById('modalDetailCard'), {});
-    modal.toggle();
+    this.modal.toggle();
   }
 
   ngOnDestroy(): void {

@@ -1,5 +1,6 @@
 import { createFeature, createReducer, on } from "@ngrx/store";
 import { PaginationResultDTO } from "src/app/core/dto/pagination.result.dto";
+import { ImsPaginationDTO } from "../dto/ims-pagination.dto";
 import { AircraftDTO } from "../dto/aircraft.dto";
 import * as DashboardAction from './dashboard.action'; 
 

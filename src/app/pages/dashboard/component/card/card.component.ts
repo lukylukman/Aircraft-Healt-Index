@@ -10,4 +10,5 @@ export class CardDashboardComponent {
   @Input() aircraft: AircraftDTO;
 
   themeColor: string = 'green';
+  // @Input() themeColor: 'green' | 'yellow' | 'red';
 }
