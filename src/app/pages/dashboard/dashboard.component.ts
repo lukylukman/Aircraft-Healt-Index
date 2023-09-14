@@ -239,36 +239,6 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
                   this.store.dispatch(DashboardAction.onLoadAircraftList(_));
                 })
               )
-              // .pipe(
-              //   tap({
-              //     next: (score) => {
-              //       let tempAircraft: AircraftDTO = {
-              //         sapRegistration: el.sapRegistration,
-              //         aircraftRegistration: el.aircraftRegistration,
-              //         carrierId: el.carrierId,
-              //         blockOnDate: el.blockOnDate,
-              //         blockOnTime: el.blockOnTime,
-              //         arrivalStation: el.arrivalStation,
-              //         aircraftScore: score.data,
-              //       };
-
-              //       this.cardData.push(tempAircraft);
-              //     },
-              //     error: (err) => {
-              //       let tempAircraft: AircraftDTO = {
-              //         sapRegistration: el.sapRegistration,
-              //         aircraftRegistration: el.aircraftRegistration,
-              //         carrierId: el.carrierId,
-              //         blockOnDate: el.blockOnDate,
-              //         blockOnTime: el.blockOnTime,
-              //         arrivalStation: el.arrivalStation,
-              //         aircraftScore: null,
-              //       };
-
-              //       this.cardData.push(tempAircraft);
-              //     },
-              //   })
-              // )
               .pipe(takeUntil(this.unsubscribe$))
               .subscribe();
             console.log('all cards data => ', this.cardData);
