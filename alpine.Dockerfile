@@ -3,7 +3,7 @@ FROM node:16.16.0-alpine as node
 WORKDIR /app
 COPY . .
 # Install Angular CLI globally
-RUN npm install -g @angular/cli
+RUN yarn global add @angular/cli
 
 # Install dependencies using Yarn
 RUN yarn install
