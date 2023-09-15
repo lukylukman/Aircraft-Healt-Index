@@ -62,16 +62,30 @@ export class DashboardService extends HttpService {
     );
   }
 
-  updateDataConfiguration(file: File, typeConfig: string): Observable<number> {
+  updateDataConfiguration(file: File, typeConfig: string, customerName: string): Observable<number> {
     const formData = new FormData();
     formData.append('file', file, file.name);
-    formData.append('documentName', file.name);
-    formData.append('documentType', 'LOCAL');
-    formData.append('userId', this.personalInformation.personalNumber);
+    formData.append('customerName', customerName);
+    // Set configName based on typeConfig
+    let configName: string;
+     if (typeConfig === 'bleed') {
+    configName = 'Bleed Monitor';
+      } else if (typeConfig === 'repetitive') {
+        configName = 'Repetitive Problem';
+      } else if (typeConfig === 'engine') {
+        configName = 'Engine';
+      } else if (typeConfig === 'apu') {
+        configName = 'APU';
+      } else {
+        // Handle other cases or provide a default value if needed
+        configName = 'Default Config Name';
+      }
+      formData.append('configName', configName);
+      console.log(configName);
 
     const req = new HttpRequest(
       'POST',
-      `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}aircraft/system/sync/${typeConfig}`,
+      `${environment.host.ahi.url}/aircraft/system/sync/${typeConfig}`,
       formData,
       {
         reportProgress: true,

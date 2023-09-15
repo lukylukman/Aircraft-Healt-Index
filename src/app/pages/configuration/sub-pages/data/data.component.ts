@@ -42,6 +42,11 @@ export class DataComponent {
   showCalculation: boolean = false;
 
   hilScore: number = 0;
+  isUploading: boolean = false;
+  uploadProgress: number = 0;
+  customerName: string = '';
+  selectedOption: string = ''; // Nilai default
+
 
   constructor(
     private route: RouteHelperService, // private readonly unsubscribe$ = new Subject()
@@ -50,24 +55,39 @@ export class DataComponent {
   ) {
   }
 
+  selectOption(option: string) {
+    this.selectedOption = option;
+    if (option === 'pilihan1') {
+      this.customerName = 'GA';
+    } else if (option === 'pilihan2') {
+      this.customerName = 'CITILINK';
+    }
+  }
+
   uploadFile(file: File, dataType: string): void {
     if (!file) {
       // Handle the case when no file is selected
-      console.log('Please select a file');
+      alert('Please select a file');
       return;
     }
     if (dataType === 'Select config type') {
       // Handle the case when no data type is selected
-      console.log('Please select a data type');
+      alert('Please select a data type');
       return;
     }
-
-    this.dashboardService.updateDataConfiguration(file, dataType).subscribe(
+    this.isUploading = true;
+    
+    this.dashboardService.updateDataConfiguration(file, dataType, this.customerName).subscribe(
       (progress: number) => {
-        console.log(`Upload progress: ${progress}%`);
+        this.uploadProgress = progress;
       },
       (error) => {
         console.error('Upload failed:', error);
+      },
+      () => {
+        this.isUploading = false;
+        this.uploadProgress = 0;
+        console.log('upload success');
       }
     );
   }
