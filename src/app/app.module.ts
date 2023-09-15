@@ -27,7 +27,6 @@ import { HttpSoeApiHeader } from './providers/http/http-soe-api-header.intercept
 import { HttpAhiApiHeader } from './providers/http/http-ahi-api-header.interceptor';
 import { LoadingService } from './shared/reuseable-ui-components/loading/service/loading.service';
 import { SharedModule } from './shared/shared.module';
-import { LayoutAdminComponent } from './shared/layout/layout-admin/layout-admin.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>

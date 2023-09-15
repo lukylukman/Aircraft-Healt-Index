@@ -6,14 +6,12 @@ import {
   Observable,
   Subject,
   catchError,
-  debounceTime,
   map,
   of,
   takeUntil,
-  tap,
+  tap
 } from 'rxjs';
 import { LoggerService } from 'src/app/core/services/logger.service';
-import { RouteHelperService } from 'src/app/core/services/route-helper.service';
 import { DashboardService } from './dashboard.service';
 
 import {
@@ -23,17 +21,8 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import Shepherd from 'shepherd.js';
-import { LocalStorageServiceInterface } from 'src/app/core/interfaces/localstorage.service.interface';
-import { LocalstorageService } from 'src/app/core/services/localstorage.service';
 import { UserSoeService } from 'src/app/core/services/user.soe.service';
 import { PersonalInformation } from 'src/app/shared/layout/sidebar/interfaces/sidebar.interface';
-import { SidebarService } from 'src/app/shared/layout/sidebar/sidebar.service';
-import { SelectionDTO } from 'src/app/shared/reuseable-ui-components/dropdown/interface/selection.dto';
-import { environment } from 'src/environments/environment';
-import { MasterDataManagementService } from '../master-data-management/master-data-management.service';
-import { MasterDataManagementFeatureState } from '../master-data-management/states/master-data-management.feature';
-import { MasterDataManagementState } from '../master-data-management/states/master-data-management.selector';
 import { AircraftDTO } from './dto/aircraft.dto';
 import { ImsPaginationDTO } from './dto/ims-pagination.dto';
 import * as DashboardAction from './states/dashboard.action';
@@ -80,7 +69,6 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   cardData: AircraftDTO[] = [];
   logger: LoggerService;
-  localservice: LocalStorageServiceInterface;
   isSearch: boolean = false;
   isAdvance: boolean = false;
   searchSelections: SearchSelection[] = [
@@ -113,19 +101,9 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.showModal = false;
   }
 
-  tour = new Shepherd.Tour({
-    useModalOverlay: true,
-    defaultStepOptions: {
-      scrollTo: true,
-    },
-  });
-
   dashboardState$: Observable<DashboardFeatureState>;
   personalInformation: PersonalInformation;
-  storeOption: SelectionDTO[] = [];
 
-  version: string = environment.version;
-  selectedSearchSelection: string = '';
   isModalOpen: boolean = false;
   selectedCardData: any;
   private modal: Modal;
@@ -135,37 +113,18 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     size: 24,
   };
 
-  masterDataManagementState$: Observable<MasterDataManagementFeatureState>;
-
   constructor(
-    private route: RouteHelperService, // private readonly unsubscribe$ = new Subject()
     private readonly dashboardService: DashboardService,
     private readonly soeService: UserSoeService,
     private readonly store: Store,
-    private readonly masterDataManagementService: MasterDataManagementService,
-    private _sidebar: SidebarService // public readonly tourService: TourService,
   ) {
-    this.masterDataManagementState$ = this.store.select(
-      MasterDataManagementState
-    );
-    this.localservice = new LocalstorageService();
     this.logger = new LoggerService(DashboardComponent.name);
     this.dashboardState$ = this.store.select(DashboardState);
     this.personalInformation =
       this.soeService.getPersonalInformationFromCache();
-
-    this.formGroup.valueChanges
-      .pipe(debounceTime(650))
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((val) => {
-        console.log('form =>', val);
-      });
   }
   ngAfterViewInit(): void {
-    throw new Error('Method not implemented.');
   }
-
-  partNumber: string = '';
 
   formGroup = new FormGroup({
     partNumber: new FormControl<string>('', [Validators.required]),
