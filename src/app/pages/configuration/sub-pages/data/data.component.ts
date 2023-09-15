@@ -90,51 +90,67 @@ export class DataComponent implements OnInit, OnDestroy {
   // public selectedFile: File;
   onFileSelected(event: any): void {
     if (event.target.files && event.target.files.length) {
-      this.selectedFile = event.target.files[0];
-      this.AddDataForm.patchValue({
-        upload_file: this.selectedFile.name,
-      });
+      const selectedFile = event.target.files[0];
+      const allowedExtensions = ['.xls', '.xlsx'];
+
+      const fileName = selectedFile.name;
+      const fileExtension = fileName.substring(fileName.lastIndexOf('.'));
+      if (allowedExtensions.includes(fileExtension.toLowerCase())) {
+        this.selectedFile = selectedFile;
+        this.AddDataForm.patchValue({
+          upload_file: this.selectedFile.name,
+        });
+      } else {
+        Swal.fire('Oops!', 'Please select a valid Excel file (.xls or .xlsx)!', 'warning');
+        event.target.value = '';
+      }
     }
   }
 
   uploadFile(file: File, dataType: string): void {
     if (!file) {
       // Handle the case when no file is selected
-      // alert('Please select a file');
       Swal.fire('Oops!', 'Please select a file!', 'warning');
       return;
     }
     if (dataType === 'Select config type') {
       // Handle the case when no data type is selected
-      // alert('Please select a data type');
-      Swal.fire('Oops!', 'Please select a data type!', 'warning');
+      Swal.fire('Oops!', 'Please select a config type!', 'warning');
       return;
     }
+    if (!this.customerName) {
+      // Handle the case when no customer name is selected
+      Swal.fire('Oops!', 'Please select a customer!', 'warning');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('customerName', this.customerName);
+    formData.append('configName', dataType);
+    formData.append('file', file);
     this.isUploading = true;
 
+    // Log the formData object before making the HTTP request
+    console.log('formData:', formData);
+
     this.dashboardService
-      .updateDataConfiguration(file, dataType, this.customerName)
+      .updateDataConfiguration(formData)
       .subscribe(
         (progress: number) => {
           this.uploadProgress = progress;
         },
         (error) => {
           Swal.fire('Oops!', 'Upload failed!', 'warning');
-          // console.error('Upload failed:', error);
+          // Handle upload error
         },
         () => {
           this.isUploading = false;
           this.uploadProgress = 0;
 
-          // TODO
-          // Kirim formData lewat component aja
-          const formData = new FormData();
-          formData.append('file', this.selectedFile);
-          formData.append('customerName', this.customerName);
-
+          // TODO: Tindakan setelah berhasil mengupload
           Swal.fire('Yeaay!', 'Upload success!', 'success');
-          // console.log('upload success');
         }
       );
   }
+
 }
