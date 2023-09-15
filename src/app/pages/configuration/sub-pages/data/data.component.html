@@ -81,7 +81,7 @@
   <div
     *ngIf="showUpdate"
     [@fadeInOut]
-    class="bg-gradient-to-r h-screen ml-6 from-ahi-blue-800 to-ahi-blue-600"
+    class="bg-gradient-to-r h-screen from-ahi-blue-800 to-ahi-blue-600"
   >
     <form (ngSubmit)="uploadFile(fileInput.files[0], dataTypeSelect.value)">
       <div class="flex justify-start mt-6 ml-8 gap-4">
@@ -104,7 +104,7 @@
           (click)="selectOption('pilihan2')"
         >
           <div class="px-4 py-2">
-            <h2 class="text-sm text-white font-normal mt-12">CITILING</h2>
+            <h2 class="text-sm text-white font-normal mt-4">CITILING</h2>
           </div>
         </div>
         <div class="bg-ahi-blue-900 w-20 h-28 shadow-md rounded-lg">
@@ -121,13 +121,13 @@
         </div>
       </div>
       <!-- Loading progress -->
-      <div *ngIf="isUploading" class="ml-2">
+      <div *ngIf="isUploading" class="ml-8">
         <div class="flex justify-start items-center mt-2 mb-1">
           <span
             class="text-base animate-pulse font-medium text-white dark:text-white"
             >Loading
           </span>
-          <span class="text-sm ml-2 font-medium text-blue-700 dark:text-white"
+          <span class="text-sm ml-8 font-medium text-blue-700 dark:text-white"
             >{{ uploadProgress }}%</span
           >
         </div>
@@ -140,11 +140,11 @@
       </div>
 
       <!-- Update data -->
-      <div class="mt-6 ml-2 flex flex-row items-center text-center">
+      <div class="mt-6 ml-8 flex flex-row items-center text-center">
         <h4 class="text-white">Update data</h4>
         <input
           #fileInput
-          class="block ml-14 w-64 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-ahi-blue-900 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+          class="block ml-14 w-64 text-xs text-ahi-blue-1000 border border-gray-300 rounded-lg cursor-pointer bg-ahi-blue-900 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
           type="file"
           name="upload_file"
           (change)="onFileSelected($event)"
@@ -152,7 +152,7 @@
       </div>
 
       <!-- Select data type -->
-      <div class="mt-6 ml-2 items-center text-center flex flex-row">
+      <div class="mt-6 ml-8 items-center text-center flex flex-row">
         <h4 class="text-white">Select data type</h4>
         <select
           #dataTypeSelect
@@ -171,7 +171,7 @@
       <!-- Upload button -->
       <button
         type="submit"
-        class="bg-ahi-green-500 mt-6 ml-2 text-white py-2 px-4 rounded hover:bg-ahi-green-600 focus:outline-none focus:bg-ahi-green-600"
+        class="bg-ahi-green-500 mt-6 ml-8 text-white py-2 px-4 rounded hover:bg-ahi-green-600 focus:outline-none focus:bg-ahi-green-600"
       >
         Upload Data
       </button>

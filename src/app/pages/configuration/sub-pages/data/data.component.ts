@@ -6,7 +6,7 @@ import {
   state,
 } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, NgModel, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { RouteHelperService } from 'src/app/core/services/route-helper.service';

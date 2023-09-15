@@ -41,7 +41,6 @@
     "keycloak-js": "^21.0.1",
     "ng-heroicon": "^2.1.0",
     "ng-multiselect-dropdown": "^0.3.9",
-    "ngx-barcode": "^0.3.0",
     "ngx-chips": "^3.0.0",
     "ngx-date-fns": "^10.0.1",
     "ngx-toastr": "^16.1.0",

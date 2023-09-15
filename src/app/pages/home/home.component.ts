@@ -1,48 +1,20 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
 import {
-  Observable,
-  Subject,
-  debounceTime,
-  firstValueFrom,
-  map,
-  takeUntil,
-  tap,
-} from 'rxjs';
-import { LoggerService } from 'src/app/core/services/logger.service';
-import { RouteHelperService } from 'src/app/core/services/route-helper.service';
-import { HomeService } from './home.service';
-
-import Shepherd from 'shepherd.js';
-import { LocalStorageServiceInterface } from 'src/app/core/interfaces/localstorage.service.interface';
-import { LocalstorageService } from 'src/app/core/services/localstorage.service';
-import { UserSoeService } from 'src/app/core/services/user.soe.service';
-import * as MasterDataManagementAction from 'src/app/pages/master-data-management/states/master-data-management.action';
-import { TourGuideConst } from 'src/app/shared/const/tour-guide.const';
-import { PersonalInformation } from 'src/app/shared/layout/sidebar/interfaces/sidebar.interface';
-import { SidebarService } from 'src/app/shared/layout/sidebar/sidebar.service';
-import { SelectionDTO } from 'src/app/shared/reuseable-ui-components/dropdown/interface/selection.dto';
-import { environment } from 'src/environments/environment';
-import Swal from 'sweetalert2';
-import { MasterDataManagementService } from '../master-data-management/master-data-management.service';
-import { MasterDataManagementFeatureState } from '../master-data-management/states/master-data-management.feature';
-import { MasterDataManagementState } from '../master-data-management/states/master-data-management.selector';
-import { Confirmable } from 'src/app/core/decorators/confirmable.decorator';
-import { KeycloakService } from 'keycloak-angular';
-import { DatePipe } from '@angular/common';
-import {
-  trigger,
-  transition,
-  style,
   animate,
   state,
+  style,
+  transition,
+  trigger,
 } from '@angular/animations';
-
-export interface SearchSelection {
-  key: string;
-  value: any;
-}
+import { DatePipe } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { KeycloakService } from 'keycloak-angular';
+import {
+  Subject
+} from 'rxjs';
+import { Confirmable } from 'src/app/core/decorators/confirmable.decorator';
+import { LoggerService } from 'src/app/core/services/logger.service';
+import { UserSoeService } from 'src/app/core/services/user.soe.service';
+import { PersonalInformation } from 'src/app/shared/layout/sidebar/interfaces/sidebar.interface';
 
 @Component({
   selector: 'app-home',
@@ -80,17 +52,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   currentDate: Date = new Date();
 
   logger: LoggerService;
-  localservice: LocalStorageServiceInterface;
-  isSearch: boolean = false;
-  isAdvance: boolean = false;
-
   personalInformation: PersonalInformation;
-  storeOption: SelectionDTO[] = [];
-
-  version: string = environment.version;
-  selectedSearchSelection: string = '';
-
-  masterDataManagementState$: Observable<MasterDataManagementFeatureState>;
 
   userRoles: string[] = [];
 
@@ -107,18 +69,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   currentIndex: number = 0;
 
   constructor(
-    private route: RouteHelperService, // private readonly unsubscribe$ = new Subject()
-    private readonly homeService: HomeService,
     private readonly soeService: UserSoeService,
-    private readonly store: Store,
     private readonly keycloakService: KeycloakService,
-    private readonly masterDataManagementService: MasterDataManagementService,
-    private _sidebar: SidebarService // public readonly tourService: TourService,
   ) {
-    this.masterDataManagementState$ = this.store.select(
-      MasterDataManagementState
-    );
-    this.localservice = new LocalstorageService();
     this.logger = new LoggerService(HomeComponent.name);
     this.personalInformation =
       this.soeService.getPersonalInformationFromCache();

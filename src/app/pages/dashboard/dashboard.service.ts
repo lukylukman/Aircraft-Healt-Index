@@ -2,7 +2,6 @@ import { HttpClient, HttpEvent, HttpEventType, HttpParams, HttpRequest } from '@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { HttpResponseDTO, HttpResult } from 'src/app/core/dto/http-result.dto';
-import { PaginationResultDTO } from 'src/app/core/dto/pagination.result.dto';
 import { PersonalInformationDTO } from 'src/app/core/dto/personal-information-dto';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { UserSoeService } from 'src/app/core/services/user.soe.service';
@@ -10,7 +9,6 @@ import { HttpService } from 'src/app/providers/http/http.service';
 import { environment } from 'src/environments/environment';
 import { AircraftScoreDTO } from './dto/aircraft-score.dto';
 import { AircraftDTO } from './dto/aircraft.dto';
-import { DataRequest } from './dto/dataRequest.dto';
 import { ImsPaginationDTO } from './dto/ims-pagination.dto';
 import { PostUploadConfigDTO } from './dto/postUploadConfig.dto';
 
@@ -31,23 +29,14 @@ export class DashboardService extends HttpService {
       this.userSoeService.getPersonalInformationFromCache()!;
   }
 
-  getAircraftDashboardByIndex(
-    aircraftRequest?: DataRequest
-  ): Observable<HttpResult<PaginationResultDTO<AircraftDTO>>> {
-    return this.get(
-      `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/api/dashboard/aircraft`,
-      aircraftRequest
-    );
-  }
-
-  uploadDataConfig(
-    aircraftRequest?: DataRequest
-  ): Observable<HttpResult<PaginationResultDTO<AircraftDTO>>> {
-    return this.get(
-      `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}aircraft/system/sync/bleed`,
-      aircraftRequest
-    );
-  }
+  // getAircraftDashboardByIndex(
+  //   aircraftRequest?: DataRequest
+  // ): Observable<HttpResult<PaginationResultDTO<AircraftDTO>>> {
+  //   return this.get(
+  //     `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/api/dashboard/aircraft`,
+  //     aircraftRequest
+  //   );
+  // }
 
   getCardData(
     paginationData: ImsPaginationDTO

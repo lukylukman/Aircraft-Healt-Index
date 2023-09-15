@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
-import { UnitDTO } from 'src/app/pages/master-data-management/dto/master-data-manaement.dto';
 import { HttpService } from 'src/app/providers/http/http.service';
 import { LocalServiceConst } from 'src/app/shared/const/local-service.const';
 import { PersonalInformation } from 'src/app/shared/layout/sidebar/interfaces/sidebar.interface';
@@ -99,20 +98,4 @@ export class UserSoeService extends HttpService {
     this.localService.removeData(LocalServiceConst.USER_INFO);
   }
 
-  async getAllUnit(): Promise<UnitDTO[]> {
-    const request = this.get(
-      environment.soeApiUrl + '/v1/unit?page=1&perPage=200',
-      {}
-    );
-
-    const response = await lastValueFrom(request);
-
-    if (!response) {
-      return null;
-    }
-
-    const results = response['body'] as UnitDTO[];
-
-    return results;
-  }
 }
