@@ -122,7 +122,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.logger = new LoggerService(HomeComponent.name);
     this.personalInformation =
       this.soeService.getPersonalInformationFromCache();
-    console.log(this.personalInformation);
+    // console.log(this.personalInformation);
   }
 
   ngOnInit(): void {
