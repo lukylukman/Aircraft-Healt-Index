@@ -3,10 +3,8 @@ export interface HttpResult<T> {
   data: T;
 }
 
-export interface PaginationResult<T> extends HttpResult<T> {
-  meta: {
-    currentPage: number;
-    nextPage: string;
-    prevPage: string;
-  };
+export interface HttpResponseDTO<T> {
+  message: string;
+  headers: any;
+  body: T;
 }

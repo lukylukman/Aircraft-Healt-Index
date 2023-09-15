@@ -2,3 +2,8 @@
   border-color: #FF5733;
   /* Ganti dengan warna yang Anda inginkan */
 }
+
+.selected {
+  background-color: #00b8eb;
+  /* Ganti dengan warna latar belakang yang Anda inginkan */
+}

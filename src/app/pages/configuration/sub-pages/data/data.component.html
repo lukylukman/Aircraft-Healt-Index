@@ -35,47 +35,90 @@
         </div>
       </nav>
       <!-- header -->
-      <div class="flex justify-start mt-6 ml-8 gap-4">
-        <div class="bg-ahi-blue-900 w-40 h-28 shadow-md rounded-lg">
-          <div class="px-4 py-2">
-            <h2 class="text-sm text-white font-normal mt-12">Garuda</h2>
-            <h2 class="text-sm text-white font-normal">Indonesia (GA)</h2>
-          </div>
-        </div>
-        <div class="bg-ahi-blue-900 w-40 h-28 shadow-md rounded-lg">
-          <div class="px-4 py-2">
-            <h2 class="text-sm text-white font-normal mt-12">Garuda</h2>
-            <h2 class="text-sm text-white font-normal">Indonesia (GA)</h2>
-          </div>
-        </div>
-         <div class="bg-ahi-blue-900 w-20 h-28 shadow-md rounded-lg">
-          <div class="px-2 py-2 text-white text-sm font-normal mx-auto flex flex-col text-center items-center">
-            <hero-icon
-                    name="plus-circle"
-                    type="outline"
-                    class="h-6 w-6 cursor-pointer text-white duration-200"
-                  ></hero-icon>Add New
-          </div>
-        </div>
-      </div>
+      
 
       <div *ngIf="showUpdate" [@fadeInOut] class="bg-gradient-to-r h-screen ml-6 from-ahi-blue-800 to-ahi-blue-600">
-        <div class="mt-6 ml-2 flex flex-row text-center">
-          <h4 class="text-white">Update data</h4>
-          <input class="block ml-14 w-60 mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-ahi-blue-900 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="small_size" type="file">
-        </div>
+        <form (ngSubmit)="uploadFile(fileInput.files[0], dataTypeSelect.value)">
+          <div class="flex justify-start mt-6 ml-8 gap-4">
+            <div
+              class="bg-ahi-blue-900 w-40 cursor-pointer h-28 shadow-md rounded-lg"
+              #pilihan1
+              [class.selected]="selectedOption === 'pilihan1'"
+              (click)="selectOption('pilihan1')"
+            >
+              <div class="px-4 py-2">
+                <h2 class="text-sm text-white font-normal mt-12">Garuda</h2>
+                <h2 class="text-sm text-white font-normal">Indonesia (GA)</h2>
+              </div>
+            </div>
 
-        <div class="mt-6 ml-2 text-center flex flex-row">
-          <h4 class="text-white">Select data type</h4>
-          <select id="small" class="block ml-6 w-48 p-2 mb-6 text-sm text-white border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-ahi-blue-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option selected>Recently Update</option>
-            <option value="US">APU</option>
-            <option value="US">Bleed Monitor</option>
-            <option value="US">Engine</option>
-            <option value="US">Pack Assesment</option>
-            <option value="US">Repetitive Problem</option>
-          </select>
-        </div>
+            <div
+              class="bg-ahi-blue-900 w-40 h-28 cursor-pointer shadow-md rounded-lg"
+              #pilihan2
+              [class.selected]="selectedOption === 'pilihan2'"
+              (click)="selectOption('pilihan2')"
+            >
+              <div class="px-4 py-2">
+                <h2 class="text-sm text-white font-normal mt-12">CITILING</h2>
+              </div>
+            </div>
+            <div class="bg-ahi-blue-900 w-20 h-28 shadow-md rounded-lg">
+              <div class="px-2 py-2 text-white text-sm font-normal mx-auto flex flex-col text-center items-center">
+                <hero-icon
+                        name="plus-circle"
+                        type="outline"
+                        class="h-6 w-6 cursor-pointer text-white duration-200"
+                      ></hero-icon>Add New
+              </div>
+            </div>
+          </div>
+          <!-- Loading progress -->
+          <div *ngIf="isUploading" class="ml-2">
+            <div class="flex justify-start items-center mt-2 mb-1">
+              <span class="text-base animate-pulse font-medium text-white dark:text-white">Loading </span>
+              <span class="text-sm ml-2 font-medium text-blue-700 dark:text-white">{{ uploadProgress }}%</span>
+            </div>
+            <div class="w-96 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+              <div class="bg-blue-600 h-2.5 transition-all ease-in-out rounded-full" [style.width.%]="uploadProgress"></div>
+            </div>
+          </div>
+
+          <!-- Update data -->
+          <div class="mt-6 ml-2 flex flex-row items-center text-center">
+            <h4 class="text-white">Update data</h4>
+            <input
+              #fileInput
+              class="block ml-14 w-60 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-ahi-blue-900 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+              type="file"
+            >
+          </div>
+
+          <!-- Select data type -->
+          <div class="mt-6 ml-2 items-center text-center flex flex-row">
+            <h4 class="text-white">Select data type</h4>
+            <select
+              #dataTypeSelect
+              id="small"
+              class="ml-7 w-48 p-2 text-sm text-white border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-ahi-blue-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option selected>Select config type</option>
+              <option value="apu">APU</option>
+              <option value="bleed">Bleed Monitor</option>
+              <option value="engine">Engine</option>
+              <option value="Pack Assessment">Pack Assessment</option>
+              <option value="repetitive">Repetitive Problem</option>
+            </select>
+          </div>
+
+          <!-- Upload button -->
+          <button
+            type="submit"
+            class="bg-ahi-green-500 mt-6 ml-2 text-white py-2 px-4 rounded hover:bg-ahi-green-600 focus:outline-none focus:bg-ahi-green-600"
+          >
+            Upload Data
+          </button>
+        </form>
+
       </div>
 
       <div *ngIf="showCalculation" [@fadeInOut] class="bg-gradient-to-r h-full from-ahi-blue-800 to-ahi-blue-600">
