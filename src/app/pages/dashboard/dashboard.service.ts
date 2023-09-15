@@ -1,4 +1,10 @@
-import { HttpClient, HttpEvent, HttpEventType, HttpParams, HttpRequest } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpEvent,
+  HttpEventType,
+  HttpParams,
+  HttpRequest,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { HttpResponseDTO, HttpResult } from 'src/app/core/dto/http-result.dto';
@@ -62,30 +68,36 @@ export class DashboardService extends HttpService {
     );
   }
 
-  updateDataConfiguration(file: File, typeConfig: string, customerName: string): Observable<number> {
+  updateDataConfiguration(
+    file: File,
+    typeConfig: string,
+    customerName: string
+  ): Observable<number> {
+    // TODO
+    // Form data disini hapus
     const formData = new FormData();
     formData.append('file', file, file.name);
     formData.append('customerName', customerName);
     // Set configName based on typeConfig
     let configName: string;
-     if (typeConfig === 'bleed') {
-    configName = 'Bleed Monitor';
-      } else if (typeConfig === 'repetitive') {
-        configName = 'Repetitive Problem';
-      } else if (typeConfig === 'engine') {
-        configName = 'Engine';
-      } else if (typeConfig === 'apu') {
-        configName = 'APU';
-      } else {
-        // Handle other cases or provide a default value if needed
-        configName = 'Default Config Name';
-      }
-      formData.append('configName', configName);
-      console.log(configName);
+    if (typeConfig === 'bleed') {
+      configName = 'Bleed Monitor';
+    } else if (typeConfig === 'repetitive') {
+      configName = 'Repetitive Problem';
+    } else if (typeConfig === 'engine') {
+      configName = 'Engine';
+    } else if (typeConfig === 'apu') {
+      configName = 'APU';
+    } else {
+      // Handle other cases or provide a default value if needed
+      configName = 'Default Config Name';
+    }
+    formData.append('configName', configName);
+    console.log(configName);
 
     const req = new HttpRequest(
       'POST',
-      `${environment.host.ahi.url}/aircraft/system/sync/${typeConfig}`,
+      `${environment.host.ahi.url}/ahi/_upload`,
       formData,
       {
         reportProgress: true,
@@ -105,7 +117,7 @@ export class DashboardService extends HttpService {
       })
     );
   }
-  
+
   getAircraftScore(acReg: string): Observable<HttpResult<AircraftScoreDTO>> {
     const params = new HttpParams().set('aircraftRegistration', acReg);
 
