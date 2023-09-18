@@ -2,7 +2,7 @@
   <app-sidebar>
     <div class="container h-full bg-black">
       <div
-        class="grid 2xl:grid-cols-6 xl:grid-cols-4 lg:grid-cols-2 gap-4 md:grid-cols-2 sm:grid-cols-1 m-2"
+        class="grid 2xl:grid-cols-6 xl:grid-cols-4 lg:grid-cols-2 gap-4 md:grid-cols-2 sm:grid-cols-1 mt-4 m-2"
       >
         <ng-container *ngFor="let card of dashboardState.aircraftLists">
           <app-card-dashboard
@@ -62,7 +62,7 @@
         <!-- header -->
         <div class="grid grid-cols-4">
           <div class="border-r-2 border-b-2 pl-28 pr-10 pb-3">
-            <h1 class="text-2xl">{{ selectedCard?.title }}</h1>
+            <h1 class="text-2xl">...</h1>
             <h4 class="text-xs font-semibold">B737-800</h4>
           </div>
           <div class="border-b-2 border-r-2 pl-10">
@@ -78,7 +78,7 @@
               <span class="flex w-2 h-2 mr-1 bg-red-500 rounded-full"></span
               >Score
             </h4>
-            <h1 class="text-2xl">{{ selectedCard?.total }}</h1>
+            <h1 class="text-2xl">.....</h1>
           </div>
         </div>
         <!-- end header -->

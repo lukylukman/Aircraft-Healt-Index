@@ -9,7 +9,7 @@
     'to-gray-300': themeColor === 'gray',
     'from-gray-600': themeColor === 'gray'
   }"
-  class="flex flex-col justify-between p-2 bg-gradient-to-r shadow-lg rounded-lg cursor-pointer h-56"
+  class="flex flex-col justify-between px-2 py-2 bg-gradient-to-r shadow-lg rounded-lg cursor-pointer h-56"
 >
   <h1 class="w-full h-26 object-cover">
     {{ aircraft.aircraftRegistration }}
@@ -35,7 +35,7 @@
   </h2>
   <p class="text-xs font-bold">Last flight</p>
   <span class="flex flex-row items-end">
-    <p class="text-xl font-extralight">
+    <p class="text-xl font-light">
       {{ aircraft.blockOnTime | date : "hh:mm" }}
     </p>
     <p class="text-xs ml-1 font-extralight">
@@ -44,7 +44,7 @@
   </span>
   <span class="flex justify-between items-start">
     <div class="flex flex-row items-end">
-      <p class="text-xl font-extralight">
+      <p class="text-xl font-light">
         {{ aircraft.blockOnDate | date : "d MMM" }}
       </p>
       <p class="text-xs ml-1 font-extralight">
@@ -55,7 +55,7 @@
       <p class="text-xl ml-1 font-normal">
         {{ aircraft.arrivalStation }}
       </p>
-      <p class="text-xs ml-1 font-normal">Last Station</p>
+      <p class="text-xs ml-1 mb-4 font-normal">Last Station</p>
     </div>
   </span>
   <!-- <p class="text-xl font-extralight text-right">{{ date }}</p> -->

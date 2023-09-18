@@ -211,12 +211,14 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(); // Don't forget to subscribe to trigger the observable
   }
 
-  selectedCard: any;
+  selectedCard: AircraftDTO[] =[];
 
   openCardDetail(card: any) {
     this.selectedCard = card;
     this.isModalOpen = true; // Open the modal
     this.modal.toggle();
+
+    this.store.dispatch(DashboardAction.onDashboardSelected(card));
   }
 
   ngOnDestroy(): void {
