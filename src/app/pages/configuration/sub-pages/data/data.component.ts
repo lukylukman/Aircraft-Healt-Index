@@ -108,19 +108,19 @@ export class DataComponent implements OnInit, OnDestroy {
   }
 
   uploadFile(file: File, dataType: string): void {
+    if (!this.customerName) {
+      // Handle the case when no customer name is selected
+      Swal.fire('Oops!', 'Please select a customer!', 'warning');
+      return;
+    }
     if (!file) {
       // Handle the case when no file is selected
       Swal.fire('Oops!', 'Please select a file!', 'warning');
       return;
     }
-    if (dataType === 'Select config type') {
+    if (dataType === 'Select') {
       // Handle the case when no data type is selected
       Swal.fire('Oops!', 'Please select a config type!', 'warning');
-      return;
-    }
-    if (!this.customerName) {
-      // Handle the case when no customer name is selected
-      Swal.fire('Oops!', 'Please select a customer!', 'warning');
       return;
     }
 
@@ -140,7 +140,8 @@ export class DataComponent implements OnInit, OnDestroy {
           this.uploadProgress = progress;
         },
         (error) => {
-          Swal.fire('Oops!', 'Upload failed!', 'warning');
+          Swal.fire('Oops!', 'Upload failed!, The sheet name must match the selected data type', 'warning');
+          this.isUploading = false;
           // Handle upload error
         },
         () => {
