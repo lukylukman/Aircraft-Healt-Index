@@ -92,7 +92,7 @@
           (click)="selectOption('pilihan1')"
         >
           <div class="px-4 py-2">
-            <h2 class="text-sm text-white font-normal mt-12">Garuda</h2>
+            <h2 class="text-sm text-white font-normal mt-14">Garuda</h2>
             <h2 class="text-sm text-white font-normal">Indonesia (GA)</h2>
           </div>
         </div>
@@ -104,7 +104,7 @@
           (click)="selectOption('pilihan2')"
         >
           <div class="px-4 py-2">
-            <h2 class="text-sm text-white font-normal mt-4">CITILING</h2>
+            <h2 class="text-sm text-white font-normal mt-16">CITILING</h2>
           </div>
         </div>
         <div class="bg-ahi-blue-900 w-20 h-28 shadow-md rounded-lg">
@@ -114,7 +114,7 @@
             <hero-icon
               name="plus-circle"
               type="outline"
-              class="h-6 w-6 cursor-pointer text-white duration-200"
+              class="h-6 w-6 mt-10 cursor-pointer text-white duration-200"
             ></hero-icon
             >Add New
           </div>
@@ -141,10 +141,10 @@
 
       <!-- Update data -->
       <div class="mt-6 ml-8 flex flex-row items-center text-center">
-        <h4 class="text-white">Update data</h4>
+        <h4 class="text-white text-left w-40">Update data</h4>
         <input
           #fileInput
-          class="block ml-14 w-64 text-xs text-ahi-blue-1000 border border-gray-300 rounded-lg cursor-pointer bg-ahi-blue-900 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+          class="block ml-4 w-64 text-xs text-ahi-blue-1000 border border-gray-300 rounded-lg cursor-pointer bg-ahi-blue-900 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
           type="file"
           name="upload_file"
           (change)="onFileSelected($event)"
@@ -153,11 +153,11 @@
 
       <!-- Select data type -->
       <div class="mt-6 ml-8 items-center text-center flex flex-row">
-        <h4 class="text-white">Select data type</h4>
+        <h4 class="text-white text-left w-40">Select data type</h4>
         <select
           #dataTypeSelect
           id="small"
-          class="ml-7 w-48 p-2 text-sm text-white border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-ahi-blue-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="ml-4 w-48 p-2 text-sm text-white border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-ahi-blue-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
           <option selected>Select config type</option>
           <option value="APU">APU</option>
@@ -171,9 +171,11 @@
       <!-- Upload button -->
       <button
         type="submit"
-        class="bg-ahi-green-500 mt-6 ml-8 text-white py-2 px-4 rounded hover:bg-ahi-green-600 focus:outline-none focus:bg-ahi-green-600"
+        class="bg-ahi-green-500 mt-6 ml-8 inline-flex items-center text-white py-2 px-4 rounded hover:bg-ahi-green-600 focus:outline-none focus:bg-ahi-green-600"
       >
-        Upload Data
+        Upload<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+              </svg>
       </button>
     </form>
   </div>
