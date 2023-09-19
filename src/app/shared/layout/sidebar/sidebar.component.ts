@@ -6,7 +6,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { DatePipe } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input, OnChanges } from '@angular/core';
 import { Event, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { KeycloakService } from 'keycloak-angular';
@@ -55,6 +55,17 @@ import { SidebarService } from './sidebar.service';
   providers: [DatePipe],
 })
 export class SidebarComponent implements OnInit, OnDestroy {
+  @Input() greenZone: number;
+  @Input() yellowZone: number;
+  @Input() redZone: number;
+  @Input() id: string;
+  @Input() options: any[];
+  @Input() selectedOption: string;
+  @Input() valueOption: string;
+  @Input() showOption: string;
+
+  selectOptions: { value: string; label: string }[] = [];
+
   currentDate: Date = new Date();
   userInfo: PersonalInformation = <PersonalInformation>{};
   dashboardState$: Observable<DashboardFeatureState>;

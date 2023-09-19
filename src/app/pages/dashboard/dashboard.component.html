@@ -1,5 +1,9 @@
 <ng-container *ngIf="dashboardState$ | async as dashboardState">
-  <app-sidebar>
+  <app-sidebar 
+    [greenZone]="dashboardState.ahiSummaryScore.amountOfGreenItems" 
+    [yellowZone]="dashboardState.ahiSummaryScore.amountOfYellowItems" 
+    [redZone]="dashboardState.ahiSummaryScore.amountOfRedItems"
+    [options]="dashboardState.aircraftType">
     <div class="container h-full bg-black">
       <div
         class="grid 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-2 gap-4 md:grid-cols-2 sm:grid-cols-1 mt-4 m-2"
@@ -16,7 +20,6 @@
   </app-sidebar>
 
 </ng-container>
-
 <!-- Detail DataAircraft modal -->
   <div
     id="modalDetailCard"
