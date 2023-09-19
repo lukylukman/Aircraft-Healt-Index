@@ -2,7 +2,7 @@
   <app-sidebar>
     <div class="container h-full bg-black">
       <div
-        class="grid 2xl:grid-cols-6 xl:grid-cols-4 lg:grid-cols-2 gap-4 md:grid-cols-2 sm:grid-cols-1 mt-4 m-2"
+        class="grid 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-2 gap-4 md:grid-cols-2 sm:grid-cols-1 mt-4 m-2"
       >
         <ng-container *ngFor="let card of dashboardState.aircraftLists">
           <app-card-dashboard
@@ -15,7 +15,9 @@
     </div>
   </app-sidebar>
 
-  <!-- Detail DataAircraft modal -->
+</ng-container>
+
+<!-- Detail DataAircraft modal -->
   <div
     id="modalDetailCard"
     [@fadeInOut]
@@ -423,4 +425,3 @@
       </div>
     </div>
   </div>
-</ng-container>

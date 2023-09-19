@@ -110,17 +110,32 @@ export class DataComponent implements OnInit, OnDestroy {
   uploadFile(file: File, dataType: string): void {
     if (!this.customerName) {
       // Handle the case when no customer name is selected
-      Swal.fire('Oops!', 'Please select a customer!', 'warning');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Oops!',
+        text: 'Please select a customer!',
+        confirmButtonColor: '#225176'
+      });
       return;
     }
     if (!file) {
       // Handle the case when no file is selected
-      Swal.fire('Oops!', 'Please select a file!', 'warning');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Oops!',
+        text: 'Please select a file!',
+        confirmButtonColor: '#225176'
+      });
       return;
     }
     if (dataType === 'Select') {
       // Handle the case when no data type is selected
-      Swal.fire('Oops!', 'Please select a config type!', 'warning');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Oops!',
+        text: 'Please select data type!',
+        confirmButtonColor: '#225176'
+      });
       return;
     }
 
@@ -140,7 +155,12 @@ export class DataComponent implements OnInit, OnDestroy {
           this.uploadProgress = progress;
         },
         (error) => {
-          Swal.fire('Oops!', 'Upload failed!, The sheet name must match the selected data type', 'warning');
+          Swal.fire({
+            icon: 'warning',
+            title: 'Oops!',
+            text: 'Upload failed!, The sheet name must match the selected data type',
+            confirmButtonColor: '#225176'
+          });
           this.isUploading = false;
           // Handle upload error
         },
