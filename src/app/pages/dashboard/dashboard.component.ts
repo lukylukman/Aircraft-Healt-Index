@@ -103,6 +103,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   paginationData: ImsPaginationDTO = {
     page: 1,
     size: 24,
+    type_id: null,
   };
 
   constructor(
@@ -121,6 +122,15 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     partNumber: new FormControl<string>('', [Validators.required]),
     searchCategory: new FormControl('ahi-master-*'),
   });
+
+  onAircraftTypeChanged(aircraftTypeId: number): void {
+    this.paginationData = {
+      ...this.paginationData,
+      type_id: Number(aircraftTypeId),
+    };
+
+    this.fectDashboardData();
+  }
 
   ngOnInit(): void {
     this.fectDashboardData();
@@ -164,6 +174,8 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   fectDashboardData(): void {
+    this.store.dispatch(DashboardAction.onClearAircraftList());
+
     this.dashboardService
       .getCardData(this.paginationData)
       .pipe(

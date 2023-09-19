@@ -6,7 +6,14 @@ import {
   trigger,
 } from '@angular/animations';
 import { DatePipe } from '@angular/common';
-import { Component, OnDestroy, OnInit, Input, OnChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Event, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { KeycloakService } from 'keycloak-angular';
@@ -59,10 +66,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
   @Input() yellowZone: number;
   @Input() redZone: number;
   @Input() id: string;
-  @Input() options: any[];
-  @Input() selectedOption: string;
   @Input() valueOption: string;
   @Input() showOption: string;
+
+  @Output() aircraftTypeSelected = new EventEmitter<number>();
 
   selectOptions: { value: string; label: string }[] = [];
 
@@ -129,6 +136,13 @@ export class SidebarComponent implements OnInit, OnDestroy {
   capitalize(input: string, nextIndex: number): string {
     const _first = input.substring(1, input.length).charAt(0).toUpperCase();
     return `${_first}${input.slice(nextIndex)}`;
+  }
+
+  onAircraftTypeChange(event: any) {
+    const selectedValue = event.target.value;
+    this.aircraftTypeSelected.emit(selectedValue);
+    console.log(`Selected option value: ${selectedValue}`);
+    // You can perform any actions you want with the selected value here.
   }
 
   toggleSidebar(): void {

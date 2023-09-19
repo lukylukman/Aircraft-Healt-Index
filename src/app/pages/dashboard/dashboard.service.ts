@@ -51,9 +51,13 @@ export class DashboardService extends HttpService {
   ): Observable<HttpResult<AircraftDTO[]>> {
     const params = new HttpParams()
       .set('page', paginationData.page)
-      .set('size', paginationData.size);
+      .set('size', paginationData.size)
+      .set('type_id', paginationData.type_id);
 
-    if (paginationData.type_id !== undefined && paginationData.type_id !== null) {
+    if (
+      paginationData.type_id !== undefined &&
+      paginationData.type_id !== null
+    ) {
       params.set('type_id', paginationData.type_id);
     }
 
