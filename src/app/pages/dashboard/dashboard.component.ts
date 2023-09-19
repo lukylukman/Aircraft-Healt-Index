@@ -166,6 +166,9 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
               .pipe(
                 map((score) => {
+
+                  console.log("Score Data => ", score);                   
+
                   // Perform your transformation here
                   let tempAircraft: AircraftDTO = {
                     sapRegistration: el.sapRegistration,

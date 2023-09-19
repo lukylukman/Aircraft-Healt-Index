@@ -61,7 +61,7 @@
   <!-- customerName -->
       <div class="flex justify-start mt-6 ml-8 gap-4">
         <div
-          class="bg-ahi-blue-900 w-40 cursor-pointer h-28 shadow-md rounded-lg"
+          class="bg-ahi-blue-900 w-40 cursor-pointer h-28 shadow-md rounded-lg ease-in-out transition-all duration-200"
           #pilihan1
           [class.selected]="selectedOption === 'pilihan1'"
           (click)="selectOption('pilihan1')"
@@ -73,7 +73,7 @@
         </div>
 
         <div
-          class="bg-ahi-blue-900 w-40 h-28 cursor-pointer shadow-md rounded-lg"
+          class="bg-ahi-blue-900 w-40 h-28 cursor-pointer shadow-md rounded-lg ease-in-out transition-all duration-200"
           #pilihan2
           [class.selected]="selectedOption === 'pilihan2'"
           (click)="selectOption('pilihan2')"

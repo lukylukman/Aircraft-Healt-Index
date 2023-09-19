@@ -74,11 +74,20 @@ export class DashboardService extends HttpService {
     );
   }
   
+  // getAircraftScore(acReg: string): Observable<HttpResult<AircraftScoreDTO>> {
+  //   const params = new HttpParams().set('aircraftRegistration', acReg);
+
+  //   return this.http.get<HttpResult<AircraftScoreDTO>>(
+  //     `${environment.host.ahi.url}/ahi/_search-last`,
+  //     { params: params }
+  //   );
+  // }
+
   getAircraftScore(acReg: string): Observable<HttpResult<AircraftScoreDTO>> {
     const params = new HttpParams().set('aircraftRegistration', acReg);
 
     return this.http.get<HttpResult<AircraftScoreDTO>>(
-      `${environment.host.ahi.url}/ahi/_search-last`,
+      `${environment.host.ahi.url}/ahi/_index?total=60`,
       { params: params }
     );
   }
