@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { PaginationResultDTO } from 'src/app/core/dto/pagination.result.dto';
+import { AhiSummaryScoreDTO } from '../dto/ahi-summary-score.dto';
 import { AircraftDTO } from '../dto/aircraft.dto';
 import { DashboardActionType } from './dashboard.action.type';
 
@@ -29,4 +30,9 @@ export const onLoadAircraftList = createAction(
 
 export const onClearAircraftList = createAction(
   DashboardActionType.ON_DASHBOARD_LIST_CLEAR
+);
+
+export const onLoadSummaryScore = createAction(
+  DashboardActionType.ON_SUMMARY_SCORE_LOAD,
+  props<AhiSummaryScoreDTO>()
 );

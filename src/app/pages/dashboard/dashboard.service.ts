@@ -1,4 +1,10 @@
-import { HttpClient, HttpEvent, HttpEventType, HttpParams, HttpRequest } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpEvent,
+  HttpEventType,
+  HttpParams,
+  HttpRequest,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { HttpResponseDTO, HttpResult } from 'src/app/core/dto/http-result.dto';
@@ -7,6 +13,7 @@ import { LoggerService } from 'src/app/core/services/logger.service';
 import { UserSoeService } from 'src/app/core/services/user.soe.service';
 import { HttpService } from 'src/app/providers/http/http.service';
 import { environment } from 'src/environments/environment';
+import { AhiSummaryScoreDTO } from './dto/ahi-summary-score.dto';
 import { AircraftScoreDTO } from './dto/aircraft-score.dto';
 import { AircraftDTO } from './dto/aircraft.dto';
 import { ImsPaginationDTO } from './dto/ims-pagination.dto';
@@ -73,7 +80,7 @@ export class DashboardService extends HttpService {
       })
     );
   }
-  
+
   // getAircraftScore(acReg: string): Observable<HttpResult<AircraftScoreDTO>> {
   //   const params = new HttpParams().set('aircraftRegistration', acReg);
 
@@ -82,6 +89,12 @@ export class DashboardService extends HttpService {
   //     { params: params }
   //   );
   // }
+
+  getAhiSummaryScore(): Observable<HttpResult<AhiSummaryScoreDTO>> {
+    return this.http.get<HttpResult<AhiSummaryScoreDTO>>(
+      `${environment.host.ahi.url}/ahi/_amount`
+    );
+  }
 
   getAircraftScore(acReg: string): Observable<HttpResult<AircraftScoreDTO>> {
     const params = new HttpParams().set('aircraftRegistration', acReg);

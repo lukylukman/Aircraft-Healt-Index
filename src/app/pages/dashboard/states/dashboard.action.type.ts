@@ -6,4 +6,7 @@ export enum DashboardActionType {
 
   ON_DASHBOARD_LIST_LOAD = '[Action: Dashboard] => On Load Dashboard List',
   ON_DASHBOARD_LIST_CLEAR = '[Action: Dashboard] => On Clear Dashboard List',
+
+  // SET SUMMARY SCORE
+  ON_SUMMARY_SCORE_LOAD = '[Action:Summary Score] => On Load Summary Score',
 }

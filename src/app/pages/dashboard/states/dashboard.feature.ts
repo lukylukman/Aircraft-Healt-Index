@@ -1,5 +1,6 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { PaginationResultDTO } from 'src/app/core/dto/pagination.result.dto';
+import { AhiSummaryScoreDTO } from '../dto/ahi-summary-score.dto';
 import { AircraftDTO } from '../dto/aircraft.dto';
 import * as DashboardAction from './dashboard.action';
 
@@ -17,12 +18,18 @@ export interface DashboardFeatureState {
   dashboard: PaginationResultDTO<AircraftDTO>;
   aircraftLists: AircraftDTO[];
   selectedDashboard: AircraftDTO | null;
+  ahiSummaryScore: AhiSummaryScoreDTO;
 }
 
 const initialState: DashboardFeatureState = {
   dashboard: empetyStateDashboard,
   selectedDashboard: null,
   aircraftLists: [],
+  ahiSummaryScore: {
+    amountOfGreenItems: 0,
+    amountOfYellowItems: 0,
+    amountOfRedItems: 0,
+  },
 };
 
 export const DashboardFeature = createFeature({
@@ -61,6 +68,14 @@ export const DashboardFeature = createFeature({
     on(DashboardAction.onDashboardClear, (state: DashboardFeatureState) => ({
       ...state,
       dashboardData: [],
-    }))
+    })),
+
+    on(
+      DashboardAction.onLoadSummaryScore,
+      (state: DashboardFeatureState, data: AhiSummaryScoreDTO) => ({
+        ...state,
+        ahiSummaryScore: data,
+      })
+    )
   ),
 });

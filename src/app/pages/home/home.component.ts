@@ -7,14 +7,17 @@ import {
 } from '@angular/animations';
 import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { KeycloakService } from 'keycloak-angular';
-import {
-  Subject
-} from 'rxjs';
+import { Observable, Subject, takeUntil, tap } from 'rxjs';
 import { Confirmable } from 'src/app/core/decorators/confirmable.decorator';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { UserSoeService } from 'src/app/core/services/user.soe.service';
 import { PersonalInformation } from 'src/app/shared/layout/sidebar/interfaces/sidebar.interface';
+import { DashboardService } from '../dashboard/dashboard.service';
+import * as DashboardAction from '../dashboard/states/dashboard.action';
+import { DashboardFeatureState } from '../dashboard/states/dashboard.feature';
+import { DashboardState } from '../dashboard/states/dashboard.selector';
 
 @Component({
   selector: 'app-home',
@@ -48,6 +51,9 @@ import { PersonalInformation } from 'src/app/shared/layout/sidebar/interfaces/si
   ],
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  // State Initializations
+  dashboardState$: Observable<DashboardFeatureState>;
+
   private readonly unsubscribe$ = new Subject();
   currentDate: Date = new Date();
 
@@ -71,8 +77,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private readonly soeService: UserSoeService,
     private readonly keycloakService: KeycloakService,
+    private readonly dashboardService: DashboardService,
+    private readonly store: Store
   ) {
     this.logger = new LoggerService(HomeComponent.name);
+    this.dashboardState$ = this.store.select(DashboardState);
     this.personalInformation =
       this.soeService.getPersonalInformationFromCache();
     // console.log(this.personalInformation);
@@ -85,6 +94,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.currentIndex = (this.currentIndex + 1) % this.quotes.length;
       this.currentQuote = this.quotes[this.currentIndex];
     }, 30000);
+
+    this.initDashboardData();
   }
 
   ngOnDestroy(): void {
@@ -103,5 +114,20 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   clearStorage(): void {
     localStorage.clear();
+  }
+
+  initDashboardData(): void {
+    this.dashboardService
+      .getAhiSummaryScore()
+      .pipe(
+        tap({
+          next: (_) => {
+            this.store.dispatch(DashboardAction.onLoadSummaryScore(_.data));
+          },
+          error: (err) => console.error('Error on HomeComponent => ', err),
+        })
+      )
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe();
   }
 }
