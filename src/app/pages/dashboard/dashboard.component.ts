@@ -103,7 +103,6 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   paginationData: ImsPaginationDTO = {
     page: 1,
     size: 24,
-    type_id: null,
   };
 
   constructor(
@@ -124,12 +123,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   });
 
   onAircraftTypeChanged(aircraftTypeId: number): void {
-    this.paginationData = {
-      ...this.paginationData,
-      type_id: Number(aircraftTypeId),
-    };
+    const aircraftId = Number(aircraftTypeId);
 
-    this.fectDashboardData();
+    console.log('Aircraft ID => ', aircraftId);
+
+    this.fectDashboardData(aircraftId);
   }
 
   ngOnInit(): void {
@@ -173,11 +171,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe();
   }
 
-  fectDashboardData(): void {
+  fectDashboardData(aircraftTypeId?: number): void {
     this.store.dispatch(DashboardAction.onClearAircraftList());
 
     this.dashboardService
-      .getCardData(this.paginationData)
+      .getCardData(this.paginationData, aircraftTypeId)
       .pipe(
         tap((res) => {
           res.data.forEach((el) => {
