@@ -20,6 +20,7 @@ import { ImsPaginationDTO } from './dto/ims-pagination.dto';
 import * as DashboardAction from './states/dashboard.action';
 import { DashboardFeatureState } from './states/dashboard.feature';
 import { DashboardState } from './states/dashboard.selector';
+import { AircraftDetailHilDTO } from './dto/aircraft-detail-hil.dto';
 
 export interface SearchSelection {
   key: string;
@@ -63,6 +64,8 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   logger: LoggerService;
   isSearch: boolean = false;
   isAdvance: boolean = false;
+  selectedCard: AircraftDetailHilDTO;
+  selectedDashboardCard: AircraftDTO;
   searchSelections: SearchSelection[] = [
     {
       // TODO: Please enable later. Disabled due to data is not ready yet!
@@ -221,14 +224,24 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(); // Don't forget to subscribe to trigger the observable
   }
 
-  selectedCard: AircraftDTO;
-
-  openCardDetail(card: AircraftDTO) {
-    this.selectedCard = card;
+  openCardDetail(aircraftRegristration: string): void {
     this.isModalOpen = true; // Open the modal
-    this.modal.toggle();
 
-    this.store.dispatch(DashboardAction.onDashboardSelected(card));
+    this.dashboardService
+      .getDetailAircraftHil(aircraftRegristration)
+      .pipe(
+        tap((result) => {
+          // Handle response 
+          this.selectedCard = result.data;
+          console.log(this.selectedCard);
+        }),
+        catchError((err) => {
+          console.error(err);
+          return of(null);
+        }),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {
