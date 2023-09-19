@@ -2,15 +2,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Modal } from 'flowbite';
-import {
-  Observable,
-  Subject,
-  catchError,
-  map,
-  of,
-  takeUntil,
-  tap
-} from 'rxjs';
+import { Observable, Subject, catchError, map, of, takeUntil, tap } from 'rxjs';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { DashboardService } from './dashboard.service';
 
@@ -116,15 +108,14 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private readonly dashboardService: DashboardService,
     private readonly soeService: UserSoeService,
-    private readonly store: Store,
+    private readonly store: Store
   ) {
     this.logger = new LoggerService(DashboardComponent.name);
     this.dashboardState$ = this.store.select(DashboardState);
     this.personalInformation =
       this.soeService.getPersonalInformationFromCache();
   }
-  ngAfterViewInit(): void {
-  }
+  ngAfterViewInit(): void {}
 
   formGroup = new FormGroup({
     partNumber: new FormControl<string>('', [Validators.required]),
@@ -133,6 +124,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.fectDashboardData();
+    this.fetchAircraftType();
 
     this.modal = new Modal(document.getElementById('modalDetailCard'), {});
 
@@ -155,6 +147,22 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  fetchAircraftType(): void {
+    this.dashboardService
+      .getAircraftType()
+      .pipe(
+        tap({
+          next: (_) => {
+            _.data.forEach((acType) =>
+              this.store.dispatch(DashboardAction.onLoadAircraftType(acType))
+            );
+          },
+        })
+      )
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe();
+  }
+
   fectDashboardData(): void {
     this.dashboardService
       .getCardData(this.paginationData)
@@ -166,8 +174,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
               .pipe(
                 map((score) => {
-
-                  console.log("Score Data => ", score);                   
+                  console.log('Score Data => ', score);
 
                   // Perform your transformation here
                   let tempAircraft: AircraftDTO = {
@@ -214,7 +221,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(); // Don't forget to subscribe to trigger the observable
   }
 
-  selectedCard: AircraftDTO[] =[];
+  selectedCard: AircraftDTO[] = [];
 
   openCardDetail(card: any) {
     this.selectedCard = card;

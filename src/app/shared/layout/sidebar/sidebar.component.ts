@@ -5,10 +5,12 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Event, NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { KeycloakService } from 'keycloak-angular';
-import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 import { Confirmable } from 'src/app/core/decorators/confirmable.decorator';
 import { LocalStorageServiceInterface } from 'src/app/core/interfaces/localstorage.service.interface';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
@@ -17,6 +19,8 @@ import {
   RouteSidebar,
 } from 'src/app/core/services/route-helper.service';
 import { UserSoeService } from 'src/app/core/services/user.soe.service';
+import { DashboardFeatureState } from 'src/app/pages/dashboard/states/dashboard.feature';
+import { DashboardState } from 'src/app/pages/dashboard/states/dashboard.selector';
 import { environment } from 'src/environments/environment';
 import { LocalServiceConst } from '../../const/local-service.const';
 import {
@@ -25,7 +29,6 @@ import {
   SidebarChildrenGroupMenu,
 } from './interfaces/sidebar.interface';
 import { SidebarService } from './sidebar.service';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',
@@ -54,6 +57,7 @@ import { DatePipe } from '@angular/common';
 export class SidebarComponent implements OnInit, OnDestroy {
   currentDate: Date = new Date();
   userInfo: PersonalInformation = <PersonalInformation>{};
+  dashboardState$: Observable<DashboardFeatureState>;
   localService: LocalStorageServiceInterface;
   sidebarState: ShowHideType = 'hide';
   userRoles: string[] = [];
@@ -72,9 +76,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
     private _router: RouteHelperService,
     private _sidebar: SidebarService,
     private readonly soeService: UserSoeService,
-    private router: Router
+    private router: Router,
+    private readonly store: Store
   ) {
     this.localService = new LocalstorageService();
+    this.dashboardState$ = this.store.select(DashboardState);
   }
 
   ngOnInit(): void {
