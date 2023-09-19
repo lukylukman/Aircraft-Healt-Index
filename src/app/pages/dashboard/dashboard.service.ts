@@ -51,8 +51,11 @@ export class DashboardService extends HttpService {
   ): Observable<HttpResult<AircraftDTO[]>> {
     const params = new HttpParams()
       .set('page', paginationData.page)
-      .set('size', paginationData.size)
-      .set('type_id', paginationData.type_id);
+      .set('size', paginationData.size);
+
+    if (paginationData.type_id !== undefined && paginationData.type_id !== null) {
+      params.set('type_id', paginationData.type_id);
+    }
 
     return this.http.get<HttpResult<AircraftDTO[]>>(
       `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ims`,

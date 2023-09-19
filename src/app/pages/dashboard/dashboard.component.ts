@@ -221,9 +221,9 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(); // Don't forget to subscribe to trigger the observable
   }
 
-  selectedCard: AircraftDTO[] = [];
+  selectedCard: AircraftDTO;
 
-  openCardDetail(card: any) {
+  openCardDetail(card: AircraftDTO) {
     this.selectedCard = card;
     this.isModalOpen = true; // Open the modal
     this.modal.toggle();
