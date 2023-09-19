@@ -44,7 +44,7 @@
     <!-- Green Yellow Red -->
     <div class="grid grid-cols-3 mt-12 ml-2 mr-2">
       <div class="text-center">
-        <p class="text-5xl font-extralight mb-2">20</p>
+        <p class="text-5xl font-extralight mb-2">{{ greenZone }}</p>
         <button
           type="button"
           class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-lime-600"
@@ -53,7 +53,7 @@
         </button>
       </div>
       <div class="text-center">
-        <p class="text-5xl font-extralight mb-2">4</p>
+        <p class="text-5xl font-extralight mb-2">{{ yellowZone }}</p>
         <button
           type="button"
           class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-yellow-400"
@@ -62,7 +62,7 @@
         </button>
       </div>
       <div class="text-center">
-        <p class="text-5xl font-extralight mb-2">11</p>
+        <p class="text-5xl font-extralight mb-2">{{ redZone }}</p>
         <button
           type="button"
           class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-red-600"
@@ -77,12 +77,12 @@
     <div class="ml-6 mt-10 items-center">
       <p class="uppercase text-xl">Fleet</p>
       <select
-        id="small"
+        [id]="id"
         class="block w-48 p-2 mb-6 text-sm text-white border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        [(ngModel)]="selectedOption"
       >
-        <option selected>B737-800</option>
-        <option value="US">B1722-600</option>
-        <option value="US">B1722-600</option>
+        <option selected disabled>Choose aircraft type</option>
+        <option *ngFor="let option of options" [value]="option[valueOption]">{{ option[showOption] }}</option>
       </select>
     </div>
 
