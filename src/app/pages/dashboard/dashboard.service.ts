@@ -47,23 +47,27 @@ export class DashboardService extends HttpService {
   // }
 
   getCardData(
-    paginationData: ImsPaginationDTO
+    paginationData: ImsPaginationDTO,
+    aircraftTypeId?: number
   ): Observable<HttpResult<AircraftDTO[]>> {
-    const params = new HttpParams()
-      .set('page', paginationData.page)
-      .set('size', paginationData.size)
-      .set('type_id', paginationData.type_id);
+    let queryParams = {};
 
-    if (
-      paginationData.type_id !== undefined &&
-      paginationData.type_id !== null
-    ) {
-      params.set('type_id', paginationData.type_id);
+    if (aircraftTypeId) {
+      queryParams = {
+        page: paginationData.page,
+        size: paginationData.size,
+        type_id: aircraftTypeId,
+      };
+    } else {
+      queryParams = {
+        page: paginationData.page,
+        size: paginationData.size,
+      };
     }
 
     return this.http.get<HttpResult<AircraftDTO[]>>(
       `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ims`,
-      { params: params }
+      { params: queryParams }
     );
   }
 
