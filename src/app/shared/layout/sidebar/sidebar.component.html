@@ -1,136 +1,141 @@
-<div
-  class="flex flex-col fixed top-0 left-0 z-40 h-screen bg-black shadow-gray shadow-lg text-white p-2"
->
-  <!-- Logo -->
+<ng-container *ngIf="dashboardState$ | async as dashboardState">
+  <div
+    class="flex flex-col fixed top-0 left-0 z-40 h-screen bg-black shadow-gray shadow-lg text-white p-2"
+  >
+    <!-- Logo -->
 
-  <div class="justify-center items-center">
-    <span class="cursor-pointer" (click)="goHome()">
-      <img
-        src="../../../../assets/images/AHI_Icon.png"
-        alt="No Image"
-        class="w-36 mx-auto"
-      />
-    </span>
-    <div class="flex flex-row justify-center mt-2">
-      <h1 class="text-5xl font-extralight">{{ currentDate | date : "dd" }}</h1>
-      <div class="flex-col ml-2 p-0">
-        <h1 class="text-base font-normal uppercase">
-          {{ currentDate | date : "MMMM yyyy" }}
+    <div class="justify-center items-center">
+      <span class="cursor-pointer" (click)="goHome()">
+        <img
+          src="../../../../assets/images/AHI_Icon.png"
+          alt="No Image"
+          class="w-36 mx-auto"
+        />
+      </span>
+      <div class="flex flex-row justify-center mt-2">
+        <h1 class="text-5xl font-extralight">
+          {{ currentDate | date : "dd" }}
         </h1>
-        <h1 class="text-base font-normal uppercase">
-          {{ currentDate | date : "EEEE" }}
-        </h1>
+        <div class="flex-col ml-2 p-0">
+          <h1 class="text-base font-normal uppercase">
+            {{ currentDate | date : "MMMM yyyy" }}
+          </h1>
+          <h1 class="text-base font-normal uppercase">
+            {{ currentDate | date : "EEEE" }}
+          </h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-right flex flex-col mt-10 mr-4">
+      <h4 class="uppercase text-white font-light text-base">Averange Health</h4>
+      <div class="flex flex-row items-end justify-end">
+        <!-- Menggunakan flex dan justify-end -->
+        <h1 class="text-white font-extralight text-6xl">82.</h1>
+        <h1 class="text-3xl font-extralight">52</h1>
+      </div>
+      <h4 class="uppercase text-white font-light text-base">PERCENT Changes</h4>
+      <div class="flex flex-row justify-end">
+        <!-- Menggunakan flex dan justify-end -->
+        <h2 class="text-white font-extralight text-4xl">2.57%</h2>
+      </div>
+    </div>
+
+    <!-- Green Yellow Red -->
+    <div class="grid grid-cols-3 mt-12 ml-2 mr-2">
+      <div class="text-center">
+        <p class="text-5xl font-extralight mb-2">20</p>
+        <button
+          type="button"
+          class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-lime-600"
+        >
+          Green
+        </button>
+      </div>
+      <div class="text-center">
+        <p class="text-5xl font-extralight mb-2">4</p>
+        <button
+          type="button"
+          class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-yellow-400"
+        >
+          Yellow
+        </button>
+      </div>
+      <div class="text-center">
+        <p class="text-5xl font-extralight mb-2">11</p>
+        <button
+          type="button"
+          class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-red-600"
+        >
+          Red
+        </button>
+      </div>
+    </div>
+
+    <!-- Fleet Dropdown -->
+    <!-- TODO: Use FormCOntrol -->
+    <div class="ml-6 mt-10 items-center">
+      <p class="uppercase text-xl">Fleet</p>
+      <select
+        id="small"
+        class="block w-48 p-2 mb-6 text-sm text-white border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      >
+        <option selected>B737-800</option>
+        <option value="US">B1722-600</option>
+        <option value="US">B1722-600</option>
+      </select>
+    </div>
+
+    <!-- Sort Dropdown -->
+    <div class="ml-6 mt-3 items-center">
+      <p class="uppercase text-xl">Sort</p>
+      <select
+        id="small"
+        class="block w-48 p-2 mb-6 text-sm text-white border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      >
+        <option selected>Recently Update</option>
+        <option value="US">APU-300</option>
+        <option value="US">APU-300</option>
+      </select>
+    </div>
+
+    <div class="grid grid-cols-2 mx-auto mt-5">
+      <div>
+        <button
+          type="button"
+          *ngIf="userRoles.includes('admin')"
+          routerLink="/configuration"
+          class="inline-block rounded-full p-2 text-md font-medium leading-normal hover:bg-gray-500 text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+        >
+          <hero-icon
+            name="cog"
+            type="outline"
+            class="h-5 w-5 cursor-pointer text-white duration-200"
+          ></hero-icon>
+        </button>
+      </div>
+      <div>
+        <button
+          type="button"
+          class="inline-block ml-3 rounded-full p-2 text-md font-medium leading-normal hover:bg-gray-500 text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+          (click)="onClickLogout()"
+        >
+          <hero-icon
+            name="logout"
+            type="outline"
+            class="h-5 w-5 cursor-pointer text-white duration-200"
+          ></hero-icon>
+        </button>
       </div>
     </div>
   </div>
 
-  <div class="text-right flex flex-col mt-10 mr-4">
-    <h4 class="uppercase text-white font-light text-base">Averange Health</h4>
-    <div class="flex flex-row items-end justify-end">
-      <!-- Menggunakan flex dan justify-end -->
-      <h1 class="text-white font-extralight text-6xl">82.</h1>
-      <h1 class="text-3xl font-extralight">52</h1>
-    </div>
-    <h4 class="uppercase text-white font-light text-base">PERCENT Changes</h4>
-    <div class="flex flex-row justify-end">
-      <!-- Menggunakan flex dan justify-end -->
-      <h2 class="text-white font-extralight text-4xl">2.57%</h2>
+  <div class="sm:ml-64">
+    <div class="m-2">
+      <!-- Content -->
+      <router-outlet></router-outlet>
+      <ng-content></ng-content>
+      <!-- End of content -->
     </div>
   </div>
-
-  <!-- Green Yellow Red -->
-  <div class="grid grid-cols-3 mt-12 ml-2 mr-2">
-    <div class="text-center">
-      <p class="text-5xl font-extralight mb-2">20</p>
-      <button
-        type="button"
-        class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-lime-600"
-      >
-        Green
-      </button>
-    </div>
-    <div class="text-center">
-      <p class="text-5xl font-extralight mb-2">4</p>
-      <button
-        type="button"
-        class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-yellow-400"
-      >
-        Yellow
-      </button>
-    </div>
-    <div class="text-center">
-      <p class="text-5xl font-extralight mb-2">11</p>
-      <button
-        type="button"
-        class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-red-600"
-      >
-        Red
-      </button>
-    </div>
-  </div>
-
-  <!-- Fleet Dropdown -->
-  <div class="ml-6 mt-10 items-center">
-    <p class="uppercase text-xl">Fleet</p>
-    <select
-      id="small"
-      class="block w-48 p-2 mb-6 text-sm text-white border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-    >
-      <option selected>B737-800</option>
-      <option value="US">B1722-600</option>
-      <option value="US">B1722-600</option>
-    </select>
-  </div>
-
-  <!-- Sort Dropdown -->
-  <div class="ml-6 mt-3 items-center">
-    <p class="uppercase text-xl">Sort</p>
-    <select
-      id="small"
-      class="block w-48 p-2 mb-6 text-sm text-white border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-    >
-      <option selected>Recently Update</option>
-      <option value="US">APU-300</option>
-      <option value="US">APU-300</option>
-    </select>
-  </div>
-
-  <div class="grid grid-cols-2 mx-auto mt-5">
-    <div>
-      <button
-        type="button"
-        *ngIf="userRoles.includes('admin')"
-        routerLink="/configuration"
-        class="inline-block rounded-full p-2 text-md font-medium leading-normal hover:bg-gray-500 text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
-      >
-        <hero-icon
-          name="cog"
-          type="outline"
-          class="h-5 w-5 cursor-pointer text-white duration-200"
-        ></hero-icon>
-      </button>
-    </div>
-    <div>
-      <button
-        type="button"
-        class="inline-block ml-3 rounded-full p-2 text-md font-medium leading-normal hover:bg-gray-500 text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
-        (click)="onClickLogout()"
-      >
-        <hero-icon
-          name="logout"
-          type="outline"
-          class="h-5 w-5 cursor-pointer text-white duration-200"
-        ></hero-icon>
-      </button>
-    </div>
-  </div>
-</div>
-
-<div class="sm:ml-64">
-  <div class="m-2">
-    <!-- Content -->
-    <router-outlet></router-outlet>
-    <ng-content></ng-content>
-    <!-- End of content -->
-  </div>
-</div>
+</ng-container>

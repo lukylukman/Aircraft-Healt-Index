@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { PaginationResultDTO } from 'src/app/core/dto/pagination.result.dto';
 import { AhiSummaryScoreDTO } from '../dto/ahi-summary-score.dto';
+import { AircraftTypeDTO } from '../dto/aircraft-type.dto';
 import { AircraftDTO } from '../dto/aircraft.dto';
 import { DashboardActionType } from './dashboard.action.type';
 
@@ -35,4 +36,15 @@ export const onClearAircraftList = createAction(
 export const onLoadSummaryScore = createAction(
   DashboardActionType.ON_SUMMARY_SCORE_LOAD,
   props<AhiSummaryScoreDTO>()
+);
+
+// Aircraft Type
+
+export const onClearAircraftType = createAction(
+  DashboardActionType.ON_AIRCRAFT_TYPE_CLEAR
+);
+
+export const onLoadAircraftType = createAction(
+  DashboardActionType.ON_AIRCRAFT_TYPE_LOAD,
+  props<AircraftTypeDTO>()
 );

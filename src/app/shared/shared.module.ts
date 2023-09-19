@@ -2,10 +2,14 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
 import { HeroIconModule } from 'ng-heroicon';
 import { UserSoeService } from '../core/services/user.soe.service';
+import { DashboardFeature } from '../pages/dashboard/states/dashboard.feature';
 import { NoDataComponent } from './error/no-data/no-data.component';
+import { LayoutAdminComponent } from './layout/layout-admin/layout-admin.component';
 import { MainComponent } from './layout/main/main.component';
+import { SidebarAdminComponent } from './layout/sidebar-admin/sidebar-admin.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { TitleCasePipe } from './pipes/title-case.pipe';
 import { TransformAcronymPipe } from './pipes/transform-acronym.pipe';
@@ -25,12 +29,10 @@ import { RadioButtonComponent } from './reuseable-ui-components/radio-button/rad
 import { SelectComponent } from './reuseable-ui-components/select/select.component';
 import { StepperContentComponent } from './reuseable-ui-components/stepper/components/stepper-content/stepper-content.component';
 import { StepperComponent } from './reuseable-ui-components/stepper/stepper.component';
+import { SvgIconComponent } from './reuseable-ui-components/svg/svg.component';
 import { TabItemComponent } from './reuseable-ui-components/tab/components/tab-item/tab-item.component';
 import { TabComponent } from './reuseable-ui-components/tab/tab.component';
 import { TooltipModule } from './reuseable-ui-components/tooltip/tooltip.module';
-import { SvgIconComponent } from './reuseable-ui-components/svg/svg.component';
-import { LayoutAdminComponent } from './layout/layout-admin/layout-admin.component';
-import { SidebarAdminComponent } from './layout/sidebar-admin/sidebar-admin.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +71,7 @@ import { SidebarAdminComponent } from './layout/sidebar-admin/sidebar-admin.comp
     TooltipModule,
     FormsModule,
     ReactiveFormsModule,
+    StoreModule.forFeature(DashboardFeature),
   ],
   exports: [
     MainComponent,

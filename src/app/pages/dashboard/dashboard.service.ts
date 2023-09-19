@@ -15,6 +15,7 @@ import { HttpService } from 'src/app/providers/http/http.service';
 import { environment } from 'src/environments/environment';
 import { AhiSummaryScoreDTO } from './dto/ahi-summary-score.dto';
 import { AircraftScoreDTO } from './dto/aircraft-score.dto';
+import { AircraftTypeDTO } from './dto/aircraft-type.dto';
 import { AircraftDTO } from './dto/aircraft.dto';
 import { ImsPaginationDTO } from './dto/ims-pagination.dto';
 import { PostUploadConfigDTO } from './dto/postUploadConfig.dto';
@@ -50,7 +51,8 @@ export class DashboardService extends HttpService {
   ): Observable<HttpResult<AircraftDTO[]>> {
     const params = new HttpParams()
       .set('page', paginationData.page)
-      .set('size', paginationData.size);
+      .set('size', paginationData.size)
+      .set('type_id', paginationData.type_id);
 
     return this.http.get<HttpResult<AircraftDTO[]>>(
       `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ims`,
@@ -78,6 +80,12 @@ export class DashboardService extends HttpService {
         }
         return 0;
       })
+    );
+  }
+
+  getAircraftType(): Observable<HttpResult<AircraftTypeDTO[]>> {
+    return this.http.get<HttpResult<AircraftTypeDTO[]>>(
+      `${environment.host.ahi.url}/v1/ims/aircraft/type`
     );
   }
 

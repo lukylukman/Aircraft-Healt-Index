@@ -1,6 +1,7 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { PaginationResultDTO } from 'src/app/core/dto/pagination.result.dto';
 import { AhiSummaryScoreDTO } from '../dto/ahi-summary-score.dto';
+import { AircraftTypeDTO } from '../dto/aircraft-type.dto';
 import { AircraftDTO } from '../dto/aircraft.dto';
 import * as DashboardAction from './dashboard.action';
 
@@ -19,6 +20,7 @@ export interface DashboardFeatureState {
   aircraftLists: AircraftDTO[];
   selectedDashboard: AircraftDTO | null;
   ahiSummaryScore: AhiSummaryScoreDTO;
+  aircraftType: AircraftTypeDTO[];
 }
 
 const initialState: DashboardFeatureState = {
@@ -30,6 +32,7 @@ const initialState: DashboardFeatureState = {
     amountOfYellowItems: 0,
     amountOfRedItems: 0,
   },
+  aircraftType: [],
 };
 
 export const DashboardFeature = createFeature({
@@ -75,6 +78,21 @@ export const DashboardFeature = createFeature({
       (state: DashboardFeatureState, data: AhiSummaryScoreDTO) => ({
         ...state,
         ahiSummaryScore: data,
+      })
+    ),
+
+    // AIrcraft Type
+
+    on(DashboardAction.onClearAircraftType, (state: DashboardFeatureState) => ({
+      ...state,
+      aircraftType: [],
+    })),
+
+    on(
+      DashboardAction.onLoadAircraftType,
+      (state: DashboardFeatureState, data: AircraftTypeDTO) => ({
+        ...state,
+        aircraftType: [...state.aircraftType, data],
       })
     )
   ),
