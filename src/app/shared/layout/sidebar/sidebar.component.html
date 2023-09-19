@@ -44,7 +44,9 @@
     <!-- Green Yellow Red -->
     <div class="grid grid-cols-3 mt-12 ml-2 mr-2">
       <div class="text-center">
-        <p class="text-5xl font-extralight mb-2">{{ greenZone }}</p>
+        <p class="text-5xl font-extralight mb-2">
+          {{ dashboardState.ahiSummaryScore.amountOfGreenItems }}
+        </p>
         <button
           type="button"
           class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-lime-600"
@@ -53,7 +55,9 @@
         </button>
       </div>
       <div class="text-center">
-        <p class="text-5xl font-extralight mb-2">{{ yellowZone }}</p>
+        <p class="text-5xl font-extralight mb-2">
+          {{ dashboardState.ahiSummaryScore.amountOfYellowItems }}
+        </p>
         <button
           type="button"
           class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-yellow-400"
@@ -62,7 +66,9 @@
         </button>
       </div>
       <div class="text-center">
-        <p class="text-5xl font-extralight mb-2">{{ redZone }}</p>
+        <p class="text-5xl font-extralight mb-2">
+          {{ dashboardState.ahiSummaryScore.amountOfRedItems }}
+        </p>
         <button
           type="button"
           class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-red-600"
@@ -79,10 +85,16 @@
       <select
         [id]="id"
         class="block w-48 p-2 mb-6 text-sm text-white border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        [(ngModel)]="selectedOption"
+        (change)="onAircraftTypeChange($event)"
       >
         <option selected disabled>Choose aircraft type</option>
-        <option *ngFor="let option of options" [value]="option[valueOption]">{{ option[showOption] }}</option>
+        <option [value]="null">Select All Aircraft</option>
+        <option
+          *ngFor="let option of dashboardState.aircraftType"
+          [value]="option.aircraftTypeId"
+        >
+          {{ option.aircraftType }}
+        </option>
       </select>
     </div>
 
