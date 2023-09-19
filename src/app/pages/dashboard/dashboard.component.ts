@@ -65,6 +65,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   isSearch: boolean = false;
   isAdvance: boolean = false;
   selectedCard: AircraftDetailHilDTO;
+  detailModalHil: AircraftDetailHilDTO;
   selectedDashboardCard: AircraftDTO;
   searchSelections: SearchSelection[] = [
     {
@@ -94,6 +95,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   closeModal() {
     this.showModal = false;
+    this.selectedCard = null;
   }
 
   dashboardState$: Observable<DashboardFeatureState>;
@@ -111,14 +113,16 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private readonly dashboardService: DashboardService,
     private readonly soeService: UserSoeService,
-    private readonly store: Store
+    private readonly store: Store,
   ) {
     this.logger = new LoggerService(DashboardComponent.name);
     this.dashboardState$ = this.store.select(DashboardState);
     this.personalInformation =
       this.soeService.getPersonalInformationFromCache();
   }
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    this.selectedCard;
+  }
 
   formGroup = new FormGroup({
     partNumber: new FormControl<string>('', [Validators.required]),
@@ -235,15 +239,17 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   openCardDetail(aircraftRegristration: string): void {
-    this.isModalOpen = true; // Open the modal
+    this.isModalOpen = true;
 
     this.dashboardService
       .getDetailAircraftHil(aircraftRegristration)
       .pipe(
         tap((result) => {
           // Handle response 
-          this.selectedCard = result.data;
+          this.selectedCard = result.data[0];
+          this.detailModalHil = result.data; 
           console.log(this.selectedCard);
+          console.log(this.detailModalHil);
         }),
         catchError((err) => {
           console.error(err);
@@ -257,4 +263,19 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy(): void {
     this.unsubscribe$.unsubscribe();
   }
+
+  formatDate(dateString: string): string {
+    // Ubah string tanggal menjadi objek Date
+    const originalDate = new Date(dateString);
+
+    // Format tanggal dalam format yang diinginkan
+    const options: Intl.DateTimeFormatOptions = {
+      day: '2-digit', 
+      month: 'short',  
+      year: 'numeric',  
+    };
+
+    return originalDate.toLocaleDateString('en-GB', options);
+  }
+
 }

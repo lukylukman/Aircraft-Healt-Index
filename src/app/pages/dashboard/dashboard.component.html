@@ -21,7 +21,6 @@
   </app-sidebar>
 </ng-container>
 <!-- Detail DataAircraft modal -->
-<div *ngIf="dashboardState$ | async as dashboardState">
   <div
     id="modalDetailCard"
     [@fadeInOut]
@@ -40,7 +39,7 @@
           class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600"
         >
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-            Upload document
+            Detail Hil
           </h3>
           <button
             (click)="closeModal()"
@@ -68,18 +67,20 @@
         <!-- header -->
         <div class="grid grid-cols-4">
           <div class="border-r-2 border-b-2 pl-28 pr-10 pb-3">
-            <h1 class="text-2xl">
-              {{ dashboardState.selectedDashboard?.aircraftRegistration }}
-            </h1>
-            <h4 class="text-xs font-semibold">B737-800</h4>
+           <h1 class="text-2xl">
+            {{ selectedCard?.aircraftRegistration }}
+          </h1>
+          <h4 class="text-xs font-semibold">
+            {{ selectedCard?.category }}
+          </h4>
           </div>
           <div class="border-b-2 border-r-2 pl-10">
             <h4 class="text-xs">Last Flight</h4>
-            <h1 class="text-2xl">08 Jan 2023</h1>
+            <h1 class="text-2xl">{{ formatDate(selectedCard?.followOnDate.toString()) }}</h1>
           </div>
           <div class="border-b-2 border-r-2 pl-10">
             <h4 class="text-xs">Last Assignment</h4>
-            <h1 class="text-2xl">BA124</h1>
+            <h1 class="text-2xl">{{ selectedCard?.id }}</h1>
           </div>
           <div class="border-b-2 pl-10">
             <h4 class="text-xs text-center flex">
@@ -154,20 +155,19 @@
                             />
                           </svg>
                         </td>
-                        <td class="whitespace-nowrap px-6 py-4">
+                        <td class="whitespace-nowrap px-6 py-4 text-xs">
                           <p class="text-blue-500 text-left font-semibold">
-                            CAT C - Air Conditioning
+                            {{ selectedCard?.categoryDescription }}
                           </p>
-                          <p>- Raised on 09-01-2023 03:00</p>
-                          <p>- Expired on 19-01-2023 03:00</p>
+                          <p class="text-left font-medium">- Raised on <span class="text-blue-500">{{ formatDate(selectedCard?.dateOccur.toString()) }}</span></p>
+                          <p class="text-left font-medium">- Raised on <span class="text-blue-500">{{ formatDate(selectedCard?.dueDate.toString()) }}</span></p>
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 text-xs">
                           <p class="text-blue-500 text-left font-semibold">
                             Last Follow Up
                           </p>
-                          <p class="text-left">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod..
+                          <p class="text-left font-medium">
+                            {{ selectedCard?.followOnDescription }}
                           </p>
                         </td>
                       </tr>
@@ -214,9 +214,7 @@
                           </svg>
                         </td>
                         <td class="text-left px-6 py-4">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua.
+                          ...
                         </td>
                       </tr>
                     </tbody>
@@ -263,7 +261,7 @@
                           </svg>
                         </td>
                         <td class="px-6 py-4">
-                          APU listed on-watch since 03-01-2023
+                          ..
                         </td>
                       </tr>
                     </tbody>
@@ -308,8 +306,7 @@
                           </svg>
                         </td>
                         <td class="px-6 py-4">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit,
+                          ..
                         </td>
                       </tr>
                     </tbody>
@@ -363,7 +360,7 @@
                           </svg>
                         </td>
                         <td class="px-6 py-4">
-                          Pirep “xxx” appears 2x since 03-01-2023
+                          ....
                         </td>
                       </tr>
                     </tbody>
@@ -416,8 +413,7 @@
                           </svg>
                         </td>
                         <td class="px-6 py-4">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit,
+                          .....
                         </td>
                       </tr>
                     </tbody>
@@ -431,4 +427,3 @@
       </div>
     </div>
   </div>
-</div>
