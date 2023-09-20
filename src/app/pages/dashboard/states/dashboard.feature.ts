@@ -4,6 +4,7 @@ import { AhiSummaryScoreDTO } from '../dto/ahi-summary-score.dto';
 import { AircraftTypeDTO } from '../dto/aircraft-type.dto';
 import { AircraftDTO } from '../dto/aircraft.dto';
 import * as DashboardAction from './dashboard.action';
+import { AircraftDetailHilDTO } from '../dto/aircraft-detail-hil.dto';
 
 const empetyStateDashboard: PaginationResultDTO<AircraftDTO> = {
   data: [],
@@ -18,9 +19,12 @@ const empetyStateDashboard: PaginationResultDTO<AircraftDTO> = {
 export interface DashboardFeatureState {
   dashboard: PaginationResultDTO<AircraftDTO>;
   aircraftLists: AircraftDTO[];
-  selectedDashboard: AircraftDTO | null;
+  selectedDashboard: AircraftDTO;
   ahiSummaryScore: AhiSummaryScoreDTO;
   aircraftType: AircraftTypeDTO[];
+
+  //hil
+  aircraftDetailHil: AircraftDetailHilDTO[];
 }
 
 const initialState: DashboardFeatureState = {
@@ -33,6 +37,7 @@ const initialState: DashboardFeatureState = {
     amountOfRedItems: 0,
   },
   aircraftType: [],
+  aircraftDetailHil: []
 };
 
 export const DashboardFeature = createFeature({
@@ -49,6 +54,7 @@ export const DashboardFeature = createFeature({
         Dashboard: data,
       })
     ),
+    
     on(
       DashboardAction.onDashboardSelected,
       (state: DashboardFeatureState, data: AircraftDTO) => ({
@@ -68,7 +74,7 @@ export const DashboardFeature = createFeature({
       aircraftLists: [],
     })),
 
-    on(DashboardAction.onDashboardClear, (state: DashboardFeatureState) => ({
+    on(DashboardAction.onDashboardClearSelected, (state: DashboardFeatureState) => ({
       ...state,
       dashboardData: [],
     })),
@@ -93,6 +99,21 @@ export const DashboardFeature = createFeature({
       (state: DashboardFeatureState, data: AircraftTypeDTO) => ({
         ...state,
         aircraftType: [...state.aircraftType, data],
+      })
+    ),
+
+    // Aircraft Detail Hil
+
+    on(DashboardAction.onClearAircraftDetailHil, (state: DashboardFeatureState) => ({
+      ...state,
+      aircraftDetailHil: [],
+    })),
+
+    on(
+      DashboardAction.onLoadAircraftDetailHil,
+      (state: DashboardFeatureState, data: AircraftDetailHilDTO) => ({
+        ...state,
+        aircraftDetailHil: [...state.aircraftDetailHil, data],
       })
     )
   ),
