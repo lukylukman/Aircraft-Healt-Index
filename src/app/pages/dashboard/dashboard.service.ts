@@ -20,6 +20,7 @@ import { AircraftDTO } from './dto/aircraft.dto';
 import { ImsPaginationDTO } from './dto/ims-pagination.dto';
 import { PostUploadConfigDTO } from './dto/postUploadConfig.dto';
 import { AircraftDetailHilDTO } from './dto/aircraft-detail-hil.dto';
+import { APURecordDTO } from './dto/showMoreHil.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -125,17 +126,14 @@ export class DashboardService extends HttpService {
     );
   }
 
+  // Detail Hil = see more Hil on ModalDetail dashboard card
+  getShowMoreHil(aircraftRegristration: string): Observable<HttpResult<APURecordDTO>> {
+    return this.http.get<HttpResult<APURecordDTO>>(
+      `${environment.host.ahi.url}/ahi/_filter?aircraftRegistration=${aircraftRegristration}`
+    );
+  }
 
-
-
-
-
-
-
-
-
-
-
+  // Detail Hil Dashboard
   getDetailAircraftHil(aircraftRegristration: string): Observable<HttpResult<AircraftDetailHilDTO>> {
     return this.http.get<HttpResult<AircraftDetailHilDTO>>(
       `${environment.host.ahi.url}/v1/hil/status/${aircraftRegristration}?size=25`

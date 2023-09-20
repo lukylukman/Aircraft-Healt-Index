@@ -260,7 +260,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
           this.selectedCard = result.data[0];
           this.store.dispatch(DashboardAction.onDashboardSelected(result.data[0]));
           this.store.dispatch(DashboardAction.onLoadAircraftDetailHil(result.data)); 
-          console.log(this.selectedCard);
+          console.log(result.data);
         }),
         catchError((err) => {
           console.error(err);
