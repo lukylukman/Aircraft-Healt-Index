@@ -14,12 +14,12 @@ import { UserSoeService } from 'src/app/core/services/user.soe.service';
 import { HttpService } from 'src/app/providers/http/http.service';
 import { environment } from 'src/environments/environment';
 import { AhiSummaryScoreDTO } from './dto/ahi-summary-score.dto';
+import { AircraftDetailHilDTO } from './dto/aircraft-detail-hil.dto';
 import { AircraftScoreDTO } from './dto/aircraft-score.dto';
 import { AircraftTypeDTO } from './dto/aircraft-type.dto';
 import { AircraftDTO } from './dto/aircraft.dto';
 import { ImsPaginationDTO } from './dto/ims-pagination.dto';
 import { PostUploadConfigDTO } from './dto/postUploadConfig.dto';
-import { AircraftDetailHilDTO } from './dto/aircraft-detail-hil.dto';
 import { APURecordDTO } from './dto/showMoreHil.dto';
 
 @Injectable({
@@ -102,14 +102,14 @@ export class DashboardService extends HttpService {
     );
   }
 
-  // getAircraftScore(acReg: string): Observable<HttpResult<AircraftScoreDTO>> {
-  //   const params = new HttpParams().set('aircraftRegistration', acReg);
+  getAircraftScore(acReg: string): Observable<HttpResult<AircraftScoreDTO>> {
+    const params = new HttpParams().set('aircraftRegistration', acReg);
 
-  //   return this.http.get<HttpResult<AircraftScoreDTO>>(
-  //     `${environment.host.ahi.url}/ahi/_search-last`,
-  //     { params: params }
-  //   );
-  // }
+    return this.http.get<HttpResult<AircraftScoreDTO>>(
+      `${environment.host.ahi.url}/ahi/_search-last`,
+      { params: params }
+    );
+  }
 
   getAhiSummaryScore(): Observable<HttpResult<AhiSummaryScoreDTO>> {
     return this.http.get<HttpResult<AhiSummaryScoreDTO>>(
@@ -117,24 +117,28 @@ export class DashboardService extends HttpService {
     );
   }
 
-  getAircraftScore(acReg: string): Observable<HttpResult<AircraftScoreDTO>> {
-    const params = new HttpParams().set('aircraftRegistration', acReg);
+  // getAircraftScore(acReg: string): Observable<HttpResult<AircraftScoreDTO>> {
+  //   const params = new HttpParams().set('aircraftRegistration', acReg);
 
-    return this.http.get<HttpResult<AircraftScoreDTO>>(
-      `${environment.host.ahi.url}/ahi/_index?total=60`,
-      { params: params }
-    );
-  }
+  //   return this.http.get<HttpResult<AircraftScoreDTO>>(
+  //     `${environment.host.ahi.url}/ahi/_index?total=60`,
+  //     { params: params }
+  //   );
+  // }
 
   // Detail Hil = see more Hil on ModalDetail dashboard card
-  getShowMoreHil(aircraftRegristration: string): Observable<HttpResult<APURecordDTO>> {
+  getShowMoreHil(
+    aircraftRegristration: string
+  ): Observable<HttpResult<APURecordDTO>> {
     return this.http.get<HttpResult<APURecordDTO>>(
       `${environment.host.ahi.url}/ahi/_filter?aircraftRegistration=${aircraftRegristration}`
     );
   }
 
   // Detail Hil Dashboard
-  getDetailAircraftHil(aircraftRegristration: string): Observable<HttpResult<AircraftDetailHilDTO>> {
+  getDetailAircraftHil(
+    aircraftRegristration: string
+  ): Observable<HttpResult<AircraftDetailHilDTO>> {
     return this.http.get<HttpResult<AircraftDetailHilDTO>>(
       `${environment.host.ahi.url}/v1/hil/status/${aircraftRegristration}?size=25`
     );
