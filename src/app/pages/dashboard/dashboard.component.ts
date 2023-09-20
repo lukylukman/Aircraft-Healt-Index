@@ -65,7 +65,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   isSearch: boolean = false;
   isAdvance: boolean = false;
   selectedCard: AircraftDetailHilDTO;
-  detailModalHil: AircraftDetailHilDTO;
+  detailModalHil: AircraftDetailHilDTO[];
   selectedDashboardCard: AircraftDTO;
   searchSelections: SearchSelection[] = [
     {
@@ -104,6 +104,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   isModalOpen: boolean = false;
   selectedCardData: any;
   private modal: Modal;
+  addUserModal: Modal;
 
   paginationData: ImsPaginationDTO = {
     page: 1,
@@ -122,6 +123,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
   ngAfterViewInit(): void {
     this.selectedCard;
+    this.addUserModal = new Modal(document.getElementById('DetailHil'), {});
   }
 
   formGroup = new FormGroup({
@@ -238,18 +240,27 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(); // Don't forget to subscribe to trigger the observable
   }
 
-  openCardDetail(aircraftRegristration: string): void {
-    this.isModalOpen = true;
+  onClickAddUser(): void {
+    this.addUserModal.show()
+  }
 
+  onClickHideAddUserModal(){
+    this.addUserModal.hide()
+  }
+
+  openCardDetail(aircraftRegristration: string): void {
+    this.onClickAddUser();
+    this.store.dispatch(DashboardAction.onDashboardClearSelected());
+    this.store.dispatch(DashboardAction.onClearAircraftDetailHil());
     this.dashboardService
       .getDetailAircraftHil(aircraftRegristration)
       .pipe(
         tap((result) => {
           // Handle response 
           this.selectedCard = result.data[0];
-          this.detailModalHil = result.data; 
+          this.store.dispatch(DashboardAction.onDashboardSelected(result.data[0]));
+          this.store.dispatch(DashboardAction.onLoadAircraftDetailHil(result.data)); 
           console.log(this.selectedCard);
-          console.log(this.detailModalHil);
         }),
         catchError((err) => {
           console.error(err);
@@ -272,10 +283,27 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     const options: Intl.DateTimeFormatOptions = {
       day: '2-digit', 
       month: 'short',  
-      year: 'numeric',  
+      year: 'numeric',
     };
 
-    return originalDate.toLocaleDateString('en-GB', options);
+    return originalDate
+      .toLocaleDateString('en-GB', options)
   }
+  formatDateDetail(dateString: string): string {
+    // Ubah string tanggal menjadi objek Date
+    const originalDate = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = {
+      day: '2-digit', 
+      month: 'short',  
+      year: 'numeric',
+     hour: '2-digit',
+      minute: '2-digit',
+    };
+
+    return originalDate
+      .toLocaleDateString('en-GB', options)
+      .replace('at', ',');
+  }
+
 
 }

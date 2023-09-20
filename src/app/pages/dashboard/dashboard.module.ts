@@ -13,12 +13,14 @@ import { DetailCardComponent } from './component/detail-card/detail-card.compone
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardFeature } from './states/dashboard.feature';
+import { ModalDetailHilComponent } from './component/modal-detail-hil/modal-detail-hil.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     CardDashboardComponent,
     DetailCardComponent,
+    ModalDetailHilComponent
   ],
   imports: [
     LetModule,

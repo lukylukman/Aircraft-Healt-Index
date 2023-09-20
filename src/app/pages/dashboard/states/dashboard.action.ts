@@ -4,6 +4,7 @@ import { AhiSummaryScoreDTO } from '../dto/ahi-summary-score.dto';
 import { AircraftTypeDTO } from '../dto/aircraft-type.dto';
 import { AircraftDTO } from '../dto/aircraft.dto';
 import { DashboardActionType } from './dashboard.action.type';
+import { AircraftDetailHilDTO } from '../dto/aircraft-detail-hil.dto';
 
 export const onDashboardLoaded = createAction(
   DashboardActionType.ON_DASHBOARD_DATA_LOAD,
@@ -15,8 +16,8 @@ export const onDashboardSelected = createAction(
   props<AircraftDTO>()
 );
 
-export const onDashboardClear = createAction(
-  DashboardActionType.ON_DASHBOARD_DATA_CLEAR
+export const onDashboardClearSelected = createAction(
+  DashboardActionType.ON_DASHBOARD_DATA_SELECTED_CLEAR
 );
 
 export const onDashboardLoadedToday = createAction(
@@ -47,4 +48,14 @@ export const onClearAircraftType = createAction(
 export const onLoadAircraftType = createAction(
   DashboardActionType.ON_AIRCRAFT_TYPE_LOAD,
   props<AircraftTypeDTO>()
+);
+
+// Aircraft Detail Hil
+export const onClearAircraftDetailHil = createAction(
+  DashboardActionType.ON_AIRCRAFT_DETAIL_HIL_CLEAR
+);
+
+export const onLoadAircraftDetailHil = createAction(
+  DashboardActionType.ON_AIRCRAFT_DETAIL_HIL_LOAD,
+  props<AircraftDetailHilDTO>()
 );
