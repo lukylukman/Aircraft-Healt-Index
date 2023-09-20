@@ -5,6 +5,7 @@ import { AircraftTypeDTO } from '../dto/aircraft-type.dto';
 import { AircraftDTO } from '../dto/aircraft.dto';
 import { DashboardActionType } from './dashboard.action.type';
 import { AircraftDetailHilDTO } from '../dto/aircraft-detail-hil.dto';
+import { APURecordDTO } from '../dto/showMoreHil.dto';
 
 export const onDashboardLoaded = createAction(
   DashboardActionType.ON_DASHBOARD_DATA_LOAD,
@@ -58,4 +59,14 @@ export const onClearAircraftDetailHil = createAction(
 export const onLoadAircraftDetailHil = createAction(
   DashboardActionType.ON_AIRCRAFT_DETAIL_HIL_LOAD,
   props<AircraftDetailHilDTO>()
+);
+
+// Aircraft Detail Show More Hil on Modal
+export const onClearShowMoreDetailHil = createAction(
+  DashboardActionType.ON_AIRCRAFT_SHOW_MORE_HIL_CLEAR
+);
+
+export const onLoadShowMoreDetailHil = createAction(
+  DashboardActionType.ON_AIRCRAFT_DETAIL_HIL_LOAD,
+  props<APURecordDTO>()
 );

@@ -5,6 +5,7 @@ import { AircraftTypeDTO } from '../dto/aircraft-type.dto';
 import { AircraftDTO } from '../dto/aircraft.dto';
 import * as DashboardAction from './dashboard.action';
 import { AircraftDetailHilDTO } from '../dto/aircraft-detail-hil.dto';
+import { APURecordDTO } from '../dto/showMoreHil.dto';
 
 const empetyStateDashboard: PaginationResultDTO<AircraftDTO> = {
   data: [],
@@ -23,6 +24,8 @@ export interface DashboardFeatureState {
   ahiSummaryScore: AhiSummaryScoreDTO;
   aircraftType: AircraftTypeDTO[];
 
+  showMoreHil: APURecordDTO[];
+
   //hil
   aircraftDetailHil: AircraftDetailHilDTO[];
 }
@@ -37,7 +40,8 @@ const initialState: DashboardFeatureState = {
     amountOfRedItems: 0,
   },
   aircraftType: [],
-  aircraftDetailHil: []
+  aircraftDetailHil: [],
+  showMoreHil: []
 };
 
 export const DashboardFeature = createFeature({
@@ -115,6 +119,21 @@ export const DashboardFeature = createFeature({
         ...state,
         aircraftDetailHil: [...state.aircraftDetailHil, data],
       })
-    )
+    ),
+
+    // Aircraft Show More Detail Hil
+
+    on(DashboardAction.onClearShowMoreDetailHil, (state: DashboardFeatureState) => ({
+      ...state,
+      showMoreHil: [],
+    })),
+
+    on(
+      DashboardAction.onLoadShowMoreDetailHil,
+      (state: DashboardFeatureState, data: APURecordDTO) => ({
+        ...state,
+        showMoreHil: [...state.showMoreHil, data],
+      })
+    ),
   ),
 });

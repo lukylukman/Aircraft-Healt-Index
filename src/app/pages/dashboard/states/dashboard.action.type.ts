@@ -17,4 +17,8 @@ export enum DashboardActionType {
   // AIRCRAFT DETAIL HIL
   ON_AIRCRAFT_DETAIL_HIL_LOAD = '[Action:Summary Score] => On Load Aircraft DETAIL_HIL',
   ON_AIRCRAFT_DETAIL_HIL_CLEAR = '[Action:Summary Score] => On Clear Aircraft DETAIL_HIL',
+
+  // AIRCRAFT SHOW MORE HIL ON MODAL
+  ON_AIRCRAFT_SHOW_MORE_HIL_LOAD = '[Action:Summary Score] => On Load Aircraft SHOW_MORE_HIL',
+  ON_AIRCRAFT_SHOW_MORE_HIL_CLEAR = '[Action:Summary Score] => On Clear Aircraft SHOW_MORE_HIL',
 }
