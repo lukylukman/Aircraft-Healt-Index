@@ -8,3 +8,13 @@ export interface HttpResponseDTO<T> {
   headers: any;
   body: T;
 }
+
+export interface HttpResultCustome<T> {
+  message: string;
+  data: T;
+  meta: {
+    indexName: string;
+    status: string;
+  };
+  time: string;
+}

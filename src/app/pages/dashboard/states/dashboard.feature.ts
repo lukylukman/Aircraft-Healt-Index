@@ -6,6 +6,7 @@ import { AircraftDTO } from '../dto/aircraft.dto';
 import * as DashboardAction from './dashboard.action';
 import { AircraftDetailHilDTO } from '../dto/aircraft-detail-hil.dto';
 import { APURecordDTO } from '../dto/showMoreHil.dto';
+import { AverageHealt } from '../dto/average-healt.dto';
 
 const empetyStateDashboard: PaginationResultDTO<AircraftDTO> = {
   data: [],
@@ -25,6 +26,7 @@ export interface DashboardFeatureState {
   aircraftType: AircraftTypeDTO[];
 
   showMoreHil: APURecordDTO[];
+  averageHealt: AverageHealt;
 
   //hil
   aircraftDetailHil: AircraftDetailHilDTO[];
@@ -41,7 +43,8 @@ const initialState: DashboardFeatureState = {
   },
   aircraftType: [],
   aircraftDetailHil: [],
-  showMoreHil: []
+  showMoreHil: [],
+  averageHealt: undefined
 };
 
 export const DashboardFeature = createFeature({
@@ -133,6 +136,20 @@ export const DashboardFeature = createFeature({
       (state: DashboardFeatureState, data: APURecordDTO) => ({
         ...state,
         showMoreHil: [...state.showMoreHil, data],
+      })
+    ),
+
+    // Aircraft Average Health
+    on(DashboardAction.onClearAverageHealth, (state: DashboardFeatureState) => ({
+      ...state,
+      averageHealt: null,
+    })),
+
+    on(
+      DashboardAction.onLoadAverageHealth,
+      (state: DashboardFeatureState, data: AverageHealt) => ({
+        ...state,
+        averageHealtd: data,
       })
     ),
   ),

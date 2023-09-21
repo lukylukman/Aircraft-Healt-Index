@@ -6,6 +6,7 @@ import { AircraftDTO } from '../dto/aircraft.dto';
 import { DashboardActionType } from './dashboard.action.type';
 import { AircraftDetailHilDTO } from '../dto/aircraft-detail-hil.dto';
 import { APURecordDTO } from '../dto/showMoreHil.dto';
+import { AverageHealt } from '../dto/average-healt.dto';
 
 export const onDashboardLoaded = createAction(
   DashboardActionType.ON_DASHBOARD_DATA_LOAD,
@@ -69,4 +70,14 @@ export const onClearShowMoreDetailHil = createAction(
 export const onLoadShowMoreDetailHil = createAction(
   DashboardActionType.ON_AIRCRAFT_DETAIL_HIL_LOAD,
   props<APURecordDTO>()
+);
+
+// Average Health
+export const onClearAverageHealth = createAction(
+  DashboardActionType.ON_AIRCRAFT_AVERAGE_HEALTH_CLEAR
+);
+
+export const onLoadAverageHealth = createAction(
+  DashboardActionType.ON_AIRCRAFT_AVERAGE_HEALTH_LOAD,
+  props<AverageHealt>()
 );
