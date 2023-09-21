@@ -24,6 +24,11 @@ module.exports = {
         "right-dark-md": "4px 0px 16px 0px rgba(0, 0, 0, 0.2)",
       },
       colors: {
+        "ahi-primary-color": {
+          100: "#89a842",
+          200: "#e2b93b",
+          300: "#bd0100"
+        },
         "ahi-blue": {
           50: "#EAF1FB",
           100: "#D0E0F6",

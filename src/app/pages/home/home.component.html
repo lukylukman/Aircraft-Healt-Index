@@ -76,8 +76,12 @@
         <p>IT’S A GOOD DAY</p>
         <p>
           Status:
-          <a href="" class="text-lime-500 font-semibold cursor-default"
-            >Green</a
+          <a [ngClass]="{
+            'text-ahi-primary-color-100': statusHome === 'Green',
+            'text-ahi-primary-color-200': statusHome === 'Yellow',
+            'text-red-600': statusHome === 'Red'
+          }" class="font-semibold uppercase cursor-default">
+            {{ statusHome }}</a
           >
         </p>
       </div>
@@ -111,34 +115,31 @@
           <p class="text-5xl font-normal text-white mb-2">
             {{ dashboardState.ahiSummaryScore.amountOfGreenItems }}
           </p>
-          <button
-            type="button"
-            class="mb-2 px-10 py-1 text-sm font-medium uppercase leading-normal text-black bg-lime-600"
+          <div
+            class="mb-2 px-10 py-1 text-sm font-medium uppercase leading-normal text-black bg-ahi-primary-color-100"
           >
             Green zone
-          </button>
+          </div>
         </div>
         <div class="text-center">
           <p class="text-5xl font-normal text-white mb-2">
             {{ dashboardState.ahiSummaryScore.amountOfYellowItems }}
           </p>
-          <button
-            type="button"
-            class="mb-2 px-10 py-1 text-sm font-medium uppercase leading-normal text-black bg-yellow-400"
+          <div
+            class="mb-2 px-10 py-1 text-sm font-medium uppercase leading-normal text-black bg-ahi-primary-color-200"
           >
             Yellow zone
-          </button>
+          </div>
         </div>
         <div class="text-center">
           <p class="text-5xl font-normal text-white mb-2">
             {{ dashboardState.ahiSummaryScore.amountOfRedItems }}
           </p>
-          <button
-            type="button"
+          <div
             class="mb-2 px-10 py-1 text-sm font-medium uppercase leading-normal text-black bg-red-600"
           >
             Red zone
-          </button>
+          </div>
         </div>
       </div>
     </div>
