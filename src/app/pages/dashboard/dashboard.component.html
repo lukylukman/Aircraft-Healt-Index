@@ -5,7 +5,6 @@
     [redZone]="dashboardState.ahiSummaryScore.amountOfRedItems"
     (aircraftTypeSelected)="onAircraftTypeChanged($event)"
   >
-  
     <div class="container h-full bg-black">
       <div
         class="grid 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-2 gap-4 md:grid-cols-2 sm:grid-cols-1 mt-4 m-2"
@@ -14,11 +13,13 @@
           <app-card-dashboard
             [@fadeInOut]
             [aircraft]="card"
-            (click)="openCardDetail(card.aircraftRegistration)"
+            (click)="openCardDetail(card)"
           ></app-card-dashboard>
         </ng-container>
       </div>
     </div>
   </app-sidebar>
 </ng-container>
-<app-modal-detail-hil (formSubmitEmitted)="onClickHideAddUserModal()"></app-modal-detail-hil>
+<app-modal-detail-hil
+  (formSubmitEmitted)="onClickHideAddUserModal()"
+></app-modal-detail-hil>

@@ -15,12 +15,12 @@ import {
 } from '@angular/animations';
 import { UserSoeService } from 'src/app/core/services/user.soe.service';
 import { PersonalInformation } from 'src/app/shared/layout/sidebar/interfaces/sidebar.interface';
+import { AircraftDetailHilDTO } from './dto/aircraft-detail-hil.dto';
 import { AircraftDTO } from './dto/aircraft.dto';
 import { ImsPaginationDTO } from './dto/ims-pagination.dto';
 import * as DashboardAction from './states/dashboard.action';
 import { DashboardFeatureState } from './states/dashboard.feature';
 import { DashboardState } from './states/dashboard.selector';
-import { AircraftDetailHilDTO } from './dto/aircraft-detail-hil.dto';
 
 export interface SearchSelection {
   key: string;
@@ -114,7 +114,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private readonly dashboardService: DashboardService,
     private readonly soeService: UserSoeService,
-    private readonly store: Store,
+    private readonly store: Store
   ) {
     this.logger = new LoggerService(DashboardComponent.name);
     this.dashboardState$ = this.store.select(DashboardState);
@@ -241,26 +241,31 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onClickAddUser(): void {
-    this.addUserModal.show()
+    this.addUserModal.show();
   }
 
-  onClickHideAddUserModal(){
-    this.addUserModal.hide()
+  onClickHideAddUserModal() {
+    this.addUserModal.hide();
   }
 
-  openCardDetail(aircraftRegristration: string): void {
+  openCardDetail(aircraft: AircraftDTO): void {
     this.onClickAddUser();
     this.store.dispatch(DashboardAction.onDashboardClearSelected());
     this.store.dispatch(DashboardAction.onClearAircraftDetailHil());
     this.dashboardService
-      .getDetailAircraftHil(aircraftRegristration)
+      .getDetailAicraft(aircraft.aircraftRegistration)
       .pipe(
         tap((result) => {
-          // Handle response 
+          // Handle response
+          if (result.data.length === 0) {
+            throw Error('There is no data');
+          }
+
           this.selectedCard = result.data[0];
-          this.store.dispatch(DashboardAction.onDashboardSelected(result.data[0]));
-          this.store.dispatch(DashboardAction.onLoadAircraftDetailHil(result.data)); 
-          console.log(result.data);
+          this.store.dispatch(DashboardAction.onDashboardSelected(aircraft));
+          this.store.dispatch(
+            DashboardAction.onLoadAircraftDetailHil(result.data[0])
+          );
         }),
         catchError((err) => {
           console.error(err);
@@ -281,29 +286,24 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
     // Format tanggal dalam format yang diinginkan
     const options: Intl.DateTimeFormatOptions = {
-      day: '2-digit', 
-      month: 'short',  
+      day: '2-digit',
+      month: 'short',
       year: 'numeric',
     };
 
-    return originalDate
-      .toLocaleDateString('en-GB', options)
+    return originalDate.toLocaleDateString('en-GB', options);
   }
   formatDateDetail(dateString: string): string {
     // Ubah string tanggal menjadi objek Date
     const originalDate = new Date(dateString);
     const options: Intl.DateTimeFormatOptions = {
-      day: '2-digit', 
-      month: 'short',  
+      day: '2-digit',
+      month: 'short',
       year: 'numeric',
-     hour: '2-digit',
+      hour: '2-digit',
       minute: '2-digit',
     };
 
-    return originalDate
-      .toLocaleDateString('en-GB', options)
-      .replace('at', ',');
+    return originalDate.toLocaleDateString('en-GB', options).replace('at', ',');
   }
-
-
 }

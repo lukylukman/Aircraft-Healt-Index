@@ -136,10 +136,10 @@ export class DashboardService extends HttpService {
   }
 
   // Detail Hil Dashboard
-  getDetailAircraftHil(
+  getDetailAicraft(
     aircraftRegristration: string
-  ): Observable<HttpResult<AircraftDetailHilDTO>> {
-    return this.http.get<HttpResult<AircraftDetailHilDTO>>(
+  ): Observable<HttpResult<AircraftDetailHilDTO[]>> {
+    return this.http.get<HttpResult<AircraftDetailHilDTO[]>>(
       `${environment.host.ahi.url}/v1/hil/status/${aircraftRegristration}?size=25`
     );
   }

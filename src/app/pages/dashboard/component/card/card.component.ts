@@ -18,31 +18,31 @@ export class CardDashboardComponent implements OnInit {
   }
 
   onSetArrowDirection(): void {
-    if (this.aircraft.aircraftScore!.totalScoreDifference > 0) {
+    if (this.aircraft.aircraftScore?.totalScoreDifference > 0) {
       this.arrowDirection = 'up';
     }
-    if (this.aircraft.aircraftScore!.totalScoreDifference < 0) {
+    if (this.aircraft.aircraftScore?.totalScoreDifference < 0) {
       this.arrowDirection = 'down';
     }
-    if (this.aircraft.aircraftScore!.totalScoreDifference === 0) {
+    if (this.aircraft.aircraftScore?.totalScoreDifference === 0) {
       this.arrowDirection = 'equal';
     }
   }
 
   onSetCardColor(): void {
     if (
-      this.aircraft.aircraftScore!.totalScore <= 100 &&
-      this.aircraft.aircraftScore!.totalScore >= 94
+      this.aircraft.aircraftScore?.totalScore <= 100 &&
+      this.aircraft.aircraftScore?.totalScore >= 94
     ) {
       this.themeColor = 'green';
     }
     if (
-      this.aircraft.aircraftScore!.totalScore <= 93 &&
-      this.aircraft.aircraftScore!.totalScore >= 75
+      this.aircraft.aircraftScore?.totalScore <= 93 &&
+      this.aircraft.aircraftScore?.totalScore >= 75
     ) {
       this.themeColor = 'yellow';
     }
-    if (this.aircraft.aircraftScore!.totalScore < 74) {
+    if (this.aircraft.aircraftScore?.totalScore < 74) {
       this.themeColor = 'red';
     }
     if (this.aircraft.aircraftScore === null) {

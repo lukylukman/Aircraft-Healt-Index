@@ -1,12 +1,18 @@
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable, Subject, catchError, of, takeUntil, tap } from 'rxjs';
 import { LoggerService } from 'src/app/core/services/logger.service';
-import { DashboardFeatureState } from '../../states/dashboard.feature';
-import { Store } from '@ngrx/store';
-import { DashboardState } from '../../states/dashboard.selector';
-import { trigger, transition, style, animate, state } from '@angular/animations';
 import { DashboardService } from '../../dashboard.service';
-import * as DashboardAction from '../../states/dashboard.action'
+import * as DashboardAction from '../../states/dashboard.action';
+import { DashboardFeatureState } from '../../states/dashboard.feature';
+import { DashboardState } from '../../states/dashboard.selector';
 
 @Component({
   selector: 'app-modal-detail-hil',
@@ -40,15 +46,15 @@ import * as DashboardAction from '../../states/dashboard.action'
 })
 export class ModalDetailHilComponent implements OnInit {
   private readonly unsubscribe$ = new Subject();
-  
+
   dashboardState$: Observable<DashboardFeatureState>;
   logger: LoggerService;
 
   @Output() formSubmitEmitted: EventEmitter<any> = new EventEmitter();
   constructor(
     private readonly dashboardService: DashboardService,
-    private readonly store: Store,
-  ) { 
+    private readonly store: Store
+  ) {
     this.dashboardState$ = this.store.select(DashboardState);
   }
 
@@ -62,10 +68,9 @@ export class ModalDetailHilComponent implements OnInit {
     return this.activeTab === tabNumber;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  openCardDetail(aircraftRegristration: string): void {
+  openApuDetail(aircraftRegristration: string): void {
     this.store.dispatch(DashboardAction.onClearShowMoreDetailHil());
 
     this.dashboardService
@@ -73,7 +78,9 @@ export class ModalDetailHilComponent implements OnInit {
       .pipe(
         tap((result) => {
           // Handle response
-          this.store.dispatch(DashboardAction.onLoadShowMoreDetailHil(result.data));
+          this.store.dispatch(
+            DashboardAction.onLoadShowMoreDetailHil(result.data)
+          );
           console.log(result.data);
         }),
         catchError((err) => {
