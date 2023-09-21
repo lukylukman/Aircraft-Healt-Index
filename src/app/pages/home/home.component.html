@@ -92,11 +92,15 @@
             src="../../../../assets/images/arrow-green.png"
             alt="Image Alt Text"
             class="w-6 h-10"
-          />12.1
+          />{{ dashboardState.ahiSummaryScore.percentage ?? 0 }}
         </div>
         <div class="flex flex-row items-end">
-          <h2 class="text-9xl drop-shadow-lg font-bold text-white">{{ dashboardState.averageHealt }}</h2>
-          <h1 class="text-5xl text-white font-semibold">52</h1>
+          <h2 class="text-9xl drop-shadow-lg font-bold text-white">
+            {{ dashboardState.ahiSummaryScore.health ?? 0 }}.
+          </h2>
+          <h1 class="text-5xl text-white font-semibold">
+            {{ dashboardState.ahiSummaryScore.decimal ?? 0 }}
+          </h1>
         </div>
       </div>
     </div>

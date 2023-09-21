@@ -22,7 +22,11 @@ export enum DashboardActionType {
   ON_AIRCRAFT_SHOW_MORE_HIL_LOAD = '[Action:Show More Hil] => On Load Aircraft SHOW_MORE_HIL',
   ON_AIRCRAFT_SHOW_MORE_HIL_CLEAR = '[Action:Show More Hil] => On Clear Aircraft SHOW_MORE_HIL',
 
-  // AIRCRACFT AVERAGE HEALTH 
+  // AIRCRACFT AVERAGE HEALTH
   ON_AIRCRAFT_AVERAGE_HEALTH_LOAD = '[Action:Average Health] => On Load Aircraft Average',
   ON_AIRCRAFT_AVERAGE_HEALTH_CLEAR = '[Action:Average Health] => On Clear Aircraft Average',
+
+  // AIRCRACFT PERCENTAGE HEALTH
+  ON_AIRCRAFT_PERCENTAGE_HEALTH_LOAD = '[Action:Average Health] => On Load Percentage Average',
+  ON_AIRCRAFT_PERCENTAGE_HEALTH_CLEAR = '[Action:Average Health] => On Clear Percentage Average',
 }
