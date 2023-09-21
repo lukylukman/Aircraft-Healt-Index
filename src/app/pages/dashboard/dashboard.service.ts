@@ -22,6 +22,12 @@ import { ImsPaginationDTO } from './dto/ims-pagination.dto';
 import { PostUploadConfigDTO } from './dto/postUploadConfig.dto';
 import { APURecordDTO } from './dto/showMoreHil.dto';
 
+interface ElasticRecordResponse {
+  record: {
+    apuRecord: APURecordDTO;
+  };
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -127,10 +133,10 @@ export class DashboardService extends HttpService {
   // }
 
   // Detail Hil = see more Hil on ModalDetail dashboard card
-  getShowMoreHil(
+  getApu(
     aircraftRegristration: string
-  ): Observable<HttpResult<APURecordDTO>> {
-    return this.http.get<HttpResult<APURecordDTO>>(
+  ): Observable<HttpResult<ElasticRecordResponse>> {
+    return this.http.get<HttpResult<ElasticRecordResponse>>(
       `${environment.host.ahi.url}/ahi/_filter?aircraftRegistration=${aircraftRegristration}`
     );
   }

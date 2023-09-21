@@ -274,6 +274,31 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
         takeUntil(this.unsubscribe$)
       )
       .subscribe();
+
+    this.fetchApuData(aircraft.aircraftRegistration);
+  }
+
+  fetchApuData(aircraftRegristration: string): void {
+    this.store.dispatch(DashboardAction.onClearApu());
+
+    this.dashboardService
+      .getApu(aircraftRegristration)
+      .pipe(
+        tap((result) => {
+          // Handle response
+          console.log('Data APU => ', result.data.record.apuRecord);
+          this.store.dispatch(
+            DashboardAction.onLoadApu(result.data.record.apuRecord)
+          );
+          console.log(result.data);
+        }),
+        catchError((err) => {
+          console.error(err);
+          return of(null);
+        }),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {

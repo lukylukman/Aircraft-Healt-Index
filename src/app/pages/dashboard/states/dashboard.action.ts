@@ -61,17 +61,6 @@ export const onLoadAircraftDetailHil = createAction(
   DashboardActionType.ON_AIRCRAFT_DETAIL_HIL_LOAD,
   props<AircraftDetailHilDTO>()
 );
-
-// Aircraft Detail Show More Hil on Modal
-export const onClearShowMoreDetailHil = createAction(
-  DashboardActionType.ON_AIRCRAFT_SHOW_MORE_HIL_CLEAR
-);
-
-export const onLoadShowMoreDetailHil = createAction(
-  DashboardActionType.ON_AIRCRAFT_DETAIL_HIL_LOAD,
-  props<APURecordDTO>()
-);
-
 // Average Health
 export const onClearAverageHealth = createAction(
   DashboardActionType.ON_AIRCRAFT_AVERAGE_HEALTH_CLEAR
@@ -90,4 +79,13 @@ export const onClearAveragePercentage = createAction(
 export const onLoadAveragePercentage = createAction(
   DashboardActionType.ON_AIRCRAFT_PERCENTAGE_HEALTH_LOAD,
   props<AverageHealt>()
+);
+
+// APU
+
+export const onClearApu = createAction(DashboardActionType.ON_APU_CLEAR);
+
+export const onLoadApu = createAction(
+  DashboardActionType.ON_APU_LOAD,
+  props<APURecordDTO>()
 );

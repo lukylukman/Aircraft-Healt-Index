@@ -7,10 +7,9 @@ import {
 } from '@angular/animations';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, Subject, catchError, of, takeUntil, tap } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { DashboardService } from '../../dashboard.service';
-import * as DashboardAction from '../../states/dashboard.action';
 import { DashboardFeatureState } from '../../states/dashboard.feature';
 import { DashboardState } from '../../states/dashboard.selector';
 
@@ -70,27 +69,7 @@ export class ModalDetailHilComponent implements OnInit {
 
   ngOnInit() {}
 
-  openApuDetail(aircraftRegristration: string): void {
-    this.store.dispatch(DashboardAction.onClearShowMoreDetailHil());
-
-    this.dashboardService
-      .getShowMoreHil(aircraftRegristration)
-      .pipe(
-        tap((result) => {
-          // Handle response
-          this.store.dispatch(
-            DashboardAction.onLoadShowMoreDetailHil(result.data)
-          );
-          console.log(result.data);
-        }),
-        catchError((err) => {
-          console.error(err);
-          return of(null);
-        }),
-        takeUntil(this.unsubscribe$)
-      )
-      .subscribe();
-  }
+  openApuDetail(aircraftRegristration: string): void {}
 
   resetModal() {}
 }
