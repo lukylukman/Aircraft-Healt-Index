@@ -31,13 +31,19 @@
       <h4 class="uppercase text-white font-light text-base">Averange Health</h4>
       <div class="flex flex-row items-end justify-end">
         <!-- Menggunakan flex dan justify-end -->
-        <h1 class="text-white font-extralight text-6xl">82.</h1>
-        <h1 class="text-3xl font-extralight">52</h1>
+        <h1 class="text-white font-extralight text-6xl">
+          {{ dashboardState.ahiSummaryScore.health }}.
+        </h1>
+        <h1 class="text-3xl font-extralight">
+          {{ dashboardState.ahiSummaryScore.decimal }}
+        </h1>
       </div>
       <h4 class="uppercase text-white font-light text-base">PERCENT Changes</h4>
       <div class="flex flex-row justify-end">
         <!-- Menggunakan flex dan justify-end -->
-        <h2 class="text-white font-extralight text-4xl">2.57%</h2>
+        <h2 class="text-white font-extralight text-4xl">
+          {{ dashboardState.ahiSummaryScore.percentage }}%
+        </h2>
       </div>
     </div>
 

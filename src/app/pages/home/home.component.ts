@@ -15,6 +15,7 @@ import { LoggerService } from 'src/app/core/services/logger.service';
 import { UserSoeService } from 'src/app/core/services/user.soe.service';
 import { PersonalInformation } from 'src/app/shared/layout/sidebar/interfaces/sidebar.interface';
 import { DashboardService } from '../dashboard/dashboard.service';
+import { AverageHealt } from '../dashboard/dto/average-healt.dto';
 import * as DashboardAction from '../dashboard/states/dashboard.action';
 import { DashboardFeatureState } from '../dashboard/states/dashboard.feature';
 import { DashboardState } from '../dashboard/states/dashboard.selector';
@@ -96,7 +97,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }, 30000);
 
     this.initDashboardData();
-    this.initAveragehealth();
   }
 
   ngOnDestroy(): void {
@@ -123,9 +123,29 @@ export class HomeComponent implements OnInit, OnDestroy {
       .pipe(
         tap({
           next: (_) => {
+            this.initAveragehealth();
+            this.initPercentageScoreData();
             this.store.dispatch(DashboardAction.onLoadSummaryScore(_.data));
           },
           error: (err) => console.error('Error on HomeComponent => ', err),
+        })
+      )
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe();
+  }
+
+  initPercentageScoreData(): void {
+    this.dashboardService
+      .getAveragePersen()
+      .pipe(
+        tap({
+          next: (_) => {
+            console.log('Percentage Data => ', _.data);
+            const temp: AverageHealt = {
+              data: _.data,
+            };
+            this.store.dispatch(DashboardAction.onLoadAveragePercentage(temp));
+          },
         })
       )
       .pipe(takeUntil(this.unsubscribe$))
@@ -141,7 +161,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       .pipe(
         tap({
           next: (_) => {
-            this.store.dispatch(DashboardAction.onLoadAverageHealth(_.data));
+            const temp: AverageHealt = {
+              data: _.data,
+            };
+            console.log('temp => ', temp.data);
+            this.store.dispatch(DashboardAction.onLoadAverageHealth(temp));
           },
           error: (err) => console.error('Error on HomeComponent => ', err),
         })

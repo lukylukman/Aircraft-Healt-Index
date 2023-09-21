@@ -21,8 +21,6 @@ import { AircraftDTO } from './dto/aircraft.dto';
 import { ImsPaginationDTO } from './dto/ims-pagination.dto';
 import { PostUploadConfigDTO } from './dto/postUploadConfig.dto';
 import { APURecordDTO } from './dto/showMoreHil.dto';
-import { AverageHealt } from './dto/average-healt.dto';
-import { HttpResultCustome } from '../../core/dto/http-result.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -147,15 +145,15 @@ export class DashboardService extends HttpService {
   }
 
   // Average Health
-  getAverageHealt(): Observable<HttpResultCustome<AverageHealt>> {
-    return this.http.get<HttpResultCustome<AverageHealt>>(
+  getAverageHealt(): Observable<HttpResult<number>> {
+    return this.http.get<HttpResult<number>>(
       `${environment.host.ahi.url}/ahi/_average`
     );
   }
 
   // Average Persen
-  getAveragePersen(): Observable<HttpResultCustome<AverageHealt>> {
-    return this.http.get<HttpResultCustome<AverageHealt>>(
+  getAveragePersen(): Observable<HttpResult<number>> {
+    return this.http.get<HttpResult<number>>(
       `${environment.host.ahi.url}/ahi/_percent`
     );
   }

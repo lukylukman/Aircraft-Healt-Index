@@ -1,3 +1,3 @@
 export interface AverageHealt {
-  averageHealt: number;
+  data: number;
 }

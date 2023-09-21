@@ -1,12 +1,12 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { PaginationResultDTO } from 'src/app/core/dto/pagination.result.dto';
 import { AhiSummaryScoreDTO } from '../dto/ahi-summary-score.dto';
+import { AircraftDetailHilDTO } from '../dto/aircraft-detail-hil.dto';
 import { AircraftTypeDTO } from '../dto/aircraft-type.dto';
 import { AircraftDTO } from '../dto/aircraft.dto';
-import * as DashboardAction from './dashboard.action';
-import { AircraftDetailHilDTO } from '../dto/aircraft-detail-hil.dto';
-import { APURecordDTO } from '../dto/showMoreHil.dto';
 import { AverageHealt } from '../dto/average-healt.dto';
+import { APURecordDTO } from '../dto/showMoreHil.dto';
+import * as DashboardAction from './dashboard.action';
 
 const empetyStateDashboard: PaginationResultDTO<AircraftDTO> = {
   data: [],
@@ -40,11 +40,14 @@ const initialState: DashboardFeatureState = {
     amountOfGreenItems: 0,
     amountOfYellowItems: 0,
     amountOfRedItems: 0,
+    health: 0,
+    percentage: 0,
+    decimal: 0,
   },
   aircraftType: [],
   aircraftDetailHil: [],
   showMoreHil: [],
-  averageHealt: undefined
+  averageHealt: undefined,
 };
 
 export const DashboardFeature = createFeature({
@@ -61,7 +64,7 @@ export const DashboardFeature = createFeature({
         Dashboard: data,
       })
     ),
-    
+
     on(
       DashboardAction.onDashboardSelected,
       (state: DashboardFeatureState, data: AircraftDTO) => ({
@@ -81,10 +84,13 @@ export const DashboardFeature = createFeature({
       aircraftLists: [],
     })),
 
-    on(DashboardAction.onDashboardClearSelected, (state: DashboardFeatureState) => ({
-      ...state,
-      dashboardData: [],
-    })),
+    on(
+      DashboardAction.onDashboardClearSelected,
+      (state: DashboardFeatureState) => ({
+        ...state,
+        dashboardData: [],
+      })
+    ),
 
     on(
       DashboardAction.onLoadSummaryScore,
@@ -111,10 +117,13 @@ export const DashboardFeature = createFeature({
 
     // Aircraft Detail Hil
 
-    on(DashboardAction.onClearAircraftDetailHil, (state: DashboardFeatureState) => ({
-      ...state,
-      aircraftDetailHil: [],
-    })),
+    on(
+      DashboardAction.onClearAircraftDetailHil,
+      (state: DashboardFeatureState) => ({
+        ...state,
+        aircraftDetailHil: [],
+      })
+    ),
 
     on(
       DashboardAction.onLoadAircraftDetailHil,
@@ -126,10 +135,13 @@ export const DashboardFeature = createFeature({
 
     // Aircraft Show More Detail Hil
 
-    on(DashboardAction.onClearShowMoreDetailHil, (state: DashboardFeatureState) => ({
-      ...state,
-      showMoreHil: [],
-    })),
+    on(
+      DashboardAction.onClearShowMoreDetailHil,
+      (state: DashboardFeatureState) => ({
+        ...state,
+        showMoreHil: [],
+      })
+    ),
 
     on(
       DashboardAction.onLoadShowMoreDetailHil,
@@ -139,18 +151,26 @@ export const DashboardFeature = createFeature({
       })
     ),
 
-    // Aircraft Average Health
-    on(DashboardAction.onClearAverageHealth, (state: DashboardFeatureState) => ({
-      ...state,
-      averageHealt: null,
-    })),
-
     on(
       DashboardAction.onLoadAverageHealth,
       (state: DashboardFeatureState, data: AverageHealt) => ({
         ...state,
-        averageHealtd: data,
+        ahiSummaryScore: {
+          ...state.ahiSummaryScore, // Spread the original object
+          health: Math.floor(data.data), // Override the percentage property
+          decimal: Math.round((data.data - Math.floor(data.data)) * 100),
+        },
       })
     ),
+    on(
+      DashboardAction.onLoadAveragePercentage,
+      (state: DashboardFeatureState, data: AverageHealt) => ({
+        ...state,
+        ahiSummaryScore: {
+          ...state.ahiSummaryScore, // Spread the original object
+          percentage: data.data, // Override the percentage property
+        },
+      })
+    )
   ),
 });

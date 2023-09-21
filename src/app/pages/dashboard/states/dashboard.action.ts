@@ -1,12 +1,12 @@
 import { createAction, props } from '@ngrx/store';
 import { PaginationResultDTO } from 'src/app/core/dto/pagination.result.dto';
 import { AhiSummaryScoreDTO } from '../dto/ahi-summary-score.dto';
+import { AircraftDetailHilDTO } from '../dto/aircraft-detail-hil.dto';
 import { AircraftTypeDTO } from '../dto/aircraft-type.dto';
 import { AircraftDTO } from '../dto/aircraft.dto';
-import { DashboardActionType } from './dashboard.action.type';
-import { AircraftDetailHilDTO } from '../dto/aircraft-detail-hil.dto';
-import { APURecordDTO } from '../dto/showMoreHil.dto';
 import { AverageHealt } from '../dto/average-healt.dto';
+import { APURecordDTO } from '../dto/showMoreHil.dto';
+import { DashboardActionType } from './dashboard.action.type';
 
 export const onDashboardLoaded = createAction(
   DashboardActionType.ON_DASHBOARD_DATA_LOAD,
@@ -79,5 +79,15 @@ export const onClearAverageHealth = createAction(
 
 export const onLoadAverageHealth = createAction(
   DashboardActionType.ON_AIRCRAFT_AVERAGE_HEALTH_LOAD,
+  props<AverageHealt>()
+);
+
+// Average Percentage
+export const onClearAveragePercentage = createAction(
+  DashboardActionType.ON_AIRCRAFT_PERCENTAGE_HEALTH_CLEAR
+);
+
+export const onLoadAveragePercentage = createAction(
+  DashboardActionType.ON_AIRCRAFT_PERCENTAGE_HEALTH_LOAD,
   props<AverageHealt>()
 );
