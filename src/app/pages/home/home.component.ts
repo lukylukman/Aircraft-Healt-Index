@@ -96,6 +96,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }, 30000);
 
     this.initDashboardData();
+    this.initAveragehealth();
   }
 
   ngOnDestroy(): void {
@@ -123,6 +124,24 @@ export class HomeComponent implements OnInit, OnDestroy {
         tap({
           next: (_) => {
             this.store.dispatch(DashboardAction.onLoadSummaryScore(_.data));
+          },
+          error: (err) => console.error('Error on HomeComponent => ', err),
+        })
+      )
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe();
+  }
+
+  // average Healtht
+  initAveragehealth(): void {
+    this.store.dispatch(DashboardAction.onClearAverageHealth());
+
+    this.dashboardService
+      .getAverageHealt()
+      .pipe(
+        tap({
+          next: (_) => {
+            this.store.dispatch(DashboardAction.onLoadAverageHealth(_.data));
           },
           error: (err) => console.error('Error on HomeComponent => ', err),
         })
