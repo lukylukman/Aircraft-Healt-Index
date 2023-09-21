@@ -57,6 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private readonly unsubscribe$ = new Subject();
   currentDate: Date = new Date();
+  statusHome: string;
 
   logger: LoggerService;
   personalInformation: PersonalInformation;
@@ -97,6 +98,21 @@ export class HomeComponent implements OnInit, OnDestroy {
     }, 30000);
 
     this.initDashboardData();
+      this.dashboardState$.subscribe((data: DashboardFeatureState) => {
+      const greenItems = data.ahiSummaryScore.amountOfGreenItems;
+      const yellowItems = data.ahiSummaryScore.amountOfYellowItems;
+      const redItems = data.ahiSummaryScore.amountOfRedItems;
+
+      const maxScore = Math.max(greenItems, yellowItems, redItems);
+
+      if (maxScore === greenItems) {
+        this.statusHome = 'Green';
+      } else if (maxScore === yellowItems) {
+        this.statusHome = 'Yellow';
+      } else if (maxScore === redItems) {
+        this.statusHome = 'Red';
+      }
+    });
   }
 
   ngOnDestroy(): void {
