@@ -25,7 +25,7 @@ export interface DashboardFeatureState {
   ahiSummaryScore: AhiSummaryScoreDTO;
   aircraftType: AircraftTypeDTO[];
 
-  showMoreHil: APURecordDTO[];
+  apu: APURecordDTO[];
   averageHealt: AverageHealt;
 
   //hil
@@ -46,7 +46,7 @@ const initialState: DashboardFeatureState = {
   },
   aircraftType: [],
   aircraftDetailHil: [],
-  showMoreHil: [],
+  apu: [],
   averageHealt: undefined,
 };
 
@@ -136,22 +136,6 @@ export const DashboardFeature = createFeature({
     // Aircraft Show More Detail Hil
 
     on(
-      DashboardAction.onClearShowMoreDetailHil,
-      (state: DashboardFeatureState) => ({
-        ...state,
-        showMoreHil: [],
-      })
-    ),
-
-    on(
-      DashboardAction.onLoadShowMoreDetailHil,
-      (state: DashboardFeatureState, data: APURecordDTO) => ({
-        ...state,
-        showMoreHil: [...state.showMoreHil, data],
-      })
-    ),
-
-    on(
       DashboardAction.onLoadAverageHealth,
       (state: DashboardFeatureState, data: AverageHealt) => ({
         ...state,
@@ -170,6 +154,19 @@ export const DashboardFeature = createFeature({
           ...state.ahiSummaryScore, // Spread the original object
           percentage: data.data, // Override the percentage property
         },
+      })
+    ),
+
+    // APU
+    on(DashboardAction.onClearApu, (state: DashboardFeatureState) => ({
+      ...state,
+      apu: [],
+    })),
+    on(
+      DashboardAction.onLoadApu,
+      (state: DashboardFeatureState, data: APURecordDTO) => ({
+        ...state,
+        apu: [...state.apu, data],
       })
     )
   ),
