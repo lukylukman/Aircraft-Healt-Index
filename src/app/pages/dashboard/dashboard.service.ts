@@ -22,11 +22,12 @@ import { ImsPaginationDTO } from './dto/ims-pagination.dto';
 import { PostUploadConfigDTO } from './dto/postUploadConfig.dto';
 import { APURecordDTO } from './dto/showMoreHil.dto';
 
-interface ElasticRecordResponse {
+export interface ElasticRecordResponse {
   record: {
-    apuRecord: APURecordDTO;
-  };
+    apuRecord: APURecordDTO[];
+ };
 }
+
 
 @Injectable({
   providedIn: 'root',

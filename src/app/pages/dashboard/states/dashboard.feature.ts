@@ -7,6 +7,7 @@ import { AircraftDTO } from '../dto/aircraft.dto';
 import { AverageHealt } from '../dto/average-healt.dto';
 import { APURecordDTO } from '../dto/showMoreHil.dto';
 import * as DashboardAction from './dashboard.action';
+import { ElasticRecordResponse } from '../dashboard.service';
 
 const empetyStateDashboard: PaginationResultDTO<AircraftDTO> = {
   data: [],
@@ -127,12 +128,11 @@ export const DashboardFeature = createFeature({
 
     on(
       DashboardAction.onLoadAircraftDetailHil,
-      (state: DashboardFeatureState, data: AircraftDetailHilDTO) => ({
+      (state: DashboardFeatureState, { data }) => ({
         ...state,
-        aircraftDetailHil: [...state.aircraftDetailHil, data],
+        aircraftDetailHil: data,
       })
     ),
-
     // Aircraft Show More Detail Hil
 
     on(
@@ -163,11 +163,11 @@ export const DashboardFeature = createFeature({
       apu: [],
     })),
     on(
-      DashboardAction.onLoadApu,
-      (state: DashboardFeatureState, data: APURecordDTO) => ({
-        ...state,
-        apu: [...state.apu, data],
-      })
-    )
+  DashboardAction.onLoadApu,
+    (state: DashboardFeatureState, { data }) => ({
+      ...state,
+      apu: data,
+    })
+  ),
   ),
 });

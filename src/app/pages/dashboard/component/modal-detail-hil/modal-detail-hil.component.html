@@ -137,6 +137,7 @@
                             | date : "dd-MM-yyyy HH:mm"
                         }}</span>
                       </p>
+                      <p class="mt-6 text-white">.</p>
                     </td>
                     <td class="px-6 py-4 text-xs">
                       <p class="text-ahi-blue-600 text-left font-semibold">
@@ -234,6 +235,8 @@
                         </svg>
                       </p> -->
                     </td>
+                    <td class="px-6 py-4 text-xs">
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -309,20 +312,16 @@
                       </svg>
                     </td>
                     <td class="px-6 py-4 text-xs">
-                      <div class="flex flex-row">
-                        <p class="text-ahi-blue-600 text-left font-semibold">
+                      <p class="text-left font-medium">
                         APU Listed on-watch since
-                        </p>
-                        <p class="text-left font-medium">
-                          {{
-                            dashboardState.apu[0].createdAt | date : "dd-MM-yyyy"
-                          }} 
-                        </p>
-                      </div>
+                        <span class="text-ahi-blue-600">{{
+                          dashboardState.apu[0].createdAt | date : "dd-MM-yyyy"
+                        }}</span>
+                      </p>
                       <p
                         *ngIf="dashboardState.apu.length > 0"
                         (click)="showTab(3)"
-                        class="text-left cursor-pointer flex items-center mt-6 text-ahi-blue-600 text-xs font-medium hover:scale-105 transition-all duration-150 ease-in-out"
+                        class="text-right cursor-pointer flex items-center mt-6 text-ahi-blue-600 text-xs font-medium hover:scale-105 transition-all duration-150 ease-in-out"
                       >
                         See more
                         <svg
@@ -340,7 +339,6 @@
                       </p>
                     </td>
                     <td class="px-6 py-4 text-xs">
-
                     </td>
                   </tr>
                 </tbody>
@@ -585,7 +583,7 @@
   >
     <!-- Isi Tab -->
     <div class="flex flex-col" [@fadeInOut]>
-      <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="overflow-auto sm:-mx-6 lg:-mx-8">
         <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
           <div class="overflow-hidden">
             <button
@@ -635,7 +633,46 @@
                 >
                   <td
                     class="whitespace-nowrap px-2 pt-1 font-medium bg-gray-200"
-                  ></td>
+                  >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M3.16998 7.43994L12 12.5499L20.77 7.46994M12 21.6099V12.5399"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M21.61 9.17V14.83C21.61 14.88 21.61 14.92 21.6 14.97C20.9 14.36 20 14 19 14C18.06 14 17.19 14.33 16.5 14.88C16.0306 15.253 15.6518 15.7275 15.392 16.2679C15.1322 16.8083 14.9982 17.4004 15 18C15 18.75 15.21 19.46 15.58 20.06C15.67 20.22 15.78 20.37 15.9 20.51L14.07 21.52C12.93 22.16 11.07 22.16 9.93001 21.52L4.59001 18.56C3.38001 17.89 2.39001 16.21 2.39001 14.83V9.17C2.39001 7.79 3.38001 6.11 4.59001 5.44L9.93001 2.48C11.07 1.84 12.93 1.84 14.07 2.48L19.41 5.44C20.62 6.11 21.61 7.79 21.61 9.17Z"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M23 18.0001C23 19.2001 22.47 20.2701 21.64 21.0001C20.9108 21.6432 19.9723 21.9987 19 22.0001C16.79 22.0001 15 20.2101 15 18.0001C15 16.7401 15.58 15.6101 16.5 14.8801C17.088 14.4088 17.7972 14.1132 18.5458 14.0275C19.2945 13.9417 20.0521 14.0692 20.7315 14.3953C21.4108 14.7214 21.9842 15.2328 22.3856 15.8705C22.7869 16.5083 22.9999 17.2465 23 18.0001Z"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-miterlimit="10"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M19.25 16.75V18.25L18 19"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-miterlimit="10"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                  </td>
                   <td class="whitespace-nowrap pl-2 py-2 text-xs">
                     <p class="text-ahi-blue-600 text-left font-semibold">
                       {{ item.categoryDescription }}
@@ -643,13 +680,13 @@
                     <p class="text-left font-medium">
                       - Raised on
                       <span class="text-ahi-blue-600">{{
-                        item.dateOccur | date : "d MMM YYY Hh:ii:ss"
+                        item.dateOccur | date : "dd-MM-yyyy HH:mm"
                       }}</span>
                     </p>
                     <p class="text-left font-medium">
                       - Raised on
                       <span class="text-ahi-blue-600">{{
-                        item.dueDate | date : "d MMM YYY Hh:ii:ss"
+                        item.dueDate | date : "dd-MM-yyyy HH:mm"
                       }}</span>
                     </p>
                   </td>
@@ -679,9 +716,9 @@
   >
     <!-- Isi Tab -->
     <div class="flex flex-col" [@fadeInOut]>
-      <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div class="inline-block min-w-full min-vh-100 py-2 sm:px-6 lg:px-8">
-          <div class="overflow-hidden">
+      <div class="overflow-auto sm:-mx-6 lg:-mx-8">
+        <div class="inline-block min-w-full max-h-96 py-2 sm:px-6 lg:px-8">
+          <div class="">
             <button
               (click)="showTab(1)"
               class="text-blue-800 text-center ml-4 font-medium items-center inline-flex mb-4 hover:scale-105 transition-all duration-150 ease-in-out"

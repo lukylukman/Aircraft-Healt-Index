@@ -95,7 +95,7 @@
           <app-svg
           [width]="'36'"
           [height]="'45'"
-          [direction]="'up'"
+          [direction]="dashboardState.ahiSummaryScore.percentage > 0 ? 'up' : (dashboardState.ahiSummaryScore.percentage < 0 ? 'down' : 'equal')"
           [greenColor]="dashboardState.ahiSummaryScore.percentage > 0"
         ></app-svg>
           {{ dashboardState.ahiSummaryScore.percentage ?? 0 }}

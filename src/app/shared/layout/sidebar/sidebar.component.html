@@ -31,16 +31,17 @@
       <h4 class="uppercase text-white font-light text-base">Averange Health</h4>
       <div class="flex flex-row items-end justify-end">
         <!-- Menggunakan flex dan justify-end -->
-        <div class="flex-col text-center">
+        <div class="flex-col text-center items-center">
           <app-svg
+          *ngIf="arrowDirection !== 'equal'"
           [width]="'26'"
           [height]="'42'"
-          [direction]="'up'"
+          [direction]="dashboardState.ahiSummaryScore.percentage > 0 ? 'up' : (dashboardState.ahiSummaryScore.percentage < 0 ? 'down' : 'equal')"
           [greenColor]="dashboardState.ahiSummaryScore.percentage > 0"
-        ></app-svg>
-      <h4 class="text-xs font-extralight">
-          {{ dashboardState.ahiSummaryScore.percentage ?? 0 }}
-        </h4>
+          ></app-svg>
+          <h4 class="text-xs font-extralight mr-2">
+            {{ dashboardState.ahiSummaryScore.percentage ?? 0 }}
+          </h4>
         </div>
         <h1 class="text-white font-extralight text-6xl">
           {{ dashboardState.ahiSummaryScore.health ?? 0 }}.

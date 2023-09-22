@@ -193,7 +193,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
               .pipe(
                 map((score) => {
-                  console.log('Score Data => ', score);
+                  // console.log('Score Data => ', score);
 
                   // Perform your transformation here
                   let tempAircraft: AircraftDTO = {
@@ -232,7 +232,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
               )
               .pipe(takeUntil(this.unsubscribe$))
               .subscribe();
-            console.log('all cards data => ', this.cardData);
+            // console.log('all cards data => ', this.cardData);
           });
         }),
         takeUntil(this.unsubscribe$)
@@ -240,7 +240,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(); // Don't forget to subscribe to trigger the observable
   }
 
-  onClickAddUser(): void {
+  onClickDetailAircraft(): void {
     this.addUserModal.show();
   }
 
@@ -249,7 +249,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   openCardDetail(aircraft: AircraftDTO): void {
-    this.onClickAddUser();
+    this.onClickDetailAircraft();
     this.store.dispatch(DashboardAction.onDashboardClearSelected());
     this.store.dispatch(DashboardAction.onClearAircraftDetailHil());
     this.dashboardService
@@ -260,11 +260,10 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
           if (result.data.length === 0) {
             throw Error('There is no data');
           }
-
           this.selectedCard = result.data[0];
           this.store.dispatch(DashboardAction.onDashboardSelected(aircraft));
           this.store.dispatch(
-            DashboardAction.onLoadAircraftDetailHil(result.data[0])
+            DashboardAction.onLoadAircraftDetailHil({ data: result.data })
           );
         }),
         catchError((err) => {
@@ -285,12 +284,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       .getApu(aircraftRegristration)
       .pipe(
         tap((result) => {
-          // Handle response
-          console.log('Data APU => ', result.data.record.apuRecord);
+          const apuRecord = result.data.record.apuRecord;
+          // console.log('Data APU => ', result.data.record.apuRecord);
           this.store.dispatch(
-            DashboardAction.onLoadApu(result.data.record.apuRecord)
+            DashboardAction.onLoadApu({ data: apuRecord })
           );
-          console.log(result.data);
         }),
         catchError((err) => {
           console.error(err);
