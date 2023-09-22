@@ -305,30 +305,4 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.unsubscribe$.unsubscribe();
   }
 
-  formatDate(dateString: string): string {
-    // Ubah string tanggal menjadi objek Date
-    const originalDate = new Date(dateString);
-
-    // Format tanggal dalam format yang diinginkan
-    const options: Intl.DateTimeFormatOptions = {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric',
-    };
-
-    return originalDate.toLocaleDateString('en-GB', options);
-  }
-  formatDateDetail(dateString: string): string {
-    // Ubah string tanggal menjadi objek Date
-    const originalDate = new Date(dateString);
-    const options: Intl.DateTimeFormatOptions = {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    };
-
-    return originalDate.toLocaleDateString('en-GB', options).replace('at', ',');
-  }
 }

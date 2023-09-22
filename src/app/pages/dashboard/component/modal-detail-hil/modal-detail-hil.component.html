@@ -18,7 +18,7 @@
         <h1 class="text-2xl">
           {{ dashboardState.selectedDashboard?.aircraftRegistration }}
         </h1>
-        <h4 class="text-xs font-semibold">B737-800</h4>
+        <h4 class="text-xs font-semibold">....</h4>
       </div>
       <div class="border-b-2 border-r-2 pl-10">
         <h4 class="text-xs">Last Flight</h4>
@@ -30,11 +30,16 @@
       </div>
       <div class="border-b-2 border-r-2 pl-10">
         <h4 class="text-xs">Last Assignment</h4>
-        <h1 class="text-2xl">...</h1>
+        <h1 class="text-2xl">{{ dashboardState.selectedDashboard?.arrivalStation }}</h1>
       </div>
       <div class="border-b-2 pl-10">
         <h4 class="text-xs text-center flex">
-          <span class="flex w-2 h-2 mr-1 bg-red-500 rounded-full"></span>Score
+          <span [ngClass]="{
+              'bg-green-500': dashboardState.selectedDashboard?.aircraftScore?.totalScore <= 100 && dashboardState.selectedDashboard?.aircraftScore?.totalScore >= 94,
+              'bg-ahi-primary-color-200': dashboardState.selectedDashboard?.aircraftScore?.totalScore < 93 && dashboardState.selectedDashboard?.aircraftScore?.totalScore >= 75,
+              'bg-red-500': dashboardState.selectedDashboard?.aircraftScore?.totalScore < 74
+            }" class="flex w-2 h-2 mr-1 rounded-full"></span>
+            Score
         </h4>
         <h1 class="text-2xl">
           {{ dashboardState.selectedDashboard?.aircraftScore?.totalScore }}
@@ -54,7 +59,7 @@
           <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
             <div class="overflow-hidden">
               <table class="min-w-full text-center text-sm font-light">
-                <thead class="bg-blue-800 text-left">
+                <thead class="bg-ahi-blue-600 text-left">
                   <tr>
                     <th
                       scope="col"
@@ -113,7 +118,7 @@
                       </svg>
                     </td>
                     <td class="whitespace-nowrap pl-2 py-2 text-xs">
-                      <p class="text-blue-500 text-left font-semibold">
+                      <p class="text-ahi-blue-600 text-left font-semibold">
                         {{
                           dashboardState.aircraftDetailHil[0]
                             .categoryDescription
@@ -121,21 +126,20 @@
                       </p>
                       <p class="text-left font-medium">
                         - Raised on
-                        <span class="text-blue-500">{{
-                          dashboardState.aircraftDetailHil[0].dateOccur
-                            | date : "d MMM YYY Hh:ii:ss"
+                        <span class="text-ahi-blue-600">{{
+                          dashboardState.aircraftDetailHil[0].dateOccur | date : "dd-MM-yyyy HH:mm"
                         }}</span>
                       </p>
                       <p class="text-left font-medium">
                         - Expired on
-                        <span class="text-blue-500">{{
+                        <span class="text-ahi-blue-600">{{
                           dashboardState.aircraftDetailHil[0].dueDate
-                            | date : "d MMM YYY Hh:ii:ss"
+                            | date : "dd-MM-yyyy HH:mm"
                         }}</span>
                       </p>
                     </td>
                     <td class="px-6 py-4 text-xs">
-                      <p class="text-blue-500 text-left font-semibold">
+                      <p class="text-ahi-blue-600 text-left font-semibold">
                         Last Follow Up
                       </p>
                       <p class="text-left font-medium">
@@ -145,9 +149,9 @@
                         }}
                       </p>
                       <p
-                        *ngIf="dashboardState.aircraftDetailHil.length > 0"
+                        *ngIf="dashboardState.aircraftDetailHil.length > 1"
                         (click)="showTab(2)"
-                        class="text-left cursor-pointer flex items-center mt-6 text-blue-500 text-xs font-medium hover:scale-105 transition-all duration-150 ease-in-out"
+                        class="text-left cursor-pointer flex items-center mt-6 text-ahi-blue-600 text-xs font-medium hover:scale-105 transition-all duration-150 ease-in-out"
                       >
                         See more
                         <svg
@@ -177,7 +181,7 @@
           <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
             <div class="overflow-hidden">
               <table class="min-w-full text-center text-sm font-light">
-                <thead class="bg-blue-800 text-left">
+                <thead class="bg-ahi-blue-600 text-left">
                   <tr>
                     <th
                       scope="col"
@@ -208,13 +212,12 @@
                       </svg>
                     </td>
                     <td class="px-6 py-4 text-xs">
-                      <p class="text-blue-500 text-left font-semibold">
+                      <p class="text-ahi-blue-600 text-left font-semibold">
                         Last Follow Up
                       </p>
                       <p class="text-left font-medium">......</p>
-                      <p
-                        (click)="showTab(3)"
-                        class="text-left cursor-pointer flex items-center mt-6 text-blue-500 text-xs font-medium hover:scale-105 transition-all duration-150 ease-in-out"
+                      <!-- <p
+                        class="text-left cursor-pointer flex items-center mt-6 text-ahi-blue-600 text-xs font-medium hover:scale-105 transition-all duration-150 ease-in-out"
                       >
                         See more
                         <svg
@@ -229,7 +232,7 @@
                             clip-rule="evenodd"
                           />
                         </svg>
-                      </p>
+                      </p> -->
                     </td>
                   </tr>
                 </tbody>
@@ -239,12 +242,15 @@
         </div>
       </div>
       <!-- Tabel 3 -->
-      <div class="flex flex-col">
+      <div
+        class="flex flex-col"
+        *ngIf="dashboardState.apu.length >= 1"
+      >
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
             <div class="overflow-hidden">
               <table class="min-w-full text-center text-sm font-light">
-                <thead class="bg-blue-800 text-left">
+                <thead class="bg-ahi-blue-600 text-left">
                   <tr>
                     <th
                       scope="col"
@@ -252,12 +258,17 @@
                       colspan="3"
                     >
                       APU
+                      <span
+                        class="rounded-full ml-2 w-8 h-8 px-2 py-1 bg-gray-200 text-blue-800"
+                      >
+                        {{ dashboardState.apu.length }}
+                      </span>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr class="">
-                    <td class="px-2 pt-1 h-30 font-medium bg-gray-200">
+                    <td class="h-30 px-2 pt-1 font-medium bg-gray-200">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -266,7 +277,29 @@
                         fill="none"
                       >
                         <path
-                          d="M12 8.50005V6.90005L7.5 4.30005L3 6.90005V12.1L7.5 14.7L12 12.1L16.5 9.50005L21 12.1V17.3L16.5 19.9L12 17.3V15.6"
+                          d="M3.16998 7.43994L12 12.5499L20.77 7.46994M12 21.6099V12.5399"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M21.61 9.17V14.83C21.61 14.88 21.61 14.92 21.6 14.97C20.9 14.36 20 14 19 14C18.06 14 17.19 14.33 16.5 14.88C16.0306 15.253 15.6518 15.7275 15.392 16.2679C15.1322 16.8083 14.9982 17.4004 15 18C15 18.75 15.21 19.46 15.58 20.06C15.67 20.22 15.78 20.37 15.9 20.51L14.07 21.52C12.93 22.16 11.07 22.16 9.93001 21.52L4.59001 18.56C3.38001 17.89 2.39001 16.21 2.39001 14.83V9.17C2.39001 7.79 3.38001 6.11 4.59001 5.44L9.93001 2.48C11.07 1.84 12.93 1.84 14.07 2.48L19.41 5.44C20.62 6.11 21.61 7.79 21.61 9.17Z"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M23 18.0001C23 19.2001 22.47 20.2701 21.64 21.0001C20.9108 21.6432 19.9723 21.9987 19 22.0001C16.79 22.0001 15 20.2101 15 18.0001C15 16.7401 15.58 15.6101 16.5 14.8801C17.088 14.4088 17.7972 14.1132 18.5458 14.0275C19.2945 13.9417 20.0521 14.0692 20.7315 14.3953C21.4108 14.7214 21.9842 15.2328 22.3856 15.8705C22.7869 16.5083 22.9999 17.2465 23 18.0001Z"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-miterlimit="10"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M19.25 16.75V18.25L18 19"
                           stroke="black"
                           stroke-width="1.5"
                           stroke-miterlimit="10"
@@ -276,19 +309,20 @@
                       </svg>
                     </td>
                     <td class="px-6 py-4 text-xs">
-                      <p class="text-blue-500 text-left font-semibold">
-                        Last Follow Up
-                      </p>
-                      <p class="text-left font-medium">......</p>
+                      <div class="flex flex-row">
+                        <p class="text-ahi-blue-600 text-left font-semibold">
+                        APU Listed on-watch since
+                        </p>
+                        <p class="text-left font-medium">
+                          {{
+                            dashboardState.apu[0].createdAt | date : "dd-MM-yyyy"
+                          }} 
+                        </p>
+                      </div>
                       <p
-                        (click)="showTab(2)"
-                        (click)="
-                          openApuDetail(
-                            dashboardState.selectedDashboard
-                              ?.aircraftRegistration
-                          )
-                        "
-                        class="text-left cursor-pointer flex items-center mt-6 text-blue-500 text-xs font-medium hover:scale-105 transition-all duration-150 ease-in-out"
+                        *ngIf="dashboardState.apu.length > 0"
+                        (click)="showTab(3)"
+                        class="text-left cursor-pointer flex items-center mt-6 text-ahi-blue-600 text-xs font-medium hover:scale-105 transition-all duration-150 ease-in-out"
                       >
                         See more
                         <svg
@@ -304,6 +338,9 @@
                           />
                         </svg>
                       </p>
+                    </td>
+                    <td class="px-6 py-4 text-xs">
+
                     </td>
                   </tr>
                 </tbody>
@@ -318,7 +355,7 @@
           <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
             <div class="overflow-hidden">
               <table class="min-w-full text-center text-sm font-light">
-                <thead class="bg-blue-800 text-left">
+                <thead class="bg-ahi-blue-600 text-left">
                   <tr>
                     <th
                       scope="col"
@@ -348,13 +385,13 @@
                       </svg>
                     </td>
                     <td class="px-6 py-4 text-xs">
-                      <p class="text-blue-500 text-left font-semibold">
+                      <p class="text-ahi-blue-600 text-left font-semibold">
                         Last Follow Up
                       </p>
                       <p class="text-left font-medium">......</p>
-                      <p
-                        (click)="showTab(2)"
-                        class="text-left cursor-pointer flex items-center mt-6 text-blue-500 text-xs font-medium hover:scale-105 transition-all duration-150 ease-in-out"
+                      <!-- <p
+
+                        class="text-left cursor-pointer flex items-center mt-6 text-ahi-blue-600 text-xs font-medium hover:scale-105 transition-all duration-150 ease-in-out"
                       >
                         See more
                         <svg
@@ -369,7 +406,10 @@
                             clip-rule="evenodd"
                           />
                         </svg>
-                      </p>
+                      </p> -->
+                    </td>
+                     <td class="px-6 py-4 text-xs">
+
                     </td>
                   </tr>
                 </tbody>
@@ -384,7 +424,7 @@
           <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
             <div class="overflow-hidden">
               <table class="min-w-full text-center text-sm font-light">
-                <thead class="bg-blue-800 text-left">
+                <thead class="bg-ahi-blue-600 text-left">
                   <tr>
                     <th
                       scope="col"
@@ -423,13 +463,13 @@
                       </svg>
                     </td>
                     <td class="px-6 py-4 text-xs">
-                      <p class="text-blue-500 text-left font-semibold">
+                      <p class="text-ahi-blue-600 text-left font-semibold">
                         Last Follow Up
                       </p>
                       <p class="text-left font-medium">......</p>
-                      <p
-                        (click)="showTab(2)"
-                        class="text-left cursor-pointer flex items-center mt-6 text-blue-500 text-xs font-medium hover:scale-105 transition-all duration-150 ease-in-out"
+                      <!-- <p
+
+                        class="text-left cursor-pointer flex items-center mt-6 text-ahi-blue-600 text-xs font-medium hover:scale-105 transition-all duration-150 ease-in-out"
                       >
                         See more
                         <svg
@@ -444,7 +484,10 @@
                             clip-rule="evenodd"
                           />
                         </svg>
-                      </p>
+                      </p> -->
+                    </td>
+                    <td class="px-6 py-4 text-xs">
+
                     </td>
                   </tr>
                 </tbody>
@@ -459,7 +502,7 @@
           <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
             <div class="overflow-hidden">
               <table class="min-w-full text-center text-sm font-light">
-                <thead class="bg-blue-800 text-left">
+                <thead class="bg-ahi-blue-600 text-left">
                   <tr>
                     <th
                       scope="col"
@@ -497,13 +540,13 @@
                       </svg>
                     </td>
                     <td class="px-6 py-4 text-xs">
-                      <p class="text-blue-500 text-left font-semibold">
+                      <p class="text-ahi-blue-600 text-left font-semibold">
                         Last Follow Up
                       </p>
                       <p class="text-left font-medium">......</p>
-                      <p
-                        (click)="showTab(2)"
-                        class="text-left cursor-pointer flex items-center mt-6 text-blue-500 text-xs font-medium hover:scale-105 transition-all duration-150 ease-in-out"
+                      <!-- <p
+
+                        class="text-left cursor-pointer flex items-center mt-6 text-ahi-blue-600 text-xs font-medium hover:scale-105 transition-all duration-150 ease-in-out"
                       >
                         See more
                         <svg
@@ -518,7 +561,10 @@
                             clip-rule="evenodd"
                           />
                         </svg>
-                      </p>
+                      </p> -->
+                    </td>
+                    <td class="px-6 py-4 text-xs">
+
                     </td>
                   </tr>
                 </tbody>
@@ -562,8 +608,8 @@
                 />
               </svg>
             </button>
-            <table class="min-w-full text-center text-sm font-light">
-              <thead class="bg-blue-800 text-left">
+            <table class="min-w-full text-center text-sm font-light mb-6">
+              <thead class="bg-ahi-blue-600 text-left">
                 <tr>
                   <th class="">
                     <div class=""></div>
@@ -591,24 +637,24 @@
                     class="whitespace-nowrap px-2 pt-1 font-medium bg-gray-200"
                   ></td>
                   <td class="whitespace-nowrap pl-2 py-2 text-xs">
-                    <p class="text-blue-500 text-left font-semibold">
+                    <p class="text-ahi-blue-600 text-left font-semibold">
                       {{ item.categoryDescription }}
                     </p>
                     <p class="text-left font-medium">
                       - Raised on
-                      <span class="text-blue-500">{{
+                      <span class="text-ahi-blue-600">{{
                         item.dateOccur | date : "d MMM YYY Hh:ii:ss"
                       }}</span>
                     </p>
                     <p class="text-left font-medium">
                       - Raised on
-                      <span class="text-blue-500">{{
+                      <span class="text-ahi-blue-600">{{
                         item.dueDate | date : "d MMM YYY Hh:ii:ss"
                       }}</span>
                     </p>
                   </td>
                   <td class="px-6 py-4 text-xs">
-                    <p class="text-blue-500 text-left font-semibold">
+                    <p class="text-ahi-blue-600 text-left font-semibold">
                       Last Follow Up
                     </p>
                     <p class="text-left font-medium">
@@ -634,7 +680,7 @@
     <!-- Isi Tab -->
     <div class="flex flex-col" [@fadeInOut]>
       <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+        <div class="inline-block min-w-full min-vh-100 py-2 sm:px-6 lg:px-8">
           <div class="overflow-hidden">
             <button
               (click)="showTab(1)"
@@ -657,7 +703,7 @@
               </svg>
             </button>
             <table class="min-w-full text-center text-sm font-light">
-              <thead class="bg-blue-800 text-left">
+              <thead class="bg-ahi-blue-600 text-left">
                 <tr>
                   <th class="">
                     <div class=""></div>
@@ -667,132 +713,47 @@
                     class="px-6 py-4 font-semibold text-white"
                     colspan="3"
                   >
-                    Hold Item Listss
+                    APU
                     <span
                       class="rounded-full ml-2 w-8 h-8 px-2 py-1 bg-gray-200 text-blue-800"
                     >
-                      <!-- TODO: -->
-                      {{ dashboardState.aircraftDetailHil.length }}
+                      {{ dashboardState.apu.length }}
                     </span>
                   </th>
                 </tr>
               </thead>
               <tbody class="w-auto">
-                <tr class="">
-                  <td class="px-2 pt-1 font-medium bg-gray-200">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                    >
-                      <path
-                        d="M3.16998 7.43994L12 12.5499L20.77 7.46994M12 21.6099V12.5399"
-                        stroke="black"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                      <path
-                        d="M21.61 9.17V14.83C21.61 14.88 21.61 14.92 21.6 14.97C20.9 14.36 20 14 19 14C18.06 14 17.19 14.33 16.5 14.88C16.0306 15.253 15.6518 15.7275 15.392 16.2679C15.1322 16.8083 14.9982 17.4004 15 18C15 18.75 15.21 19.46 15.58 20.06C15.67 20.22 15.78 20.37 15.9 20.51L14.07 21.52C12.93 22.16 11.07 22.16 9.93001 21.52L4.59001 18.56C3.38001 17.89 2.39001 16.21 2.39001 14.83V9.17C2.39001 7.79 3.38001 6.11 4.59001 5.44L9.93001 2.48C11.07 1.84 12.93 1.84 14.07 2.48L19.41 5.44C20.62 6.11 21.61 7.79 21.61 9.17Z"
-                        stroke="black"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                      <path
-                        d="M23 18.0001C23 19.2001 22.47 20.2701 21.64 21.0001C20.9108 21.6432 19.9723 21.9987 19 22.0001C16.79 22.0001 15 20.2101 15 18.0001C15 16.7401 15.58 15.6101 16.5 14.8801C17.088 14.4088 17.7972 14.1132 18.5458 14.0275C19.2945 13.9417 20.0521 14.0692 20.7315 14.3953C21.4108 14.7214 21.9842 15.2328 22.3856 15.8705C22.7869 16.5083 22.9999 17.2465 23 18.0001Z"
-                        stroke="black"
-                        stroke-width="1.5"
-                        stroke-miterlimit="10"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                      <path
-                        d="M19.25 16.75V18.25L18 19"
-                        stroke="black"
-                        stroke-width="1.5"
-                        stroke-miterlimit="10"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  </td>
-                  <td class="whitespace-nowrap pl-2 py-2 text-xs">
-                    <p class="text-blue-500 text-left font-semibold">....</p>
-                    <p class="text-left font-medium">
-                      - Raised on <span class="text-blue-500">.....</span>
-                    </p>
-                    <p class="text-left font-medium">
-                      - Raised on <span class="text-blue-500">....</span>
-                    </p>
-                  </td>
-                  <td class="px-6 py-4 text-xs">
-                    <p class="text-blue-500 text-left font-semibold">
-                      Last Follow Up
-                    </p>
-                    <p class="text-left font-medium">......</p>
-                  </td>
-                </tr>
-                <tr class="">
+                <tr
+                  class=""
+                  *ngFor="let item of dashboardState.apu"
+                >
                   <td
                     class="whitespace-nowrap px-2 pt-1 font-medium bg-gray-200"
                   ></td>
                   <td class="whitespace-nowrap pl-2 py-2 text-xs">
-                    <p class="text-blue-500 text-left font-semibold">....</p>
-                    <p class="text-left font-medium">
-                      - Raised on <span class="text-blue-500">.....</span>
+                    <p class="text-ahi-blue-600 text-left font-semibold">
+                      {{ item.aircraftRegistration }}
                     </p>
                     <p class="text-left font-medium">
-                      - Raised on <span class="text-blue-500">....</span>
+                      - APUsn
+                      <span class="text-ahi-blue-600">{{
+                        item.apuSn
+                      }}</span>
+                    </p>
+                    <p class="text-left font-medium">
+                      - CreatedAt
+                      <span class="text-ahi-blue-600">{{
+                        item.createdAt| date : "dd-MM-yyyy HH:mm"
+                      }}</span>
                     </p>
                   </td>
                   <td class="px-6 py-4 text-xs">
-                    <p class="text-blue-500 text-left font-semibold">
-                      Last Follow Up
-                    </p>
-                    <p class="text-left font-medium">......</p>
-                  </td>
-                </tr>
-                <tr class="">
-                  <td
-                    class="whitespace-nowrap px-2 pt-1 font-medium bg-gray-200"
-                  ></td>
-                  <td class="whitespace-nowrap pl-2 py-2 text-xs">
-                    <p class="text-blue-500 text-left font-semibold">....</p>
-                    <p class="text-left font-medium">
-                      - Raised on <span class="text-blue-500">.....</span>
+                    <p class="text-ahi-blue-600 text-left font-semibold">
+                      - APU negative score
                     </p>
                     <p class="text-left font-medium">
-                      - Raised on <span class="text-blue-500">....</span>
+                      {{ item.apuNegativeScore }}
                     </p>
-                  </td>
-                  <td class="px-6 py-4 text-xs">
-                    <p class="text-blue-500 text-left font-semibold">
-                      Last Follow Up
-                    </p>
-                    <p class="text-left font-medium">......</p>
-                  </td>
-                </tr>
-                <tr class="">
-                  <td
-                    class="whitespace-nowrap px-2 pt-1 font-medium bg-gray-200"
-                  ></td>
-                  <td class="whitespace-nowrap pl-2 py-2 text-xs">
-                    <p class="text-blue-500 text-left font-semibold">....</p>
-                    <p class="text-left font-medium">
-                      - Raised on <span class="text-blue-500">.....</span>
-                    </p>
-                    <p class="text-left font-medium">
-                      - Raised on <span class="text-blue-500">....</span>
-                    </p>
-                  </td>
-                  <td class="px-6 py-4 text-xs">
-                    <p class="text-blue-500 text-left font-semibold">
-                      Last Follow Up
-                    </p>
-                    <p class="text-left font-medium">......</p>
                   </td>
                 </tr>
               </tbody>
