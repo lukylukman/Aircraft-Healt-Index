@@ -31,7 +31,7 @@
         {{ aircraft.aircraftScore?.totalScoreDifference }}
       </h4>
     </div>
-    {{ aircraft.aircraftScore?.totalScore }}
+    {{ aircraft.aircraftScore?.totalScore !== null ? aircraft.aircraftScore?.totalScore : '--' }}
   </h2>
   <p class="text-xs font-bold">Last flight</p>
   <span class="flex flex-row items-end">

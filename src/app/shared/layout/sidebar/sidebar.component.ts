@@ -36,6 +36,7 @@ import {
   SidebarChildrenGroupMenu,
 } from './interfaces/sidebar.interface';
 import { SidebarService } from './sidebar.service';
+import { AircraftDTO } from 'src/app/pages/dashboard/dto/aircraft.dto';
 
 @Component({
   selector: 'app-sidebar',
@@ -68,6 +69,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
   @Input() id: string;
   @Input() valueOption: string;
   @Input() showOption: string;
+  @Input() aircraft: AircraftDTO;
+
+  arrowDirection: 'up' | 'down' | 'equal' = 'equal';
 
   @Output() aircraftTypeSelected = new EventEmitter<number>();
 
@@ -214,5 +218,17 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   goHome() {
     this.router.navigate(['/home']);
+  }
+
+  onSetArrowDirection(): void {
+    if (this.aircraft.aircraftScore?.totalScoreDifference > 0) {
+      this.arrowDirection = 'up';
+    }
+    if (this.aircraft.aircraftScore?.totalScoreDifference < 0) {
+      this.arrowDirection = 'down';
+    }
+    if (this.aircraft.aircraftScore?.totalScoreDifference === 0) {
+      this.arrowDirection = 'equal';
+    }
   }
 }
