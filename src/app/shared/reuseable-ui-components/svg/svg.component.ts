@@ -9,7 +9,7 @@ export class SvgIconComponent {
   @Input() width = '32';
   @Input() height = '59';
   @Input() direction = 'up';
-
+  @Input() greenColor = false; // Tambahkan atribut ini
 
   getPath(): string {
     if (this.direction === 'up') {

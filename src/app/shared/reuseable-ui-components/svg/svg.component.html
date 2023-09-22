@@ -1,6 +1,9 @@
 <svg [attr.width]="width" [attr.height]="height" viewBox="0 0 42 69" fill="none" xmlns="http://www.w3.org/2000/svg">
   <g filter="url(#filter0_d_832_685)">
-    <path [attr.d]="getPath()" fill="white" />
+    <path [attr.d]="getPath()" [ngClass]="{
+      'fill-ahi-primary-color-100': greenColor,
+      'fill-white': !greenColor
+    }" />
   </g>
   <defs>
     <filter id="filter0_d_832_685" x="0.54541" y="0.5" width="40.9092" height="68" filterUnits="userSpaceOnUse"

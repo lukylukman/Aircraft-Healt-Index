@@ -31,12 +31,23 @@
       <h4 class="uppercase text-white font-light text-base">Averange Health</h4>
       <div class="flex flex-row items-end justify-end">
         <!-- Menggunakan flex dan justify-end -->
+        <div class="flex-col text-center">
+          <app-svg
+          [width]="'26'"
+          [height]="'42'"
+          [direction]="'up'"
+          [greenColor]="dashboardState.ahiSummaryScore.percentage > 0"
+        ></app-svg>
+      <h4 class="text-xs font-extralight">
+          {{ dashboardState.ahiSummaryScore.percentage ?? 0 }}
+        </h4>
+        </div>
         <h1 class="text-white font-extralight text-6xl">
-          {{ dashboardState.ahiSummaryScore.health }}.
+          {{ dashboardState.ahiSummaryScore.health ?? 0 }}.
         </h1>
-        <h1 class="text-3xl font-extralight">
-          {{ dashboardState.ahiSummaryScore.decimal }}
-        </h1>
+        <h4 class="text-3xl font-extralight">
+          {{ dashboardState.ahiSummaryScore.decimal ?? 0 }}
+        </h4>
       </div>
       <h4 class="uppercase text-white font-light text-base">PERCENT Changes</h4>
       <div class="flex flex-row justify-end">
@@ -55,7 +66,7 @@
         </p>
         <button
           type="button"
-          class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-lime-600"
+          class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-ahi-primary-color-100"
         >
           Green
         </button>
@@ -66,7 +77,7 @@
         </p>
         <button
           type="button"
-          class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-yellow-400"
+          class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-ahi-primary-color-200"
         >
           Yellow
         </button>
@@ -77,7 +88,7 @@
         </p>
         <button
           type="button"
-          class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-red-600"
+          class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-ahi-primary-color-300"
         >
           Red
         </button>
