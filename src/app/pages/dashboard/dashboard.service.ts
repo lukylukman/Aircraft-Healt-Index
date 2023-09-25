@@ -21,6 +21,7 @@ import { AircraftDTO } from './dto/aircraft.dto';
 import { ImsPaginationDTO } from './dto/ims-pagination.dto';
 import { PostUploadConfigDTO } from './dto/postUploadConfig.dto';
 import { APURecordDTO } from './dto/showMoreHil.dto';
+import { SetConfigDTO } from './dto/setConfig.dto';
 
 export interface ElasticRecordResponse {
   record: {
@@ -134,6 +135,7 @@ export class DashboardService extends HttpService {
   // }
 
   // Detail Hil = see more Hil on ModalDetail dashboard card
+  // TODO: add param csName customerName=GA
   getApu(
     aircraftRegristration: string
   ): Observable<HttpResult<ElasticRecordResponse>> {
@@ -163,5 +165,22 @@ export class DashboardService extends HttpService {
     return this.http.get<HttpResult<number>>(
       `${environment.host.ahi.url}/ahi/_percent`
     );
+  }
+
+  // get Config Value Data 
+  getConfigData(
+    customerName: string
+  ): Observable<HttpResult<SetConfigDTO[]>> {
+    return this.http.get<HttpResult<SetConfigDTO[]>>(
+      `${environment.host.ahi.url}/ahi-CONFIG/${customerName}`
+    );
+  }
+
+  //  restore Config Value
+   restoreConfigValue(customerName: string): Observable<HttpResult<any>> {
+    const url = `${environment.host.ahi.url}/ahi-config/restore`;
+    const params = { customerName };
+
+    return this.http.delete<HttpResult<any>>(url, { params });
   }
 }

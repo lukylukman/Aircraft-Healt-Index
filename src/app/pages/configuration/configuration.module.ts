@@ -10,10 +10,12 @@ import { DataComponent } from './sub-pages/data/data.component';
 import { PreferencesComponent } from './sub-pages/preferences/preferences.component';
 import { SupportComponent } from './sub-pages/support/support.component';
 import { FormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { DashboardFeature } from '../dashboard/states/dashboard.feature';
 
 @NgModule({
   imports: [
-    CommonModule, ConfigurationRoutingModule, SharedModule, HeroIconModule, FormsModule
+    CommonModule, ConfigurationRoutingModule, SharedModule, HeroIconModule, FormsModule, StoreModule.forFeature(DashboardFeature),
   ],
   declarations: [ConfigurationComponent, GeneralComponent, UserComponent, DataComponent, PreferencesComponent, SupportComponent]
 })

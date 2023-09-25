@@ -8,9 +8,12 @@ import {
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Subject } from 'rxjs';
+import { Observable, Subject, catchError, of, takeUntil, tap } from 'rxjs';
 import { RouteHelperService } from 'src/app/core/services/route-helper.service';
 import { DashboardService } from 'src/app/pages/dashboard/dashboard.service';
+import { DashboardFeatureState } from 'src/app/pages/dashboard/states/dashboard.feature';
+import { DashboardState } from 'src/app/pages/dashboard/states/dashboard.selector';
+import * as DashboardAction from '../../../dashboard/states/dashboard.action'
 import Swal from 'sweetalert2';
 
 @Component({
@@ -55,17 +58,23 @@ export class DataComponent implements OnInit, OnDestroy {
   selectedOption: string = ''; // Nilai default
   selectedFile: File;
   _onDestroy$: Subject<Boolean> = new Subject<Boolean>();
+  private readonly unsubscribe$ = new Subject();
+
+  dashboardState$: Observable<DashboardFeatureState>;
 
   constructor(
     private route: RouteHelperService, // private readonly unsubscribe$ = new Subject()
     private formBuilder: FormBuilder,
     private readonly dashboardService: DashboardService,
     private readonly store: Store
-  ) {}
+  ) {
+    this.dashboardState$ = this.store.select(DashboardState);
+  }
 
   ngOnDestroy(): void {
     this._onDestroy$.next(true);
     this._onDestroy$.unsubscribe();
+    this.store.dispatch(DashboardAction.onClearConfigData());
   }
 
   ngOnInit(): void {
@@ -78,13 +87,41 @@ export class DataComponent implements OnInit, OnDestroy {
     });
   }
 
-  selectOption(option: string) {
-    this.selectedOption = option;
-    if (option === 'pilihan1') {
-      this.customerName = 'GA';
-    } else if (option === 'pilihan2') {
-      this.customerName = 'CITILINK';
+  selectCustomer(customerName: string) {
+    this.selectedOption = customerName;
+    
+
+    switch (customerName) {
+      case 'pilihan1':
+        this.customerName = 'GA';
+        break;
+      case 'pilihan2':
+        this.customerName = 'CITILINK';
+        break;
+      default:
+        this.customerName = customerName;
     }
+
+    this.store.dispatch(DashboardAction.onClearConfigData());
+
+    this.dashboardService
+      .getConfigData(this.customerName)
+      .pipe(
+        tap({
+          next: (result) => {
+            result.data.forEach((configData) =>
+              this.store.dispatch(DashboardAction.OnLoadConfigData(configData))
+            );
+            console.log('data Config =>', result.data);
+          },
+        }),
+        catchError((err) => {
+          console.error(err);
+          return of(null);
+        })
+      )
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe();
   }
 
   // public selectedFile: File;
@@ -172,6 +209,36 @@ export class DataComponent implements OnInit, OnDestroy {
           Swal.fire('Yeaay!', 'Upload success!', 'success');
         }
       );
+  }
+
+  // restore config value data fronnabda ndoa u
+  restoreConfigValue(): void {
+    if (!this.customerName) {
+      // Handle the case when no customer name is selected
+      Swal.fire({
+        icon: 'warning',
+        title: 'Oops!',
+        text: 'Please select a customer!',
+        confirmButtonColor: '#225176'
+      });
+      return;
+    }
+
+    this.dashboardService
+    .restoreConfigValue(this.customerName)
+    .pipe(
+        tap({
+          next: (result) => {
+            Swal.fire('Yeaay!', 'Restore success!', 'success');
+          },
+        }),
+        catchError((err) => {
+          console.error(err);
+          return of(null);
+        })
+      )
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe();
   }
 
 }
