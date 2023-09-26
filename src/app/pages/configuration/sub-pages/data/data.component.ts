@@ -15,6 +15,7 @@ import { DashboardFeatureState } from 'src/app/pages/dashboard/states/dashboard.
 import { DashboardState } from 'src/app/pages/dashboard/states/dashboard.selector';
 import * as DashboardAction from '../../../dashboard/states/dashboard.action'
 import Swal from 'sweetalert2';
+import { ToastNotif } from '../../../../core/decorators/toast.success';
 
 @Component({
   selector: 'app-data',
@@ -57,6 +58,8 @@ export class DataComponent implements OnInit, OnDestroy {
   customerName: string = '';
   selectedOption: string = ''; // Nilai default
   selectedFile: File;
+  isRangeAircraftSystem: boolean = false;
+  isRangeEngineApu: boolean = false;
   _onDestroy$: Subject<Boolean> = new Subject<Boolean>();
   private readonly unsubscribe$ = new Subject();
 
@@ -101,7 +104,10 @@ export class DataComponent implements OnInit, OnDestroy {
       default:
         this.customerName = customerName;
     }
+    this.getConfigData();
+  }
 
+  getConfigData(): void {
     this.store.dispatch(DashboardAction.onClearConfigData());
 
     this.dashboardService
@@ -205,7 +211,6 @@ export class DataComponent implements OnInit, OnDestroy {
           this.isUploading = false;
           this.uploadProgress = 0;
 
-          // TODO: Tindakan setelah berhasil mengupload
           Swal.fire('Yeaay!', 'Upload success!', 'success');
         }
       );
@@ -229,16 +234,18 @@ export class DataComponent implements OnInit, OnDestroy {
     .pipe(
         tap({
           next: (result) => {
-            Swal.fire('Yeaay!', 'Restore success!', 'success');
+            ToastNotif('success', 'Success Restore Weight');
           },
         }),
         catchError((err) => {
           console.error(err);
+          ToastNotif('error', 'Failed Restore Weight');
           return of(null);
         })
       )
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe();
+      this.getConfigData();
   }
-
+  
 }
