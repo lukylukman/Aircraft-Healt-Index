@@ -5,7 +5,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { LoggerService } from 'src/app/core/services/logger.service';
@@ -59,6 +59,22 @@ export class ModalDetailHilComponent implements OnInit {
 
   activeTab: number = 1;
 
+  @HostListener('document:keydown.escape', ['$event'])
+  onEscapeKey(event: KeyboardEvent) {
+    // Handle the Escape key press here
+    this.resetModal();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutsideModal(event: Event) {
+    const modalElement = document.getElementById('DetailHil'); // Replace with your modal's actual ID
+
+    if (modalElement && !modalElement.contains(event.target as Node)) {
+      // Clicked outside the modal, so close it
+      this.resetModal();
+    }
+  }
+
   showTab(tabNumber: number) {
     this.activeTab = tabNumber;
   }
@@ -71,5 +87,7 @@ export class ModalDetailHilComponent implements OnInit {
 
   openApuDetail(aircraftRegristration: string): void {}
 
-  resetModal() {}
+  resetModal() {
+    this.activeTab = 1;
+  }
 }

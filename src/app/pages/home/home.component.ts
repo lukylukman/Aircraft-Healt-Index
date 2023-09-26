@@ -156,7 +156,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .pipe(
         tap({
           next: (_) => {
-            console.log('Percentage Data => ', _.data);
+            // console.log('Percentage Data => ', _.data);
             const temp: AverageHealt = {
               data: _.data,
             };
@@ -180,7 +180,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             const temp: AverageHealt = {
               data: _.data,
             };
-            console.log('temp => ', temp.data);
+            // console.log('temp => ', temp.data);
             this.store.dispatch(DashboardAction.onLoadAverageHealth(temp));
           },
           error: (err) => console.error('Error on HomeComponent => ', err),

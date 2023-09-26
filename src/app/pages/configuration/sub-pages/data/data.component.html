@@ -63,8 +63,8 @@
         <div
           class="bg-ahi-blue-900 w-40 cursor-pointer h-28 shadow-md rounded-lg ease-in-out transition-all duration-200"
           #pilihan1
-          [class.selected]="selectedOption === 'pilihan1'"
-          (click)="selectOption('pilihan1')"
+          [class.selected]="selectedOption === 'GA'"
+          (click)="selectCustomer('GA')"
         >
           <div class="px-4 py-2">
             <h2 class="text-sm text-white font-normal mt-14">Garuda</h2>
@@ -75,8 +75,8 @@
         <div
           class="bg-ahi-blue-900 w-40 h-28 cursor-pointer shadow-md rounded-lg ease-in-out transition-all duration-200"
           #pilihan2
-          [class.selected]="selectedOption === 'pilihan2'"
-          (click)="selectOption('pilihan2')"
+          [class.selected]="selectedOption === 'CITILINK'"
+          (click)="selectCustomer('CITILINK')"
         >
           <div class="px-4 py-2">
             <h2 class="text-sm text-white font-normal mt-16">CITILING</h2>
@@ -167,11 +167,12 @@
     [@fadeInOut]
     class="bg-gradient-to-r h-full from-ahi-blue-800 to-ahi-blue-600"
   >
-    <div class="ml-4">
+    <div *ngIf="dashboardState$ | async as dashboardState" 
+      class="ml-4">
       <div class="ml-2 mt-6">
         <div class="mt-6 ml-2 flex flex-row text-center">
           <h4 class="text-white w-44 text-left">Score Weight</h4>
-          <button
+          <button (click)="restoreConfigValue()"
             class="block w-60 mb-5 px-2 py-2 text-xs text-white rounded-lg cursor-pointer bg-ahi-blue-900 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
             id="small_size"
           >
@@ -186,7 +187,7 @@
             <tbody>
               <tr>
                 <td class="py-2 w-40 text-left">
-                  <span class="text-white">Aircraft System</span>
+                  <span class="text-white">{{ dashboardState.configData[0].configName }}</span>
                 </td>
                 <td class="px-4 py-2 text-center items-center w-1/4">
                   <label
@@ -206,114 +207,61 @@
         <div class="ml-12 mt-4">
           <table class="table-fixed border-spacing-2">
             <tbody>
-              <tr>
+              <tr *ngFor="let item of dashboardState.configData.slice(1, 5)">
                 <td class="px-4 py-2">
-                  <span class="text-white font-normal">HIL</span>
+                  <span class="text-white font-normal">{{ item.configName }}</span>
                 </td>
                 <td class="px-4 py-2 text-center items-center w-2/4">
                   <div class="flex flex-col">
                     <input
                       id="small-range"
                       type="range"
-                      [(ngModel)]="hilScore"
+                      [(ngModel)]="item.configValue"
                       step="1"
                       class="w-80 mx-auto h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
                       [ngStyle]="{
                         background:
                           'linear-gradient(90deg, #00b8eb ' +
-                          hilScore +
+                          item.configValue +
                           '%, #ccc ' +
-                          hilScore +
+                          item.configValue +
                           '%)'
                       }"
                     />
                     <span class="text-white text-sm font-normal">{{
-                      hilScore
+                      item.configValue
                     }}</span>
                   </div>
                 </td>
               </tr>
-              <tr>
-                <td class="px-4 py-2">
-                  <span class="text-white font-normal">Repetitive Problem</span>
+              <tr class="" *ngFor="let subItemHil of dashboardState.configData.slice(5, 9)">
+                <td class="px-4 py-2 ml-6">
+                  <span class="text-white font-normal">{{ subItemHil.configName }}</span>
                 </td>
-                <td class="px-4 py-2 text-center items-center w-2/4">
+                <td class="px-4 py-2 text-center ml-6 items-center w-2/4">
                   <div class="flex flex-col">
                     <input
                       id="small-range"
                       type="range"
+                      [(ngModel)]="subItemHil.configValue"
+                      step="1"
+                      class="w-80 mx-auto h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
                       [ngStyle]="{
                         background:
                           'linear-gradient(90deg, #00b8eb ' +
-                          hilScore +
+                          subItemHil.configValue +
                           '%, #ccc ' +
-                          hilScore +
+                          subItemHil.configValue +
                           '%)'
                       }"
-                      [(ngModel)]="hilScore"
-                      step="1"
-                      class="w-80 mx-auto h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
                     />
                     <span class="text-white text-sm font-normal">{{
-                      hilScore
+                      subItemHil.configValue
                     }}</span>
                   </div>
                 </td>
               </tr>
-              <tr>
-                <td class="px-4 py-2">
-                  <span class="text-white font-normal">Pack Assesment</span>
-                </td>
-                <td class="px-4 py-2 text-center items-center w-2/4">
-                  <div class="flex flex-col">
-                    <input
-                      id="small-range"
-                      type="range"
-                      [ngStyle]="{
-                        background:
-                          'linear-gradient(90deg, #00b8eb ' +
-                          hilScore +
-                          '%, #ccc ' +
-                          hilScore +
-                          '%)'
-                      }"
-                      [(ngModel)]="hilScore"
-                      step="1"
-                      class="w-80 mx-auto h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
-                    />
-                    <span class="text-white text-sm font-normal">{{
-                      hilScore
-                    }}</span>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2">
-                  <span class="text-white font-normal">Bleed Monitor</span>
-                </td>
-                <td class="px-4 py-2 text-center items-center w-2/4">
-                  <div class="flex flex-col">
-                    <input
-                      id="small-range"
-                      type="range"
-                      [ngStyle]="{
-                        background:
-                          'linear-gradient(90deg, #00b8eb ' +
-                          hilScore +
-                          '%, #ccc ' +
-                          hilScore +
-                          '%)'
-                      }"
-                      [(ngModel)]="hilScore"
-                      step="1"
-                      class="w-80 mx-auto h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
-                    />
-                    <span class="text-white text-sm font-normal">{{
-                      hilScore
-                    }}</span>
-                  </div>
-                </td>
-              </tr>
+
             </tbody>
           </table>
         </div>
@@ -325,7 +273,7 @@
             <tbody>
               <tr>
                 <td class=" py-2 w-40 text-left">
-                  <span class="text-white">Engine & APU</span>
+                  <span class="text-white">{{ dashboardState.configData[9].configName }}</span>
                 </td>
                 <td class="px-4 py-2 text-center items-center w-1/4">
                   <label
@@ -346,56 +294,29 @@
         <div class="ml-12 mt-4">
           <table class="table-fixed border-spacing-2">
             <tbody>
-              <tr>
-                <td class="px-4 py-2 1/4">
-                  <span class="text-white font-normal">Engine</span>
+              <tr *ngFor="let item of dashboardState.configData.slice(10, 12)">
+                <td class="px-4 py-2">
+                  <span class="text-white font-normal">{{ item.configName }}</span>
                 </td>
                 <td class="px-4 py-2 text-center items-center w-2/4">
                   <div class="flex flex-col">
                     <input
                       id="small-range"
                       type="range"
+                      [(ngModel)]="item.configValue"
+                      step="1"
+                      class="w-80 mx-auto h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
                       [ngStyle]="{
                         background:
                           'linear-gradient(90deg, #00b8eb ' +
-                          hilScore +
+                          item.configValue +
                           '%, #ccc ' +
-                          hilScore +
+                          item.configValue +
                           '%)'
                       }"
-                      [(ngModel)]="hilScore"
-                      step="1"
-                      class="w-80 mx-auto h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
                     />
                     <span class="text-white text-sm font-normal">{{
-                      hilScore
-                    }}</span>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 1/4">
-                  <span class="text-white font-normal">APU</span>
-                </td>
-                <td class="px-4 py-2 text-center items-center w-2/4">
-                  <div class="flex flex-col">
-                    <input
-                      id="small-range"
-                      type="range"
-                      [ngStyle]="{
-                        background:
-                          'linear-gradient(90deg, #00b8eb ' +
-                          hilScore +
-                          '%, #ccc ' +
-                          hilScore +
-                          '%)'
-                      }"
-                      [(ngModel)]="hilScore"
-                      step="1"
-                      class="w-80 mx-auto h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
-                    />
-                    <span class="text-white text-sm font-normal">{{
-                      hilScore
+                      item.configValue
                     }}</span>
                   </div>
                 </td>
@@ -404,91 +325,7 @@
           </table>
         </div>
       </div>
-      <!-- structure score -->
-      <div class="mt-6 ml-4">
-        <div class="flex flex-row">
-          <table class="table-fixed border-spacing-2">
-            <tbody>
-              <tr>
-                <td class=" py-2 w-48 text-left">
-                  <span class="text-white">Structure</span>
-                </td>
-                <td class="px-4 py-2 text-center items-center w-2/4">
-                  <label
-                    class="relative inline-flex items-center cursor-pointer"
-                  >
-                    <input type="checkbox" value="" class="sr-only peer" />
-                    <div
-                      class="w-11 h-6 bg-ahi-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-sm peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-sm after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-ahi-blue-1000"
-                    ></div>
-                  </label>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
 
-        <!-- Table structure -->
-        <div class="ml-12 mt-4">
-          <table class="table-fixed border-spacing-2">
-            <tbody>
-              <tr>
-                <td class="px-4 py-2 1/4">
-                  <span class="text-white font-normal">ASDCS</span>
-                </td>
-                <td class="px-4 py-2 text-center items-center w-2/4">
-                  <div class="flex flex-col">
-                    <input
-                      id="small-range"
-                      type="range"
-                      [ngStyle]="{
-                        background:
-                          'linear-gradient(90deg, #00b8eb ' +
-                          hilScore +
-                          '%, #ccc ' +
-                          hilScore +
-                          '%)'
-                      }"
-                      [(ngModel)]="hilScore"
-                      step="1"
-                      class="w-80 mx-auto h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
-                    />
-                    <span class="text-white text-sm font-normal">{{
-                      hilScore
-                    }}</span>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <!-- Cabin score -->
-      <div class="mt-6 ml-4">
-        <div class="flex flex-row">
-          <div class="flex flex-row">
-            <table class="table-fixed border-spacing-2">
-              <tbody>
-                <tr>
-                  <td class="py-2 w-48 text-left">
-                    <span class="text-white">Cabin</span>
-                  </td>
-                  <td class="px-4 py-2 text-center items-center w-2/4">
-                    <label
-                      class="relative inline-flex items-center cursor-pointer"
-                    >
-                      <input type="checkbox" value="" class="sr-only peer" />
-                      <div
-                        class="w-11 h-6 bg-ahi-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-sm peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-sm after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-ahi-blue-1000"
-                      ></div>
-                    </label>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>

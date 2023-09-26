@@ -29,4 +29,8 @@ export enum DashboardActionType {
   // APU
   ON_APU_LOAD = '[Action: APU] => On APU Load',
   ON_APU_CLEAR = '[Action: APU] => On APU Clear',
+
+  // SETTING CONFIG VALUE
+  ON_CONFIG_DATA_CLEAR = '[Action: CONFIG] => On CONFIG DATA Clear',
+  ON_CONFIG_DATA_LOAD = '[Action: CONFIG] => On CONFIG DATA Load',
 }
