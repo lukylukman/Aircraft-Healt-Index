@@ -59,61 +59,66 @@
   </nav>
   <!-- header -->
   <!-- customerName -->
-      <div class="flex justify-start mt-6 ml-8 gap-4">
-        <div
-          class="bg-ahi-blue-900 w-40 cursor-pointer h-28 shadow-md rounded-lg ease-in-out transition-all duration-200"
-          #pilihan1
-          [class.selected]="selectedOption === 'GA'"
-          (click)="selectCustomer('GA')"
-        >
-          <div class="px-4 py-2">
-            <h2 class="text-sm text-white font-normal mt-14">Garuda</h2>
-            <h2 class="text-sm text-white font-normal">Indonesia (GA)</h2>
-          </div>
-        </div>
-
-        <div
-          class="bg-ahi-blue-900 w-40 h-28 cursor-pointer shadow-md rounded-lg ease-in-out transition-all duration-200"
-          #pilihan2
-          [class.selected]="selectedOption === 'CITILINK'"
-          (click)="selectCustomer('CITILINK')"
-        >
-          <div class="px-4 py-2">
-            <h2 class="text-sm text-white font-normal mt-16">CITILING</h2>
-          </div>
-        </div>
-        <div class="bg-ahi-blue-900 w-20 h-28 shadow-md rounded-lg">
-          <div
-            class="px-2 py-2 text-white text-sm font-normal mx-auto flex flex-col text-center items-center"
-          >
-            <hero-icon
-              name="plus-circle"
-              type="outline"
-              class="h-6 w-6 mt-10 cursor-pointer text-white duration-200"
-            ></hero-icon
-            >Add New
-          </div>
-        </div>
+  <div class="flex justify-start mt-6 ml-8 gap-4">
+    <div
+      class="bg-ahi-blue-900 w-40 cursor-pointer h-28 shadow-md rounded-lg ease-in-out transition-all duration-200"
+      #pilihan1
+      [class.selected]="selectedOption === 'GA'"
+      (click)="selectCustomer('GA')"
+    >
+      <div class="px-4 py-2">
+        <h2 class="text-sm text-white font-normal mt-14">Garuda</h2>
+        <h2 class="text-sm text-white font-normal">Indonesia (GA)</h2>
       </div>
+    </div>
+
+    <div
+      class="bg-ahi-blue-900 w-40 h-28 cursor-pointer shadow-md rounded-lg ease-in-out transition-all duration-200"
+      #pilihan2
+      [class.selected]="selectedOption === 'CITILINK'"
+      (click)="selectCustomer('CITILINK')"
+    >
+      <div class="px-4 py-2">
+        <h2 class="text-sm text-white font-normal mt-16">CITILINK (QG)</h2>
+      </div>
+    </div>
+    <div class="bg-ahi-blue-900 w-20 h-28 shadow-md rounded-lg">
+      <div
+        class="px-2 py-2 text-white text-sm font-normal mx-auto flex flex-col text-center items-center"
+      >
+        <hero-icon
+          name="plus-circle"
+          type="outline"
+          class="h-6 w-6 mt-10 cursor-pointer text-white duration-200"
+        ></hero-icon
+        >Add New
+      </div>
+    </div>
+  </div>
   <div
     *ngIf="showUpdate"
     [@fadeInOut]
     class="bg-gradient-to-r h-screen from-ahi-blue-800 to-ahi-blue-600"
   >
     <form (ngSubmit)="uploadFile(fileInput.files[0], dataTypeSelect.value)">
-      
       <!-- Loading progress -->
       <div class="ml-8">
         <div class="flex justify-start items-center mt-2 mb-1">
-          <span *ngIf="isUploading"
+          <span
+            *ngIf="isUploading"
             class="text-base animate-pulse font-medium text-white dark:text-white"
             >Loading
           </span>
-          <span *ngIf="isUploading" class="text-sm ml-8 font-medium text-ahi-blue-1000 dark:text-white"
+          <span
+            *ngIf="isUploading"
+            class="text-sm ml-8 font-medium text-ahi-blue-1000 dark:text-white"
             >{{ uploadProgress }}%</span
           >
         </div>
-        <div *ngIf="isUploading" class="w-96 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+        <div
+          *ngIf="isUploading"
+          class="w-96 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700"
+        >
           <div
             class="bg-blue-600 h-2.5 transition-all ease-in-out rounded-full"
             [style.width.%]="uploadProgress"
@@ -155,9 +160,20 @@
         type="submit"
         class="bg-ahi-green-500 mt-6 ml-8 inline-flex items-center text-white py-2 px-4 rounded hover:bg-ahi-green-600 focus:outline-none focus:bg-ahi-green-600"
       >
-        Upload<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-              </svg>
+        Upload<svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 ml-1"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+          />
+        </svg>
       </button>
     </form>
   </div>
@@ -167,12 +183,12 @@
     [@fadeInOut]
     class="bg-gradient-to-r h-full from-ahi-blue-800 to-ahi-blue-600"
   >
-    <div *ngIf="dashboardState$ | async as dashboardState" 
-      class="ml-4">
+    <div *ngIf="dashboardState$ | async as dashboardState" class="ml-4">
       <div class="ml-2 mt-6">
         <div class="mt-6 ml-2 flex flex-row text-center">
           <h4 class="text-white w-44 text-left">Score Weight</h4>
-          <button (click)="restoreConfigValue()"
+          <button
+            (click)="restoreConfigValue()"
             class="block w-60 mb-5 px-2 py-2 text-xs text-white rounded-lg cursor-pointer bg-ahi-blue-900 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
             id="small_size"
           >
@@ -187,7 +203,9 @@
             <tbody>
               <tr>
                 <td class="py-2 w-40 text-left">
-                  <span class="text-white">{{ dashboardState.configData[0].configName }}</span>
+                  <span class="text-white">{{
+                    dashboardState.configData[0].configName
+                  }}</span>
                 </td>
                 <td class="px-4 py-2 text-center items-center w-1/4">
                   <label
@@ -209,7 +227,9 @@
             <tbody>
               <tr *ngFor="let item of dashboardState.configData.slice(1, 5)">
                 <td class="px-4 py-2">
-                  <span class="text-white font-normal">{{ item.configName }}</span>
+                  <span class="text-white font-normal">{{
+                    item.configName
+                  }}</span>
                 </td>
                 <td class="px-4 py-2 text-center items-center w-2/4">
                   <div class="flex flex-col">
@@ -234,9 +254,14 @@
                   </div>
                 </td>
               </tr>
-              <tr class="" *ngFor="let subItemHil of dashboardState.configData.slice(5, 9)">
+              <tr
+                class=""
+                *ngFor="let subItemHil of dashboardState.configData.slice(5, 9)"
+              >
                 <td class="px-4 py-2 ml-6">
-                  <span class="text-white font-normal">{{ subItemHil.configName }}</span>
+                  <span class="text-white font-normal">{{
+                    subItemHil.configName
+                  }}</span>
                 </td>
                 <td class="px-4 py-2 text-center ml-6 items-center w-2/4">
                   <div class="flex flex-col">
@@ -261,7 +286,6 @@
                   </div>
                 </td>
               </tr>
-
             </tbody>
           </table>
         </div>
@@ -272,8 +296,10 @@
           <table class="table-fixed border-spacing-2">
             <tbody>
               <tr>
-                <td class=" py-2 w-40 text-left">
-                  <span class="text-white">{{ dashboardState.configData[9].configName }}</span>
+                <td class="py-2 w-40 text-left">
+                  <span class="text-white">{{
+                    dashboardState.configData[9].configName
+                  }}</span>
                 </td>
                 <td class="px-4 py-2 text-center items-center w-1/4">
                   <label
@@ -296,7 +322,9 @@
             <tbody>
               <tr *ngFor="let item of dashboardState.configData.slice(10, 12)">
                 <td class="px-4 py-2">
-                  <span class="text-white font-normal">{{ item.configName }}</span>
+                  <span class="text-white font-normal">{{
+                    item.configName
+                  }}</span>
                 </td>
                 <td class="px-4 py-2 text-center items-center w-2/4">
                   <div class="flex flex-col">
@@ -325,7 +353,6 @@
           </table>
         </div>
       </div>
-
     </div>
   </div>
 </div>
