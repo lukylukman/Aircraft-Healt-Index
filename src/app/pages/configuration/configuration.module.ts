@@ -12,11 +12,12 @@ import { SupportComponent } from './sub-pages/support/support.component';
 import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { DashboardFeature } from '../dashboard/states/dashboard.feature';
+import { AddNewCustomerModalComponent } from './sub-pages/data/component/addNewUserModal/addNewUserModal.component';
 
 @NgModule({
   imports: [
     CommonModule, ConfigurationRoutingModule, SharedModule, HeroIconModule, FormsModule, StoreModule.forFeature(DashboardFeature),
   ],
-  declarations: [ConfigurationComponent, GeneralComponent, UserComponent, DataComponent, PreferencesComponent, SupportComponent]
+  declarations: [ConfigurationComponent, GeneralComponent, UserComponent, DataComponent, PreferencesComponent, SupportComponent, AddNewCustomerModalComponent]
 })
 export class ConfigurationModule { }

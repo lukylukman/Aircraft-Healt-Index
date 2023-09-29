@@ -88,23 +88,12 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     // },
   ];
 
-  showModal: boolean = false;
-  openModal() {
-    this.showModal = true;
-  }
-
-  closeModal() {
-    this.showModal = false;
-    this.selectedCard = null;
-  }
-
   dashboardState$: Observable<DashboardFeatureState>;
   personalInformation: PersonalInformation;
 
   isModalOpen: boolean = false;
   selectedCardData: any;
-  private modal: Modal;
-  addUserModal: Modal;
+  aircraftDetailModal: Modal;
 
   paginationData: ImsPaginationDTO = {
     page: 1,
@@ -122,8 +111,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       this.soeService.getPersonalInformationFromCache();
   }
   ngAfterViewInit(): void {
-    this.selectedCard;
-    this.addUserModal = new Modal(document.getElementById('DetailHil'), {});
+    this.aircraftDetailModal = new Modal(document.getElementById('DetailHil'), {});
   }
 
   formGroup = new FormGroup({
@@ -133,35 +121,13 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onAircraftTypeChanged(aircraftTypeId: number): void {
     const aircraftId = Number(aircraftTypeId);
-
-    console.log('Aircraft ID => ', aircraftId);
-
+    // console.log('Aircraft ID => ', aircraftId);
     this.fectDashboardData(aircraftId);
   }
 
   ngOnInit(): void {
     this.fectDashboardData();
     this.fetchAircraftType();
-
-    this.modal = new Modal(document.getElementById('modalDetailCard'), {});
-
-    const modalToggleButton = document.getElementById('modalDetailCardBtn');
-    if (modalToggleButton) {
-      modalToggleButton.addEventListener('click', () => {
-        this.isModalOpen = !this.isModalOpen;
-        this.modal.toggle();
-      });
-    }
-
-    const closeModalButton = document.querySelector(
-      '[data-modal-toggle="closeModalDetailCard"]'
-    );
-    if (closeModalButton) {
-      closeModalButton.addEventListener('click', () => {
-        this.isModalOpen = false;
-        this.modal.toggle();
-      });
-    }
   }
 
   fetchAircraftType(): void {
@@ -241,11 +207,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onClickDetailAircraft(): void {
-    this.addUserModal.show();
+    this.aircraftDetailModal.show();
   }
 
-  onClickHideAddUserModal() {
-    this.addUserModal.hide();
+  onClickHidetailAircraftDetailModal() {
+    this.aircraftDetailModal.hide();
   }
 
   openCardDetail(aircraft: AircraftDTO): void {
@@ -301,6 +267,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy(): void {
     this.unsubscribe$.unsubscribe();
+    this.store.dispatch(DashboardAction.resetDashboardState());
   }
 
 }

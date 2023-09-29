@@ -2,6 +2,7 @@ import {
   HttpClient,
   HttpEvent,
   HttpEventType,
+  HttpHeaders,
   HttpParams,
   HttpRequest,
 } from '@angular/common/http';
@@ -181,6 +182,24 @@ export class DashboardService extends HttpService {
     const url = `${environment.host.ahi.url}/ahi-config/restore`;
     const params = { customerName };
 
-    return this.http.delete<HttpResult<any>>(url, { params });
+    return this.http.patch<HttpResult<any>>(url, null, { params });
   }
+
+  // Update Config Weight
+  updateConfigWeight(uniqueId: string, configValue: number): Observable<HttpResponseDTO<any>> {
+    return this.http.patch<HttpResponseDTO<any>>(
+      `${environment.host.ahi.url}/ahi-config?uniqueId=${uniqueId}&configValue=${configValue}`,
+      {}
+    );
+  }
+
+  // Add New customer
+  createNewCustomer(customerName: string): Observable<HttpResponseDTO<any>> {
+    const url = `${environment.host.ahi.url}/ahi-config`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http.post<HttpResponseDTO<any>>(url, { customerName }, { headers });
+  }
+
 }

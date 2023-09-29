@@ -5,7 +5,7 @@ import {
   animate,
   state,
 } from '@angular/animations';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, AfterContentInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, catchError, of, takeUntil, tap } from 'rxjs';
@@ -16,6 +16,7 @@ import { DashboardState } from 'src/app/pages/dashboard/states/dashboard.selecto
 import * as DashboardAction from '../../../dashboard/states/dashboard.action'
 import Swal from 'sweetalert2';
 import { ToastNotif } from '../../../../core/decorators/toast.success';
+import { Modal } from 'flowbite';
 
 @Component({
   selector: 'app-data',
@@ -47,7 +48,7 @@ import { ToastNotif } from '../../../../core/decorators/toast.success';
     ]),
   ],
 })
-export class DataComponent implements OnInit, OnDestroy {
+export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
   showUpdate: boolean = true;
   showCalculation: boolean = false;
   AddDataForm;
@@ -60,6 +61,9 @@ export class DataComponent implements OnInit, OnDestroy {
   selectedFile: File;
   isRangeAircraftSystem: boolean = false;
   isRangeEngineApu: boolean = false;
+  addNewCustomer: Modal;
+  inputNewCs: string;
+
   _onDestroy$: Subject<Boolean> = new Subject<Boolean>();
   private readonly unsubscribe$ = new Subject();
 
@@ -72,6 +76,9 @@ export class DataComponent implements OnInit, OnDestroy {
     private readonly store: Store
   ) {
     this.dashboardState$ = this.store.select(DashboardState);
+  }
+  ngAfterContentInit(): void {
+    this.addNewCustomer = new Modal(document.getElementById('addCustomerModal'), {});
   }
 
   ngOnDestroy(): void {
@@ -90,6 +97,13 @@ export class DataComponent implements OnInit, OnDestroy {
     });
   }
 
+  openModalAddNewCustomer(): void {
+    this.addNewCustomer.show();
+  }
+  closeModalAddnewCustomer(): void {
+    this.addNewCustomer.hide();
+  }
+
   selectCustomer(customerName: string) {
     this.selectedOption = customerName;
     
@@ -105,6 +119,7 @@ export class DataComponent implements OnInit, OnDestroy {
         this.customerName = customerName;
     }
     this.getConfigData();
+    ToastNotif('success', 'Loaded config value');
   }
 
   getConfigData(): void {
@@ -118,7 +133,7 @@ export class DataComponent implements OnInit, OnDestroy {
             result.data.forEach((configData) =>
               this.store.dispatch(DashboardAction.OnLoadConfigData(configData))
             );
-            console.log('data Config =>', result.data);
+            // console.log('data Config =>', result.data);
           },
         }),
         catchError((err) => {
@@ -235,6 +250,7 @@ export class DataComponent implements OnInit, OnDestroy {
         tap({
           next: (result) => {
             ToastNotif('success', 'Success Restore Weight');
+            this.getConfigData();
           },
         }),
         catchError((err) => {
@@ -245,7 +261,39 @@ export class DataComponent implements OnInit, OnDestroy {
       )
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe();
-      this.getConfigData();
   }
-  
+
+  updateConfigWeight(uniqueId: string, configValue: number): void {
+    console.log('Data yang diperbarui =>', uniqueId, configValue);
+
+    this.dashboardService.updateConfigWeight(uniqueId, configValue)
+      .pipe(
+        tap({
+          next: (result) => {
+            ToastNotif('success', 'Success Update Weight');
+            this.getConfigData();
+          },
+          error: (err) => {
+            console.error(err);
+            ToastNotif('error', 'Failed Update Weight');
+          },
+        }),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe();
+  }
+
+  createNewCustomer(): void {
+    this.dashboardService.createNewCustomer(this.inputNewCs)
+      .subscribe(
+        (result) => {
+          ToastNotif('success', 'Success Added New Customer');
+        },
+        (error) => {
+          console.error(error);
+          ToastNotif('error', 'Failed Add New Customer');
+        }
+      );
+  }
+
 }

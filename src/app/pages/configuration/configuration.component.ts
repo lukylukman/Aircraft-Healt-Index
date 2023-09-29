@@ -5,10 +5,11 @@ import {
   animate,
   state,
 } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { Confirmable } from 'src/app/core/decorators/confirmable.decorator';
+import { Modal } from 'flowbite';
 
 @Component({
   selector: 'app-configuration',
@@ -40,11 +41,17 @@ import { Confirmable } from 'src/app/core/decorators/confirmable.decorator';
     ]),
   ],
 })
-export class ConfigurationComponent implements OnInit {
+export class ConfigurationComponent implements OnInit, AfterContentInit {
+
+  addNewCustomer: Modal;
+
   constructor(
     private readonly keycloakService: KeycloakService,
     private router: Router
   ) {}
+  ngAfterContentInit(): void {
+    this.addNewCustomer = new Modal(document.getElementById('addCustomerModal'), {});
+  }
   userRoles: string[] = [];
 
   ngOnInit(): void {
@@ -53,6 +60,14 @@ export class ConfigurationComponent implements OnInit {
     if (this.userRoles.includes('user')) {
       this.router.navigate(['/home']);
     }
+  }
+
+
+  openModalAddNewCustomer(): void {
+    this.addNewCustomer.show();
+  }
+  closeModalAddnewCustomer(): void {
+    this.addNewCustomer.hide();
   }
 
   @Confirmable({

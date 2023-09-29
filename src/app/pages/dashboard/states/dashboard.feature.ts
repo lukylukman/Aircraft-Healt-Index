@@ -189,6 +189,8 @@ export const DashboardFeature = createFeature({
         configData: [...state.configData, data],
       })
     ),
+    
+    on(DashboardAction.resetDashboardState, () => initialState)
 
   ),
 });
