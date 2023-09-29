@@ -33,10 +33,16 @@
         <!-- Menggunakan flex dan justify-end -->
         <div class="flex-col text-center items-center">
           <app-svg
-          [width]="'26'"
-          [height]="'42'"
-          [direction]="dashboardState.ahiSummaryScore.percentage > 0 ? 'up' : (dashboardState.ahiSummaryScore.percentage < 0 ? 'down' : 'equal')"
-          [greenColor]="dashboardState.ahiSummaryScore.percentage > 0"
+            [width]="'26'"
+            [height]="'42'"
+            [direction]="
+              dashboardState.ahiSummaryScore.percentage > 0
+                ? 'up'
+                : dashboardState.ahiSummaryScore.percentage < 0
+                ? 'down'
+                : 'equal'
+            "
+            [greenColor]="dashboardState.ahiSummaryScore.percentage > 0"
           ></app-svg>
           <h4 class="text-xs font-extralight mr-2">
             {{ dashboardState.ahiSummaryScore.percentage ?? 0 }}
@@ -116,7 +122,7 @@
     </div>
 
     <!-- Sort Dropdown -->
-    <div class="ml-6 mt-3 items-center">
+    <!-- <div class="ml-6 mt-3 items-center">
       <p class="uppercase text-xl">Sort</p>
       <select
         id="small"
@@ -126,7 +132,7 @@
         <option value="US">APU-300</option>
         <option value="US">APU-300</option>
       </select>
-    </div>
+    </div> -->
 
     <div class="grid grid-cols-2 mx-auto mt-5">
       <div>
