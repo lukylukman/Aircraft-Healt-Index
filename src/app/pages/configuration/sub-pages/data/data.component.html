@@ -61,7 +61,7 @@
   <!-- customerName -->
   <div class="flex justify-start mt-6 ml-8 gap-4">
     <div
-      class="bg-ahi-blue-900 w-40 cursor-pointer h-28 shadow-md rounded-lg ease-in-out transition-all duration-200"
+      class="bg-ahi-blue-900 w-40 cursor-pointer h-28 shadow-md hover:scale-105 rounded-lg ease-in-out transition-all duration-200"
       #pilihan1
       [class.selected]="selectedOption === 'GA'"
       (click)="selectCustomer('GA')"
@@ -73,7 +73,7 @@
     </div>
 
     <div
-      class="bg-ahi-blue-900 w-40 h-28 cursor-pointer shadow-md rounded-lg ease-in-out transition-all duration-200"
+      class="bg-ahi-blue-900 w-40 h-28 cursor-pointer shadow-md hover:scale-105 rounded-lg ease-in-out transition-all duration-200"
       #pilihan2
       [class.selected]="selectedOption === 'CITILINK'"
       (click)="selectCustomer('CITILINK')"
@@ -82,18 +82,14 @@
         <h2 class="text-sm text-white font-normal mt-16">CITILINK (QG)</h2>
       </div>
     </div>
-    <div class="bg-ahi-blue-900 w-20 h-28 shadow-md rounded-lg">
-      <div
-        class="px-2 py-2 text-white text-sm font-normal mx-auto flex flex-col text-center items-center"
-      >
-        <hero-icon
-          name="plus-circle"
-          type="outline"
-          class="h-6 w-6 mt-10 cursor-pointer text-white duration-200"
-        ></hero-icon
-        >Add New
-      </div>
-    </div>
+   <button (click)="openModalAddNewCustomer()" class="bg-ahi-blue-900 w-30 h-28 cursor-pointer shadow-md hover:scale-105 rounded-lg ease-in-out transition-all duration-200 text-sm text-white px-5 py-2.5 text-center">
+                    <hero-icon
+                      name="plus-circle"
+                      type="outline"
+                      class="h-8 w-8 cursor-pointer text-white duration-200"
+                    ></hero-icon
+                    ><p>Add New</p>
+        </button>
   </div>
   <div
     *ngIf="showUpdate"

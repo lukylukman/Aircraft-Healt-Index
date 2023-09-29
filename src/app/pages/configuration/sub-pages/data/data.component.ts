@@ -119,7 +119,6 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
         this.customerName = customerName;
     }
     this.getConfigData();
-    ToastNotif('success', 'Loaded config value');
   }
 
   getConfigData(): void {
@@ -133,12 +132,14 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
             result.data.forEach((configData) =>
               this.store.dispatch(DashboardAction.OnLoadConfigData(configData))
             );
+            ToastNotif('success', 'Loaded config value');
             // console.log('data Config =>', result.data);
           },
         }),
         catchError((err) => {
           console.error(err);
           return of(null);
+          ToastNotif('error', err);
         })
       )
       .pipe(takeUntil(this.unsubscribe$))
