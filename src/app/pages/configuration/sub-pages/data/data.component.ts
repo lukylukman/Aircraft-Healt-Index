@@ -10,13 +10,13 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, catchError, of, takeUntil, tap } from 'rxjs';
 import { RouteHelperService } from 'src/app/core/services/route-helper.service';
-import { DashboardService } from 'src/app/pages/dashboard/dashboard.service';
 import { DashboardFeatureState } from 'src/app/pages/dashboard/states/dashboard.feature';
 import { DashboardState } from 'src/app/pages/dashboard/states/dashboard.selector';
 import * as DashboardAction from '../../../dashboard/states/dashboard.action'
 import Swal from 'sweetalert2';
 import { ToastNotif } from '../../../../core/decorators/toast.success';
 import { Modal } from 'flowbite';
+import { ConfigurationService } from '../../configuration.service';
 
 @Component({
   selector: 'app-data',
@@ -64,6 +64,8 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
   addNewCustomer: Modal;
   inputNewCs: string;
 
+  listCustomerName: [] = [];
+
   _onDestroy$: Subject<Boolean> = new Subject<Boolean>();
   private readonly unsubscribe$ = new Subject();
 
@@ -72,7 +74,7 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
   constructor(
     private route: RouteHelperService, // private readonly unsubscribe$ = new Subject()
     private formBuilder: FormBuilder,
-    private readonly dashboardService: DashboardService,
+    private readonly configurationService: ConfigurationService,
     private readonly store: Store
   ) {
     this.dashboardState$ = this.store.select(DashboardState);
@@ -89,12 +91,32 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
 
   ngOnInit(): void {
     this.createForm();
+    // this.initCustomerListName();
   }
 
   createForm(): void {
     this.AddDataForm = this.formBuilder.group({
       upload_file: ['', [Validators.required]],
     });
+  }
+  // TODO: waiting solve on branch BE AHI
+  initCustomerListName(): void {
+    this.configurationService
+      .getCustomerName()
+      .pipe(
+        tap((result) => {
+          ToastNotif('success', 'Loaded config value');
+          console.log('data Config =>', result.data);
+          this.listCustomerName = result.data;
+        }),
+        catchError((err) => {
+          console.error(err);
+          ToastNotif('error', err);
+          return of(null);
+        })
+      )
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe();
   }
 
   openModalAddNewCustomer(): void {
@@ -124,7 +146,7 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
   getConfigData(): void {
     this.store.dispatch(DashboardAction.onClearConfigData());
 
-    this.dashboardService
+    this.configurationService
       .getConfigData(this.customerName)
       .pipe(
         tap({
@@ -207,7 +229,7 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
     // Log the formData object before making the HTTP request
     console.log('formData:', formData);
 
-    this.dashboardService
+    this.configurationService
       .updateDataConfiguration(formData)
       .subscribe(
         (progress: number) => {
@@ -245,7 +267,7 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
       return;
     }
 
-    this.dashboardService
+    this.configurationService
     .restoreConfigValue(this.customerName)
     .pipe(
         tap({
@@ -267,7 +289,7 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
   updateConfigWeight(uniqueId: string, configValue: number): void {
     console.log('Data yang diperbarui =>', uniqueId, configValue);
 
-    this.dashboardService.updateConfigWeight(uniqueId, configValue)
+    this.configurationService.updateConfigWeight(uniqueId, configValue)
       .pipe(
         tap({
           next: (result) => {
@@ -285,7 +307,7 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
   }
 
   createNewCustomer(): void {
-    this.dashboardService.createNewCustomer(this.inputNewCs)
+    this.configurationService.createNewCustomer(this.inputNewCs)
       .subscribe(
         (result) => {
           ToastNotif('success', 'Success Added New Customer');

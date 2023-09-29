@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ToastNotif } from 'src/app/core/decorators/toast.success';
-import { DashboardService } from 'src/app/pages/dashboard/dashboard.service';
+import { ConfigurationService } from '../../../../configuration.service';
 
 @Component({
   selector: 'app-add-new-customer',
@@ -13,7 +13,7 @@ export class AddNewCustomerModalComponent implements OnInit {
 
   inputNewCs: string;
   
-  constructor(private readonly dashboardService: DashboardService,) {}
+  constructor(private readonly configurationService: ConfigurationService,) {}
 
   ngOnInit() {
   }
@@ -21,7 +21,7 @@ export class AddNewCustomerModalComponent implements OnInit {
   }
 
   createNewCustomer(): void {
-    this.dashboardService.createNewCustomer(this.inputNewCs)
+    this.configurationService.createNewCustomer(this.inputNewCs)
       .subscribe(
         (result) => {
           ToastNotif('success', 'Success Added New Customer');
