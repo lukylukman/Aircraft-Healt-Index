@@ -105,8 +105,7 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
       .getCustomerName()
       .pipe(
         tap((result) => {
-          ToastNotif('success', 'Loaded config value');
-          console.log('data Config =>', result.data);
+          console.log('list CustomerName =>', result.data);
           this.listCustomerName = result.data;
         }),
         catchError((err) => {

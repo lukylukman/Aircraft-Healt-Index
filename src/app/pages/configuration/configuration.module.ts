@@ -12,7 +12,7 @@ import { SupportComponent } from './sub-pages/support/support.component';
 import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { DashboardFeature } from '../dashboard/states/dashboard.feature';
-import { AddNewCustomerModalComponent } from './sub-pages/data/component/addNewUserModal/addNewUserModal.component';
+import { AddNewCustomerModalComponent } from './sub-pages/data/component/addCustomerModal/addNewUserModal.component';
 
 @NgModule({
   imports: [

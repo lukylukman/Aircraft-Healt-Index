@@ -4,8 +4,8 @@ import { ConfigurationService } from '../../../../configuration.service';
 
 @Component({
   selector: 'app-add-new-customer',
-  templateUrl: './addNewUserModal.component.html',
-  styleUrls: ['./addNewUserModal.component.css']
+  templateUrl: './addCustomerModal.component.html',
+  styleUrls: ['./addCustomerModal.component.css']
 })
 export class AddNewCustomerModalComponent implements OnInit {
 
