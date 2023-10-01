@@ -5,7 +5,7 @@ import { DebugElement } from '@angular/core';
 
 import { AddCustomerModalComponent } from './addCustomerModal.component';
 
-describe('AddNewUserModalComponent', () => {
+describe('AddCustomerModalComponent', () => {
   let component: AddCustomerModalComponent;
   let fixture: ComponentFixture<AddCustomerModalComponent>;
 
