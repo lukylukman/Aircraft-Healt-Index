@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { AddNewCustomerModalComponent } from './addNewUserModal.component';
+import { AddNewCustomerModalComponent } from './addCustomerModal.component';
 
 describe('AddNewUserModalComponent', () => {
   let component: AddNewCustomerModalComponent;
