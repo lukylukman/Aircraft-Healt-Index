@@ -7,7 +7,7 @@ import { ConfigurationService } from '../../../../configuration.service';
   templateUrl: './addCustomerModal.component.html',
   styleUrls: ['./addCustomerModal.component.css']
 })
-export class AddNewCustomerModalComponent implements OnInit {
+export class AddCustomerModalComponent implements OnInit {
 
   @Output() formSubmitEmitted: EventEmitter<any> = new EventEmitter();
 
