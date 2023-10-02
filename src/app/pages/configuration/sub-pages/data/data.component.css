@@ -7,3 +7,17 @@
   background-color: #00b8eb;
   /* Ganti dengan warna latar belakang yang Anda inginkan */
 }
+
+/* CSS */
+button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+button[disabled]:hover {
+  background-color: #225176;
+  /* Ubah sesuai warna latar belakang yang diinginkan saat tombol dinonaktifkan */
+  box-shadow: none;
+  /* Hapus bayangan saat tombol dinonaktifkan */
+  /* Sesuaikan gaya lainnya sesuai kebutuhan */
+}

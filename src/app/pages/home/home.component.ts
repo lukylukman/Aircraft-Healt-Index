@@ -113,6 +113,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.statusHome = 'Red';
       }
     });
+    console.log(
+      '%c AHI:',
+      'font-weight: bold; font-size: 20px;color: #A6C5ED; text-shadow: 3px 3px 0 rgb(2,135,206) , 6px 6px 0 rgb(4,77,145) , 9px 9px 0 rgb(42,21,113) , 12px 12px 0 rgb(5,148,68)'
+    );
+    console.log('\x1b[1m\x1b[97m\x1b[44mby:\n-FE = Luky, Anton, Surya\n-BE = Faqih, Ravel\x1b[0m');
   }
 
   ngOnDestroy(): void {

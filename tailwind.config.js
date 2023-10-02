@@ -27,7 +27,8 @@ module.exports = {
         "ahi-primary-color": {
           100: "#89a842",
           200: "#e2b93b",
-          300: "#bd0100"
+          300: "#bd0100",
+          400: "#00b8eb"
         },
         "ahi-blue": {
           50: "#EAF1FB",

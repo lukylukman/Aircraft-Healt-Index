@@ -100,3 +100,6 @@ export const OnLoadConfigData = createAction(
   DashboardActionType.ON_CONFIG_DATA_LOAD,
   props<SetConfigDTO>()
   );
+
+// Clear all state
+export const resetDashboardState = createAction('[Dashboard] Reset State');

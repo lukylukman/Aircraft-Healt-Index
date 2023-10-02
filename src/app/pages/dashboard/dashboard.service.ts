@@ -1,13 +1,10 @@
 import {
   HttpClient,
-  HttpEvent,
-  HttpEventType,
-  HttpParams,
-  HttpRequest,
+  HttpParams
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
-import { HttpResponseDTO, HttpResult } from 'src/app/core/dto/http-result.dto';
+import { Observable } from 'rxjs';
+import { HttpResult } from 'src/app/core/dto/http-result.dto';
 import { PersonalInformationDTO } from 'src/app/core/dto/personal-information-dto';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { UserSoeService } from 'src/app/core/services/user.soe.service';
@@ -19,9 +16,7 @@ import { AircraftScoreDTO } from './dto/aircraft-score.dto';
 import { AircraftTypeDTO } from './dto/aircraft-type.dto';
 import { AircraftDTO } from './dto/aircraft.dto';
 import { ImsPaginationDTO } from './dto/ims-pagination.dto';
-import { PostUploadConfigDTO } from './dto/postUploadConfig.dto';
 import { APURecordDTO } from './dto/showMoreHil.dto';
-import { SetConfigDTO } from './dto/setConfig.dto';
 
 export interface ElasticRecordResponse {
   record: {
@@ -78,29 +73,6 @@ export class DashboardService extends HttpService {
     return this.http.get<HttpResult<AircraftDTO[]>>(
       `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ims`,
       { params: queryParams }
-    );
-  }
-
-  updateDataConfiguration(formData: FormData): Observable<number> {
-    const req = new HttpRequest(
-      'POST',
-      `${environment.host.ahi.url}/ahi/_upload`,
-      formData,
-      {
-        reportProgress: true,
-      }
-    );
-    return this.http.request(req).pipe(
-      map((event: HttpEvent<any>) => {
-        if (event.type === HttpEventType.UploadProgress) {
-          const totalBytes = event.total?.valueOf() || 1;
-          return Math.round((100 * event.loaded) / totalBytes);
-        } else if (event.type === HttpEventType.Response) {
-          const response = event.body as HttpResponseDTO<PostUploadConfigDTO>;
-          // Handle the response as needed
-        }
-        return 0;
-      })
     );
   }
 
@@ -167,20 +139,4 @@ export class DashboardService extends HttpService {
     );
   }
 
-  // get Config Value Data 
-  getConfigData(
-    customerName: string
-  ): Observable<HttpResult<SetConfigDTO[]>> {
-    return this.http.get<HttpResult<SetConfigDTO[]>>(
-      `${environment.host.ahi.url}/ahi-CONFIG/${customerName}`
-    );
-  }
-
-  //  restore Config Value
-   restoreConfigValue(customerName: string): Observable<HttpResult<any>> {
-    const url = `${environment.host.ahi.url}/ahi-config/restore`;
-    const params = { customerName };
-
-    return this.http.delete<HttpResult<any>>(url, { params });
-  }
 }

@@ -85,8 +85,6 @@ export class ModalDetailHilComponent implements OnInit {
 
   ngOnInit() {}
 
-  openApuDetail(aircraftRegristration: string): void {}
-
   resetModal() {
     this.activeTab = 1;
   }
