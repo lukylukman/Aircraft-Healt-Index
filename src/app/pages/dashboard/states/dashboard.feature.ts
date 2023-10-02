@@ -46,6 +46,7 @@ const initialState: DashboardFeatureState = {
     health: 0,
     percentage: 0,
     decimal: 0,
+    difference: 0
   },
   aircraftType: [],
   aircraftDetailHil: [],
@@ -156,6 +157,16 @@ export const DashboardFeature = createFeature({
         ahiSummaryScore: {
           ...state.ahiSummaryScore, // Spread the original object
           percentage: data.data, // Override the percentage property
+        },
+      })
+    ),
+    on(
+      DashboardAction.onLoadDifference,
+      (state: DashboardFeatureState, data: AverageHealt) => ({
+        ...state,
+        ahiSummaryScore: {
+          ...state.ahiSummaryScore, // Spread the original object
+          difference: data.data, // Override the percentage property
         },
       })
     ),

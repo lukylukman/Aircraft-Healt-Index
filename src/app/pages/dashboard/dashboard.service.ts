@@ -139,4 +139,11 @@ export class DashboardService extends HttpService {
     );
   }
 
+  // Diverence
+  getDifference(): Observable<HttpResult<number>> {
+    return this.http.get<HttpResult<number>>(
+      `${environment.host.ahi.url}/ahi/_difference`
+    );
+  }
+
 }

@@ -146,6 +146,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           next: (_) => {
             this.initAveragehealth();
             this.initPercentageScoreData();
+            this.initDifference();
             this.store.dispatch(DashboardAction.onLoadSummaryScore(_.data));
           },
           error: (err) => console.error('Error on HomeComponent => ', err),
@@ -187,6 +188,28 @@ export class HomeComponent implements OnInit, OnDestroy {
             };
             // console.log('temp => ', temp.data);
             this.store.dispatch(DashboardAction.onLoadAverageHealth(temp));
+          },
+          error: (err) => console.error('Error on HomeComponent => ', err),
+        })
+      )
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe();
+  }
+
+  // Difference value
+  initDifference(): void {
+    this.store.dispatch(DashboardAction.ocClearDifference());
+
+    this.dashboardService
+      .getDifference()
+      .pipe(
+        tap({
+          next: (_) => {
+            const temp: AverageHealt = {
+              data: _.data,
+            };
+            // console.log('temp => ', temp.data);
+            this.store.dispatch(DashboardAction.onLoadDifference(temp));
           },
           error: (err) => console.error('Error on HomeComponent => ', err),
         })

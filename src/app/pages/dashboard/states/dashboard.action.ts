@@ -83,6 +83,16 @@ export const onLoadAveragePercentage = createAction(
   props<AverageHealt>()
 );
 
+// Difference
+export const ocClearDifference = createAction(
+  DashboardActionType.ON_AIRCRAFT_DIFFERENCE_CLEAR
+);
+
+export const onLoadDifference = createAction(
+  DashboardActionType.ON_AIRCRAFT_DIFFERENCE_LOAD,
+  props<AverageHealt>()
+);
+
 // APU
 
 export const onClearApu = createAction(DashboardActionType.ON_APU_CLEAR);
