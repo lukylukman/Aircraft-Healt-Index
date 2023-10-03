@@ -1,8 +1,9 @@
 .router-link-active::before {
   content: "- ";
   color: #01aeef;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
   transition: color 0.2s ease-in-out;
+  margin-right: 4px;
   /* Menambahkan tanda "-" dan spasi */
 }

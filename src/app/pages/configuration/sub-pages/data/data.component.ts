@@ -257,25 +257,18 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
 
         if (error && error.error && error.error.message) {
           if (Array.isArray(error.error.message)) {
-            // Kasus 1: Pesan error dalam bentuk array
             const messages = error.error.message.map((messageItem) => {
               const sheetName = messageItem.sheetName;
               const invalidColumns = messageItem.invalidColumn.map((column) => column['column[F]']);
               return `${sheetName}: ${invalidColumns.join(', ')}`;
             });
-            // Lakukan sesuatu dengan pesan-pesan ini
-            console.log("Pesan error dalam bentuk array:", messages);
+            this.errorMessage = messages;
           } else {
-            // Kasus 2: Pesan error langsung dalam pesan
             this.errorMessage = error.error.message;
-            // Lakukan sesuatu dengan pesan ini
-            console.log("Pesan error langsung:", this.errorMessage);
           }
         } else {
-          // Penanganan jika tidak ada pesan error yang sesuai dengan yang diharapkan
           console.log("Tidak ada pesan error yang sesuai dengan yang diharapkan.");
         }
-
         Swal.fire({
           icon: 'warning',
           title: 'Oops!',
@@ -283,8 +276,7 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
           confirmButtonColor: '#225176'
         });
         this.isUploading = false;
-        // Handle upload error
-        throw error; // Rethrow the error to propagate it further
+        throw error; 
       })
     )
     .subscribe(
