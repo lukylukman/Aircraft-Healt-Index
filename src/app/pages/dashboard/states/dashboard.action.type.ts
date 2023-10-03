@@ -26,6 +26,10 @@ export enum DashboardActionType {
   ON_AIRCRAFT_PERCENTAGE_HEALTH_LOAD = '[Action:Average Health] => On Load Percentage Average',
   ON_AIRCRAFT_PERCENTAGE_HEALTH_CLEAR = '[Action:Average Health] => On Clear Percentage Average',
 
+  // AIRCRACFT DIFFERENCE
+  ON_AIRCRAFT_DIFFERENCE_LOAD = '[Action:Average Difference] => On Load Difference',
+  ON_AIRCRAFT_DIFFERENCE_CLEAR = '[Action:Average Difference] => On Clear Difference',
+
   // APU
   ON_APU_LOAD = '[Action: APU] => On APU Load',
   ON_APU_CLEAR = '[Action: APU] => On APU Clear',

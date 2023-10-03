@@ -99,14 +99,14 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
       upload_file: ['', [Validators.required]],
     });
   }
-  // TODO: waiting solve on branch BE AHI
+
   initCustomerListName(): void {
     this.configurationService
       .getCustomerName()
       .pipe(
         tap((result) => {
-          console.log('list CustomerName =>', result.data);
           this.listCustomerName = result.data;
+          console.log('list CustomerName =>', this.listCustomerName);
         }),
         catchError((err) => {
           console.error(err);
@@ -161,6 +161,28 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
           console.error(err);
           return of(null);
           ToastNotif('error', err);
+        })
+      )
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe();
+  }
+
+  regetConfigData(): void {
+    this.store.dispatch(DashboardAction.onClearConfigData());
+
+    this.configurationService
+      .getConfigData(this.customerName)
+      .pipe(
+        tap({
+          next: (result) => {
+            result.data.forEach((configData) =>
+              this.store.dispatch(DashboardAction.OnLoadConfigData(configData))
+            );
+          },
+        }),
+        catchError((err) => {
+          console.error(err);
+          return of(null);
         })
       )
       .pipe(takeUntil(this.unsubscribe$))
@@ -229,31 +251,47 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
     console.log('formData:', formData);
 
     this.configurationService
-      .updateDataConfiguration(formData)
-      .subscribe(
-        (progress: number) => {
-          this.uploadProgress = progress;
-        },
-        (error) => {
-          Swal.fire({
-            icon: 'warning',
-            title: 'Oops!',
-            text: 'Upload failed!, The sheet name must match the selected data type',
-            confirmButtonColor: '#225176'
-          });
-          this.isUploading = false;
-          // Handle upload error
-        },
-        () => {
-          this.isUploading = false;
-          this.uploadProgress = 0;
+    .updateDataConfiguration(formData)
+    .pipe(
+      catchError((error) => {
+        let errorMessage = 'An error occurred'; // Pesan default jika tidak ada pesan khusus dari server
 
-          Swal.fire('Yeaay!', 'Upload success!', 'success');
+        if (error && error.error && error.error.message) {
+          const messages = error.error.message.map((messageItem) => {
+            const sheetName = messageItem.sheetName;
+            const invalidColumns = messageItem.invalidColumn.map((column) => column['column[F]']);
+            return `${sheetName}: ${invalidColumns.join(', ')}`;
+          });
+
+          errorMessage = messages.join('\n');
         }
-      );
+
+        Swal.fire({
+          icon: 'warning',
+          title: 'Oops!',
+          text: `Upload failed!\n${errorMessage}`,
+          confirmButtonColor: '#225176'
+        });
+        this.isUploading = false;
+        // Handle upload error
+        throw error; // Rethrow the error to propagate it further
+      })
+    )
+    .subscribe(
+      (progress: number) => {
+        this.uploadProgress = progress;
+      },
+      () => {},
+      () => {
+        this.isUploading = false;
+        this.uploadProgress = 0;
+
+        Swal.fire('Yeaay!', 'Upload success!', 'success');
+      }
+    );
   }
 
-  // restore config value data fronnabda ndoa u
+  // restore config value data 
   restoreConfigValue(): void {
     if (!this.customerName) {
       // Handle the case when no customer name is selected
@@ -272,7 +310,7 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
         tap({
           next: (result) => {
             ToastNotif('success', 'Success Restore Weight');
-            this.getConfigData();
+            this.regetConfigData();
           },
         }),
         catchError((err) => {
@@ -286,14 +324,14 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
   }
 
   updateConfigWeight(uniqueId: string, configValue: number): void {
-    console.log('Data yang diperbarui =>', uniqueId, configValue);
+    // console.log('Data yang diperbarui =>', uniqueId, configValue);
 
     this.configurationService.updateConfigWeight(uniqueId, configValue)
       .pipe(
         tap({
           next: (result) => {
             ToastNotif('success', 'Success Update Weight');
-            this.getConfigData();
+            this.regetConfigData();
           },
           error: (err) => {
             console.error(err);

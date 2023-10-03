@@ -95,10 +95,10 @@
           <app-svg
           [width]="'36'"
           [height]="'45'"
-          [direction]="dashboardState.ahiSummaryScore.percentage > 0 ? 'up' : (dashboardState.ahiSummaryScore.percentage < 0 ? 'down' : 'equal')"
-          [greenColor]="dashboardState.ahiSummaryScore.percentage > 0"
+          [direction]="dashboardState.ahiSummaryScore.difference > 0 ? 'up' : (dashboardState.ahiSummaryScore.difference < 0 ? 'down' : 'equal')"
+          [greenColor]="dashboardState.ahiSummaryScore.difference > 0"
         ></app-svg>
-          {{ dashboardState.ahiSummaryScore.percentage ?? 0 }}
+          {{ dashboardState.ahiSummaryScore.difference ?? 0 }}
         </div>
         <div class="flex flex-row items-end">
           <h2 class="text-9xl drop-shadow-lg font-bold text-white">

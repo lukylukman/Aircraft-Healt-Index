@@ -5,4 +5,5 @@ export interface AhiSummaryScoreDTO {
   health: number;
   percentage: number;
   decimal: number;
+  difference: number;
 }
