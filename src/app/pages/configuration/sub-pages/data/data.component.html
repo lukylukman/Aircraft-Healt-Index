@@ -182,10 +182,13 @@
     <div *ngIf="dashboardState$ | async as dashboardState" class="ml-4">
       <div class="ml-2 mt-6">
         <div class="mt-6 ml-2 flex flex-row text-center">
-          <h4 class="text-white w-44 text-left">Score Weight</h4>
+          <div>
+            <h4 class="text-white w-44 text-left">Score Weight</h4>
+            <h4 class="text-white text-base font-light w-44 text-left">100%</h4>
+          </div>
           <button
             (click)="restoreConfigValue()"
-            class="block w-60 mb-5 px-2 py-2 text-xs text-white rounded-lg cursor-pointer bg-ahi-blue-900 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            class="block w-60 mb-5 px-2 py-2.5 text-sm text-white rounded-lg cursor-pointer bg-ahi-blue-900 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
             id="small_size"
           >
             Restore Original Weigh
@@ -229,14 +232,15 @@
                 </td>
                 <td class=" text-center w-1/4">
                   <div class="flex flex-col">
+                    <div [ngClass]="{'cursor-not-allowed': !isRangeAircraftSystem, 'opacity-60': !isRangeAircraftSystem}" class="inline-flex text-center items-center mt-5">
+                      <h4 class="text-white">-</h4>
                       <input
                         [disabled]="!isRangeAircraftSystem"
                         id="small-range"
                         type="range"
                         [(ngModel)]="item.configValue"
                         step="1"
-                        [ngClass]="{'cursor-not-allowed': !isRangeAircraftSystem, 'opacity-60': !isRangeAircraftSystem}"
-                        class="w-80 mx-auto h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none range-sm dark:bg-gray-700"
+                        class="w-80 mx-auto h-1 bg-gray-200 rounded-lg appearance-none range-sm dark:bg-gray-700"
                         [ngStyle]="{
                           background:
                             'linear-gradient(90deg, #00b8eb ' +
@@ -247,12 +251,15 @@
                         }"
                         (change)="updateConfigWeight(item.uniqueId, item.configValue)"
                       />
-
-                    <span [ngClass]="{'text-opacity-60': !isRangeAircraftSystem}" class="text-white text-sm font-normal">{{
+                      <h4 class="text-white">+</h4>
+                    </div>
+                    
+                  </div>
+                  <span [ngClass]="{'text-opacity-60': !isRangeAircraftSystem}" class="text-white mt-2 text-sm font-normal">{{
                       item.configValue
                     }}</span>
-                  </div>
                 </td>
+
               </tr>
               <tr
                 class=""
@@ -263,17 +270,17 @@
                     subItemHil.configName
                   }}</span>
                 </td>
-                <td class="px-4 py-2 text-center ml-6 items-center w-2/4">
+                <td class="px-4 py-2 text-center items-center w-2/4">
                   <div class="flex flex-col">
-
+                    <div [ngClass]="{'cursor-not-allowed': !isRangeAircraftSystem, 'opacity-60': !isRangeAircraftSystem}" class="inline-flex text-center items-center mt-5">
+                      <h4 class="text-white">-</h4>
                       <input
                       [disabled]="!isRangeAircraftSystem"
                       id="small-range"
                       type="range"
                       [(ngModel)]="subItemHil.configValue"
                       step="1"
-                      [ngClass]="{'cursor-not-allowed': !isRangeAircraftSystem, 'opacity-60': !isRangeAircraftSystem}"
-                      class="w-80 mx-auto h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none range-sm dark:bg-gray-700"
+                      class="w-80 mx-auto h-1 bg-gray-200 rounded-lg appearance-none range-sm dark:bg-gray-700"
                       [ngStyle]="{
                         background:
                           'linear-gradient(90deg, #00b8eb ' +
@@ -283,10 +290,12 @@
                           '%)'
                       }"
                       (change)="updateConfigWeight(subItemHil.uniqueId, subItemHil.configValue)"/>
-                    <span [ngClass]="{'text-opacity-60': !isRangeAircraftSystem}" class="text-white text-sm font-normal">{{
+                      <h4 class="text-white">+</h4>
+                    </div>
+                  </div>
+                  <span [ngClass]="{'text-opacity-60': !isRangeAircraftSystem}" class="text-white text-sm font-normal">{{
                       subItemHil.configValue
                     }}</span>
-                  </div>
                 </td>
               </tr>
             </tbody>

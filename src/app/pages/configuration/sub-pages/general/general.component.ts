@@ -1,5 +1,6 @@
 import { trigger, transition, style, animate, state } from '@angular/animations';
 import { Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common'
 
 @Component({
   selector: 'app-general',

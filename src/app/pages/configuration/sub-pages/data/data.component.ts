@@ -17,6 +17,8 @@ import Swal from 'sweetalert2';
 import { ToastNotif } from '../../../../core/decorators/toast.success';
 import { Modal } from 'flowbite';
 import { ConfigurationService } from '../../configuration.service';
+import { initFlowbite } from 'flowbite';
+
 
 @Component({
   selector: 'app-data',
@@ -91,6 +93,7 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
 
   ngOnInit(): void {
     this.createForm();
+    initFlowbite();
     // this.initCustomerListName();
   }
 
