@@ -224,16 +224,16 @@
         <div class="ml-12 mt-4">
           <table class="table-fixed">
             <tbody>
-              <tr *ngFor="let item of dashboardState.configData.slice(1, 5)">
+              <tr *ngFor="let item of dashboardState.configData.slice(1, 9)">
                 <td class="px-4 py-2">
                   <span [ngClass]="{'text-opacity-60': !isRangeAircraftSystem}" class="text-white font-normal">{{
                     item.configName
                   }}</span>
                 </td>
-                <td class=" text-center w-1/4">
+                <td class=" text-center w-2/4">
                   <div class="flex flex-col">
                     <div [ngClass]="{'cursor-not-allowed': !isRangeAircraftSystem, 'opacity-60': !isRangeAircraftSystem}" class="inline-flex text-center items-center mt-5">
-                      <h4 class="text-white">-</h4>
+                      <h4 class="text-white mr-2">-</h4>
                       <input
                         [disabled]="!isRangeAircraftSystem"
                         id="small-range"
@@ -251,7 +251,7 @@
                         }"
                         (change)="updateConfigWeight(item.uniqueId, item.configValue)"
                       />
-                      <h4 class="text-white">+</h4>
+                      <h4 class="text-white ml-2">+</h4>
                     </div>
                     
                   </div>
@@ -259,13 +259,12 @@
                       item.configValue
                     }}</span>
                 </td>
-
               </tr>
-              <tr
+              <!-- <tr
                 class=""
                 *ngFor="let subItemHil of dashboardState.configData.slice(5, 9)"
               >
-                <td class="px-4 py-2 ml-6">
+                <td class="px-4 py-2">
                   <span [ngClass]="{'text-opacity-60': !isRangeAircraftSystem}" class="text-white font-normal">{{
                     subItemHil.configName
                   }}</span>
@@ -297,7 +296,7 @@
                       subItemHil.configValue
                     }}</span>
                 </td>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
         </div>
@@ -330,35 +329,42 @@
 
         <!-- Table Engine & APU -->
         <div class="ml-12 mt-4">
-          <table class="table-fixed border-spacing-2">
+          <table class="table-fixed">
             <tbody>
               <tr *ngFor="let item of dashboardState.configData.slice(10, 12)">
-                <td class="px-2 py-2">
-                  <span [ngClass]="{'text-opacity-60': !isRangeEngineApu}" class="text-white font-normal">{{ item.configName }}</span>
+                <td class="px-4 py-2">
+                  <span [ngClass]="{'text-opacity-60': !isRangeEngineApu}" class="text-white font-normal">{{
+                    item.configName
+                  }}</span>
                 </td>
-                <td class="px-4 py-2 text-center items-center w-2/4">
+                <td class=" text-center w-2/4">
                   <div class="flex flex-col">
+                    <div [ngClass]="{'cursor-not-allowed': !isRangeEngineApu, 'opacity-60': !isRangeEngineApu}" class="inline-flex text-center items-center mt-5">
+                      <h4 class="text-white mr-2">-</h4>
                       <input
-                      [disabled]="!isRangeEngineApu"
-                      id="small-range"
-                      type="range"
-                      [(ngModel)]="item.configValue"
-                      step="1"
-                      [ngClass]="{'cursor-not-allowed': !isRangeEngineApu, 'opacity-60': !isRangeEngineApu}"
-                      class="w-80 mx-auto h-1 mb-6 mt-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
-                      [ngStyle]="{
-                        background:
-                          'linear-gradient(90deg, #00b8eb ' +
-                          item.configValue +
-                          '%, #ccc ' +
-                          item.configValue +
-                          '%)'
-                      }"
-                      (change)="updateConfigWeight(item.uniqueId, item.configValue)"/>
-                    <span [ngClass]="{'text-opacity-60': !isRangeEngineApu}" class="text-white text-sm font-normal">{{
+                        [disabled]="!isRangeEngineApu"
+                        id="small-range"
+                        type="range"
+                        [(ngModel)]="item.configValue"
+                        step="1"
+                        class="w-80 mx-auto h-1 bg-gray-200 rounded-lg appearance-none range-sm dark:bg-gray-700"
+                        [ngStyle]="{
+                          background:
+                            'linear-gradient(90deg, #00b8eb ' +
+                            item.configValue +
+                            '%, #ccc ' +
+                            item.configValue +
+                            '%)'
+                        }"
+                        (change)="updateConfigWeight(item.uniqueId, item.configValue)"
+                      />
+                      <h4 class="text-white ml-2">+</h4>
+                    </div>
+                    
+                  </div>
+                  <span [ngClass]="{'text-opacity-60': !isRangeEngineApu}" class="text-white mt-2 text-sm font-normal">{{
                       item.configValue
                     }}</span>
-                  </div>
                 </td>
               </tr>
             </tbody>

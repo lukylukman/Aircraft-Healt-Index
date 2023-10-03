@@ -4,6 +4,7 @@
     [yellowZone]="dashboardState.ahiSummaryScore.amountOfYellowItems"
     [redZone]="dashboardState.ahiSummaryScore.amountOfRedItems"
     (aircraftTypeSelected)="onAircraftTypeChanged($event)"
+    (sortDate)="onInputSortDate($event)"
   >
     <div class="container h-full bg-black">
       <div

@@ -53,7 +53,7 @@ export class DashboardService extends HttpService {
 
   getCardData(
     paginationData: ImsPaginationDTO,
-    aircraftTypeId?: number
+    aircraftTypeId?: number,
   ): Observable<HttpResult<AircraftDTO[]>> {
     let queryParams = {};
 
@@ -82,8 +82,12 @@ export class DashboardService extends HttpService {
     );
   }
 
-  getAircraftScore(acReg: string): Observable<HttpResult<AircraftScoreDTO>> {
-    const params = new HttpParams().set('aircraftRegistration', acReg);
+  getAircraftScore(acReg: string, aircraftDate?: string): Observable<HttpResult<AircraftScoreDTO>> {
+    let params = new HttpParams().set('aircraftRegistration', acReg);
+
+    if (aircraftDate) {
+      params = params.set('endDate', aircraftDate);
+    }
 
     return this.http.get<HttpResult<AircraftScoreDTO>>(
       `${environment.host.ahi.url}/ahi/_search-last`,
@@ -108,11 +112,16 @@ export class DashboardService extends HttpService {
 
   // Detail Hil = see more Hil on ModalDetail dashboard card
   // TODO: add param csName customerName=GA
-  getApu(
-    aircraftRegristration: string
-  ): Observable<HttpResult<ElasticRecordResponse>> {
+  getApu(aircraftRegistration: string, sortDate?: string): Observable<HttpResult<ElasticRecordResponse>> {
+    let params = new HttpParams().set('aircraftRegistration', aircraftRegistration);
+
+    if (sortDate) {
+      params = params.set('endDate', sortDate);
+    }
+
     return this.http.get<HttpResult<ElasticRecordResponse>>(
-      `${environment.host.ahi.url}/ahi/_filter?aircraftRegistration=${aircraftRegristration}`
+      `${environment.host.ahi.url}/ahi/_filter`,
+      { params: params }
     );
   }
 

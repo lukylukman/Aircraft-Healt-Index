@@ -74,6 +74,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   arrowDirection: 'up' | 'down' | 'equal' = 'equal';
 
   @Output() aircraftTypeSelected = new EventEmitter<number>();
+  @Output() sortDate = new EventEmitter<string>();
 
   selectOptions: { value: string; label: string }[] = [];
 
@@ -139,6 +140,21 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.aircraftTypeSelected.emit(selectedValue);
     console.log(`Selected option value: ${selectedValue}`);
     // You can perform any actions you want with the selected value here.
+  }
+  onInputSortDate(event: any) {
+    const inputDate = new Date(event.target.value);
+    if (!isNaN(inputDate.getTime())) {
+      const year = inputDate.getFullYear();
+      const month = (inputDate.getMonth() + 1).toString().padStart(2, '0'); 
+      const day = inputDate.getDate().toString().padStart(2, '0');
+      
+      const formattedDate = `${year}-${month}-${day}`;
+      this.sortDate.emit(formattedDate);
+      console.log(`Selected date: ${formattedDate}`);
+    } else {
+      // Tangani jika input tidak valid
+      console.log("Invalid date input");
+    }
   }
 
   toggleSidebar(): void {
