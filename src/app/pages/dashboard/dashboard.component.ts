@@ -122,13 +122,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onAircraftTypeChanged(aircraftTypeId: number): void {
     const aircraftId = Number(aircraftTypeId);
-    // console.log('Aircraft ID => ', aircraftId);
     this.fectDashboardData(aircraftId);
   }
 
   onInputSortDate(sortDate: string): void {
     const sortDateValue = String(sortDate);
-    // console.log('Aircraft ID => ', aircraftId);
     this.fectDashboardData(undefined, sortDate);
     this.sortDateSelected = sortDate;
   }

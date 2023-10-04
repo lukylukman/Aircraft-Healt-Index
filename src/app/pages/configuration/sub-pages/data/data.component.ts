@@ -8,7 +8,7 @@ import {
 import { Component, OnDestroy, OnInit, AfterContentInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable, Subject, catchError, of, takeUntil, tap } from 'rxjs';
+import { EMPTY, Observable, Subject, catchError, map, mergeMap, of, take, takeUntil, tap } from 'rxjs';
 import { RouteHelperService } from 'src/app/core/services/route-helper.service';
 import { DashboardFeatureState } from 'src/app/pages/dashboard/states/dashboard.feature';
 import { DashboardState } from 'src/app/pages/dashboard/states/dashboard.selector';
@@ -17,7 +17,6 @@ import Swal from 'sweetalert2';
 import { ToastNotif } from '../../../../core/decorators/toast.success';
 import { Modal } from 'flowbite';
 import { ConfigurationService } from '../../configuration.service';
-import { initFlowbite } from 'flowbite';
 
 
 @Component({
@@ -93,7 +92,6 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
 
   ngOnInit(): void {
     this.createForm();
-    initFlowbite();
     // this.initCustomerListName();
   }
 
@@ -111,14 +109,15 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
           this.listCustomerName = result.data;
           console.log('list CustomerName =>', this.listCustomerName);
         }),
-        catchError((err) => {
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe(
+        () => {},
+        (err) => {
           console.error(err);
           ToastNotif('error', err);
-          return of(null);
-        })
-      )
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe();
+        }
+      );
   }
 
   openModalAddNewCustomer(): void {
@@ -131,7 +130,6 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
   selectCustomer(customerName: string) {
     this.selectedOption = customerName;
     
-
     switch (customerName) {
       case 'pilihan1':
         this.customerName = 'GA';
@@ -151,44 +149,32 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
     this.configurationService
       .getConfigData(this.customerName)
       .pipe(
-        tap({
-          next: (result) => {
-            result.data.forEach((configData) =>
-              this.store.dispatch(DashboardAction.OnLoadConfigData(configData))
-            );
-            ToastNotif('success', 'Loaded config value');
-            // console.log('data Config =>', result.data);
-          },
-        }),
         catchError((err) => {
           console.error(err);
-          return of(null);
-          ToastNotif('error', err);
-        })
+          return EMPTY;
+        }),
+        mergeMap(value => value.data),
+        tap(value => this.store.dispatch(DashboardAction.OnLoadConfigData(value))),  
+        takeUntil(this.unsubscribe$)
       )
-      .pipe(takeUntil(this.unsubscribe$))
       .subscribe();
+      ToastNotif('success', 'Loaded config value')
   }
-
+  
   regetConfigData(): void {
     this.store.dispatch(DashboardAction.onClearConfigData());
 
     this.configurationService
       .getConfigData(this.customerName)
       .pipe(
-        tap({
-          next: (result) => {
-            result.data.forEach((configData) =>
-              this.store.dispatch(DashboardAction.OnLoadConfigData(configData))
-            );
-          },
-        }),
         catchError((err) => {
           console.error(err);
-          return of(null);
-        })
+          return EMPTY;
+        }),
+        mergeMap(value => value.data),
+        tap(value => this.store.dispatch(DashboardAction.OnLoadConfigData(value))),  
+        takeUntil(this.unsubscribe$)
       )
-      .pipe(takeUntil(this.unsubscribe$))
       .subscribe();
   }
 
@@ -212,35 +198,26 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
     }
   }
 
+  private showErrorMessage(message: string): void {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Oops!',
+      text: message,
+      confirmButtonColor: '#225176'
+    });
+  }
+
   uploadFile(file: File, dataType: string): void {
     if (!this.customerName) {
-      // Handle the case when no customer name is selected
-      Swal.fire({
-        icon: 'warning',
-        title: 'Oops!',
-        text: 'Please select a customer!',
-        confirmButtonColor: '#225176'
-      });
+      this.showErrorMessage('Please select a customer!');
       return;
     }
     if (!file) {
-      // Handle the case when no file is selected
-      Swal.fire({
-        icon: 'warning',
-        title: 'Oops!',
-        text: 'Please select a file!',
-        confirmButtonColor: '#225176'
-      });
+      this.showErrorMessage('Please select a file!');
       return;
     }
     if (dataType === 'Select') {
-      // Handle the case when no data type is selected
-      Swal.fire({
-        icon: 'warning',
-        title: 'Oops!',
-        text: 'Please select data type!',
-        confirmButtonColor: '#225176'
-      });
+      this.showErrorMessage('Please select data type!');
       return;
     }
 
@@ -296,13 +273,7 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
   // restore config value data 
   restoreConfigValue(): void {
     if (!this.customerName) {
-      // Handle the case when no customer name is selected
-      Swal.fire({
-        icon: 'warning',
-        title: 'Oops!',
-        text: 'Please select a customer!',
-        confirmButtonColor: '#225176'
-      });
+      this.showErrorMessage('Please select a customer!');
       return;
     }
 
