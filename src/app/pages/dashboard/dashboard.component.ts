@@ -65,6 +65,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   isSearch: boolean = false;
   isAdvance: boolean = false;
   selectedCard: AircraftDetailHilDTO;
+  sortDateSelected: string = '';
   detailModalHil: AircraftDetailHilDTO[];
   selectedDashboardCard: AircraftDTO;
   searchSelections: SearchSelection[] = [
@@ -125,6 +126,13 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.fectDashboardData(aircraftId);
   }
 
+  onInputSortDate(sortDate: string): void {
+    const sortDateValue = String(sortDate);
+    // console.log('Aircraft ID => ', aircraftId);
+    this.fectDashboardData(undefined, sortDate);
+    this.sortDateSelected = sortDate;
+  }
+
   ngOnInit(): void {
     this.fectDashboardData();
     this.fetchAircraftType();
@@ -146,7 +154,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe();
   }
 
-  fectDashboardData(aircraftTypeId?: number): void {
+  fectDashboardData(aircraftTypeId?: number, sortDate?: string): void {
     this.store.dispatch(DashboardAction.onClearAircraftList());
 
     this.dashboardService
@@ -155,7 +163,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
         tap((res) => {
           res.data.forEach((el) => {
             this.dashboardService
-              .getAircraftScore(el.aircraftRegistration)
+              .getAircraftScore(el.aircraftRegistration, sortDate)
 
               .pipe(
                 map((score) => {
@@ -240,14 +248,14 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       )
       .subscribe();
 
-    this.fetchApuData(aircraft.aircraftRegistration);
+    this.fetchApuData(aircraft.aircraftRegistration, this.sortDateSelected);
   }
 
-  fetchApuData(aircraftRegristration: string): void {
+  fetchApuData(aircraftRegristration: string, sortDate?: string): void {
     this.store.dispatch(DashboardAction.onClearApu());
 
     this.dashboardService
-      .getApu(aircraftRegristration)
+      .getApu(aircraftRegristration, sortDate)
       .pipe(
         tap((result) => {
           const apuRecord = result.data.record.apuRecord;

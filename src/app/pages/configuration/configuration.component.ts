@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { Confirmable } from 'src/app/core/decorators/confirmable.decorator';
 import { Modal } from 'flowbite';
+import { NgOptimizedImage } from '@angular/common'
 
 @Component({
   selector: 'app-configuration',

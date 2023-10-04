@@ -17,6 +17,8 @@ import Swal from 'sweetalert2';
 import { ToastNotif } from '../../../../core/decorators/toast.success';
 import { Modal } from 'flowbite';
 import { ConfigurationService } from '../../configuration.service';
+import { initFlowbite } from 'flowbite';
+
 
 @Component({
   selector: 'app-data',
@@ -63,7 +65,7 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
   isRangeEngineApu: boolean = false;
   addNewCustomer: Modal;
   inputNewCs: string;
-
+  errorMessage: string = '';
   listCustomerName: [] = [];
 
   _onDestroy$: Subject<Boolean> = new Subject<Boolean>();
@@ -91,6 +93,7 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
 
   ngOnInit(): void {
     this.createForm();
+    initFlowbite();
     // this.initCustomerListName();
   }
 
@@ -247,34 +250,33 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
     formData.append('file', file);
     this.isUploading = true;
 
-    // Log the formData object before making the HTTP request
-    console.log('formData:', formData);
-
     this.configurationService
     .updateDataConfiguration(formData)
     .pipe(
       catchError((error) => {
-        let errorMessage = 'An error occurred'; // Pesan default jika tidak ada pesan khusus dari server
 
         if (error && error.error && error.error.message) {
-          const messages = error.error.message.map((messageItem) => {
-            const sheetName = messageItem.sheetName;
-            const invalidColumns = messageItem.invalidColumn.map((column) => column['column[F]']);
-            return `${sheetName}: ${invalidColumns.join(', ')}`;
-          });
-
-          errorMessage = messages.join('\n');
+          if (Array.isArray(error.error.message)) {
+            const messages = error.error.message.map((messageItem) => {
+              const sheetName = messageItem.sheetName;
+              const invalidColumns = messageItem.invalidColumn.map((column) => column['column[F]']);
+              return `${sheetName}: ${invalidColumns.join(', ')}`;
+            });
+            this.errorMessage = messages;
+          } else {
+            this.errorMessage = error.error.message;
+          }
+        } else {
+          console.log("Tidak ada pesan error yang sesuai dengan yang diharapkan.");
         }
-
         Swal.fire({
           icon: 'warning',
           title: 'Oops!',
-          text: `Upload failed!\n${errorMessage}`,
+          text: `Upload failed!\n${this.errorMessage}`,
           confirmButtonColor: '#225176'
         });
         this.isUploading = false;
-        // Handle upload error
-        throw error; // Rethrow the error to propagate it further
+        throw error; 
       })
     )
     .subscribe(
