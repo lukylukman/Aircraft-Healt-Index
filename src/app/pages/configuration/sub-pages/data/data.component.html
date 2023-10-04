@@ -184,7 +184,7 @@
         <div class="mt-6 ml-2 flex flex-row text-center">
           <div>
             <h4 class="text-white w-44 text-left">Score Weight</h4>
-            <h4 class="text-white text-base font-light w-44 text-left">100%</h4>
+            <h4 class="text-white text-sm font-light w-44 text-left">100%</h4>
           </div>
           <button
             (click)="restoreConfigValue()"
@@ -203,13 +203,12 @@
               <tr>
                 <td class="py-2 w-40 text-left">
                   <span class="text-white">{{
-                    dashboardState.configData[0].configName
+                    dashboardState.configData[0]?.configName
                   }}</span>
                 </td>
                 <td class="px-4 py-2 text-center items-center w-1/4">
-                  <label *ngIf="dashboardState.configData"
-                    class="relative inline-flex mx-auto items-center cursor-pointer"
-                  >
+                  <label *ngIf="dashboardState.configData && dashboardState.configData[0]?.configName" 
+                  class="relative inline-flex mx-auto items-center cursor-pointer">
                     <input [(ngModel)]="isRangeAircraftSystem" type="checkbox" value="" class="sr-only peer" />
                     <div
                       class="w-11 h-6 bg-ahi-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-sm peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-sm after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-ahi-blue-1000"
@@ -224,7 +223,7 @@
         <div class="ml-12 mt-4">
           <table class="table-fixed">
             <tbody>
-              <tr *ngFor="let item of dashboardState.configData.slice(1, 9)">
+              <tr *ngFor="let item of dashboardState.configData?.slice(1, 9)">
                 <td class="px-4 py-2">
                   <span [ngClass]="{'text-opacity-60': !isRangeAircraftSystem}" class="text-white font-normal">{{
                     item.configName
@@ -309,13 +308,12 @@
               <tr>
                 <td class="py-2 w-40 text-left">
                   <span class="text-white">{{
-                    dashboardState.configData[9].configName
+                    dashboardState.configData[9]?.configName
                   }}</span>
                 </td>
                 <td class="px-4 py-2 text-center items-center w-1/4">
-                  <label *ngIf="dashboardState.configData"
-                    class="relative inline-flex mx-auto items-center cursor-pointer"
-                  >
+                  <label *ngIf="dashboardState.configData && dashboardState.configData[9]?.configName" 
+                  class="relative inline-flex mx-auto items-center cursor-pointer">
                     <input [(ngModel)]="isRangeEngineApu" type="checkbox" value="" class="sr-only peer" />
                     <div
                       class="w-11 h-6 bg-ahi-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-sm peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-sm after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-ahi-blue-1000"
@@ -331,7 +329,7 @@
         <div class="ml-12 mt-4">
           <table class="table-fixed">
             <tbody>
-              <tr *ngFor="let item of dashboardState.configData.slice(10, 12)">
+              <tr *ngFor="let item of dashboardState.configData?.slice(10, 12)">
                 <td class="px-4 py-2">
                   <span [ngClass]="{'text-opacity-60': !isRangeEngineApu}" class="text-white font-normal">{{
                     item.configName
