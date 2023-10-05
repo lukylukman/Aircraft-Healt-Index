@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Modal } from 'flowbite';
-import { Observable, Subject, catchError, map, of, takeUntil, tap } from 'rxjs';
+import { EMPTY, Observable, Subject, catchError, map, of, takeUntil, tap } from 'rxjs';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { DashboardService } from './dashboard.service';
 
@@ -140,15 +140,19 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dashboardService
       .getAircraftType()
       .pipe(
-        tap({
-          next: (_) => {
-            _.data.forEach((acType) =>
-              this.store.dispatch(DashboardAction.onLoadAircraftType(acType))
-            );
-          },
-        })
+        catchError((err) => {
+          console.error(err);
+          return EMPTY;
+        }),
+        tap((result) => {
+          if (result !== null) {
+            result.data.forEach((acType) => {
+              this.store.dispatch(DashboardAction.onLoadAircraftType(acType));
+            });
+          }
+        }),
+        takeUntil(this.unsubscribe$)
       )
-      .pipe(takeUntil(this.unsubscribe$))
       .subscribe();
   }
 
@@ -224,47 +228,51 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.onClickDetailAircraft();
     this.store.dispatch(DashboardAction.onDashboardClearSelected());
     this.store.dispatch(DashboardAction.onClearAircraftDetailHil());
+    
     this.dashboardService
       .getDetailAicraft(aircraft.aircraftRegistration)
       .pipe(
-        tap((result) => {
-          // Handle response
-          if (result.data.length === 0) {
-            throw Error('There is no data');
-          }
-          this.selectedCard = result.data[0];
-          this.store.dispatch(DashboardAction.onDashboardSelected(aircraft));
-          this.store.dispatch(
-            DashboardAction.onLoadAircraftDetailHil({ data: result.data })
-          );
-        }),
         catchError((err) => {
           console.error(err);
-          return of(null);
+          return EMPTY; 
+        }),
+        tap((result) => {
+          if (result !== null) { 
+            // Handle response
+            if (result.data.length === 0) {
+              throw Error('There is no data');
+            }
+            this.selectedCard = result.data[0];
+            this.store.dispatch(DashboardAction.onDashboardSelected(aircraft));
+            this.store.dispatch(
+              DashboardAction.onLoadAircraftDetailHil({ data: result.data })
+            );
+            this.fetchApuData(aircraft.aircraftRegistration, this.sortDateSelected);
+          }
         }),
         takeUntil(this.unsubscribe$)
       )
       .subscribe();
-
-    this.fetchApuData(aircraft.aircraftRegistration, this.sortDateSelected);
   }
 
-  fetchApuData(aircraftRegristration: string, sortDate?: string): void {
+  fetchApuData(aircraftRegistration: string, sortDate?: string): void {
     this.store.dispatch(DashboardAction.onClearApu());
 
     this.dashboardService
-      .getApu(aircraftRegristration, sortDate)
+      .getApu(aircraftRegistration, sortDate)
       .pipe(
-        tap((result) => {
-          const apuRecord = result.data.record.apuRecord;
-          // console.log('Data APU => ', result.data.record.apuRecord);
-          this.store.dispatch(
-            DashboardAction.onLoadApu({ data: apuRecord })
-          );
-        }),
         catchError((err) => {
           console.error(err);
-          return of(null);
+          return EMPTY; 
+        }),
+        tap((result) => {
+          if (result !== null) { // Pastikan tidak ada error sebelum melanjutkan
+            const apuRecord = result.data.record.apuRecord;
+            // console.log('Data APU => ', result.data.record.apuRecord);
+            this.store.dispatch(
+              DashboardAction.onLoadApu({ data: apuRecord })
+            );
+          }
         }),
         takeUntil(this.unsubscribe$)
       )
