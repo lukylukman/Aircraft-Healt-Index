@@ -105,19 +105,20 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
     this.configurationService
       .getCustomerName()
       .pipe(
+        catchError((err) => {
+          console.error(err);
+          ToastNotif('error', err); // Menampilkan pesan error
+          return EMPTY; // Mengembalikan Observable yang menghasilkan nilai null dalam kasus error.
+        }),
         tap((result) => {
-          this.listCustomerName = result.data;
-          console.log('list CustomerName =>', this.listCustomerName);
+          if (result !== null) { // Pastikan tidak ada error sebelum melanjutkan
+            this.listCustomerName = result.data;
+            console.log('list CustomerName =>', this.listCustomerName);
+          }
         }),
         takeUntil(this.unsubscribe$)
       )
-      .subscribe(
-        () => {},
-        (err) => {
-          console.error(err);
-          ToastNotif('error', err);
-        }
-      );
+      .subscribe();
   }
 
   openModalAddNewCustomer(): void {
@@ -278,38 +279,40 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
     }
 
     this.configurationService
-    .restoreConfigValue(this.customerName)
-    .pipe(
-        tap({
-          next: (result) => {
-            ToastNotif('success', 'Success Restore Weight');
-            this.regetConfigData();
-          },
-        }),
+      .restoreConfigValue(this.customerName)
+      .pipe(
         catchError((err) => {
           console.error(err);
           ToastNotif('error', 'Failed Restore Weight');
-          return of(null);
-        })
+          return EMPTY;
+        }),
+        tap((result) => {
+          if (result !== null) {
+            ToastNotif('success', 'Success Restore Weight');
+            this.regetConfigData();
+          }
+        }),
+        takeUntil(this.unsubscribe$)
       )
-      .pipe(takeUntil(this.unsubscribe$))
       .subscribe();
   }
 
   updateConfigWeight(uniqueId: string, configValue: number): void {
     // console.log('Data yang diperbarui =>', uniqueId, configValue);
 
-    this.configurationService.updateConfigWeight(uniqueId, configValue)
+    this.configurationService
+      .updateConfigWeight(uniqueId, configValue)
       .pipe(
-        tap({
-          next: (result) => {
+        catchError((err) => {
+          console.error(err);
+          ToastNotif('error', 'Failed Update Weight');
+          return EMPTY;
+        }),
+        tap((result) => {
+          if (result !== null) {
             ToastNotif('success', 'Success Update Weight');
             this.regetConfigData();
-          },
-          error: (err) => {
-            console.error(err);
-            ToastNotif('error', 'Failed Update Weight');
-          },
+          }
         }),
         takeUntil(this.unsubscribe$)
       )
@@ -317,16 +320,22 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
   }
 
   createNewCustomer(): void {
-    this.configurationService.createNewCustomer(this.inputNewCs)
-      .subscribe(
-        (result) => {
-          ToastNotif('success', 'Success Added New Customer');
-        },
-        (error) => {
+    this.configurationService
+      .createNewCustomer(this.inputNewCs)
+      .pipe(
+        catchError((error) => {
           console.error(error);
           ToastNotif('error', 'Failed Add New Customer');
-        }
-      );
+          return EMPTY;
+        }),
+        tap((result) => {
+          if (result !== null) {
+            ToastNotif('success', 'Success Added New Customer');
+          }
+        }),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe();
   }
 
 }
