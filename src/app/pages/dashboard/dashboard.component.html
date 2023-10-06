@@ -6,9 +6,9 @@
     (aircraftTypeSelected)="onAircraftTypeChanged($event)"
     (sortDate)="onInputSortDate($event)"
   >
-    <div class="container h-full bg-black">
+    <div class="container h-full w-full bg-black">
       <div
-        class="grid 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-2 gap-4 md:grid-cols-2 sm:grid-cols-1 mt-4 m-2"
+        class="grid justify-stretch 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 lg:gap-5 md:gap-4 mt-4"
       >
         <ng-container *ngFor="let card of dashboardState.aircraftLists">
           <app-card-dashboard
