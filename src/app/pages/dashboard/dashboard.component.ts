@@ -173,12 +173,14 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
                   // Perform your transformation here
                   let tempAircraft: AircraftDTO = {
+                    aircraftGroup: el.aircraftGroup,
                     sapRegistration: el.sapRegistration,
                     aircraftRegistration: el.aircraftRegistration,
                     carrierId: el.carrierId,
                     blockOnDate: el.blockOnDate,
                     blockOnTime: el.blockOnTime,
                     arrivalStation: el.arrivalStation,
+                    aircraftType: el.aircraftType,
                     aircraftScore: score.data,
                   };
 
@@ -190,12 +192,14 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
                   // Map the error to a different value and return it
                   return of({
+                    aircraftGroup: el.aircraftGroup,
                     sapRegistration: el.sapRegistration,
                     aircraftRegistration: el.aircraftRegistration,
                     carrierId: el.carrierId,
                     blockOnDate: el.blockOnDate,
                     blockOnTime: el.blockOnTime,
                     arrivalStation: el.arrivalStation,
+                    aircraftType: el.aircraftType,
                     aircraftScore: null,
                   });
                 })
