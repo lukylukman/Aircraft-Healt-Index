@@ -98,7 +98,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   paginationData: ImsPaginationDTO = {
     page: 1,
-    size: 24,
+    size: 150,
   };
 
   constructor(
