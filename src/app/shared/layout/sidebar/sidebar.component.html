@@ -45,7 +45,7 @@
             [greenColor]="dashboardState.ahiSummaryScore.difference > 0"
           ></app-svg>
           <h4 class="text-xs font-extralight">
-            {{ dashboardState.ahiSummaryScore.difference ?? 0 }}
+            {{ dashboardState.ahiSummaryScore?.difference }}
           </h4>
         </div>
         <h1 class="text-white font-extralight text-6xl">
@@ -65,46 +65,51 @@
     </div>
 
     <!-- Green Yellow Red -->
-    <div class="grid grid-cols-3 mt-12 ml-2 mr-2">
-      <div class="text-center">
+    <div class="grid grid-cols-3 mt-12 ml-2 mr-2 text-center">
+      <div class="text-center items-center">
         <p [ngClass]="{
             'text-5xl': dashboardState.ahiSummaryScore.amountOfGreenItems.toString().length === 1,
-            'text-xl': dashboardState.ahiSummaryScore.amountOfGreenItems.toString().length === 2 || dashboardState.ahiSummaryScore.amountOfGreenItems.toString().length === 3
+            'text-3xl': dashboardState.ahiSummaryScore.amountOfGreenItems.toString().length === 2,
+            'text-xl': dashboardState.ahiSummaryScore.amountOfGreenItems.toString().length === 3
           }" class="font-extralight mb-2">
             {{ dashboardState.ahiSummaryScore.amountOfGreenItems }}
         </p>
-        <div
+        
+      </div>
+      <div class="text-center items-center">
+        <p [ngClass]="{
+            'text-5xl': dashboardState.ahiSummaryScore.amountOfYellowItems.toString().length === 1,
+            'text-3xl': dashboardState.ahiSummaryScore.amountOfYellowItems.toString().length === 2,
+            'text-xl': dashboardState.ahiSummaryScore.amountOfYellowItems.toString().length === 3
+          }" class="font-extralight mb-2">
+          {{ dashboardState.ahiSummaryScore.amountOfYellowItems }}
+        </p>
+        
+      </div>
+      <div class="text-center items-center">
+        <p [ngClass]="{
+            'text-5xl': dashboardState.ahiSummaryScore.amountOfRedItems.toString().length === 1,
+            'text-3xl': dashboardState.ahiSummaryScore.amountOfRedItems.toString().length === 2,
+            'text-xl': dashboardState.ahiSummaryScore.amountOfRedItems.toString().length === 3
+          }" class="font-extralight mb-2">
+          {{ dashboardState.ahiSummaryScore.amountOfRedItems }}
+        </p>
+      </div>
+      <div
           class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-ahi-primary-color-100"
         >
           Green
         </div>
-      </div>
-      <div class="text-center">
-        <p [ngClass]="{
-            'text-5xl': dashboardState.ahiSummaryScore.amountOfYellowItems.toString().length === 1,
-            'text-xl': dashboardState.ahiSummaryScore.amountOfYellowItems.toString().length === 2 || dashboardState.ahiSummaryScore.amountOfYellowItems.toString().length === 3
-          }" class="font-extralight mb-2">
-          {{ dashboardState.ahiSummaryScore.amountOfYellowItems }}
-        </p>
-        <div
+      <div
           class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-ahi-primary-color-200"
         >
           Yellow
         </div>
-      </div>
-      <div class="text-center">
-        <p [ngClass]="{
-            'text-5xl': dashboardState.ahiSummaryScore.amountOfRedItems.toString().length === 1,
-            'text-xl': dashboardState.ahiSummaryScore.amountOfRedItems.toString().length === 2 || dashboardState.ahiSummaryScore.amountOfRedItems.toString().length === 3
-          }" class="font-extralight mb-2">
-          {{ dashboardState.ahiSummaryScore.amountOfRedItems }}
-        </p>
-        <div
+      <div
           class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-ahi-primary-color-300"
         >
           Red
         </div>
-      </div>
     </div>
 
     <!-- Fleet Dropdown -->
