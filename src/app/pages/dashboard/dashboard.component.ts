@@ -303,87 +303,90 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // summaryScore, averageHealt, PercentageScore, Difference
-  initDashboardData(sortDate?: string): void {
+  initDashboardData( customer?: string): void {
     this.store.dispatch(DashboardAction.onClearSummaryScore());
-    
+
     this.dashboardService
-      .getAhiSummaryScore(sortDate)
+      .getAhiSummaryScore( customer)
       .pipe(
-        tap({
-          next: (_) => {
-            this.initAveragehealth(sortDate);
-            this.initPercentageScoreData(sortDate);
-            this.initDifference(sortDate);
-            this.store.dispatch(DashboardAction.onLoadSummaryScore(_.data));
-          },
-          error: (err) => console.error('Error on HomeComponent => ', err),
-        })
+        catchError((error) => {
+          console.error('Error on HomeComponent => ', error);
+          return EMPTY;
+        }),
+        tap((result) => {
+          this.initAveragehealth( customer);
+          this.initPercentageScoreData( customer);
+          this.initDifference( customer);
+          this.store.dispatch(DashboardAction.onLoadSummaryScore(result.data));
+        }),
+        takeUntil(this.unsubscribe$)
       )
-      .pipe(takeUntil(this.unsubscribe$))
       .subscribe();
   }
 
-  initPercentageScoreData( sortDate?: string ): void {
+  // Percentage
+  initPercentageScoreData( customer?: string): void {
     this.store.dispatch(DashboardAction.onClearAveragePercentage());
 
     this.dashboardService
-      .getAveragePersen(sortDate)
+      .getAveragePersen( customer)
       .pipe(
-        tap({
-          next: (_) => {
-            // console.log('Percentage Data => ', _.data);
-            const temp: AverageHealt = {
-              data: _.data,
-            };
-            this.store.dispatch(DashboardAction.onLoadAveragePercentage(temp));
-          },
-        })
+        catchError((error) => {
+          console.error('Error on HomeComponent => ', error);
+          return EMPTY;
+        }),
+        tap((result) => {
+          const temp: AverageHealt = {
+            data: result.data,
+          };
+          this.store.dispatch(DashboardAction.onLoadAveragePercentage(temp));
+        }),
+        takeUntil(this.unsubscribe$)
       )
-      .pipe(takeUntil(this.unsubscribe$))
       .subscribe();
   }
 
-  // average Healtht
-  initAveragehealth( sortDate?: string ): void {
+  // Average Healt
+  initAveragehealth( customer?: string): void {
     this.store.dispatch(DashboardAction.onClearAverageHealth());
 
     this.dashboardService
-      .getAverageHealt(sortDate)
+      .getAverageHealt( customer)
       .pipe(
-        tap({
-          next: (_) => {
-            const temp: AverageHealt = {
-              data: _.data,
-            };
-            // console.log('temp => ', temp.data);
-            this.store.dispatch(DashboardAction.onLoadAverageHealth(temp));
-          },
-          error: (err) => console.error('Error on HomeComponent => ', err),
-        })
+        catchError((error) => {
+          console.error('Error on HomeComponent => ', error);
+          return EMPTY;
+        }),
+        tap((result) => {
+          const temp: AverageHealt = {
+            data: result.data,
+          };
+          this.store.dispatch(DashboardAction.onLoadAverageHealth(temp));
+        }),
+        takeUntil(this.unsubscribe$)
       )
-      .pipe(takeUntil(this.unsubscribe$))
       .subscribe();
   }
 
   // Difference value
-  initDifference( sortDate: string ): void {
+  initDifference( customer?: string): void {
     this.store.dispatch(DashboardAction.ocClearDifference());
 
     this.dashboardService
-      .getDifference(sortDate)
+      .getDifference( customer)
       .pipe(
-        tap({
-          next: (_) => {
-            const temp: AverageHealt = {
-              data: _.data,
-            };
-            // console.log('temp => ', temp.data);
-            this.store.dispatch(DashboardAction.onLoadDifference(temp));
-          },
-          error: (err) => console.error('Error on HomeComponent => ', err),
-        })
+        catchError((error) => {
+          console.error('Error on HomeComponent => ', error);
+          return EMPTY;
+        }),
+        tap((result) => {
+          const temp: AverageHealt = {
+            data: result.data,
+          };
+          this.store.dispatch(DashboardAction.onLoadDifference(temp));
+        }),
+        takeUntil(this.unsubscribe$)
       )
-      .pipe(takeUntil(this.unsubscribe$))
       .subscribe();
   }
 

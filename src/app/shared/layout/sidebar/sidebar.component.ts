@@ -138,9 +138,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
   onAircraftTypeChange(event: any) {
     const selectedValue = event.target.value;
     this.aircraftTypeSelected.emit(selectedValue);
-    console.log(`Selected option value: ${selectedValue}`);
-    // You can perform any actions you want with the selected value here.
+    // console.log(`Selected option value: ${selectedValue}`);
   }
+
   onInputSortDate(event: any) {
     const inputDate = new Date(event.target.value);
     if (!isNaN(inputDate.getTime())) {
@@ -150,9 +150,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
       
       const formattedDate = `${year}-${month}-${day}`;
       this.sortDate.emit(formattedDate);
-      console.log(`Selected date: ${formattedDate}`);
+      // console.log(`Selected date: ${formattedDate}`);
     } else {
-      // Tangani jika input tidak valid
       console.log("Invalid date input");
     }
   }

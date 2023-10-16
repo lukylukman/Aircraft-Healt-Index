@@ -9,7 +9,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { KeycloakService } from 'keycloak-angular';
-import { Observable, Subject, takeUntil, tap } from 'rxjs';
+import { EMPTY, Observable, Subject, catchError, takeUntil, tap } from 'rxjs';
 import { Confirmable } from 'src/app/core/decorators/confirmable.decorator';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { UserSoeService } from 'src/app/core/services/user.soe.service';
@@ -97,7 +97,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.currentQuote = this.quotes[this.currentIndex];
     }, 30000);
 
-    this.initDashboardData();
+    let csName: string = '';
+    this.initDashboardData(undefined ,csName);
+
       this.dashboardState$.subscribe((data: DashboardFeatureState) => {
       const greenItems = data.ahiSummaryScore.amountOfGreenItems;
       const yellowItems = data.ahiSummaryScore.amountOfYellowItems;
@@ -113,11 +115,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.statusHome = 'Red';
       }
     });
+
     console.log(
       '%c AHI:',
       'font-weight: bold; font-size: 20px;color: #A6C5ED; text-shadow: 3px 3px 0 rgb(2,135,206) , 6px 6px 0 rgb(4,77,145) , 9px 9px 0 rgb(42,21,113) , 12px 12px 0 rgb(5,148,68)'
     );
     console.log('\x1b[1m\x1b[97m\x1b[44mby:\n-FE = Luky, Anton, Surya\n-BE = Faqih, Ravel\x1b[0m');
+
   }
 
   ngOnDestroy(): void {
@@ -138,87 +142,91 @@ export class HomeComponent implements OnInit, OnDestroy {
     localStorage.clear();
   }
 
-  initDashboardData(): void {
+  // SummaryScore 
+  initDashboardData(undefined, customer?: string): void {
     this.store.dispatch(DashboardAction.onClearSummaryScore());
 
     this.dashboardService
-      .getAhiSummaryScore()
+      .getAhiSummaryScore(undefined, customer)
       .pipe(
-        tap({
-          next: (_) => {
-            this.initAveragehealth();
-            this.initPercentageScoreData();
-            this.initDifference();
-            this.store.dispatch(DashboardAction.onLoadSummaryScore(_.data));
-          },
-          error: (err) => console.error('Error on HomeComponent => ', err),
-        })
+        catchError((error) => {
+          console.error('Error on HomeComponent => ', error);
+          return EMPTY;
+        }),
+        tap((result) => {
+          this.initAveragehealth(undefined, customer);
+          this.initPercentageScoreData(undefined, customer);
+          this.initDifference(undefined, customer);
+          this.store.dispatch(DashboardAction.onLoadSummaryScore(result.data));
+        }),
+        takeUntil(this.unsubscribe$)
       )
-      .pipe(takeUntil(this.unsubscribe$))
       .subscribe();
   }
 
-  initPercentageScoreData(): void {
+  // Percentage
+  initPercentageScoreData(undefined, customer?: string): void {
     this.store.dispatch(DashboardAction.onClearAveragePercentage());
 
     this.dashboardService
-      .getAveragePersen()
+      .getAveragePersen(undefined, customer)
       .pipe(
-        tap({
-          next: (_) => {
-            // console.log('Percentage Data => ', _.data);
-            const temp: AverageHealt = {
-              data: _.data,
-            };
-            this.store.dispatch(DashboardAction.onLoadAveragePercentage(temp));
-          },
-        })
+        catchError((error) => {
+          console.error('Error on HomeComponent => ', error);
+          return EMPTY;
+        }),
+        tap((result) => {
+          const temp: AverageHealt = {
+            data: result.data,
+          };
+          this.store.dispatch(DashboardAction.onLoadAveragePercentage(temp));
+        }),
+        takeUntil(this.unsubscribe$)
       )
-      .pipe(takeUntil(this.unsubscribe$))
       .subscribe();
   }
 
-  // average Healtht
-  initAveragehealth(): void {
+  // Average Healt
+  initAveragehealth(undefined, customer?: string): void {
     this.store.dispatch(DashboardAction.onClearAverageHealth());
 
     this.dashboardService
-      .getAverageHealt()
+      .getAverageHealt(undefined, customer)
       .pipe(
-        tap({
-          next: (_) => {
-            const temp: AverageHealt = {
-              data: _.data,
-            };
-            // console.log('temp => ', temp.data);
-            this.store.dispatch(DashboardAction.onLoadAverageHealth(temp));
-          },
-          error: (err) => console.error('Error on HomeComponent => ', err),
-        })
+        catchError((error) => {
+          console.error('Error on HomeComponent => ', error);
+          return EMPTY;
+        }),
+        tap((result) => {
+          const temp: AverageHealt = {
+            data: result.data,
+          };
+          this.store.dispatch(DashboardAction.onLoadAverageHealth(temp));
+        }),
+        takeUntil(this.unsubscribe$)
       )
-      .pipe(takeUntil(this.unsubscribe$))
       .subscribe();
   }
 
   // Difference value
-  initDifference(): void {
+  initDifference(undefined, customer?: string): void {
     this.store.dispatch(DashboardAction.ocClearDifference());
 
     this.dashboardService
-      .getDifference()
+      .getDifference(undefined, customer)
       .pipe(
-        tap({
-          next: (_) => {
-            const temp: AverageHealt = {
-              data: _.data,
-            };
-            // console.log('temp => ', temp.data);
-            this.store.dispatch(DashboardAction.onLoadDifference(temp));
-          },
-          error: (err) => console.error('Error on HomeComponent => ', err),
-        })
+        catchError((error) => {
+          console.error('Error on HomeComponent => ', error);
+          return EMPTY;
+        }),
+        tap((result) => {
+          const temp: AverageHealt = {
+            data: result.data,
+          };
+          this.store.dispatch(DashboardAction.onLoadDifference(temp));
+        }),
+        takeUntil(this.unsubscribe$)
       )
-      .pipe(takeUntil(this.unsubscribe$))
       .subscribe();
   }
   
