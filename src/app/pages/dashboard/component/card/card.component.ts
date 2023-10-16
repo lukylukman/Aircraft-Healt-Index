@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AircraftDTO } from '../../dto/aircraft.dto';
+import { AircraftDTO, AircraftDTO2 } from '../../dto/aircraft.dto';
 
 @Component({
   selector: 'app-card-dashboard',
@@ -7,7 +7,7 @@ import { AircraftDTO } from '../../dto/aircraft.dto';
   styleUrls: ['./card.component.css'],
 })
 export class CardDashboardComponent implements OnInit {
-  @Input() aircraft: AircraftDTO;
+  @Input() aircraft: AircraftDTO2;
 
   themeColor: string = 'gray';
   arrowDirection: 'up' | 'down' | 'equal' = 'equal';
@@ -18,34 +18,34 @@ export class CardDashboardComponent implements OnInit {
   }
 
   onSetArrowDirection(): void {
-    if (this.aircraft.aircraftScore?.totalScoreDifference > 0) {
+    if (this.aircraft?.totalScoreDifference > 0) {
       this.arrowDirection = 'up';
     }
-    if (this.aircraft.aircraftScore?.totalScoreDifference < 0) {
+    if (this.aircraft?.totalScoreDifference < 0) {
       this.arrowDirection = 'down';
     }
-    if (this.aircraft.aircraftScore?.totalScoreDifference === 0) {
+    if (this.aircraft?.totalScoreDifference === 0) {
       this.arrowDirection = 'equal';
     }
   }
 
   onSetCardColor(): void {
     if (
-      this.aircraft.aircraftScore?.totalScore <= 100 &&
-      this.aircraft.aircraftScore?.totalScore >= 94
+      this.aircraft?.totalScore <= 100 &&
+      this.aircraft?.totalScore >= 94
     ) {
       this.themeColor = 'green';
     }
     if (
-      this.aircraft.aircraftScore?.totalScore <= 93 &&
-      this.aircraft.aircraftScore?.totalScore >= 75
+      this.aircraft?.totalScore <= 93 &&
+      this.aircraft?.totalScore >= 75
     ) {
       this.themeColor = 'yellow';
     }
-    if (this.aircraft.aircraftScore?.totalScore <= 74) {
+    if (this.aircraft?.totalScore <= 74) {
       this.themeColor = 'red';
     }
-    if (this.aircraft.aircraftScore === null) {
+    if (this.aircraft === null) {
       this.themeColor = 'gray';
     }
   }

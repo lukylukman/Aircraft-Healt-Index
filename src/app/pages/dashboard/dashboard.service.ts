@@ -14,7 +14,7 @@ import { AhiSummaryScoreDTO } from './dto/ahi-summary-score.dto';
 import { AircraftDetailHilDTO } from './dto/aircraft-detail-hil.dto';
 import { AircraftScoreDTO } from './dto/aircraft-score.dto';
 import { AircraftTypeDTO } from './dto/aircraft-type.dto';
-import { AircraftDTO } from './dto/aircraft.dto';
+import { AircraftDTO, AircraftDTO2 } from './dto/aircraft.dto';
 import { ImsPaginationDTO } from './dto/ims-pagination.dto';
 import { APURecordDTO } from './dto/showMoreHil.dto';
 
@@ -53,25 +53,29 @@ export class DashboardService extends HttpService {
 
   getCardData(
     paginationData: ImsPaginationDTO,
-    aircraftTypeId?: number,
-  ): Observable<HttpResult<AircraftDTO[]>> {
-    let queryParams = {};
+    sortDate: string,
+    customer: string,
+    aircraftTypeId?: number
+  ): Observable<HttpResult<AircraftDTO2[]>> {
+    const queryParams: any = {
+      page: paginationData.page,
+      size: paginationData.size
+    };
 
-    if (aircraftTypeId) {
-      queryParams = {
-        page: paginationData.page,
-        size: paginationData.size,
-        type_id: aircraftTypeId,
-      };
-    } else {
-      queryParams = {
-        page: paginationData.page,
-        size: paginationData.size,
-      };
+    if (sortDate) {
+      queryParams.endDate = sortDate;
     }
 
-    return this.http.get<HttpResult<AircraftDTO[]>>(
-      `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ims`,
+    if (customer) {
+      queryParams.customer = customer;
+    }
+
+    if (aircraftTypeId) {
+      queryParams.type_id = aircraftTypeId;
+    }
+
+    return this.http.get<HttpResult<AircraftDTO2[]>>(
+      `${environment.host.ahi.url}/ahi/_cards`,
       { params: queryParams }
     );
   }
@@ -82,22 +86,33 @@ export class DashboardService extends HttpService {
     );
   }
 
-  getAircraftScore(acReg: string, aircraftDate?: string): Observable<HttpResult<AircraftScoreDTO>> {
-    let params = new HttpParams().set('aircraftRegistration', acReg);
+  // getAircraftScore(acReg: string, aircraftDate?: string): Observable<HttpResult<AircraftScoreDTO>> {
+  //   let params = new HttpParams().set('aircraftRegistration', acReg);
 
-    if (aircraftDate) {
-      params = params.set('endDate', aircraftDate);
+  //   if (aircraftDate) {
+  //     params = params.set('endDate', aircraftDate);
+  //   }
+
+  //   return this.http.get<HttpResult<AircraftScoreDTO>>(
+  //     `${environment.host.ahi.url}/ahi/_search-last`,
+  //     { params: params }
+  //   );
+  // }
+
+  getAhiSummaryScore(sortDate?: string, customer?: string): Observable<HttpResult<AhiSummaryScoreDTO>> {
+    const queryParams: any = {};
+
+    if (sortDate) {
+      queryParams.endDate = sortDate;
     }
 
-    return this.http.get<HttpResult<AircraftScoreDTO>>(
-      `${environment.host.ahi.url}/ahi/_search-last`,
-      { params: params }
-    );
-  }
+    if (customer) {
+      queryParams.customer = customer;
+    }
 
-  getAhiSummaryScore(): Observable<HttpResult<AhiSummaryScoreDTO>> {
     return this.http.get<HttpResult<AhiSummaryScoreDTO>>(
-      `${environment.host.ahi.url}/ahi/_amount`
+      `${environment.host.ahi.url}/ahi/_amount`,
+      { params: queryParams }
     );
   }
 
@@ -134,25 +149,59 @@ export class DashboardService extends HttpService {
     );
   }
 
-  // Average Health
-  getAverageHealt(): Observable<HttpResult<number>> {
+  // Average Healt
+  getAverageHealt(sortDate?: string, customer?: string): Observable<HttpResult<number>> {
+    const queryParams: any = {};
+
+    if (sortDate) {
+      queryParams.endDate = sortDate;
+    }
+
+    if (customer) {
+      queryParams.customer = customer;
+    }
+
     return this.http.get<HttpResult<number>>(
-      `${environment.host.ahi.url}/ahi/_average`
+      `${environment.host.ahi.url}/ahi/_average`,
+      { params: queryParams }
     );
   }
 
   // Average Persen
-  getAveragePersen(): Observable<HttpResult<number>> {
+  getAveragePersen(sortDate?: string, customer?: string): Observable<HttpResult<number>> {
+    const queryParams: any = {};
+
+    if (sortDate) {
+      queryParams.endDate = sortDate;
+    }
+
+    if (customer) {
+      queryParams.customer = customer;
+    }
+
     return this.http.get<HttpResult<number>>(
-      `${environment.host.ahi.url}/ahi/_percent`
+      `${environment.host.ahi.url}/ahi/_percent`,
+      { params: queryParams }
     );
   }
 
-  // Diverence
-  getDifference(): Observable<HttpResult<number>> {
+  // Difference
+  getDifference(sortDate?: string, customer?: string): Observable<HttpResult<number>> {
+    const queryParams: any = {};
+
+    if (sortDate) {
+      queryParams.endDate = sortDate;
+    }
+
+    if (customer) {
+      queryParams.customer = customer;
+    }
+
     return this.http.get<HttpResult<number>>(
-      `${environment.host.ahi.url}/ahi/_difference`
+      `${environment.host.ahi.url}/ahi/_difference`,
+      { params: queryParams }
     );
   }
+
 
 }

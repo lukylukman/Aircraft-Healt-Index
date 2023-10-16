@@ -3,7 +3,7 @@ import { PaginationResultDTO } from 'src/app/core/dto/pagination.result.dto';
 import { AhiSummaryScoreDTO } from '../dto/ahi-summary-score.dto';
 import { AircraftDetailHilDTO } from '../dto/aircraft-detail-hil.dto';
 import { AircraftTypeDTO } from '../dto/aircraft-type.dto';
-import { AircraftDTO } from '../dto/aircraft.dto';
+import { AircraftDTO, AircraftDTO2 } from '../dto/aircraft.dto';
 import { AverageHealt } from '../dto/average-healt.dto';
 import { APURecordDTO } from '../dto/showMoreHil.dto';
 import * as DashboardAction from './dashboard.action';
@@ -22,8 +22,8 @@ const empetyStateDashboard: PaginationResultDTO<AircraftDTO> = {
 
 export interface DashboardFeatureState {
   dashboard: PaginationResultDTO<AircraftDTO>;
-  aircraftLists: AircraftDTO[];
-  selectedDashboard: AircraftDTO;
+  aircraftLists: AircraftDTO2[];
+  selectedDashboard: AircraftDTO2;
   ahiSummaryScore: AhiSummaryScoreDTO;
   aircraftType: AircraftTypeDTO[];
 
@@ -72,14 +72,14 @@ export const DashboardFeature = createFeature({
 
     on(
       DashboardAction.onDashboardSelected,
-      (state: DashboardFeatureState, data: AircraftDTO) => ({
+      (state: DashboardFeatureState, data: AircraftDTO2) => ({
         ...state,
         selectedDashboard: data,
       })
     ),
     on(
       DashboardAction.onLoadAircraftList,
-      (state: DashboardFeatureState, data: AircraftDTO) => ({
+      (state: DashboardFeatureState, data: AircraftDTO2) => ({
         ...state,
         aircraftLists: [...state.aircraftLists, data],
       })
@@ -94,6 +94,14 @@ export const DashboardFeature = createFeature({
       (state: DashboardFeatureState) => ({
         ...state,
         dashboardData: [],
+      })
+    ),
+
+    on(
+      DashboardAction.onClearSummaryScore,
+      (state: DashboardFeatureState) => ({
+        ...state,
+        AhiSummaryScoreDTO: [],
       })
     ),
 

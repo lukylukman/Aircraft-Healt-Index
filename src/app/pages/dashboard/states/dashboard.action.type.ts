@@ -9,6 +9,7 @@ export enum DashboardActionType {
 
   // SET SUMMARY SCORE
   ON_SUMMARY_SCORE_LOAD = '[Action:Summary Score] => On Load Summary Score',
+  ON_SUMMARY_SCORE_CLEAR = '[Action:Summary Score] => On Clear Summary Score',
 
   // AIRCRAFT TYPE
   ON_AIRCRAFT_TYPE_LOAD = '[Action:Aircraft Type] => On Load Aircraft Type',

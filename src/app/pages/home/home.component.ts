@@ -139,6 +139,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   initDashboardData(): void {
+    this.store.dispatch(DashboardAction.onClearSummaryScore());
+
     this.dashboardService
       .getAhiSummaryScore()
       .pipe(
@@ -157,6 +159,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   initPercentageScoreData(): void {
+    this.store.dispatch(DashboardAction.onClearAveragePercentage());
+
     this.dashboardService
       .getAveragePersen()
       .pipe(
@@ -217,4 +221,5 @@ export class HomeComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe();
   }
+  
 }
