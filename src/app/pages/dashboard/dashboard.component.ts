@@ -7,6 +7,7 @@ import {
   Observable,
   Subject,
   catchError,
+  from,
   mergeMap,
   of,
   takeUntil,
@@ -78,6 +79,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedCard: AircraftDetailHilDTO;
   sortDateSelected: string = '';
   selectedCustomer: string = '';
+  dataNotFound: boolean = false;
   userRoles: string[] = [];
   selectedTypeId: number;
   detailModalHil: AircraftDetailHilDTO[];
@@ -179,18 +181,21 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
           console.error(err);
           return EMPTY;
         }),
-        tap((result) => {
+        mergeMap((result) => {
           if (result !== null) {
-            result.data.forEach((acType) => {
-              this.store.dispatch(DashboardAction.onLoadAircraftType(acType));
-            });
+            return from(result.data);
+          } else {
+            return EMPTY; // Return an empty observable if result is null
           }
+        }),
+        tap((acType) => {
+          this.store.dispatch(DashboardAction.onLoadAircraftType(acType));
         }),
         takeUntil(this.unsubscribe$)
       )
       .subscribe();
   }
-
+  
   // fectDashboardData(aircraftTypeId?: number, sortDate?: string): void {
   //   this.store.dispatch(DashboardAction.onClearAircraftList());
 
@@ -262,12 +267,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       .getCardData(this.paginationData, sortDate, customer, aircraftTypeId)
       .pipe(
         catchError((error) => {
-          if (error.status === 503) {
-            // Lakukan tindakan khusus untuk status 503 di sini, misalnya, menampilkan pesan kesalahan
-            console.error('HTTP Error 503 - Service Unavailable');
-            // Anda juga dapat melakukan tindakan lain sesuai kebutuhan
+          if (error.status === 503 || error.status === 404 ) {
+            this.dataNotFound = true;
+            console.error('Data for today not found...');
           }
-          return of(); // Mengembalikan observable kosong agar aliran tetap berlanjut
+          return of();
         }),
         mergeMap((res) => {
           return res.data;
