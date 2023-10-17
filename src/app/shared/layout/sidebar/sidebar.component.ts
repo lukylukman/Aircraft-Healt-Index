@@ -84,6 +84,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   localService: LocalStorageServiceInterface;
   sidebarState: ShowHideType = 'hide';
   userRoles: string[] = [];
+  today: string;
 
   private readonly unsubscribe$ = new Subject();
 
@@ -108,6 +109,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userRoles = this.kcService.getUserRoles();
+
+    const todayDate = new Date();
+    this.today = todayDate.toISOString().slice(0, 10);
+  
 
     // TODO: Please use an actual service
     const _tempObject: PersonalInformation =
