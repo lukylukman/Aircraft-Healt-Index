@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
     } else if (this.userRoles.includes('customer_citilink')) {
       this.router.navigate(['/dashboard']);
     } else {
-      // Page404
+      this.router.navigate['/page404'];
     }
 
     // console.log('Role =>', this.userRoles);

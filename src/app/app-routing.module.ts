@@ -38,6 +38,22 @@ const routes: Routes = [
         (m) => m.ConfigurationModule
       ),
   },
+  {
+    path: 'page404',
+    data: {
+      title: '404 page',
+      roles: ['admin'],
+    },
+    loadChildren: () =>
+      import('./pages/page404/page404.module').then(
+        (m) => m.Page404Module
+      ),
+  },
+  // Atur halaman 404 dengan wildcard path '**'
+  {
+    path: '**',
+    redirectTo: 'page404',
+  },
 ];
 
 @NgModule({

@@ -45,7 +45,7 @@ export class CardDashboardComponent implements OnInit {
     if (this.aircraft?.totalScore <= 74) {
       this.themeColor = 'red';
     }
-    if (this.aircraft === null) {
+    if (this.aircraft?.totalScore === null) {
       this.themeColor = 'gray';
     }
   }
