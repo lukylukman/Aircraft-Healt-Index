@@ -24,6 +24,10 @@ export class AppComponent implements OnInit {
     } else if (this.userRoles.includes('user')) {
       // Jika pengguna, hanya dapat mengakses "home"
       this.router.navigate(['/home']);
+    } else if (this.userRoles.includes('customer_ga')) {
+      this.router.navigate(['/dashboard']);
+    } else if (this.userRoles.includes('customer_citilink')) {
+      this.router.navigate(['/dashboard']);
     } else {
       // Page404
     }

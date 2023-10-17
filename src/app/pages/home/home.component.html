@@ -76,11 +76,14 @@
         <p>IT’S A GOOD DAY</p>
         <p>
           Status:
-          <a [ngClass]="{
-            'text-ahi-primary-color-100': statusHome === 'Green',
-            'text-ahi-primary-color-200': statusHome === 'Yellow',
-            'text-red-600': statusHome === 'Red'
-          }" class="font-semibold uppercase cursor-default">
+          <a
+            [ngClass]="{
+              'text-ahi-primary-color-100': statusHome === 'Green',
+              'text-ahi-primary-color-200': statusHome === 'Yellow',
+              'text-red-600': statusHome === 'Red'
+            }"
+            class="font-semibold uppercase cursor-default"
+          >
             {{ statusHome }}</a
           >
         </p>
@@ -93,11 +96,17 @@
       <div class="text-center flex flex-row justify-center items-center">
         <div class="flex flex-col text-center text-white mr-2">
           <app-svg
-          [width]="'36'"
-          [height]="'45'"
-          [direction]="dashboardState.ahiSummaryScore.difference > 0 ? 'up' : (dashboardState.ahiSummaryScore.difference < 0 ? 'down' : 'equal')"
-          [greenColor]="dashboardState.ahiSummaryScore.difference > 0"
-        ></app-svg>
+            [width]="'36'"
+            [height]="'45'"
+            [direction]="
+              dashboardState.ahiSummaryScore.difference > 0
+                ? 'up'
+                : dashboardState.ahiSummaryScore.difference < 0
+                ? 'down'
+                : 'equal'
+            "
+            [greenColor]="dashboardState.ahiSummaryScore.difference > 0"
+          ></app-svg>
           {{ dashboardState.ahiSummaryScore.difference ?? 0 }}
         </div>
         <div class="flex flex-row items-end">

@@ -98,9 +98,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     }, 30000);
 
     let csName: string = '';
-    this.initDashboardData(undefined ,csName);
+    this.initDashboardData(undefined, csName);
 
-      this.dashboardState$.subscribe((data: DashboardFeatureState) => {
+    this.dashboardState$.subscribe((data: DashboardFeatureState) => {
       const greenItems = data.ahiSummaryScore.amountOfGreenItems;
       const yellowItems = data.ahiSummaryScore.amountOfYellowItems;
       const redItems = data.ahiSummaryScore.amountOfRedItems;
@@ -120,8 +120,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       '%c AHI:',
       'font-weight: bold; font-size: 20px;color: #A6C5ED; text-shadow: 3px 3px 0 rgb(2,135,206) , 6px 6px 0 rgb(4,77,145) , 9px 9px 0 rgb(42,21,113) , 12px 12px 0 rgb(5,148,68)'
     );
-    console.log('\x1b[1m\x1b[97m\x1b[44mby:\n-FE = Luky, Anton, Surya\n-BE = Faqih, Ravel\x1b[0m');
-
+    console.log(
+      '\x1b[1m\x1b[97m\x1b[44mby:\n-FE = Luky, Anton, Surya\n-BE = Faqih, Ravel\x1b[0m'
+    );
   }
 
   ngOnDestroy(): void {
@@ -142,7 +143,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     localStorage.clear();
   }
 
-  // SummaryScore 
+  // SummaryScore
   initDashboardData(undefined, customer?: string): void {
     this.store.dispatch(DashboardAction.onClearSummaryScore());
 
@@ -229,5 +230,4 @@ export class HomeComponent implements OnInit, OnDestroy {
       )
       .subscribe();
   }
-  
 }

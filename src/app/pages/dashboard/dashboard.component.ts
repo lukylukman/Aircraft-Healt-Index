@@ -2,7 +2,15 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Modal } from 'flowbite';
-import { EMPTY, Observable, Subject, catchError, mergeMap, takeUntil, tap } from 'rxjs';
+import {
+  EMPTY,
+  Observable,
+  Subject,
+  catchError,
+  mergeMap,
+  takeUntil,
+  tap,
+} from 'rxjs';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { DashboardService } from './dashboard.service';
 
@@ -115,7 +123,10 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       this.soeService.getPersonalInformationFromCache();
   }
   ngAfterViewInit(): void {
-    this.aircraftDetailModal = new Modal(document.getElementById('DetailHil'), {});
+    this.aircraftDetailModal = new Modal(
+      document.getElementById('DetailHil'),
+      {}
+    );
   }
 
   formGroup = new FormGroup({
@@ -126,13 +137,21 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   onAircraftTypeChanged(aircraftTypeId: number): void {
     const aircraftId = Number(aircraftTypeId);
     this.selectedTypeId = aircraftId;
-    this.fectDashboardData2(this.selectedTypeId, this.sortDateSelected, this.selectedCustomer);
+    this.fectDashboardData2(
+      this.selectedTypeId,
+      this.sortDateSelected,
+      this.selectedCustomer
+    );
   }
 
   onInputSortDate(sortDate: string): void {
     this.sortDateSelected = sortDate;
-    this.selectedCustomer = "GA";
-    this.fectDashboardData2(this.selectedTypeId, this.sortDateSelected, this.selectedCustomer);
+    this.selectedCustomer = 'GA';
+    this.fectDashboardData2(
+      this.selectedTypeId,
+      this.sortDateSelected,
+      this.selectedCustomer
+    );
     this.initDashboardData(this.sortDateSelected);
   }
 
@@ -221,7 +240,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   //     .subscribe();
   // }
 
-  fectDashboardData2(aircraftTypeId?: number, sortDate?: string, customer?: string): void {
+  fectDashboardData2(
+    aircraftTypeId?: number,
+    sortDate?: string,
+    customer?: string
+  ): void {
     this.store.dispatch(DashboardAction.onClearAircraftList());
 
     this.dashboardService
@@ -251,16 +274,16 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.onClickDetailAircraft();
     this.store.dispatch(DashboardAction.onDashboardClearSelected());
     this.store.dispatch(DashboardAction.onClearAircraftDetailHil());
-    
+
     this.dashboardService
       .getDetailAicraft(aircraft.aircraftRegistration)
       .pipe(
         catchError((err) => {
           console.error(err);
-          return EMPTY; 
+          return EMPTY;
         }),
         tap((result) => {
-          if (result !== null) { 
+          if (result !== null) {
             // Handle response
             if (result.data.length === 0) {
               throw Error('There is no data');
@@ -270,7 +293,10 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
             this.store.dispatch(
               DashboardAction.onLoadAircraftDetailHil({ data: result.data })
             );
-            this.fetchApuData(aircraft.aircraftRegistration, this.sortDateSelected);
+            this.fetchApuData(
+              aircraft.aircraftRegistration,
+              this.sortDateSelected
+            );
           }
         }),
         takeUntil(this.unsubscribe$)
@@ -286,15 +312,14 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       .pipe(
         catchError((err) => {
           console.error(err);
-          return EMPTY; 
+          return EMPTY;
         }),
         tap((result) => {
-          if (result !== null) { // Pastikan tidak ada error sebelum melanjutkan
+          if (result !== null) {
+            // Pastikan tidak ada error sebelum melanjutkan
             const apuRecord = result.data.record.apuRecord;
             // console.log('Data APU => ', result.data.record.apuRecord);
-            this.store.dispatch(
-              DashboardAction.onLoadApu({ data: apuRecord })
-            );
+            this.store.dispatch(DashboardAction.onLoadApu({ data: apuRecord }));
           }
         }),
         takeUntil(this.unsubscribe$)
@@ -303,20 +328,20 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // summaryScore, averageHealt, PercentageScore, Difference
-  initDashboardData( customer?: string): void {
+  initDashboardData(customer?: string): void {
     this.store.dispatch(DashboardAction.onClearSummaryScore());
 
     this.dashboardService
-      .getAhiSummaryScore( customer)
+      .getAhiSummaryScore(customer)
       .pipe(
         catchError((error) => {
           console.error('Error on HomeComponent => ', error);
           return EMPTY;
         }),
         tap((result) => {
-          this.initAveragehealth( customer);
-          this.initPercentageScoreData( customer);
-          this.initDifference( customer);
+          this.initAveragehealth(customer);
+          this.initPercentageScoreData(customer);
+          this.initDifference(customer);
           this.store.dispatch(DashboardAction.onLoadSummaryScore(result.data));
         }),
         takeUntil(this.unsubscribe$)
@@ -325,11 +350,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // Percentage
-  initPercentageScoreData( customer?: string): void {
+  initPercentageScoreData(customer?: string): void {
     this.store.dispatch(DashboardAction.onClearAveragePercentage());
 
     this.dashboardService
-      .getAveragePersen( customer)
+      .getAveragePersen(customer)
       .pipe(
         catchError((error) => {
           console.error('Error on HomeComponent => ', error);
@@ -347,11 +372,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // Average Healt
-  initAveragehealth( customer?: string): void {
+  initAveragehealth(customer?: string): void {
     this.store.dispatch(DashboardAction.onClearAverageHealth());
 
     this.dashboardService
-      .getAverageHealt( customer)
+      .getAverageHealt(customer)
       .pipe(
         catchError((error) => {
           console.error('Error on HomeComponent => ', error);
@@ -369,11 +394,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // Difference value
-  initDifference( customer?: string): void {
+  initDifference(customer?: string): void {
     this.store.dispatch(DashboardAction.ocClearDifference());
 
     this.dashboardService
-      .getDifference( customer)
+      .getDifference(customer)
       .pipe(
         catchError((error) => {
           console.error('Error on HomeComponent => ', error);
@@ -394,5 +419,4 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.unsubscribe$.unsubscribe();
     this.store.dispatch(DashboardAction.resetDashboardState());
   }
-
 }
