@@ -1,4 +1,4 @@
-<div [@fadeInOut] class="h-full">
+<div [@fadeInOut] class="">
   <nav
     class="bg-transparent border-b border-ahi-blue-600 ml-8 dark:bg-gray-900"
   >
@@ -94,7 +94,7 @@
   <div
     *ngIf="showUpdate"
     [@fadeInOut]
-    class="bg-gradient-to-r h-screen from-ahi-blue-800 to-ahi-blue-600"
+    class="bg-gradient-to-r from-ahi-blue-800 to-ahi-blue-600"
   >
     <form (ngSubmit)="uploadFile(fileInput.files[0], dataTypeSelect.value)">
       <!-- Loading progress -->

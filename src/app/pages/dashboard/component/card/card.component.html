@@ -26,12 +26,12 @@
       ></app-svg>
       <h4
         class="text-xl drop-shadow-xl font-semibold"
-        *ngIf="aircraft.aircraftScore?.totalScoreDifference !== 0"
+        *ngIf="aircraft?.totalScoreDifference !== 0"
       >
-        {{ aircraft.aircraftScore?.totalScoreDifference }}
+        {{ aircraft?.totalScoreDifference }}
       </h4>
     </div>
-    {{ aircraft.aircraftScore?.totalScore !== null ? aircraft.aircraftScore?.totalScore : '--' }}
+    {{ aircraft?.totalScore !== null ? aircraft?.totalScore : '--' }}
   </h2>
   <p class="text-xs font-bold">Last flight</p>
   <span class="flex flex-row items-end">

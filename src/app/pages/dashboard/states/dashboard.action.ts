@@ -3,7 +3,7 @@ import { PaginationResultDTO } from 'src/app/core/dto/pagination.result.dto';
 import { AhiSummaryScoreDTO } from '../dto/ahi-summary-score.dto';
 import { AircraftDetailHilDTO } from '../dto/aircraft-detail-hil.dto';
 import { AircraftTypeDTO } from '../dto/aircraft-type.dto';
-import { AircraftDTO } from '../dto/aircraft.dto';
+import { AircraftDTO, AircraftDTO2 } from '../dto/aircraft.dto';
 import { AverageHealt } from '../dto/average-healt.dto';
 import { APURecordDTO } from '../dto/showMoreHil.dto';
 import { DashboardActionType } from './dashboard.action.type';
@@ -17,7 +17,7 @@ export const onDashboardLoaded = createAction(
 
 export const onDashboardSelected = createAction(
   DashboardActionType.ON_DASHBOARD_DATA_SELECTED,
-  props<AircraftDTO>()
+  props<AircraftDTO2>()
 );
 
 export const onDashboardClearSelected = createAction(
@@ -31,11 +31,15 @@ export const onDashboardLoadedToday = createAction(
 
 export const onLoadAircraftList = createAction(
   DashboardActionType.ON_DASHBOARD_LIST_LOAD,
-  props<AircraftDTO>()
+  props<AircraftDTO2>()
 );
 
 export const onClearAircraftList = createAction(
   DashboardActionType.ON_DASHBOARD_LIST_CLEAR
+);
+
+export const onClearSummaryScore = createAction(
+  DashboardActionType.ON_SUMMARY_SCORE_CLEAR
 );
 
 export const onLoadSummaryScore = createAction(
