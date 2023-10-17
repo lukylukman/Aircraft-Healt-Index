@@ -63,6 +63,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   personalInformation: PersonalInformation;
 
   userRoles: string[] = [];
+  customerRole: string = '';
 
   quotes: string[] = [
     "Concentrate all your thoughts upon the work in hand. The sun's rays do not burn until brought to a focus. — Alexander Graham Bell",
@@ -91,14 +92,18 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userRoles = this.keycloakService.getUserRoles();
+      if (this.userRoles[0] === "customer_ga" || this.userRoles[0] === "customer_citilink") {
+        this.customerRole = this.userRoles[0];
+      } else {
+        this.customerRole = '';
+      }
 
     setInterval(() => {
       this.currentIndex = (this.currentIndex + 1) % this.quotes.length;
       this.currentQuote = this.quotes[this.currentIndex];
     }, 30000);
 
-    let csName: string = '';
-    this.initDashboardData(undefined, csName);
+    this.initDashboardData(undefined, this.customerRole);
 
     this.dashboardState$.subscribe((data: DashboardFeatureState) => {
       const greenItems = data.ahiSummaryScore.amountOfGreenItems;
@@ -143,7 +148,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     localStorage.clear();
   }
 
-  // SummaryScore
+  // summaryScore, averageHealt, PercentageScore, Difference
   initDashboardData(undefined, customer?: string): void {
     this.store.dispatch(DashboardAction.onClearSummaryScore());
 

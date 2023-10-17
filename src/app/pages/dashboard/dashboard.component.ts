@@ -8,6 +8,7 @@ import {
   Subject,
   catchError,
   mergeMap,
+  of,
   takeUntil,
   tap,
 } from 'rxjs';
@@ -30,6 +31,7 @@ import * as DashboardAction from './states/dashboard.action';
 import { DashboardFeatureState } from './states/dashboard.feature';
 import { DashboardState } from './states/dashboard.selector';
 import { AverageHealt } from './dto/average-healt.dto';
+import { KeycloakService } from 'keycloak-angular';
 
 export interface SearchSelection {
   key: string;
@@ -76,6 +78,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedCard: AircraftDetailHilDTO;
   sortDateSelected: string = '';
   selectedCustomer: string = '';
+  userRoles: string[] = [];
   selectedTypeId: number;
   detailModalHil: AircraftDetailHilDTO[];
   selectedDashboardCard: AircraftDTO;
@@ -115,6 +118,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private readonly dashboardService: DashboardService,
     private readonly soeService: UserSoeService,
+    protected readonly keycloak: KeycloakService,
     private readonly store: Store
   ) {
     this.logger = new LoggerService(DashboardComponent.name);
@@ -146,18 +150,25 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onInputSortDate(sortDate: string): void {
     this.sortDateSelected = sortDate;
-    this.selectedCustomer = 'GA';
     this.fectDashboardData2(
       this.selectedTypeId,
       this.sortDateSelected,
       this.selectedCustomer
     );
-    this.initDashboardData(this.sortDateSelected);
+    this.initDashboardData(this.sortDateSelected, this.selectedCustomer);
   }
 
   ngOnInit(): void {
-    this.fectDashboardData2();
     this.fetchAircraftType();
+    this.userRoles = this.keycloak.getUserRoles();
+    if (this.userRoles[0] === "customer_ga" || this.userRoles[0] === "customer_citilink") {
+        this.selectedCustomer = this.userRoles[0];
+      } else {
+        this.selectedCustomer = '';
+      }
+    this.fectDashboardData2(undefined, undefined, this.selectedCustomer);
+    this.initDashboardData(this.selectedCustomer);
+    // console.log(this.selectedCustomer);
   }
 
   fetchAircraftType(): void {
@@ -250,6 +261,14 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dashboardService
       .getCardData(this.paginationData, sortDate, customer, aircraftTypeId)
       .pipe(
+        catchError((error) => {
+          if (error.status === 503) {
+            // Lakukan tindakan khusus untuk status 503 di sini, misalnya, menampilkan pesan kesalahan
+            console.error('HTTP Error 503 - Service Unavailable');
+            // Anda juga dapat melakukan tindakan lain sesuai kebutuhan
+          }
+          return of(); // Mengembalikan observable kosong agar aliran tetap berlanjut
+        }),
         mergeMap((res) => {
           return res.data;
         }),
@@ -328,20 +347,20 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // summaryScore, averageHealt, PercentageScore, Difference
-  initDashboardData(customer?: string): void {
+  initDashboardData(sortDate?: string, customer?: string): void {
     this.store.dispatch(DashboardAction.onClearSummaryScore());
 
     this.dashboardService
-      .getAhiSummaryScore(customer)
+      .getAhiSummaryScore(sortDate, customer)
       .pipe(
         catchError((error) => {
           console.error('Error on HomeComponent => ', error);
           return EMPTY;
         }),
         tap((result) => {
-          this.initAveragehealth(customer);
-          this.initPercentageScoreData(customer);
-          this.initDifference(customer);
+          this.initAveragehealth(sortDate, customer);
+          this.initPercentageScoreData(sortDate, customer);
+          this.initDifference(sortDate, customer);
           this.store.dispatch(DashboardAction.onLoadSummaryScore(result.data));
         }),
         takeUntil(this.unsubscribe$)
@@ -350,11 +369,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // Percentage
-  initPercentageScoreData(customer?: string): void {
+  initPercentageScoreData(sortDate?: string, customer?: string): void {
     this.store.dispatch(DashboardAction.onClearAveragePercentage());
 
     this.dashboardService
-      .getAveragePersen(customer)
+      .getAveragePersen(sortDate, customer)
       .pipe(
         catchError((error) => {
           console.error('Error on HomeComponent => ', error);
@@ -372,11 +391,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // Average Healt
-  initAveragehealth(customer?: string): void {
+  initAveragehealth(sortDate?: string, customer?: string): void {
     this.store.dispatch(DashboardAction.onClearAverageHealth());
 
     this.dashboardService
-      .getAverageHealt(customer)
+      .getAverageHealt(sortDate, customer)
       .pipe(
         catchError((error) => {
           console.error('Error on HomeComponent => ', error);
@@ -394,11 +413,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // Difference value
-  initDifference(customer?: string): void {
+  initDifference(sortDate?: string, customer?: string): void {
     this.store.dispatch(DashboardAction.ocClearDifference());
 
     this.dashboardService
-      .getDifference(customer)
+      .getDifference(sortDate, customer)
       .pipe(
         catchError((error) => {
           console.error('Error on HomeComponent => ', error);

@@ -49,10 +49,10 @@
           </h4>
         </div>
         <h1 class="text-white font-extralight text-6xl">
-          {{ dashboardState.ahiSummaryScore.health ?? 0 }}.
+          {{ dashboardState.ahiSummaryScore?.health }}.
         </h1>
         <h4 class="text-3xl font-extralight">
-          {{ dashboardState.ahiSummaryScore.decimal ?? 0 }}
+          {{ dashboardState.ahiSummaryScore?.decimal | number:'2.0-0' }}
         </h4>
       </div>
       <h4 class="uppercase text-white font-light text-base">PERCENT Changes</h4>

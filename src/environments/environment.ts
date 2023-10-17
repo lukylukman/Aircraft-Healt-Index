@@ -30,7 +30,7 @@ export const environment: EnvironmentInterface = {
   soeApiUrl: 'https://api.gmf-aeroasia.co.id/th/soe',
   keycloakUrl: 'https://dev-auth.gmf-aeroasia.co.id/auth',
   sapApiUrl: 'https://api.gmf-aeroasia.co.id/utils/sap',
-  baseUrl: 'http://localhost:4200',
+  baseUrl: 'http://http://172.16.41.107:3014/',
   logger: ['error', 'log', 'warn', 'debug'],
   localKey: 'st+NnHcipOHKvd0WCcBjqLKbo9nV8sY0',
   realm: 'ahi',
