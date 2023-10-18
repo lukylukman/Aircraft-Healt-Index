@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Modal } from 'flowbite';
@@ -284,6 +284,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
           this.cardData = this.cardData.concat(tempAircraft); // Menambahkan data ke array yang ada
           this.store.dispatch(DashboardAction.onLoadAircraftList(tempAircraft));
           ToastNotif('success', `contains a total of ${this.totalLoadedData} data`);
+          this.dataNotFound = false;
         }),
         takeUntil(this.unsubscribe$)
       )
@@ -292,8 +293,24 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   loadMoreData(): void {
       this.paginationData.size += 24;
-      this.fectDashboardData2(undefined, undefined, this.selectedCustomer);
+      this.fectDashboardData2(
+      this.selectedTypeId,
+      this.sortDateSelected,
+      this.selectedCustomer
+    );
   }
+
+  // @HostListener('window:scroll', ['$event'])
+  // onScroll(event: Event): void {
+  //   const scrollPosition = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+  //   const pageHeight = document.documentElement.scrollHeight;
+  //   const windowHeight = window.innerHeight;
+
+  //   if (scrollPosition + windowHeight >= pageHeight) {
+  //     this.paginationData.size += 24;
+  //     this.fectDashboardData2(undefined, undefined, this.selectedCustomer);
+  //   }
+  // }
 
   onClickDetailAircraft(): void {
     this.aircraftDetailModal.show();
