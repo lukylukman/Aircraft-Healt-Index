@@ -149,7 +149,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   // summaryScore, averageHealt, PercentageScore, Difference
-  initDashboardData(undefined, customer?: string): void {
+  initDashboardData(undefined: string, customer?: string): void {
     this.store.dispatch(DashboardAction.onClearSummaryScore());
 
     this.dashboardService
@@ -171,7 +171,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   // Percentage
-  initPercentageScoreData(undefined, customer?: string): void {
+  initPercentageScoreData(undefined: string, customer?: string): void {
     this.store.dispatch(DashboardAction.onClearAveragePercentage());
 
     this.dashboardService
@@ -193,7 +193,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   // Average Healt
-  initAveragehealth(undefined, customer?: string): void {
+  initAveragehealth(undefined: string, customer?: string): void {
     this.store.dispatch(DashboardAction.onClearAverageHealth());
 
     this.dashboardService
@@ -215,7 +215,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   // Difference value
-  initDifference(undefined, customer?: string): void {
+  initDifference(undefined: string, customer?: string): void {
     this.store.dispatch(DashboardAction.ocClearDifference());
 
     this.dashboardService

@@ -33,6 +33,7 @@ import { DashboardFeatureState } from './states/dashboard.feature';
 import { DashboardState } from './states/dashboard.selector';
 import { AverageHealt } from './dto/average-healt.dto';
 import { KeycloakService } from 'keycloak-angular';
+import { ToastNotif } from 'src/app/core/decorators/toast.success';
 
 export interface SearchSelection {
   key: string;
@@ -82,6 +83,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   dataNotFound: boolean = false;
   userRoles: string[] = [];
   selectedTypeId: number;
+  totalLoadedData: number;
   detailModalHil: AircraftDetailHilDTO[];
   selectedDashboardCard: AircraftDTO;
   searchSelections: SearchSelection[] = [
@@ -169,7 +171,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
         this.selectedCustomer = '';
       }
     this.fectDashboardData2(undefined, undefined, this.selectedCustomer);
-    this.initDashboardData(this.selectedCustomer);
+    this.initDashboardData( undefined, this.selectedCustomer);
     // console.log(this.selectedCustomer);
   }
 
@@ -267,22 +269,30 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       .getCardData(this.paginationData, sortDate, customer, aircraftTypeId)
       .pipe(
         catchError((error) => {
-          if (error.status === 503 || error.status === 404 ) {
+          if (error.status === 503 || error.status === 404) {
             this.dataNotFound = true;
             console.error('Data for today not found...');
+            ToastNotif('info', `Data not found for this day!`);
           }
           return of();
         }),
         mergeMap((res) => {
+          this.totalLoadedData = res.data.length;
           return res.data;
         }),
         tap((tempAircraft) => {
-          this.cardData.push(tempAircraft);
+          this.cardData = this.cardData.concat(tempAircraft); // Menambahkan data ke array yang ada
           this.store.dispatch(DashboardAction.onLoadAircraftList(tempAircraft));
+          ToastNotif('success', `contains a total of ${this.totalLoadedData} data`);
         }),
         takeUntil(this.unsubscribe$)
       )
       .subscribe();
+  }
+
+  loadMoreData(): void {
+      this.paginationData.size += 24;
+      this.fectDashboardData2(undefined, undefined, this.selectedCustomer);
   }
 
   onClickDetailAircraft(): void {

@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
     private router: Router
   ) {}
   userRoles: string[] = [];
-  title = 'ahi-angular';
+  title = 'AHI';
 
   ngOnInit(): void {
     this.userRoles = this.keycloak.getUserRoles();
