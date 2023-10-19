@@ -80,6 +80,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedCard: AircraftDetailHilDTO;
   sortDateSelected: string = '';
   selectedCustomer: string = '';
+  customerName: string = '';
   dataNotFound: boolean = false;
   userRoles: string[] = [];
   selectedTypeId: number;
@@ -137,31 +138,6 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
-  formGroup = new FormGroup({
-    partNumber: new FormControl<string>('', [Validators.required]),
-    searchCategory: new FormControl('ahi-master-*'),
-  });
-
-  onAircraftTypeChanged(aircraftTypeId: number): void {
-    const aircraftId = Number(aircraftTypeId);
-    this.selectedTypeId = aircraftId;
-    this.fectDashboardData2(
-      this.selectedTypeId,
-      this.sortDateSelected,
-      this.selectedCustomer
-    );
-  }
-
-  onInputSortDate(sortDate: string): void {
-    this.sortDateSelected = sortDate;
-    this.fectDashboardData2(
-      this.selectedTypeId,
-      this.sortDateSelected,
-      this.selectedCustomer
-    );
-    this.initDashboardData(this.sortDateSelected, this.selectedCustomer);
-  }
-
   ngOnInit(): void {
     this.fetchAircraftType();
     this.userRoles = this.keycloak.getUserRoles();
@@ -173,6 +149,43 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.fectDashboardData2(undefined, undefined, this.selectedCustomer);
     this.initDashboardData( undefined, this.selectedCustomer);
     // console.log(this.selectedCustomer);
+  }
+
+  formGroup = new FormGroup({
+    partNumber: new FormControl<string>('', [Validators.required]),
+    searchCategory: new FormControl('ahi-master-*'),
+  });
+
+  onSelectDataByCustomerName(customerName: string): void {
+    const customer = String(customerName);
+    this.customerName = customer;
+    this.fectDashboardData2(
+      this.selectedTypeId,
+      this.sortDateSelected,
+      this.customerName
+    );
+  }
+
+  onAircraftTypeChanged(aircraftTypeId: number): void {
+    this.paginationData.size = 24;
+    const aircraftId = Number(aircraftTypeId);
+    this.selectedTypeId = aircraftId;
+    this.fectDashboardData2(
+      this.selectedTypeId,
+      this.sortDateSelected,
+      this.selectedCustomer
+    );
+  }
+
+  onInputSortDate(sortDate: string): void {
+    this.sortDateSelected = sortDate;
+    this.paginationData.size = 24;
+    this.fectDashboardData2(
+      this.selectedTypeId,
+      this.sortDateSelected,
+      this.selectedCustomer
+    );
+    this.initDashboardData(this.sortDateSelected, this.selectedCustomer);
   }
 
   fetchAircraftType(): void {
@@ -226,10 +239,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   //                 return tempAircraft;
   //               }),
-  //               catchError((error) => {
-
-  //                 console.error('An error occurred:', error);
-
+  //               catchError((error) => { 
   //                 return of({
   //                   aircraftGroup: el.aircraftGroup,
   //                   sapRegistration: el.sapRegistration,

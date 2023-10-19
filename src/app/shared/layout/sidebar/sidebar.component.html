@@ -9,18 +9,18 @@
         <img
           src="../../../../assets/images/AHI_Icon.png"
           alt="No Image"
-          class="w-36 mx-auto hover:scale-105 hover:shadow-lg hover:rounded-xl hover:shadow-slate-500 transition-all ease-in-out"
+          class="lg:w-36 md:w-24 sm:w-20 mx-auto hover:scale-105 hover:shadow-lg hover:rounded-xl hover:shadow-slate-500 transition-all ease-in-out"
         />
       </span>
       <div class="flex flex-row justify-center mt-2">
-        <h1 class="text-5xl font-extralight">
+        <h1 class="lg:text-5xl md:text-3xl sm:text-2xl font-extralight">
           {{ currentDate | date : "dd" }}
         </h1>
         <div class="flex-col ml-2 p-0">
-          <h1 class="text-base font-normal uppercase">
+          <h1 class="lg:text-base md:text-sm sm:text-xs font-normal uppercase">
             {{ currentDate | date : "MMMM yyyy" }}
           </h1>
-          <h1 class="text-base font-normal uppercase">
+          <h1 class="lg:text-base md:text-sm sm:text-xs font-normal uppercase">
             {{ currentDate | date : "EEEE" }}
           </h1>
         </div>
@@ -65,7 +65,7 @@
     </div>
 
     <!-- Green Yellow Red -->
-    <div class="grid grid-cols-3 mt-12 ml-2 mr-2 text-center items-center">
+    <div class="grid grid-cols-3 mt-8 ml-2 mr-2 text-center items-center">
       <div class="text-center items-center">
         <p [ngClass]="{
             'text-4xl': dashboardState.ahiSummaryScore.amountOfGreenItems.toString().length === 1,
@@ -112,9 +112,24 @@
         </div>
     </div>
 
+    <div class="ml-6 mt-6 items-center" *ngIf="userRole === 'admin'">
+      <p class="uppercase text-lg md:text-base">Select Customer</p>
+      <select
+      *ngIf="userRole === 'admin'"
+        [id]="id"
+        class="block w-44 overflow-y-auto p-2 mb-6 text-sm text-white border cursor-pointer border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        (change)="onSelectDataByCustomer($event)"
+      >
+        <option selected disabled>Choose Customer</option>
+        <option [value]="null">Select All Customer Data</option>
+        <option value="customer_ga"> GARUDA INDONESIA (GA) </option>
+        <option value="customer_citilink"> CITILINK (QG) </option>
+      </select>
+    </div>
+
     <!-- Fleet Dropdown -->
     <!-- TODO: Use FormCOntrol -->
-    <div class="ml-6 mt-10 items-center">
+    <div class="ml-6 mt-2 items-center">
       <p class="uppercase text-lg md:text-base">Fleet</p>
       <select
         [id]="id"
@@ -132,8 +147,8 @@
       </select>
     </div>
 
-    <!-- Sort Dropdown -->
-    <div class="ml-6 mt-3 items-center">
+    <!-- Sort datepicker -->
+    <div class="ml-6 mt-2 items-center">
       <p class="uppercase text-lg md:text-base">Select date</p>
       <div class="relative max-w-sm">
         <input (change)="onInputSortDate($event)" datepicker datepicker-autohide type="date" class="text-white border w-44 cursor-pointer border-gray-300 bg-gray-800 text-sm rounded-lg block p-2 " placeholder="Select date" [max]="today">
@@ -144,7 +159,7 @@
       <div>
         <button
           type="button"
-          *ngIf="userRoles.includes('admin')"
+          *ngIf="userRole === 'admin'"
           routerLink="/configuration"
           class="inline-block rounded-full px-2 py-2 text-md font-medium text-center items-center leading-normal hover:bg-gray-500 text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
         >
