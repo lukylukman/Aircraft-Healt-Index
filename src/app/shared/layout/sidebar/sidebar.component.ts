@@ -75,6 +75,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   @Output() aircraftTypeSelected = new EventEmitter<number>();
   @Output() sortDate = new EventEmitter<string>();
+  @Output() customerName = new EventEmitter<string>();
 
   selectOptions: { value: string; label: string }[] = [];
 
@@ -83,7 +84,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   dashboardState$: Observable<DashboardFeatureState>;
   localService: LocalStorageServiceInterface;
   sidebarState: ShowHideType = 'hide';
-  userRoles: string[] = [];
+  userData: string[] = [];
+  userRole: string;
   today: string;
 
   private readonly unsubscribe$ = new Subject();
@@ -108,7 +110,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.userRoles = this.kcService.getUserRoles();
+    this.userData = this.kcService.getUserRoles();
+    this.userRole = this.userData[0];
 
     const todayDate = new Date();
     this.today = todayDate.toISOString().slice(0, 10);
@@ -143,6 +146,12 @@ export class SidebarComponent implements OnInit, OnDestroy {
   onAircraftTypeChange(event: any) {
     const selectedValue = event.target.value;
     this.aircraftTypeSelected.emit(selectedValue);
+    // console.log(`Selected option value: ${selectedValue}`);
+  }
+  
+  onSelectDataByCustomer(event: any) {
+    const selectedValue = event.target.value;
+    this.customerName.emit(selectedValue);
     // console.log(`Selected option value: ${selectedValue}`);
   }
 
