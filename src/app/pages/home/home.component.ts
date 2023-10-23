@@ -156,7 +156,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .getAhiSummaryScore(undefined, customer)
       .pipe(
         catchError((error) => {
-          console.error('Error on HomeComponent => ', error);
+          console.error('Error on HomeComponent get amount => ', error);
           return EMPTY;
         }),
         tap((result) => {
@@ -178,7 +178,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .getAveragePersen(undefined, customer)
       .pipe(
         catchError((error) => {
-          console.error('Error on HomeComponent => ', error);
+          console.error('Error on HomeComponent get Percentage => ', error);
           return EMPTY;
         }),
         tap((result) => {
@@ -200,7 +200,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .getAverageHealt(undefined, customer)
       .pipe(
         catchError((error) => {
-          console.error('Error on HomeComponent => ', error);
+          console.error('Error on HomeComponent get Averagehealth => ', error);
           return EMPTY;
         }),
         tap((result) => {
@@ -222,7 +222,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .getDifference(undefined, customer)
       .pipe(
         catchError((error) => {
-          console.error('Error on HomeComponent => ', error);
+          console.error('Error on HomeComponent get difference => ', error);
           return EMPTY;
         }),
         tap((result) => {
