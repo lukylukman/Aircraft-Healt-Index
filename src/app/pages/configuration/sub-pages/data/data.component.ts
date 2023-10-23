@@ -232,27 +232,29 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
     .updateDataConfiguration(formData)
     .pipe(
       catchError((error) => {
+        this.errorMessage = '';
 
         if (error && error.error && error.error.message) {
           if (Array.isArray(error.error.message)) {
             const messages = error.error.message.map((messageItem) => {
               const sheetName = messageItem.sheetName;
               const invalidColumns = messageItem.invalidColumn.map((column) => column['column[F]']);
-              return `<text-left><strong>${sheetName}:</strong><br>${invalidColumns.join(',<br>')}</text-left>`;
+              return `<strong>${sheetName}:</strong> <br>${invalidColumns}`;
             });
-            this.errorMessage = messages.join('<br>'); 
+            this.errorMessage = messages.join('<br>');
           } else {
             this.errorMessage = error.error.message;
           }
         } else {
-          console.log("Tidak ada pesan error yang sesuai dengan yang diharapkan.");
+          this.errorMessage = 'Tidak ada pesan error yang sesuai dengan yang diharapkan.';
         }
+
         Swal.fire({
-          icon: 'warning',
+          icon: 'error',
           title: 'Oops!',
           width: 600,
           padding: '1em',
-          html: `Upload failed!,<br> <text-left>${this.errorMessage}</text-left>`,
+          html: `Upload failed!<br>${this.errorMessage}`,
           confirmButtonColor: '#225176',
           customClass: {
             htmlContainer: 'text-left' // Menambahkan kelas CSS 'text-left'

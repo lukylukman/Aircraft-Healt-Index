@@ -82,6 +82,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedCustomer: string = '';
   customerName: string = '';
   dataNotFound: boolean = false;
+  btnPaggination: boolean = true;
   userRoles: string[] = [];
   selectedTypeId: number;
   totalLoadedData: number;
@@ -158,6 +159,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onSelectDataByCustomerName(customerName: string): void {
     const customer = String(customerName);
+    this.paginationData.size = 24;
     this.customerName = customer;
     this.initDashboardData( undefined, this.customerName);
     this.fectDashboardData2(
@@ -282,8 +284,8 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
         catchError((error) => {
           if (error.status === 503 || error.status === 404) {
             this.dataNotFound = true;
-            console.error('Data for today not found...');
-            ToastNotif('info', `Data not found for this day!`);
+            console.error('Data not found...');
+            ToastNotif('info', `Data not found!`);
           }
           return of();
         }),
@@ -296,6 +298,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
           this.store.dispatch(DashboardAction.onLoadAircraftList(tempAircraft));
           ToastNotif('success', `contains a total of ${this.totalLoadedData} data`);
           this.dataNotFound = false;
+          if (this.totalLoadedData == this.paginationData.size) {
+            this.btnPaggination = true;
+          } else {
+            this.btnPaggination = false;
+          }
         }),
         takeUntil(this.unsubscribe$)
       )
@@ -307,7 +314,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       this.fectDashboardData2(
       this.selectedTypeId,
       this.sortDateSelected,
-      this.selectedCustomer
+      this.selectedCustomer === '' ? this.customerName : this.selectedCustomer
     );
   }
 
@@ -340,7 +347,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       .getDetailAicraft(aircraft.aircraftRegistration)
       .pipe(
         catchError((err) => {
-          console.error(err);
+          console.error('Error on DashboardComponent get detailAircraft => ', err);
           return EMPTY;
         }),
         tap((result) => {
@@ -372,7 +379,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       .getApu(aircraftRegistration, sortDate)
       .pipe(
         catchError((err) => {
-          console.error(err);
+          console.error('Error on DashboardComponent get APU => ', err);
           return EMPTY;
         }),
         tap((result) => {
@@ -389,14 +396,14 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // summaryScore, averageHealt, PercentageScore, Difference
-  initDashboardData(sortDate?: string, customer?: string): void {
+ async initDashboardData(sortDate?: string, customer?: string): Promise<void> {
     this.store.dispatch(DashboardAction.onClearSummaryScore());
 
     this.dashboardService
       .getAhiSummaryScore(sortDate, customer)
       .pipe(
         catchError((error) => {
-          console.error('Error on HomeComponent => ', error);
+          console.error('Error on DashboardComponent get summryScore => ', error);
           return EMPTY;
         }),
         tap((result) => {
@@ -411,14 +418,14 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // Percentage
-  initPercentageScoreData(sortDate?: string, customer?: string): void {
+  async initPercentageScoreData(sortDate?: string, customer?: string): Promise<void> {
     this.store.dispatch(DashboardAction.onClearAveragePercentage());
 
     this.dashboardService
       .getAveragePersen(sortDate, customer)
       .pipe(
         catchError((error) => {
-          console.error('Error on HomeComponent => ', error);
+          console.error('Error on DasboardComponent get averagepercent => ', error);
           return EMPTY;
         }),
         tap((result) => {
@@ -433,14 +440,14 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // Average Healt
-  initAveragehealth(sortDate?: string, customer?: string): void {
+  async initAveragehealth(sortDate?: string, customer?: string): Promise<void> {
     this.store.dispatch(DashboardAction.onClearAverageHealth());
 
     this.dashboardService
       .getAverageHealt(sortDate, customer)
       .pipe(
         catchError((error) => {
-          console.error('Error on HomeComponent => ', error);
+          console.error('Error on DasboardComponent get averageHealth => ', error);
           return EMPTY;
         }),
         tap((result) => {
@@ -455,14 +462,14 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // Difference value
-  initDifference(sortDate?: string, customer?: string): void {
+  async initDifference(sortDate?: string, customer?: string): Promise<void> {
     this.store.dispatch(DashboardAction.ocClearDifference());
 
     this.dashboardService
       .getDifference(sortDate, customer)
       .pipe(
         catchError((error) => {
-          console.error('Error on HomeComponent => ', error);
+          console.error('Error on DasboardComponent get Difference => ', error);
           return EMPTY;
         }),
         tap((result) => {
