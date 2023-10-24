@@ -238,8 +238,13 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
           if (Array.isArray(error.error.message)) {
             const messages = error.error.message.map((messageItem) => {
               const sheetName = messageItem.sheetName;
-              const invalidColumns = messageItem.invalidColumn.map((column) => column['column[F]']);
-              return `<strong>${sheetName}:</strong> <br>${invalidColumns}`;
+              const invalidColumns = messageItem.invalidColumn.map((column) => {
+                const columnMessages = Object.keys(column).map((colKey) => {
+                  return `<strong>${colKey}:</strong> ${column[colKey]}`;
+                });
+                return `<p>${columnMessages.join('<br>')}</p>`;
+              });
+              return `Sheet Name <strong>${sheetName}:</strong> <br>${invalidColumns.join('<br>')}`;
             });
             this.errorMessage = messages.join('<br>');
           } else {
@@ -252,12 +257,24 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
         Swal.fire({
           icon: 'error',
           title: 'Oops!',
-          width: 600,
+          width: "auto",
           padding: '1em',
-          html: `Upload failed!<br>${this.errorMessage}`,
+          html: `
+                <table id="detail" class="table rounded-lg">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th>Error</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="bg-gray-50">${this.errorMessage}</td>
+                        </tr>
+                    </tbody>
+                </table>`,
           confirmButtonColor: '#225176',
           customClass: {
-            htmlContainer: 'text-left' // Menambahkan kelas CSS 'text-left'
+            htmlContainer: 'text-center' // Menambahkan kelas CSS 'text-left'
           }
         });
         this.isUploading = false;

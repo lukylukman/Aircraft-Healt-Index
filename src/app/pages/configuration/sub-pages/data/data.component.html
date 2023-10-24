@@ -1,6 +1,6 @@
 <div [@fadeInOut] class="">
   <nav
-    class="bg-transparent border-b border-ahi-blue-600 ml-8 dark:bg-gray-900"
+    class="bg-transparent border-b border-ahi-blue-600 ml-10 dark:bg-gray-900"
   >
     <div
       class="max-w-screen-xl flex h-20 flex-wrap items-center justify-start pl-2 pt-6"
@@ -59,7 +59,7 @@
   </nav>
   <!-- header -->
   <!-- customerName -->
-  <div class="flex justify-start mt-6 ml-8 gap-4">
+  <div class="flex justify-start mt-6 ml-10 gap-4">
     <div
       class="bg-ahi-blue-900 w-40 cursor-pointer h-28 shadow-md hover:scale-105 rounded-lg ease-in-out transition-all duration-200"
       #pilihan1
@@ -98,7 +98,7 @@
   >
     <form (ngSubmit)="uploadFile(fileInput.files[0], dataTypeSelect.value)">
       <!-- Loading progress -->
-      <div class="ml-8">
+      <div class="ml-10">
         <div class="flex justify-start items-center mt-2 mb-1">
           <span
             *ngIf="isUploading"
@@ -107,7 +107,7 @@
           </span>
           <span
             *ngIf="isUploading"
-            class="text-sm ml-8 font-medium text-ahi-blue-1000 dark:text-white"
+            class="text-sm ml-10 font-medium text-ahi-blue-1000 dark:text-white"
             >{{ uploadProgress }}%</span
           >
         </div>
@@ -123,7 +123,7 @@
       </div>
 
       <!-- Update data -->
-      <div class="mt-6 ml-8 flex flex-row items-center text-center">
+      <div class="mt-6 ml-10 flex flex-row items-center text-center">
         <h4 class="text-white text-left w-40">Update data</h4>
         <input
           #fileInput
@@ -135,7 +135,7 @@
       </div>
 
       <!-- Select data type -->
-      <div class="mt-6 ml-8 items-center text-center flex flex-row">
+      <div class="mt-6 ml-10 items-center text-center flex flex-row">
         <h4 class="text-white text-left w-40">Select data type</h4>
         <select
           #dataTypeSelect
@@ -154,7 +154,7 @@
       <!-- Upload button -->
       <button
         type="submit"
-        class="bg-ahi-green-500 mt-6 ml-8 inline-flex items-center text-white py-2 px-4 rounded hover:bg-ahi-green-600 focus:outline-none focus:bg-ahi-green-600"
+        class="bg-ahi-green-500 mt-6 ml-10 inline-flex items-center text-white py-2 px-4 rounded hover:bg-ahi-green-600 focus:outline-none focus:bg-ahi-green-600"
       >
         Upload<svg
           xmlns="http://www.w3.org/2000/svg"
@@ -179,7 +179,7 @@
     [@fadeInOut]
     class="bg-gradient-to-r h-full from-ahi-blue-800 to-ahi-blue-600"
   >
-    <div *ngIf="dashboardState$ | async as dashboardState" class="ml-4">
+    <div *ngIf="dashboardState$ | async as dashboardState" class="ml-6">
       <div class="ml-2 mt-6">
         <div class="mt-6 ml-2 flex flex-row text-center">
           <div>
