@@ -187,7 +187,7 @@
             routerLink="/dashboard"
             type="button"
             [ngClass]="{'ml-16': userRoles.includes('customer_ga') || userRoles.includes('customer_citilink'),
-          'ml-0': !userRoles.includes('customer_ga') && !userRoles.includes('customer_citilink')}"
+          'ml-2': !userRoles.includes('customer_ga') && !userRoles.includes('customer_citilink')}"
             class="px-10 py-2 text-center inline-flex items-center rounded-full border-2 hover:bg-gray-600 border-gray-50 text-md font-medium leading-normal text-neutral-50 transition duration-150 ease-in-out dark:hover:bg-opacity-10"
             data-te-ripple-init
           >
