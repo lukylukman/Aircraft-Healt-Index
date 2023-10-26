@@ -87,6 +87,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   userData: string[] = [];
   userRole: string;
   today: string;
+  totalData : number;
 
   private readonly unsubscribe$ = new Subject();
 
@@ -115,8 +116,15 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
     const todayDate = new Date();
     this.today = todayDate.toISOString().slice(0, 10);
-  
 
+    this.dashboardState$.subscribe((data: DashboardFeatureState) => {
+      const greenItems = data.ahiSummaryScore.amountOfGreenItems;
+      const yellowItems = data.ahiSummaryScore.amountOfYellowItems;
+      const redItems = data.ahiSummaryScore.amountOfRedItems;
+      const totalItems = greenItems + yellowItems + redItems;
+      this.totalData = totalItems;
+    });
+  
     // TODO: Please use an actual service
     const _tempObject: PersonalInformation =
       this.soeService.getPersonalInformationFromCache();
