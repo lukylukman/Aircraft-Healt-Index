@@ -69,8 +69,12 @@
 
     <!-- Green Yellow Red -->
     <div class="mt-8 mx-auto text-center items-center">
-      <span class="uppercase inline-flex px-8 text-white py-1 border-b border-gray-400 font-normal text-sm text-center">
+      <span *ngIf="sortDateSelected === null" class="uppercase inline-flex px-8 text-white py-1 border-b border-gray-400 font-normal text-sm text-center">
         total data today <span class="font-semibold text-gray-200 ml-1">{{ totalData }}</span> 
+      </span>
+      <span *ngIf="sortDateSelected !== null" class="uppercase flex flex-col px-8 text-white py-1 border-b border-gray-400 font-normal text-sm text-center">
+        <span>Total Data {{ totalData }} on </span>
+        <span class="font-semibold text-gray-200 ml-1">{{ sortDateSelected }}</span>
       </span>
       <div class="grid grid-cols-3 mt-2">
         <div class="text-center items-center">

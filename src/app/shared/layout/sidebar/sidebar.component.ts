@@ -88,6 +88,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   userRole: string;
   today: string;
   totalData : number;
+  sortDateSelected : string;
 
   private readonly unsubscribe$ = new Subject();
 
@@ -172,6 +173,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
       
       const formattedDate = `${year}-${month}-${day}`;
       this.sortDate.emit(formattedDate);
+      this.sortDateSelected = formattedDate;
       // console.log(`Selected date: ${formattedDate}`);
     } else {
       console.log("Invalid date input");
