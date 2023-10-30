@@ -161,7 +161,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     const customer = String(customerName);
     this.paginationData.size = 24;
     this.customerName = customer;
-    this.initDashboardData( undefined, this.customerName);
+    this.initDashboardData( this.sortDateSelected, this.customerName);
     this.fectDashboardData2(
       this.selectedTypeId,
       this.sortDateSelected,
