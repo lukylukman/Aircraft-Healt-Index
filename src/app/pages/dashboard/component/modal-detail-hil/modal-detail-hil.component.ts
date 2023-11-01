@@ -5,7 +5,14 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  OnInit,
+  Output,
+  OnDestroy,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { LoggerService } from 'src/app/core/services/logger.service';
@@ -43,8 +50,8 @@ import { DashboardState } from '../../states/dashboard.selector';
     ]),
   ],
 })
-export class ModalDetailHilComponent implements OnInit {
-  private readonly unsubscribe$ = new Subject();
+export class ModalDetailHilComponent implements OnInit, OnDestroy {
+  private readonly _onDestroy$: Subject<void> = new Subject<void>();
 
   dashboardState$: Observable<DashboardFeatureState>;
   logger: LoggerService;
@@ -87,5 +94,10 @@ export class ModalDetailHilComponent implements OnInit {
 
   resetModal() {
     this.activeTab = 1;
+  }
+
+  ngOnDestroy(): void {
+    this._onDestroy$.next();
+    this._onDestroy$.complete();
   }
 }

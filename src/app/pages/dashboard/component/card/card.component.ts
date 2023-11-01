@@ -1,12 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { AircraftDTO, AircraftDTO2 } from '../../dto/aircraft.dto';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-card-dashboard',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css'],
 })
-export class CardDashboardComponent implements OnInit {
+export class CardDashboardComponent implements OnInit, OnDestroy {
+  private readonly _onDestroy$: Subject<void> = new Subject<void>();
   @Input() aircraft: AircraftDTO2;
 
   themeColor: string = 'gray';
@@ -30,16 +32,10 @@ export class CardDashboardComponent implements OnInit {
   }
 
   onSetCardColor(): void {
-    if (
-      this.aircraft?.totalScore <= 100 &&
-      this.aircraft?.totalScore >= 94
-    ) {
+    if (this.aircraft?.totalScore <= 100 && this.aircraft?.totalScore >= 94) {
       this.themeColor = 'green';
     }
-    if (
-      this.aircraft?.totalScore <= 93 &&
-      this.aircraft?.totalScore >= 75
-    ) {
+    if (this.aircraft?.totalScore <= 93 && this.aircraft?.totalScore >= 75) {
       this.themeColor = 'yellow';
     }
     if (this.aircraft?.totalScore <= 74) {
@@ -48,5 +44,10 @@ export class CardDashboardComponent implements OnInit {
     if (this.aircraft?.totalScore === null) {
       this.themeColor = 'gray';
     }
+  }
+
+  ngOnDestroy(): void {
+    this._onDestroy$.next();
+    this._onDestroy$.complete();
   }
 }

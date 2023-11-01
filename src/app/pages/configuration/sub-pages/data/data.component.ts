@@ -8,16 +8,26 @@ import {
 import { Component, OnDestroy, OnInit, AfterContentInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { EMPTY, Observable, Subject, catchError, map, mergeMap, of, take, takeUntil, tap } from 'rxjs';
+import {
+  EMPTY,
+  Observable,
+  Subject,
+  catchError,
+  map,
+  mergeMap,
+  of,
+  take,
+  takeUntil,
+  tap,
+} from 'rxjs';
 import { RouteHelperService } from 'src/app/core/services/route-helper.service';
 import { DashboardFeatureState } from 'src/app/pages/dashboard/states/dashboard.feature';
 import { DashboardState } from 'src/app/pages/dashboard/states/dashboard.selector';
-import * as DashboardAction from '../../../dashboard/states/dashboard.action'
+import * as DashboardAction from '../../../dashboard/states/dashboard.action';
 import Swal from 'sweetalert2';
 import { ToastNotif } from '../../../../core/decorators/toast.success';
 import { Modal } from 'flowbite';
 import { ConfigurationService } from '../../configuration.service';
-
 
 @Component({
   selector: 'app-data',
@@ -67,8 +77,7 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
   errorMessage: string = '';
   listCustomerName: [] = [];
 
-  _onDestroy$: Subject<Boolean> = new Subject<Boolean>();
-  private readonly unsubscribe$ = new Subject();
+  private readonly _onDestroy$: Subject<void> = new Subject<void>();
 
   dashboardState$: Observable<DashboardFeatureState>;
 
@@ -81,13 +90,10 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
     this.dashboardState$ = this.store.select(DashboardState);
   }
   ngAfterContentInit(): void {
-    this.addNewCustomer = new Modal(document.getElementById('addCustomerModal'), {});
-  }
-
-  ngOnDestroy(): void {
-    this._onDestroy$.next(true);
-    this._onDestroy$.unsubscribe();
-    this.store.dispatch(DashboardAction.onClearConfigData());
+    this.addNewCustomer = new Modal(
+      document.getElementById('addCustomerModal'),
+      {}
+    );
   }
 
   ngOnInit(): void {
@@ -111,12 +117,13 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
           return EMPTY; // Mengembalikan Observable yang menghasilkan nilai null dalam kasus error.
         }),
         tap((result) => {
-          if (result !== null) { // Pastikan tidak ada error sebelum melanjutkan
+          if (result !== null) {
+            // Pastikan tidak ada error sebelum melanjutkan
             this.listCustomerName = result.data;
             console.log('list CustomerName =>', this.listCustomerName);
           }
         }),
-        takeUntil(this.unsubscribe$)
+        takeUntil(this._onDestroy$)
       )
       .subscribe();
   }
@@ -130,7 +137,7 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
 
   selectCustomer(customerName: string) {
     this.selectedOption = customerName;
-    
+
     switch (customerName) {
       case 'pilihan1':
         this.customerName = 'GA';
@@ -154,14 +161,16 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
           console.error(err);
           return EMPTY;
         }),
-        mergeMap(value => value.data),
-        tap(value => this.store.dispatch(DashboardAction.OnLoadConfigData(value))),  
-        takeUntil(this.unsubscribe$)
+        mergeMap((value) => value.data),
+        tap((value) =>
+          this.store.dispatch(DashboardAction.OnLoadConfigData(value))
+        ),
+        takeUntil(this._onDestroy$)
       )
       .subscribe();
-      ToastNotif('success', 'Loaded config value')
+    ToastNotif('success', 'Loaded config value');
   }
-  
+
   regetConfigData(): void {
     this.store.dispatch(DashboardAction.onClearConfigData());
 
@@ -172,9 +181,11 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
           console.error(err);
           return EMPTY;
         }),
-        mergeMap(value => value.data),
-        tap(value => this.store.dispatch(DashboardAction.OnLoadConfigData(value))),  
-        takeUntil(this.unsubscribe$)
+        mergeMap((value) => value.data),
+        tap((value) =>
+          this.store.dispatch(DashboardAction.OnLoadConfigData(value))
+        ),
+        takeUntil(this._onDestroy$)
       )
       .subscribe();
   }
@@ -193,7 +204,11 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
           upload_file: this.selectedFile.name,
         });
       } else {
-        Swal.fire('Oops!', 'Please select a valid Excel file (.xls or .xlsx)!', 'warning');
+        Swal.fire(
+          'Oops!',
+          'Please select a valid Excel file (.xls or .xlsx)!',
+          'warning'
+        );
         event.target.value = '';
       }
     }
@@ -204,7 +219,7 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
       icon: 'warning',
       title: 'Oops!',
       text: message,
-      confirmButtonColor: '#225176'
+      confirmButtonColor: '#225176',
     });
   }
 
@@ -229,37 +244,42 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
     this.isUploading = true;
 
     this.configurationService
-    .updateDataConfiguration(formData)
-    .pipe(
-      catchError((error) => {
-        this.errorMessage = '';
+      .updateDataConfiguration(formData)
+      .pipe(
+        catchError((error) => {
+          this.errorMessage = '';
 
-        if (error && error.error && error.error.message) {
-          if (Array.isArray(error.error.message)) {
-            const messages = error.error.message.map((messageItem) => {
-              const sheetName = messageItem.sheetName;
-              const invalidColumns = messageItem.invalidColumn.map((column) => {
-                const columnMessages = Object.keys(column).map((colKey) => {
-                  return `<strong>${colKey}:</strong> ${column[colKey]}`;
-                });
-                return `<p>${columnMessages.join('<br>')}</p>`;
+          if (error && error.error && error.error.message) {
+            if (Array.isArray(error.error.message)) {
+              const messages = error.error.message.map((messageItem) => {
+                const sheetName = messageItem.sheetName;
+                const invalidColumns = messageItem.invalidColumn.map(
+                  (column) => {
+                    const columnMessages = Object.keys(column).map((colKey) => {
+                      return `<strong>${colKey}:</strong> ${column[colKey]}`;
+                    });
+                    return `<p>${columnMessages.join('<br>')}</p>`;
+                  }
+                );
+                return `Sheet Name <strong>${sheetName}:</strong> <br>${invalidColumns.join(
+                  '<br>'
+                )}`;
               });
-              return `Sheet Name <strong>${sheetName}:</strong> <br>${invalidColumns.join('<br>')}`;
-            });
-            this.errorMessage = messages.join('<br>');
+              this.errorMessage = messages.join('<br>');
+            } else {
+              this.errorMessage = error.error.message;
+            }
           } else {
-            this.errorMessage = error.error.message;
+            this.errorMessage =
+              'Tidak ada pesan error yang sesuai dengan yang diharapkan.';
           }
-        } else {
-          this.errorMessage = 'Tidak ada pesan error yang sesuai dengan yang diharapkan.';
-        }
 
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops!',
-          width: "auto",
-          padding: '1em',
-          html: `
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops!',
+            width: 'auto',
+            padding: '1em',
+            html: `
                 <table id="detail" class="table rounded-lg">
                     <thead class="bg-gray-100">
                         <tr>
@@ -272,30 +292,30 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
                         </tr>
                     </tbody>
                 </table>`,
-          confirmButtonColor: '#225176',
-          customClass: {
-            htmlContainer: 'text-center' // Menambahkan kelas CSS 'text-left'
-          }
-        });
-        this.isUploading = false;
-        throw error; 
-      })
-    )
-    .subscribe(
-      (progress: number) => {
-        this.uploadProgress = progress;
-      },
-      () => {},
-      () => {
-        this.isUploading = false;
-        this.uploadProgress = 0;
+            confirmButtonColor: '#225176',
+            customClass: {
+              htmlContainer: 'text-center', // Menambahkan kelas CSS 'text-left'
+            },
+          });
+          this.isUploading = false;
+          throw error;
+        })
+      )
+      .subscribe(
+        (progress: number) => {
+          this.uploadProgress = progress;
+        },
+        () => {},
+        () => {
+          this.isUploading = false;
+          this.uploadProgress = 0;
 
-        Swal.fire('Yeaay!', 'Upload success!', 'success');
-      }
-    );
+          Swal.fire('Yeaay!', 'Upload success!', 'success');
+        }
+      );
   }
 
-  // restore config value data 
+  // restore config value data
   restoreConfigValue(): void {
     if (!this.customerName) {
       this.showErrorMessage('Please select a customer!');
@@ -316,7 +336,7 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
             this.regetConfigData();
           }
         }),
-        takeUntil(this.unsubscribe$)
+        takeUntil(this._onDestroy$)
       )
       .subscribe();
   }
@@ -338,7 +358,7 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
             this.regetConfigData();
           }
         }),
-        takeUntil(this.unsubscribe$)
+        takeUntil(this._onDestroy$)
       )
       .subscribe();
   }
@@ -357,9 +377,14 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
             ToastNotif('success', 'Success Added New Customer');
           }
         }),
-        takeUntil(this.unsubscribe$)
+        takeUntil(this._onDestroy$)
       )
       .subscribe();
   }
 
+  ngOnDestroy(): void {
+    this._onDestroy$.next;
+    this._onDestroy$.complete;
+    this.store.dispatch(DashboardAction.onClearConfigData());
+  }
 }

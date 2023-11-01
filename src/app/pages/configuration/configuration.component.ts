@@ -5,12 +5,12 @@ import {
   animate,
   state,
 } from '@angular/animations';
-import { Component, OnInit, AfterContentInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { Confirmable } from 'src/app/core/decorators/confirmable.decorator';
 import { Modal } from 'flowbite';
-import { NgOptimizedImage } from '@angular/common'
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-configuration',
@@ -42,7 +42,10 @@ import { NgOptimizedImage } from '@angular/common'
     ]),
   ],
 })
-export class ConfigurationComponent implements OnInit, AfterContentInit {
+export class ConfigurationComponent
+  implements OnInit, AfterContentInit, OnDestroy
+{
+  private readonly _onDestroy$: Subject<void> = new Subject<void>();
 
   addNewCustomer: Modal;
 
@@ -51,7 +54,10 @@ export class ConfigurationComponent implements OnInit, AfterContentInit {
     private router: Router
   ) {}
   ngAfterContentInit(): void {
-    this.addNewCustomer = new Modal(document.getElementById('addCustomerModal'), {});
+    this.addNewCustomer = new Modal(
+      document.getElementById('addCustomerModal'),
+      {}
+    );
   }
   userRoles: string[] = [];
 
@@ -62,7 +68,6 @@ export class ConfigurationComponent implements OnInit, AfterContentInit {
       this.router.navigate(['/home']);
     }
   }
-
 
   openModalAddNewCustomer(): void {
     this.addNewCustomer.show();
@@ -83,5 +88,10 @@ export class ConfigurationComponent implements OnInit, AfterContentInit {
 
   clearStorage(): void {
     localStorage.clear();
+  }
+
+  ngOnDestroy(): void {
+    this._onDestroy$.next();
+    this._onDestroy$.complete();
   }
 }
