@@ -28,8 +28,11 @@
     </div>
     
     <div class="text-right flex flex-col mt-6 mx-auto">
-      <span class="uppercase px-2 text-white mb-2 border-b py-1 border-gray-400 font-normal text-sm text-center">
-        an average of 30 days
+      <span *ngIf="!sortDateSelected" class="uppercase px-2 text-white mb-2 border-b py-1 border-gray-400 font-normal text-sm text-center">
+        AN AVERAGE OF TODAY
+      </span>
+      <span *ngIf="sortDateSelected" class="uppercase px-2 text-white mb-2 border-b py-1 border-gray-400 font-normal text-sm text-center">
+        AN AVERAGE ON {{ sortDateSelected }}
       </span>
       <h4 class="uppercase text-white font-light text-base">Average Health</h4>
       <div class="flex flex-row items-end justify-end">

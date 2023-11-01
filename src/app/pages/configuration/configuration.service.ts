@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { LoggerService } from '../../core/services/logger.service';
-import { HttpClient, HttpEvent, HttpEventType, HttpHeaders, HttpRequest } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpEvent,
+  HttpEventType,
+  HttpHeaders,
+  HttpRequest,
+} from '@angular/common/http';
 import { UserSoeService } from 'src/app/core/services/user.soe.service';
 import { HttpService } from 'src/app/providers/http/http.service';
 import { Observable, map } from 'rxjs';
@@ -10,12 +16,12 @@ import { SetConfigDTO } from '../dashboard/dto/setConfig.dto';
 import { PostUploadConfigDTO } from '../dashboard/dto/postUploadConfig.dto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ConfigurationService extends HttpService {
   logger: LoggerService;
 
-constructor(
+  constructor(
     httpClient: HttpClient,
     private readonly userSoeService: UserSoeService
   ) {
@@ -30,17 +36,15 @@ constructor(
     );
   }
 
-  // get Config Value Data 
-  getConfigData(
-    customerName: string
-  ): Observable<HttpResult<SetConfigDTO[]>> {
+  // get Config Value Data
+  getConfigData(customerName: string): Observable<HttpResult<SetConfigDTO[]>> {
     return this.http.get<HttpResult<SetConfigDTO[]>>(
       `${environment.host.ahi.url}/ahi-config/${customerName}`
     );
   }
 
   //  restore Config Value
-   restoreConfigValue(customerName: string): Observable<HttpResult<any>> {
+  restoreConfigValue(customerName: string): Observable<HttpResult<any>> {
     const url = `${environment.host.ahi.url}/ahi-config/restore`;
     const params = { customerName };
 
@@ -48,7 +52,10 @@ constructor(
   }
 
   // Update Config Weight
-  updateConfigWeight(uniqueId: string, configValue: number): Observable<HttpResponseDTO<any>> {
+  updateConfigWeight(
+    uniqueId: string,
+    configValue: number
+  ): Observable<HttpResponseDTO<any>> {
     return this.http.patch<HttpResponseDTO<any>>(
       `${environment.host.ahi.url}/ahi-config?uniqueId=${uniqueId}&configValue=${configValue}`,
       {}
@@ -56,12 +63,16 @@ constructor(
   }
 
   // Add New customer
-  createNewCustomer(customerName: string): Observable<HttpResponseDTO<any>> {
+  createNewCustomer(customerName: string): Observable<HttpResponseDTO<string>> {
     const url = `${environment.host.ahi.url}/ahi-config`;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this.http.post<HttpResponseDTO<any>>(url, { customerName }, { headers });
+    return this.http.post<HttpResponseDTO<any>>(
+      url,
+      { customerName },
+      { headers }
+    );
   }
 
   updateDataConfiguration(formData: FormData): Observable<number> {
@@ -86,5 +97,4 @@ constructor(
       })
     );
   }
-  
 }

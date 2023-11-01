@@ -7,7 +7,6 @@ import { AircraftDTO, AircraftDTO2 } from '../dto/aircraft.dto';
 import { AverageHealt } from '../dto/average-healt.dto';
 import { APURecordDTO } from '../dto/showMoreHil.dto';
 import { DashboardActionType } from './dashboard.action.type';
-import { ElasticRecordResponse } from '../dashboard.service';
 import { SetConfigDTO } from '../dto/setConfig.dto';
 
 export const onDashboardLoaded = createAction(
@@ -108,12 +107,14 @@ export const onLoadApu = createAction(
 
 // Setting Config
 
-export const onClearConfigData = createAction(DashboardActionType.ON_CONFIG_DATA_CLEAR);
+export const onClearConfigData = createAction(
+  DashboardActionType.ON_CONFIG_DATA_CLEAR
+);
 
 export const OnLoadConfigData = createAction(
   DashboardActionType.ON_CONFIG_DATA_LOAD,
   props<SetConfigDTO>()
-  );
+);
 
 // Clear all state
 export const resetDashboardState = createAction('[Dashboard] Reset State');
