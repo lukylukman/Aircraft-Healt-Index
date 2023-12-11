@@ -60,10 +60,25 @@
         <span
           class="inline-block text-left px-7 pb-2.5 pt-3 text-white bg-ahi-blue-600"
         >
+          <p class="text-base font-bold" *ngIf="userRole === 'admin'">
+            Role: Admin
+          </p>
+          <p class="text-base font-bold" *ngIf="userRole === 'user'">
+            Role: User
+          </p>
+          <p
+            class="text-base font-bold"
+            *ngIf="userRole === 'customer_citilink'"
+          >
+            Role: Customer Citilink
+          </p>
+          <p class="text-base font-bold" *ngIf="userRole === 'customer_garuda'">
+            Role: Customer Garuda
+          </p>
           <p class="text-base font-bold">
             {{ personalInformation.personalName }}
           </p>
-          <p class="text-sm">{{ personalInformation.personalTitle }}</p>
+          <p class="text-sm">{{ personalInformation.personalUnit }}</p>
         </span>
       </div>
       <!-- End User Name -->
@@ -170,9 +185,15 @@
             ></hero-icon>
           </button>
           <button
-            [ngClass]="{'ml-6': userRoles.includes('customer_ga') || userRoles.includes('customer_citilink'),
-          'ml-0': !userRoles.includes('customer_ga') && !userRoles.includes('customer_citilink')}"
-            class="inline-block  rounded-full p-2 text-md font-medium leading-normal hover:bg-gray-600 text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+            [ngClass]="{
+              'ml-6':
+                userRoles.includes('customer_ga') ||
+                userRoles.includes('customer_citilink'),
+              'ml-0':
+                !userRoles.includes('customer_ga') &&
+                !userRoles.includes('customer_citilink')
+            }"
+            class="inline-block rounded-full p-2 text-md font-medium leading-normal hover:bg-gray-600 text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
             (click)="doLogout()"
           >
             <hero-icon
@@ -186,8 +207,14 @@
           <button
             routerLink="/dashboard"
             type="button"
-            [ngClass]="{'ml-16': userRoles.includes('customer_ga') || userRoles.includes('customer_citilink'),
-          'ml-2': !userRoles.includes('customer_ga') && !userRoles.includes('customer_citilink')}"
+            [ngClass]="{
+              'ml-16':
+                userRoles.includes('customer_ga') ||
+                userRoles.includes('customer_citilink'),
+              'ml-2':
+                !userRoles.includes('customer_ga') &&
+                !userRoles.includes('customer_citilink')
+            }"
             class="px-10 py-2 text-center inline-flex items-center rounded-full border-2 hover:bg-gray-600 border-gray-50 text-md font-medium leading-normal text-neutral-50 transition duration-150 ease-in-out dark:hover:bg-opacity-10"
             data-te-ripple-init
           >

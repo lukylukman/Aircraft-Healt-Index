@@ -63,6 +63,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   personalInformation: PersonalInformation;
 
   userRoles: string[] = [];
+  userRole: string;
   customerRole: string = '';
 
   quotes: string[] = [
@@ -92,11 +93,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userRoles = this.keycloakService.getUserRoles();
-      if (this.userRoles[0] === "customer_ga" || this.userRoles[0] === "customer_citilink") {
-        this.customerRole = this.userRoles[0];
-      } else {
-        this.customerRole = '';
-      }
+    this.userRole = this.userRoles[0];
+
+    if (
+      this.userRoles[0] === 'customer_ga' ||
+      this.userRoles[0] === 'customer_citilink'
+    ) {
+      this.customerRole = this.userRoles[0];
+    } else {
+      this.customerRole = '';
+    }
 
     setInterval(() => {
       this.currentIndex = (this.currentIndex + 1) % this.quotes.length;
