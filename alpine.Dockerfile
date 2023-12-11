@@ -1,5 +1,5 @@
 # FROM alpine
-FROM node:16.16.0-alpine as node
+FROM node:18.18.0-alpine as node
 WORKDIR /app
 COPY . .
 # Install Angular CLI globally
