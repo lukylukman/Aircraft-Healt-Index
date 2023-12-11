@@ -37,20 +37,14 @@ function initializeKeycloak(keycloak: KeycloakService) {
           realm: environment.realm,
           clientId: environment.keycloakClientId,
         },
-        loadUserProfileAtStartUp: true,
         enableBearerInterceptor: true,
+        loadUserProfileAtStartUp: true,
         bearerPrefix: 'Bearer',
-        bearerExcludedUrls: ['assets/', 'home/home/borrowing-list'],
+        bearerExcludedUrls: ['assets/'],
         initOptions: {
-          // onLoad: 'login-required',
-          // checkLoginIframe: false,
-          onLoad: 'check-sso',
-          silentCheckSsoRedirectUri:
-            window.location.origin + '/assets/silent-check-sso.html',
+          onLoad: 'login-required',
+          checkLoginIframe: false,
         },
-        // shouldUpdateToken: (request) => {
-        //   return !request.headers.get('token-update') === false;
-        // },
       })
       .then(async (authenticated) => {
         // console.log('Authtenticated => ', authenticated);

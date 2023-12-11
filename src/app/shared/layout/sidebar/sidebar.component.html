@@ -26,12 +26,18 @@
         </div>
       </div>
     </div>
-    
+
     <div class="text-right flex flex-col mt-6 mx-auto">
-      <span *ngIf="!sortDateSelected" class="uppercase px-2 text-white mb-2 border-b py-1 border-gray-400 font-normal text-sm text-center">
+      <span
+        *ngIf="!sortDateSelected"
+        class="uppercase px-2 text-white mb-2 border-b py-1 border-gray-400 font-normal text-sm text-center"
+      >
         AN AVERAGE OF TODAY
       </span>
-      <span *ngIf="sortDateSelected" class="uppercase px-2 text-white mb-2 border-b py-1 border-gray-400 font-normal text-sm text-center">
+      <span
+        *ngIf="sortDateSelected"
+        class="uppercase px-2 text-white mb-2 border-b py-1 border-gray-400 font-normal text-sm text-center"
+      >
         AN AVERAGE ON {{ sortDateSelected }}
       </span>
       <h4 class="uppercase text-white font-light text-base">Average Health</h4>
@@ -58,10 +64,11 @@
           {{ dashboardState.ahiSummaryScore?.health }}.
         </h1>
         <h4 class="text-xl font-extralight">
-          {{ dashboardState.ahiSummaryScore?.decimal | number:'2.0-0' }}
+          {{ dashboardState.ahiSummaryScore?.decimal | number : "2.0-0" }}
         </h4>
       </div>
       <h4 class="uppercase text-white font-light text-base">PERCENT Changes</h4>
+      <p class="text-xs font-light uppercase">1 day ago</p>
       <div class="flex flex-row justify-end">
         <!-- Menggunakan flex dan justify-end -->
         <h1 class="text-white font-extralight text-3xl">
@@ -72,73 +79,109 @@
 
     <!-- Green Yellow Red -->
     <div class="mt-8 mx-auto text-center items-center">
-      <span *ngIf="!sortDateSelected" class="uppercase inline-flex px-8 text-white py-1 border-b border-gray-400 font-normal text-sm text-center">
-        total data today <span class="font-semibold text-gray-200 ml-1">{{ totalData }}</span> 
+      <span
+        *ngIf="!sortDateSelected"
+        class="uppercase inline-flex px-8 text-white py-1 border-b border-gray-400 font-normal text-sm text-center"
+      >
+        total data today
+        <span class="font-semibold text-gray-200 ml-1">{{ totalData }}</span>
       </span>
-      <span *ngIf="sortDateSelected" class="uppercase flex flex-col px-8 text-white py-1 border-b border-gray-400 font-normal text-sm text-center">
+      <span
+        *ngIf="sortDateSelected"
+        class="uppercase flex flex-col px-8 text-white py-1 border-b border-gray-400 font-normal text-sm text-center"
+      >
         <span>Total Data {{ totalData }} on </span>
-        <span class="font-semibold text-gray-200 ml-1">{{ sortDateSelected }}</span>
+        <span class="font-semibold text-gray-200 ml-1">{{
+          sortDateSelected
+        }}</span>
       </span>
       <div class="grid grid-cols-3 mt-2">
         <div class="text-center items-center">
-          <p [ngClass]="{
-              'text-4xl': dashboardState.ahiSummaryScore.amountOfGreenItems.toString().length === 1,
-              'text-3xl': dashboardState.ahiSummaryScore.amountOfGreenItems.toString().length === 2,
-              'text-xl': dashboardState.ahiSummaryScore.amountOfGreenItems.toString().length === 3
-            }" class="font-extralight mb-2">
-              {{ dashboardState.ahiSummaryScore.amountOfGreenItems }}
+          <p
+            [ngClass]="{
+              'text-4xl':
+                dashboardState.ahiSummaryScore.amountOfGreenItems.toString()
+                  .length === 1,
+              'text-3xl':
+                dashboardState.ahiSummaryScore.amountOfGreenItems.toString()
+                  .length === 2,
+              'text-xl':
+                dashboardState.ahiSummaryScore.amountOfGreenItems.toString()
+                  .length === 3
+            }"
+            class="font-extralight mb-2"
+          >
+            {{ dashboardState.ahiSummaryScore.amountOfGreenItems }}
           </p>
-          
         </div>
         <div class="text-center items-center">
-          <p [ngClass]="{
-              'text-4xl': dashboardState.ahiSummaryScore.amountOfYellowItems.toString().length === 1,
-              'text-3xl': dashboardState.ahiSummaryScore.amountOfYellowItems.toString().length === 2,
-              'text-xl': dashboardState.ahiSummaryScore.amountOfYellowItems.toString().length === 3
-            }" class="font-extralight mb-2">
+          <p
+            [ngClass]="{
+              'text-4xl':
+                dashboardState.ahiSummaryScore.amountOfYellowItems.toString()
+                  .length === 1,
+              'text-3xl':
+                dashboardState.ahiSummaryScore.amountOfYellowItems.toString()
+                  .length === 2,
+              'text-xl':
+                dashboardState.ahiSummaryScore.amountOfYellowItems.toString()
+                  .length === 3
+            }"
+            class="font-extralight mb-2"
+          >
             {{ dashboardState.ahiSummaryScore.amountOfYellowItems }}
           </p>
-          
         </div>
         <div class="text-center items-center">
-          <p [ngClass]="{
-              'text-4xl': dashboardState.ahiSummaryScore.amountOfRedItems.toString().length === 1,
-              'text-3xl': dashboardState.ahiSummaryScore.amountOfRedItems.toString().length === 2,
-              'text-xl': dashboardState.ahiSummaryScore.amountOfRedItems.toString().length === 3
-            }" class="font-extralight mb-2">
+          <p
+            [ngClass]="{
+              'text-4xl':
+                dashboardState.ahiSummaryScore.amountOfRedItems.toString()
+                  .length === 1,
+              'text-3xl':
+                dashboardState.ahiSummaryScore.amountOfRedItems.toString()
+                  .length === 2,
+              'text-xl':
+                dashboardState.ahiSummaryScore.amountOfRedItems.toString()
+                  .length === 3
+            }"
+            class="font-extralight mb-2"
+          >
             {{ dashboardState.ahiSummaryScore.amountOfRedItems }}
           </p>
         </div>
         <div
-            class="mb-2 rounded-l-md block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-ahi-primary-color-100"
-          >
-            Green
-          </div>
+          class="mb-2 rounded-l-md block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-ahi-primary-color-100"
+        >
+          Green
+        </div>
         <div
-            class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-ahi-primary-color-200"
-          >
-            Yellow
-          </div>
+          class="mb-2 block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-ahi-primary-color-200"
+        >
+          Yellow
+        </div>
         <div
-            class="mb-2 rounded-r-md block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-ahi-primary-color-300"
-          >
-            Red
-          </div>
+          class="mb-2 rounded-r-md block w-full px-2 pb-2 pt-2.5 text-sm font-medium uppercase leading-normal text-black bg-ahi-primary-color-300"
+        >
+          Red
+        </div>
       </div>
     </div>
 
     <div class="ml-6 mt-6 items-center" *ngIf="userRole === 'admin'">
       <p class="uppercase text-base">Select Customer</p>
       <select
-      *ngIf="userRole === 'admin'"
+        *ngIf="userRole === 'admin'"
         [id]="id"
         class="block w-44 overflow-y-auto p-2 mb-6 text-sm text-white border cursor-pointer border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         (change)="onSelectDataByCustomer($event)"
       >
         <option selected disabled>Choose Customer</option>
-        <option [value]="null">Select All Customer Data</option>
-        <option value="customer_ga"> GARUDA INDONESIA (GA) </option>
-        <option value="customer_citilink"> CITILINK (QG) </option>
+        <option [value]="null" class="uppercase">
+          Select All Customer Data
+        </option>
+        <option value="customer_ga">GARUDA INDONESIA (GA)</option>
+        <option value="customer_citilink">CITILINK (QG)</option>
       </select>
     </div>
 
@@ -152,7 +195,7 @@
         (change)="onAircraftTypeChange($event)"
       >
         <option selected disabled>Choose aircraft type</option>
-        <option [value]="null">Select All Aircraft</option>
+        <option [value]="null" class="uppercase">Select All Aircraft</option>
         <option
           *ngFor="let option of dashboardState.aircraftType"
           [value]="option.aircraftTypeId"
@@ -166,7 +209,15 @@
     <div class="ml-6 mt-2 items-center">
       <p class="uppercase text-lg md:text-base">Select date</p>
       <div class="relative max-w-sm">
-        <input (change)="onInputSortDate($event)" datepicker datepicker-autohide type="date" class="text-white border w-44 cursor-pointer border-gray-300 bg-gray-800 text-sm rounded-lg block p-2 " placeholder="Select date" [max]="today">
+        <input
+          (change)="onInputSortDate($event)"
+          datepicker
+          datepicker-autohide
+          type="date"
+          class="text-white border w-44 cursor-pointer border-gray-300 bg-gray-800 text-sm rounded-lg block p-2"
+          placeholder="Select date"
+          [max]="today"
+        />
       </div>
     </div>
 
@@ -178,8 +229,17 @@
           routerLink="/configuration"
           class="inline-block rounded-full px-2 py-2 text-md font-medium text-center items-center leading-normal hover:bg-gray-500 text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-            <path fill-rule="evenodd" d="M11.078 2.25c-.917 0-1.699.663-1.85 1.567L9.05 4.889c-.02.12-.115.26-.297.348a7.493 7.493 0 00-.986.57c-.166.115-.334.126-.45.083L6.3 5.508a1.875 1.875 0 00-2.282.819l-.922 1.597a1.875 1.875 0 00.432 2.385l.84.692c.095.078.17.229.154.43a7.598 7.598 0 000 1.139c.015.2-.059.352-.153.43l-.841.692a1.875 1.875 0 00-.432 2.385l.922 1.597a1.875 1.875 0 002.282.818l1.019-.382c.115-.043.283-.031.45.082.312.214.641.405.985.57.182.088.277.228.297.35l.178 1.071c.151.904.933 1.567 1.85 1.567h1.844c.916 0 1.699-.663 1.85-1.567l.178-1.072c.02-.12.114-.26.297-.349.344-.165.673-.356.985-.57.167-.114.335-.125.45-.082l1.02.382a1.875 1.875 0 002.28-.819l.923-1.597a1.875 1.875 0 00-.432-2.385l-.84-.692c-.095-.078-.17-.229-.154-.43a7.614 7.614 0 000-1.139c-.016-.2.059-.352.153-.43l.84-.692c.708-.582.891-1.59.433-2.385l-.922-1.597a1.875 1.875 0 00-2.282-.818l-1.02.382c-.114.043-.282.031-.449-.083a7.49 7.49 0 00-.985-.57c-.183-.087-.277-.227-.297-.348l-.179-1.072a1.875 1.875 0 00-1.85-1.567h-1.843zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" clip-rule="evenodd" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M11.078 2.25c-.917 0-1.699.663-1.85 1.567L9.05 4.889c-.02.12-.115.26-.297.348a7.493 7.493 0 00-.986.57c-.166.115-.334.126-.45.083L6.3 5.508a1.875 1.875 0 00-2.282.819l-.922 1.597a1.875 1.875 0 00.432 2.385l.84.692c.095.078.17.229.154.43a7.598 7.598 0 000 1.139c.015.2-.059.352-.153.43l-.841.692a1.875 1.875 0 00-.432 2.385l.922 1.597a1.875 1.875 0 002.282.818l1.019-.382c.115-.043.283-.031.45.082.312.214.641.405.985.57.182.088.277.228.297.35l.178 1.071c.151.904.933 1.567 1.85 1.567h1.844c.916 0 1.699-.663 1.85-1.567l.178-1.072c.02-.12.114-.26.297-.349.344-.165.673-.356.985-.57.167-.114.335-.125.45-.082l1.02.382a1.875 1.875 0 002.28-.819l.923-1.597a1.875 1.875 0 00-.432-2.385l-.84-.692c-.095-.078-.17-.229-.154-.43a7.614 7.614 0 000-1.139c-.016-.2.059-.352.153-.43l.84-.692c.708-.582.891-1.59.433-2.385l-.922-1.597a1.875 1.875 0 00-2.282-.818l-1.02.382c-.114.043-.282.031-.449-.083a7.49 7.49 0 00-.985-.57c-.183-.087-.277-.227-.297-.348l-.179-1.072a1.875 1.875 0 00-1.85-1.567h-1.843zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z"
+              clip-rule="evenodd"
+            />
           </svg>
         </button>
       </div>
@@ -189,8 +249,19 @@
           class="inline-flex rounded-full px-2 py-2 text-md font-medium text-center items-center leading-normal hover:bg-gray-500 text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
           (click)="onClickLogout()"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 mr-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+            />
           </svg>
           Sign out
         </button>
