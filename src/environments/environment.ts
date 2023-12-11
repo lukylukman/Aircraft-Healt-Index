@@ -17,10 +17,10 @@ export const environment: EnvironmentInterface = {
     },
     soe: {
       header: {
-        xApiKey: '343C-ED0B-4137-B27E',
+        xApiKey: '543C-EF0B-4137-A27F',
       },
-      url: baseUrl + '/th/soe',
-      apiVersion: 'v1',
+      url: baseUrl + '/th/soev2',
+      apiVersion: 'v2',
     },
   },
   production: false,
