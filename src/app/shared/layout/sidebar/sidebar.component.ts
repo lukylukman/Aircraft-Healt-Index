@@ -36,7 +36,11 @@ import {
   SidebarChildrenGroupMenu,
 } from './interfaces/sidebar.interface';
 import { SidebarService } from './sidebar.service';
-import { AircraftDTO } from 'src/app/pages/dashboard/dto/aircraft.dto';
+import {
+  AircraftDTO,
+  AircraftDTO2,
+} from 'src/app/pages/dashboard/dto/aircraft.dto';
+import { AircraftTypeDTO } from 'src/app/pages/dashboard/dto/aircraft-type.dto';
 
 @Component({
   selector: 'app-sidebar',
@@ -87,8 +91,58 @@ export class SidebarComponent implements OnInit, OnDestroy {
   userData: string[] = [];
   userRole: string;
   today: string;
-  totalData : number;
-  sortDateSelected : string;
+  totalData: number;
+  sortDateSelected: string;
+
+  selectedCustomer: string;
+
+  aircraftDataCitilink = [
+    {
+      aircraftTypeId: 1,
+      aircraftType: 'A320',
+      aircraftTypeName: 'A320',
+      customer: 'customer_citilink',
+    },
+    {
+      aircraftTypeId: 3,
+      aircraftType: 'A330',
+      aircraftTypeName: 'A330 QG',
+      customer: 'customer_citilink',
+    },
+    {
+      aircraftTypeId: 4,
+      aircraftType: 'ATR72',
+      aircraftTypeName: 'ATR72 QG',
+      customer: 'customer_citilink',
+    },
+    {
+      aircraftTypeId: 5,
+      aircraftType: 'B737Classic',
+      aircraftTypeName: 'B737 Classic',
+      customer: 'customer_citilink',
+    },
+  ];
+
+  aircraftDataGaruda = [
+    {
+      aircraftTypeId: 2,
+      aircraftType: 'A330',
+      aircraftTypeName: 'A330',
+      customer: 'customer_ga',
+    },
+    {
+      aircraftTypeId: 6,
+      aircraftType: 'B737-800',
+      aircraftTypeName: 'B737-800',
+      customer: 'customer_ga',
+    },
+    {
+      aircraftTypeId: 7,
+      aircraftType: 'B777',
+      aircraftTypeName: 'B777',
+      customer: 'customer_ga',
+    },
+  ];
 
   private readonly unsubscribe$ = new Subject();
 
@@ -125,7 +179,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
       const totalItems = greenItems + yellowItems + redItems;
       this.totalData = totalItems;
     });
-  
+
     // TODO: Please use an actual service
     const _tempObject: PersonalInformation =
       this.soeService.getPersonalInformationFromCache();
@@ -155,28 +209,38 @@ export class SidebarComponent implements OnInit, OnDestroy {
   onAircraftTypeChange(event: any) {
     const selectedValue = event.target.value;
     this.aircraftTypeSelected.emit(selectedValue);
-    // console.log(`Selected option value: ${selectedValue}`);
   }
-  
+
   onSelectDataByCustomer(event: any) {
     const selectedValue = event.target.value;
     this.customerName.emit(selectedValue);
-    // console.log(`Selected option value: ${selectedValue}`);
+  }
+
+  getFilteredAircraftData(): AircraftTypeDTO[] {
+    if (this.selectedCustomer === 'customer_ga') {
+      return this.aircraftDataGaruda;
+    } else if (this.selectedCustomer === 'customer_citilink') {
+      return this.aircraftDataCitilink;
+    } else {
+      // Jika selectedCustomer tidak sesuai dengan kondisi di atas,
+      // Anda bisa menyesuaikan logika ini sesuai kebutuhan.
+      return [];
+    }
   }
 
   onInputSortDate(event: any) {
     const inputDate = new Date(event.target.value);
     if (!isNaN(inputDate.getTime())) {
       const year = inputDate.getFullYear();
-      const month = (inputDate.getMonth() + 1).toString().padStart(2, '0'); 
+      const month = (inputDate.getMonth() + 1).toString().padStart(2, '0');
       const day = inputDate.getDate().toString().padStart(2, '0');
-      
+
       const formattedDate = `${year}-${month}-${day}`;
       this.sortDate.emit(formattedDate);
       this.sortDateSelected = formattedDate;
       // console.log(`Selected date: ${formattedDate}`);
     } else {
-      console.log("Invalid date input");
+      console.log('Invalid date input');
     }
   }
 
