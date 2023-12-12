@@ -222,9 +222,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     } else if (this.selectedCustomer === 'customer_citilink') {
       return this.aircraftDataCitilink;
     } else {
-      // Jika selectedCustomer tidak sesuai dengan kondisi di atas,
-      // Anda bisa menyesuaikan logika ini sesuai kebutuhan.
-      return [];
+      return [...this.aircraftDataGaruda, ...this.aircraftDataCitilink];
     }
   }
 
