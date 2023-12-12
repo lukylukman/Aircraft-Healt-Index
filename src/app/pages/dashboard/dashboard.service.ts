@@ -1,7 +1,4 @@
-import {
-  HttpClient,
-  HttpParams
-} from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpResult } from 'src/app/core/dto/http-result.dto';
@@ -21,9 +18,8 @@ import { APURecordDTO } from './dto/showMoreHil.dto';
 export interface ElasticRecordResponse {
   record: {
     apuRecord: APURecordDTO[];
- };
+  };
 }
-
 
 @Injectable({
   providedIn: 'root',
@@ -51,7 +47,7 @@ export class DashboardService extends HttpService {
   ): Observable<HttpResult<AircraftDTO2[]>> {
     const queryParams: any = {
       page: paginationData.page,
-      size: paginationData.size
+      size: paginationData.size,
     };
 
     if (sortDate) {
@@ -72,16 +68,18 @@ export class DashboardService extends HttpService {
     );
   }
 
-  // filter for Aircraft Type 
+  // filter for Aircraft Type
   getAircraftType(): Observable<HttpResult<AircraftTypeDTO[]>> {
     return this.http.get<HttpResult<AircraftTypeDTO[]>>(
-      `${environment.host.ahi.url}/v1/ims/aircraft/type`
+      `${environment.host.ahi.url}/v1/ims/aircraft/fleet`
     );
   }
 
-  
-  // Summary of = Score, Green, Yellow, Red, healt, percentage, & difference 
-  getAhiSummaryScore(sortDate?: string, customer?: string): Observable<HttpResult<AhiSummaryScoreDTO>> {
+  // Summary of = Score, Green, Yellow, Red, healt, percentage, & difference
+  getAhiSummaryScore(
+    sortDate?: string,
+    customer?: string
+  ): Observable<HttpResult<AhiSummaryScoreDTO>> {
     const queryParams: any = {};
 
     if (sortDate) {
@@ -99,8 +97,14 @@ export class DashboardService extends HttpService {
   }
 
   // Detail APU
-  getApu(aircraftRegistration: string, sortDate?: string): Observable<HttpResult<ElasticRecordResponse>> {
-    let params = new HttpParams().set('aircraftRegistration', aircraftRegistration);
+  getApu(
+    aircraftRegistration: string,
+    sortDate?: string
+  ): Observable<HttpResult<ElasticRecordResponse>> {
+    let params = new HttpParams().set(
+      'aircraftRegistration',
+      aircraftRegistration
+    );
 
     if (sortDate) {
       params = params.set('endDate', sortDate);
@@ -122,7 +126,10 @@ export class DashboardService extends HttpService {
   }
 
   // Average Healt
-  getAverageHealt(sortDate?: string, customer?: string): Observable<HttpResult<number>> {
+  getAverageHealt(
+    sortDate?: string,
+    customer?: string
+  ): Observable<HttpResult<number>> {
     const queryParams: any = {};
 
     if (sortDate) {
@@ -140,7 +147,10 @@ export class DashboardService extends HttpService {
   }
 
   // Average Persen
-  getAveragePersen(sortDate?: string, customer?: string): Observable<HttpResult<number>> {
+  getAveragePersen(
+    sortDate?: string,
+    customer?: string
+  ): Observable<HttpResult<number>> {
     const queryParams: any = {};
 
     if (sortDate) {
@@ -158,7 +168,10 @@ export class DashboardService extends HttpService {
   }
 
   // Difference
-  getDifference(sortDate?: string, customer?: string): Observable<HttpResult<number>> {
+  getDifference(
+    sortDate?: string,
+    customer?: string
+  ): Observable<HttpResult<number>> {
     const queryParams: any = {};
 
     if (sortDate) {
@@ -196,5 +209,4 @@ export class DashboardService extends HttpService {
   //     { params: params }
   //   );
   // }
-
 }
