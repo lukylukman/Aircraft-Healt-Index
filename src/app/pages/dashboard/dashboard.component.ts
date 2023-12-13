@@ -90,7 +90,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   dataNotFound: boolean = false;
   btnPaggination: boolean = true;
   userRoles: string[] = [];
-  selectedTypeId: number;
+  selectedTypeId: string;
   totalLoadedData: number;
   detailModalHil: AircraftDetailHilDTO[];
   selectedDashboardCard: AircraftDTO;
@@ -178,14 +178,16 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
-  onAircraftTypeChanged(aircraftTypeId: number): void {
+  onAircraftTypeChanged(aircraftTypeId: string): void {
     this.paginationData.size = 24;
-    const aircraftId = Number(aircraftTypeId);
+    const aircraftId = aircraftTypeId;
     this.selectedTypeId = aircraftId;
+    this.initDashboardData(this.sortDateSelected, this.customerName);
     this.fectDashboardData2(
       this.selectedTypeId,
       this.sortDateSelected,
-      this.selectedCustomer
+      // this.selectedCustomer
+      this.customerName
     );
   }
 
@@ -281,7 +283,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   // }
 
   fectDashboardData2(
-    aircraftTypeId?: number,
+    aircraftTypeId?: string,
     sortDate?: string,
     customer?: string
   ): void {
