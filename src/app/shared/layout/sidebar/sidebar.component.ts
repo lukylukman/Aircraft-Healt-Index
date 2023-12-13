@@ -77,7 +77,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   arrowDirection: 'up' | 'down' | 'equal' = 'equal';
 
-  @Output() aircraftTypeSelected = new EventEmitter<number>();
+  @Output() aircraftTypeSelected = new EventEmitter<string>();
   @Output() sortDate = new EventEmitter<string>();
   @Output() customerName = new EventEmitter<string>();
 
@@ -209,6 +209,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   onAircraftTypeChange(event: any) {
     const selectedValue = event.target.value;
     this.aircraftTypeSelected.emit(selectedValue);
+    // console.log(selectedValue);
   }
 
   onSelectDataByCustomer(event: any) {
@@ -216,14 +217,30 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.customerName.emit(selectedValue);
   }
 
-  getFilteredAircraftData(): AircraftTypeDTO[] {
-    if (this.selectedCustomer === 'customer_ga') {
+  getFilteredAircraftData(): any {
+    this.userData = this.kcService.getUserRoles();
+    this.userRole = this.userData[0];
+
+    if (
+      (this.userRole === 'admin' || this.userRole === 'customer_ga') &&
+      this.selectedCustomer === 'customer_ga'
+    ) {
       return this.aircraftDataGaruda;
-    } else if (this.selectedCustomer === 'customer_citilink') {
+    }
+
+    if (
+      (this.userRole === 'admin' || this.userRole === 'customer_citilink') &&
+      this.selectedCustomer === 'customer_citilink'
+    ) {
       return this.aircraftDataCitilink;
-    } else {
+    } else if (this.userRole === 'admin') {
       return [...this.aircraftDataGaruda, ...this.aircraftDataCitilink];
     }
+
+    // if (this.userRole === 'admin' && this.selectedCustomer === null) {
+    // }
+
+    return null;
   }
 
   onInputSortDate(event: any) {

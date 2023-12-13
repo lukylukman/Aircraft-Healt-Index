@@ -43,7 +43,7 @@ export class DashboardService extends HttpService {
     paginationData: ImsPaginationDTO,
     sortDate: string,
     customer: string,
-    aircraftTypeId?: number
+    aircraftTypeId?: string
   ): Observable<HttpResult<AircraftDTO2[]>> {
     const queryParams: any = {
       page: paginationData.page,
@@ -59,7 +59,8 @@ export class DashboardService extends HttpService {
     }
 
     if (aircraftTypeId) {
-      queryParams.type_id = aircraftTypeId;
+      queryParams.aircraftTypeId = aircraftTypeId;
+      // queryParams.type_id = aircraftTypeId;
     }
 
     return this.http.get<HttpResult<AircraftDTO2[]>>(

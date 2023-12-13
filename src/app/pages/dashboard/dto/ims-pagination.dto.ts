@@ -3,5 +3,6 @@ export interface ImsPaginationDTO {
   size: number;
   endDate?: string;
   customer?: string;
-  type_id?: number;
+  aircraftTypeId?: string;
+  // type_id?: number;
 }
