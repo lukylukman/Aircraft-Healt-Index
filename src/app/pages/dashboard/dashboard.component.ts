@@ -156,7 +156,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     } else {
       this.selectedCustomer = '';
     }
-    this.fectDashboardData2(undefined, undefined, this.selectedCustomer);
+    this.fectDashboardData2(
+      this.selectedTypeId,
+      this.sortDateSelected,
+      this.selectedCustomer
+    );
     this.initDashboardData(undefined, this.selectedCustomer);
     // console.log(this.selectedCustomer);
   }
@@ -170,7 +174,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     const customer = String(customerName);
     this.paginationData.size = 24;
     this.customerName = customer;
-    this.initDashboardData(this.sortDateSelected, this.customerName);
+    this.initDashboardData(
+      this.sortDateSelected,
+      this.customerName,
+      this.selectedTypeId
+    );
     this.fectDashboardData2(
       this.selectedTypeId,
       this.sortDateSelected,
@@ -182,24 +190,63 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.paginationData.size = 24;
     const aircraftId = aircraftTypeId;
     this.selectedTypeId = aircraftId;
-    this.initDashboardData(this.sortDateSelected, this.customerName);
+    this.initDashboardData(
+      this.sortDateSelected,
+      this.customerName,
+      this.selectedTypeId
+    );
     this.fectDashboardData2(
       this.selectedTypeId,
       this.sortDateSelected,
-      // this.selectedCustomer
       this.customerName
+    );
+
+    this.initDifference(
+      this.sortDateSelected,
+      this.selectedCustomer,
+      this.selectedTypeId
+    );
+    this.initPercentageScoreData(
+      this.sortDateSelected,
+      this.selectedCustomer,
+      this.selectedTypeId
+    );
+    this.initAveragehealth(
+      this.sortDateSelected,
+      this.selectedCustomer,
+      this.selectedTypeId
     );
   }
 
   onInputSortDate(sortDate: string): void {
     this.sortDateSelected = sortDate;
     this.paginationData.size = 24;
+    this.initDashboardData(
+      this.sortDateSelected,
+      this.customerName,
+      this.selectedTypeId
+    );
     this.fectDashboardData2(
       this.selectedTypeId,
       this.sortDateSelected,
-      this.selectedCustomer
+      this.customerName
     );
-    this.initDashboardData(this.sortDateSelected, this.selectedCustomer);
+
+    this.initDifference(
+      this.sortDateSelected,
+      this.selectedCustomer,
+      this.selectedTypeId
+    );
+    this.initPercentageScoreData(
+      this.sortDateSelected,
+      this.selectedCustomer,
+      this.selectedTypeId
+    );
+    this.initAveragehealth(
+      this.sortDateSelected,
+      this.selectedCustomer,
+      this.selectedTypeId
+    );
   }
 
   fetchAircraftType(): void {
@@ -413,11 +460,15 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // summaryScore, averageHealt, PercentageScore, Difference
-  async initDashboardData(sortDate?: string, customer?: string): Promise<void> {
+  async initDashboardData(
+    sortDate?: string,
+    customer?: string,
+    aircraftTypeId?: string
+  ): Promise<void> {
     this.store.dispatch(DashboardAction.onClearSummaryScore());
 
     this.dashboardService
-      .getAhiSummaryScore(sortDate, customer)
+      .getAhiSummaryScore(sortDate, customer, aircraftTypeId)
       .pipe(
         catchError((error) => {
           console.error(
@@ -427,9 +478,9 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
           return EMPTY;
         }),
         tap((result) => {
-          this.initAveragehealth(sortDate, customer);
-          this.initPercentageScoreData(sortDate, customer);
-          this.initDifference(sortDate, customer);
+          this.initAveragehealth(sortDate, customer, aircraftTypeId);
+          this.initPercentageScoreData(sortDate, customer, aircraftTypeId);
+          this.initDifference(sortDate, customer, aircraftTypeId);
           this.store.dispatch(DashboardAction.onLoadSummaryScore(result.data));
         }),
         takeUntil(this._onDestroy$)
@@ -440,12 +491,13 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   // Percentage
   async initPercentageScoreData(
     sortDate?: string,
-    customer?: string
+    customer?: string,
+    aircraftTypeId?: string
   ): Promise<void> {
     this.store.dispatch(DashboardAction.onClearAveragePercentage());
 
     this.dashboardService
-      .getAveragePersen(sortDate, customer)
+      .getAveragePersen(sortDate, customer, aircraftTypeId)
       .pipe(
         catchError((error) => {
           console.error(
@@ -466,11 +518,15 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // Average Healt
-  async initAveragehealth(sortDate?: string, customer?: string): Promise<void> {
+  async initAveragehealth(
+    sortDate?: string,
+    customer?: string,
+    aircraftTypeId?: string
+  ): Promise<void> {
     this.store.dispatch(DashboardAction.onClearAverageHealth());
 
     this.dashboardService
-      .getAverageHealt(sortDate, customer)
+      .getAverageHealt(sortDate, customer, aircraftTypeId)
       .pipe(
         catchError((error) => {
           console.error(
@@ -491,11 +547,15 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // Difference value
-  async initDifference(sortDate?: string, customer?: string): Promise<void> {
+  async initDifference(
+    sortDate?: string,
+    customer?: string,
+    aircraftTypeId?: string
+  ): Promise<void> {
     this.store.dispatch(DashboardAction.ocClearDifference());
 
     this.dashboardService
-      .getDifference(sortDate, customer)
+      .getDifference(sortDate, customer, aircraftTypeId)
       .pipe(
         catchError((error) => {
           console.error('Error on DasboardComponent get Difference => ', error);

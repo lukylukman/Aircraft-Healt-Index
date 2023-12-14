@@ -60,11 +60,10 @@ export class DashboardService extends HttpService {
 
     if (aircraftTypeId) {
       queryParams.aircraftTypeId = aircraftTypeId;
-      // queryParams.type_id = aircraftTypeId;
     }
 
     return this.http.get<HttpResult<AircraftDTO2[]>>(
-      `${environment.host.ahi.url}/ahi/_cards`,
+      `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi/_cards`,
       { params: queryParams }
     );
   }
@@ -79,7 +78,8 @@ export class DashboardService extends HttpService {
   // Summary of = Score, Green, Yellow, Red, healt, percentage, & difference
   getAhiSummaryScore(
     sortDate?: string,
-    customer?: string
+    customer?: string,
+    aircraftTypeId?: string
   ): Observable<HttpResult<AhiSummaryScoreDTO>> {
     const queryParams: any = {};
 
@@ -91,8 +91,12 @@ export class DashboardService extends HttpService {
       queryParams.customer = customer;
     }
 
+    if (aircraftTypeId) {
+      queryParams.aircraftTypeId = aircraftTypeId;
+    }
+
     return this.http.get<HttpResult<AhiSummaryScoreDTO>>(
-      `${environment.host.ahi.url}/ahi/_amount`,
+      `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi/_amount`,
       { params: queryParams }
     );
   }
@@ -129,7 +133,8 @@ export class DashboardService extends HttpService {
   // Average Healt
   getAverageHealt(
     sortDate?: string,
-    customer?: string
+    customer?: string,
+    aircraftTypeId?: string
   ): Observable<HttpResult<number>> {
     const queryParams: any = {};
 
@@ -141,8 +146,12 @@ export class DashboardService extends HttpService {
       queryParams.customer = customer;
     }
 
+    if (aircraftTypeId) {
+      queryParams.aircraftTypeId = aircraftTypeId;
+    }
+
     return this.http.get<HttpResult<number>>(
-      `${environment.host.ahi.url}/ahi/_average`,
+      `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi/_average`,
       { params: queryParams }
     );
   }
@@ -150,7 +159,8 @@ export class DashboardService extends HttpService {
   // Average Persen
   getAveragePersen(
     sortDate?: string,
-    customer?: string
+    customer?: string,
+    aircraftTypeId?: string
   ): Observable<HttpResult<number>> {
     const queryParams: any = {};
 
@@ -162,8 +172,12 @@ export class DashboardService extends HttpService {
       queryParams.customer = customer;
     }
 
+    if (aircraftTypeId) {
+      queryParams.aircraftTypeId = aircraftTypeId;
+    }
+
     return this.http.get<HttpResult<number>>(
-      `${environment.host.ahi.url}/ahi/_percent`,
+      `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi/_percent`,
       { params: queryParams }
     );
   }
@@ -171,7 +185,8 @@ export class DashboardService extends HttpService {
   // Difference
   getDifference(
     sortDate?: string,
-    customer?: string
+    customer?: string,
+    aircraftTypeId?: string
   ): Observable<HttpResult<number>> {
     const queryParams: any = {};
 
@@ -183,8 +198,12 @@ export class DashboardService extends HttpService {
       queryParams.customer = customer;
     }
 
+    if (aircraftTypeId) {
+      queryParams.aircraftTypeId = aircraftTypeId;
+    }
+
     return this.http.get<HttpResult<number>>(
-      `${environment.host.ahi.url}/ahi/_difference`,
+      `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi/_difference`,
       { params: queryParams }
     );
   }
