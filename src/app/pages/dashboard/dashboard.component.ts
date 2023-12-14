@@ -18,6 +18,7 @@ import {
   of,
   takeUntil,
   tap,
+  timeout,
 } from 'rxjs';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { DashboardService } from './dashboard.service';
@@ -40,11 +41,6 @@ import { DashboardState } from './states/dashboard.selector';
 import { AverageHealt } from './dto/average-healt.dto';
 import { KeycloakService } from 'keycloak-angular';
 import { ToastNotif } from 'src/app/core/decorators/toast.success';
-
-export interface SearchSelection {
-  key: string;
-  value: any;
-}
 
 @Component({
   selector: 'app-dashboard',
@@ -79,46 +75,27 @@ export interface SearchSelection {
 export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   private readonly _onDestroy$: Subject<void> = new Subject<void>();
 
+  selectedCard: AircraftDetailHilDTO;
   cardData: AircraftDTO2[] = [];
+
   logger: LoggerService;
+
   isSearch: boolean = false;
   isAdvance: boolean = false;
-  selectedCard: AircraftDetailHilDTO;
+  dataNotFound: boolean = false;
+  btnPaggination: boolean = true;
+  isModalOpen: boolean = false;
+
   sortDateSelected: string = '';
   selectedCustomer: string = '';
   customerName: string = '';
-  dataNotFound: boolean = false;
-  btnPaggination: boolean = true;
   userRoles: string[] = [];
   selectedTypeId: string;
+
   totalLoadedData: number;
   detailModalHil: AircraftDetailHilDTO[];
   selectedDashboardCard: AircraftDTO;
-  searchSelections: SearchSelection[] = [
-    {
-      // TODO: Please enable later. Disabled due to data is not ready yet!
-      key: 'ahi-master-tool-data',
-      // key: 'ahi-master-*',
-      value: 'All',
-    },
-    {
-      key: 'ahi-master-tool-data',
-      value: 'Hangar Tools',
-    },
-    // {
-    //   key: 'ahi-master-imte',
-    //   value: 'IMTE Tools',
-    // },
-    // {
-    //   key: 'ahi-master-tz-equipment',
-    //   value: 'TZ Equipment',
-    // },
-  ];
 
-  dashboardState$: Observable<DashboardFeatureState>;
-  personalInformation: PersonalInformation;
-
-  isModalOpen: boolean = false;
   selectedCardData: any;
   aircraftDetailModal: Modal;
 
@@ -126,6 +103,9 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     page: 1,
     size: 24,
   };
+
+  dashboardState$: Observable<DashboardFeatureState>;
+  personalInformation: PersonalInformation;
 
   constructor(
     private readonly dashboardService: DashboardService,
@@ -146,7 +126,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.fetchAircraftType();
+    // this.fetchAircraftType();
     this.userRoles = this.keycloak.getUserRoles();
     if (
       this.userRoles[0] === 'customer_ga' ||
@@ -171,47 +151,32 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   });
 
   onSelectDataByCustomerName(customerName: string): void {
-    const customer = String(customerName);
     this.paginationData.size = 24;
-    this.customerName = customer;
+    this.selectedCustomer = customerName;
+    if (this.selectedCustomer) {
+      this.selectedTypeId = '';
+    }
     this.initDashboardData(
       this.sortDateSelected,
-      this.customerName,
+      this.selectedCustomer,
       this.selectedTypeId
     );
     this.fectDashboardData2(
-      this.selectedTypeId,
       this.sortDateSelected,
-      this.customerName
+      this.selectedCustomer,
+      this.selectedTypeId
     );
   }
 
   onAircraftTypeChanged(aircraftTypeId: string): void {
     this.paginationData.size = 24;
-    const aircraftId = aircraftTypeId;
-    this.selectedTypeId = aircraftId;
+    this.selectedTypeId = aircraftTypeId;
     this.initDashboardData(
       this.sortDateSelected,
-      this.customerName,
+      this.selectedCustomer,
       this.selectedTypeId
     );
     this.fectDashboardData2(
-      this.selectedTypeId,
-      this.sortDateSelected,
-      this.customerName
-    );
-
-    this.initDifference(
-      this.sortDateSelected,
-      this.selectedCustomer,
-      this.selectedTypeId
-    );
-    this.initPercentageScoreData(
-      this.sortDateSelected,
-      this.selectedCustomer,
-      this.selectedTypeId
-    );
-    this.initAveragehealth(
       this.sortDateSelected,
       this.selectedCustomer,
       this.selectedTypeId
@@ -223,54 +188,38 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.paginationData.size = 24;
     this.initDashboardData(
       this.sortDateSelected,
-      this.customerName,
+      this.selectedCustomer,
       this.selectedTypeId
     );
     this.fectDashboardData2(
-      this.selectedTypeId,
-      this.sortDateSelected,
-      this.customerName
-    );
-
-    this.initDifference(
-      this.sortDateSelected,
-      this.selectedCustomer,
-      this.selectedTypeId
-    );
-    this.initPercentageScoreData(
-      this.sortDateSelected,
-      this.selectedCustomer,
-      this.selectedTypeId
-    );
-    this.initAveragehealth(
       this.sortDateSelected,
       this.selectedCustomer,
       this.selectedTypeId
     );
   }
 
-  fetchAircraftType(): void {
-    this.dashboardService
-      .getAircraftType()
-      .pipe(
-        catchError((err) => {
-          console.error(err);
-          return EMPTY;
-        }),
-        mergeMap((result) => {
-          if (result !== null) {
-            return from(result.data);
-          } else {
-            return EMPTY; // Return an empty observable if result is null
-          }
-        }),
-        tap((acType) => {
-          this.store.dispatch(DashboardAction.onLoadAircraftType(acType));
-        }),
-        takeUntil(this._onDestroy$)
-      )
-      .subscribe();
-  }
+  // fetchAircraftType(): void {
+  //   this.dashboardService
+  //     .getAircraftType()
+  //     .pipe(
+  //       catchError((err) => {
+  //         console.error(err);
+  //         return EMPTY;
+  //       }),
+  //       mergeMap((result) => {
+  //         if (result !== null) {
+  //           return from(result.data);
+  //         } else {
+  //           return EMPTY; // Return an empty observable if result is null
+  //         }
+  //       }),
+  //       tap((acType) => {
+  //         this.store.dispatch(DashboardAction.onLoadAircraftType(acType));
+  //       }),
+  //       takeUntil(this._onDestroy$)
+  //     )
+  //     .subscribe();
+  // }
 
   // fectDashboardData(aircraftTypeId?: number, sortDate?: string): void {
   //   this.store.dispatch(DashboardAction.onClearAircraftList());
@@ -330,22 +279,30 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   // }
 
   fectDashboardData2(
-    aircraftTypeId?: string,
     sortDate?: string,
-    customer?: string
+    customer?: string,
+    aircraftTypeId?: string
   ): void {
     this.store.dispatch(DashboardAction.onClearAircraftList());
 
     this.dashboardService
       .getCardData(this.paginationData, sortDate, customer, aircraftTypeId)
       .pipe(
+        timeout(20000),
         catchError((error) => {
-          if (error.status === 503 || error.status === 404) {
+          if (error.name === 'TimeoutError') {
+            // Tangani aksi jika waktu maksimum tercapai
+            this.dataNotFound = true;
+            console.error('Request timed out...');
+            ToastNotif('error', 'Request timed out!');
+            // Lakukan tindakan atau hentikan proses yang sedang berjalan
+            // ...
+          } else if (error.status === 503 || error.status === 404) {
             this.dataNotFound = true;
             console.error('Data not found...');
-            ToastNotif('info', `Data not found!`);
+            ToastNotif('info', 'Data not found!');
           }
-          return of();
+          return of(); // Mengembalikan observable kosong setelah menangani kesalahan
         }),
         mergeMap((res) => {
           this.totalLoadedData = res.data.length;
@@ -373,9 +330,9 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   loadMoreData(): void {
     this.paginationData.size += 24;
     this.fectDashboardData2(
-      this.selectedTypeId,
       this.sortDateSelected,
-      this.selectedCustomer === '' ? this.customerName : this.selectedCustomer
+      this.selectedCustomer === '' ? this.customerName : this.selectedCustomer,
+      this.selectedTypeId
     );
   }
 
@@ -407,6 +364,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dashboardService
       .getDetailAicraft(aircraft.aircraftRegistration)
       .pipe(
+        timeout(20000),
         catchError((err) => {
           console.error(
             'Error on DashboardComponent get detailAircraft => ',
@@ -442,6 +400,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dashboardService
       .getApu(aircraftRegistration, sortDate)
       .pipe(
+        timeout(20000),
         catchError((err) => {
           console.error('Error on DashboardComponent get APU => ', err);
           return EMPTY;
@@ -470,6 +429,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dashboardService
       .getAhiSummaryScore(sortDate, customer, aircraftTypeId)
       .pipe(
+        timeout(20000),
         catchError((error) => {
           console.error(
             'Error on DashboardComponent get summryScore => ',
@@ -499,6 +459,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dashboardService
       .getAveragePersen(sortDate, customer, aircraftTypeId)
       .pipe(
+        timeout(20000),
         catchError((error) => {
           console.error(
             'Error on DasboardComponent get averagepercent => ',
@@ -528,6 +489,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dashboardService
       .getAverageHealt(sortDate, customer, aircraftTypeId)
       .pipe(
+        timeout(20000),
         catchError((error) => {
           console.error(
             'Error on DasboardComponent get averageHealth => ',
@@ -557,6 +519,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dashboardService
       .getDifference(sortDate, customer, aircraftTypeId)
       .pipe(
+        timeout(20000),
         catchError((error) => {
           console.error('Error on DasboardComponent get Difference => ', error);
           return EMPTY;

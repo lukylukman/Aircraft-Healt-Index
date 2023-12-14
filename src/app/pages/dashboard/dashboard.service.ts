@@ -9,9 +9,8 @@ import { HttpService } from 'src/app/providers/http/http.service';
 import { environment } from 'src/environments/environment';
 import { AhiSummaryScoreDTO } from './dto/ahi-summary-score.dto';
 import { AircraftDetailHilDTO } from './dto/aircraft-detail-hil.dto';
-import { AircraftScoreDTO } from './dto/aircraft-score.dto';
 import { AircraftTypeDTO } from './dto/aircraft-type.dto';
-import { AircraftDTO, AircraftDTO2 } from './dto/aircraft.dto';
+import { AircraftDTO2 } from './dto/aircraft.dto';
 import { ImsPaginationDTO } from './dto/ims-pagination.dto';
 import { APURecordDTO } from './dto/showMoreHil.dto';
 
