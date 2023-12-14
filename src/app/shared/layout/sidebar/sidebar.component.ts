@@ -144,7 +144,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     },
   ];
 
-  private readonly unsubscribe$ = new Subject();
+  private readonly _onDestroy$: Subject<void> = new Subject<void>();
 
   public sidebarState$ = new BehaviorSubject<ShowHideType>('hide');
   public subMenuTitle$ = new BehaviorSubject<string>('');
@@ -265,7 +265,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     );
 
     this._router.router.events
-      .pipe(takeUntil(this.unsubscribe$))
+      .pipe(takeUntil(this._onDestroy$))
       .subscribe((event: Event) => {
         if (
           event instanceof NavigationStart &&
@@ -323,7 +323,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.unsubscribe$.unsubscribe();
+    this._onDestroy$.next();
+    this._onDestroy$.complete();
   }
 
   goHome() {
