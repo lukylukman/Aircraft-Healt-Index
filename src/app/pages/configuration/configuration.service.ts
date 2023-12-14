@@ -32,20 +32,20 @@ export class ConfigurationService extends HttpService {
   // get CustomerName
   getCustomerName(): Observable<HttpResult<[]>> {
     return this.http.get<HttpResult<[]>>(
-      `${environment.host.ahi.url}/ahi-config/customerName`
+      `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi-config/customerName`
     );
   }
 
   // get Config Value Data
   getConfigData(customerName: string): Observable<HttpResult<SetConfigDTO[]>> {
     return this.http.get<HttpResult<SetConfigDTO[]>>(
-      `${environment.host.ahi.url}/ahi-config/${customerName}`
+      `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi-config/${customerName}`
     );
   }
 
   //  restore Config Value
   restoreConfigValue(customerName: string): Observable<HttpResult<any>> {
-    const url = `${environment.host.ahi.url}/ahi-config/restore`;
+    const url = `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi-config/restore`;
     const params = { customerName };
 
     return this.http.patch<HttpResult<any>>(url, null, { params });
@@ -57,14 +57,14 @@ export class ConfigurationService extends HttpService {
     configValue: number
   ): Observable<HttpResponseDTO<any>> {
     return this.http.patch<HttpResponseDTO<any>>(
-      `${environment.host.ahi.url}/ahi-config?uniqueId=${uniqueId}&configValue=${configValue}`,
+      `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi-config?uniqueId=${uniqueId}&configValue=${configValue}`,
       {}
     );
   }
 
   // Add New customer
   createNewCustomer(customerName: string): Observable<HttpResponseDTO<string>> {
-    const url = `${environment.host.ahi.url}/ahi-config`;
+    const url = `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi-config`;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
@@ -78,7 +78,7 @@ export class ConfigurationService extends HttpService {
   updateDataConfiguration(formData: FormData): Observable<number> {
     const req = new HttpRequest(
       'POST',
-      `${environment.host.ahi.url}/ahi/_upload`,
+      `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi/_upload`,
       formData,
       {
         reportProgress: true,
