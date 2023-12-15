@@ -137,9 +137,9 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       this.selectedCustomer = '';
     }
     this.fectDashboardData2(
-      this.selectedTypeId,
       this.sortDateSelected,
-      this.selectedCustomer
+      this.selectedCustomer,
+      this.selectedTypeId
     );
     this.initDashboardData(undefined, this.selectedCustomer);
     // console.log(this.selectedCustomer);
@@ -170,16 +170,16 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onAircraftTypeChanged(aircraftTypeId: string): void {
     this.paginationData.size = 24;
-    this.selectedTypeId = aircraftTypeId;
+    this.selectedTypeId = aircraftTypeId !== null ? aircraftTypeId : undefined;
     this.initDashboardData(
       this.sortDateSelected,
       this.selectedCustomer,
-      this.selectedTypeId
+      this.selectedTypeId || undefined
     );
     this.fectDashboardData2(
       this.sortDateSelected,
       this.selectedCustomer,
-      this.selectedTypeId
+      this.selectedTypeId || undefined
     );
   }
 
