@@ -190,16 +190,45 @@
     <div class="ml-6 mt-2 items-center">
       <p class="uppercase text-lg md:text-base">Fleet</p>
       <select
+        *ngIf="userRole === 'admin'"
         [id]="id"
         class="block max-h-40 overflow-y-auto p-2 mb-6 text-sm text-white border cursor-pointer border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         (change)="onAircraftTypeChange($event)"
       >
         <option selected disabled>Choose aircraft type</option>
-        <option [value]="null" class="uppercase" *ngIf="userRole === 'admin'">
-          Select All Aircraft
-        </option>
+        <option [value]="null" class="uppercase">Select All Aircraft</option>
 
         <ng-container *ngFor="let option of getFilteredAircraftData()">
+          <option [value]="option.aircraftType">
+            {{ option.aircraftTypeName }}
+          </option>
+        </ng-container>
+      </select>
+      <select
+        *ngIf="userRole === 'customer_citilink'"
+        [id]="id"
+        class="block max-h-40 overflow-y-auto p-2 mb-6 text-sm text-white border cursor-pointer border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        (change)="onAircraftTypeChange($event)"
+      >
+        <option selected disabled>Choose aircraft type</option>
+        <option [value]="null" class="uppercase">Select All Aircraft</option>
+
+        <ng-container *ngFor="let option of aircraftDataCitilink">
+          <option [value]="option.aircraftType">
+            {{ option.aircraftTypeName }}
+          </option>
+        </ng-container>
+      </select>
+      <select
+        *ngIf="userRole === 'customer_ga'"
+        [id]="id"
+        class="block max-h-40 overflow-y-auto p-2 mb-6 text-sm text-white border cursor-pointer border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        (change)="onAircraftTypeChange($event)"
+      >
+        <option selected disabled>Choose aircraft type</option>
+        <option [value]="null" class="uppercase">Select All Aircraft</option>
+
+        <ng-container *ngFor="let option of aircraftDataGaruda">
           <option [value]="option.aircraftType">
             {{ option.aircraftTypeName }}
           </option>

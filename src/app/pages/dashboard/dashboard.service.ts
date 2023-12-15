@@ -57,7 +57,8 @@ export class DashboardService extends HttpService {
       queryParams.customer = customer;
     }
 
-    if (aircraftTypeId) {
+    // Hanya tambahkan aircraftTypeId jika tidak bernilai null atau undefined
+    if (aircraftTypeId !== null && aircraftTypeId !== undefined) {
       queryParams.aircraftTypeId = aircraftTypeId;
     }
 

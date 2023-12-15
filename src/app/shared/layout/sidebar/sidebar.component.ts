@@ -217,30 +217,20 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.customerName.emit(selectedValue);
   }
 
-  getFilteredAircraftData(): any {
+  getFilteredAircraftData(): any[] {
     this.userData = this.kcService.getUserRoles();
     this.userRole = this.userData[0];
 
-    if (
-      (this.userRole === 'admin' || this.userRole === 'customer_ga') &&
-      this.selectedCustomer === 'customer_ga'
-    ) {
-      return this.aircraftDataGaruda;
+    if (this.userRole === 'admin') {
+      if (this.selectedCustomer === 'customer_ga') {
+        return this.aircraftDataGaruda;
+      } else if (this.selectedCustomer === 'customer_citilink') {
+        return this.aircraftDataCitilink;
+      } else {
+        return [...this.aircraftDataGaruda, ...this.aircraftDataCitilink];
+      }
     }
-
-    if (
-      (this.userRole === 'admin' || this.userRole === 'customer_citilink') &&
-      this.selectedCustomer === 'customer_citilink'
-    ) {
-      return this.aircraftDataCitilink;
-    } else if (this.userRole === 'admin') {
-      return [...this.aircraftDataGaruda, ...this.aircraftDataCitilink];
-    }
-
-    // if (this.userRole === 'admin' && this.selectedCustomer === null) {
-    // }
-
-    return null;
+    return []; // Mengembalikan array kosong jika tidak ada opsi yang sesuai dengan kondisi
   }
 
   onInputSortDate(event: any) {
