@@ -19,6 +19,8 @@ import { AverageHealt } from '../dashboard/dto/average-healt.dto';
 import * as DashboardAction from '../dashboard/states/dashboard.action';
 import { DashboardFeatureState } from '../dashboard/states/dashboard.feature';
 import { DashboardState } from '../dashboard/states/dashboard.selector';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ImsPaginationDTO } from '../dashboard/dto/ims-pagination.dto';
 
 @Component({
   selector: 'app-home',
@@ -78,38 +80,44 @@ export class HomeComponent implements OnInit, OnDestroy {
   currentQuote: string = this.quotes[0];
   currentIndex: number = 0;
 
+  formParam: FormGroup;
+
   constructor(
     private readonly soeService: UserSoeService,
     private readonly keycloakService: KeycloakService,
     private readonly dashboardService: DashboardService,
-    private readonly store: Store
+    private readonly store: Store,
+    private fb: FormBuilder
   ) {
     this.logger = new LoggerService(HomeComponent.name);
     this.dashboardState$ = this.store.select(DashboardState);
     this.personalInformation =
       this.soeService.getPersonalInformationFromCache();
-    // console.log(this.personalInformation);
+    this.formFilterOption();
   }
 
   ngOnInit(): void {
     this.userRoles = this.keycloakService.getUserRoles();
     this.userRole = this.userRoles[0];
+    this.formFilterOption();
 
     if (
       this.userRoles[0] === 'customer_ga' ||
       this.userRoles[0] === 'customer_citilink'
     ) {
       this.customerRole = this.userRoles[0];
+      this.formParam.get('customer')?.setValue(this.customerRole);
+      this.initDashboardData(this.formParam.value);
     } else {
       this.customerRole = '';
+      this.formParam.get('customer')?.setValue('');
+      this.initDashboardData(this.formParam.value);
     }
 
     setInterval(() => {
       this.currentIndex = (this.currentIndex + 1) % this.quotes.length;
       this.currentQuote = this.quotes[this.currentIndex];
     }, 30000);
-
-    this.initDashboardData(undefined, this.customerRole);
 
     this.dashboardState$.subscribe((data: DashboardFeatureState) => {
       const greenItems = data.ahiSummaryScore.amountOfGreenItems;
@@ -136,6 +144,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
   }
 
+  formFilterOption(): void {
+    this.formParam = this.fb.group({
+      page: [1],
+      size: [24],
+      endDate: [''],
+      customer: [''],
+      aircraftTypeId: [''],
+    });
+  }
+
   ngOnDestroy(): void {
     this.unsubscribe$.unsubscribe();
   }
@@ -155,20 +173,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   // summaryScore, averageHealt, PercentageScore, Difference
-  initDashboardData(undefined: string, customer?: string): void {
+  initDashboardData(param?: ImsPaginationDTO): void {
     this.store.dispatch(DashboardAction.onClearSummaryScore());
 
     this.dashboardService
-      .getAhiSummaryScore(undefined, customer)
+      .getAhiSummaryScore(param)
       .pipe(
         catchError((error) => {
           console.error('Error on HomeComponent get amount => ', error);
           return EMPTY;
         }),
         tap((result) => {
-          this.initAveragehealth(undefined, customer);
-          this.initPercentageScoreData(undefined, customer);
-          this.initDifference(undefined, customer);
+          this.initAveragehealth(param);
+          this.initPercentageScoreData(param);
+          this.initDifference(param);
           this.store.dispatch(DashboardAction.onLoadSummaryScore(result.data));
         }),
         takeUntil(this.unsubscribe$)
@@ -177,11 +195,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   // Percentage
-  initPercentageScoreData(undefined: string, customer?: string): void {
+  initPercentageScoreData(param?: ImsPaginationDTO): void {
     this.store.dispatch(DashboardAction.onClearAveragePercentage());
 
     this.dashboardService
-      .getAveragePersen(undefined, customer)
+      .getAveragePersen(param)
       .pipe(
         catchError((error) => {
           console.error('Error on HomeComponent get Percentage => ', error);
@@ -199,11 +217,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   // Average Healt
-  initAveragehealth(undefined: string, customer?: string): void {
+  initAveragehealth(param?: ImsPaginationDTO): void {
     this.store.dispatch(DashboardAction.onClearAverageHealth());
 
     this.dashboardService
-      .getAverageHealt(undefined, customer)
+      .getAverageHealt(param)
       .pipe(
         catchError((error) => {
           console.error('Error on HomeComponent get Averagehealth => ', error);
@@ -221,11 +239,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   // Difference value
-  initDifference(undefined: string, customer?: string): void {
+  initDifference(param?: ImsPaginationDTO): void {
     this.store.dispatch(DashboardAction.ocClearDifference());
 
     this.dashboardService
-      .getDifference(undefined, customer)
+      .getDifference(param)
       .pipe(
         catchError((error) => {
           console.error('Error on HomeComponent get difference => ', error);

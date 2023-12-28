@@ -1,11 +1,5 @@
-import {
-  AfterViewInit,
-  Component,
-  HostListener,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Modal } from 'flowbite';
 import {
@@ -13,7 +7,6 @@ import {
   Observable,
   Subject,
   catchError,
-  from,
   mergeMap,
   of,
   takeUntil,
@@ -22,7 +15,6 @@ import {
 } from 'rxjs';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { DashboardService } from './dashboard.service';
-
 import {
   animate,
   state,
@@ -30,17 +22,17 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { KeycloakService } from 'keycloak-angular';
+import { ToastNotif } from 'src/app/core/decorators/toast.success';
 import { UserSoeService } from 'src/app/core/services/user.soe.service';
 import { PersonalInformation } from 'src/app/shared/layout/sidebar/interfaces/sidebar.interface';
 import { AircraftDetailHilDTO } from './dto/aircraft-detail-hil.dto';
 import { AircraftDTO, AircraftDTO2 } from './dto/aircraft.dto';
+import { AverageHealt } from './dto/average-healt.dto';
 import { ImsPaginationDTO } from './dto/ims-pagination.dto';
 import * as DashboardAction from './states/dashboard.action';
 import { DashboardFeatureState } from './states/dashboard.feature';
 import { DashboardState } from './states/dashboard.selector';
-import { AverageHealt } from './dto/average-healt.dto';
-import { KeycloakService } from 'keycloak-angular';
-import { ToastNotif } from 'src/app/core/decorators/toast.success';
 
 @Component({
   selector: 'app-dashboard',
@@ -104,6 +96,8 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     size: 24,
   };
 
+  formParam: FormGroup;
+
   dashboardState$: Observable<DashboardFeatureState>;
   personalInformation: PersonalInformation;
 
@@ -111,12 +105,14 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     private readonly dashboardService: DashboardService,
     private readonly soeService: UserSoeService,
     protected readonly keycloak: KeycloakService,
-    private readonly store: Store
+    private readonly store: Store,
+    private fb: FormBuilder
   ) {
     this.logger = new LoggerService(DashboardComponent.name);
     this.dashboardState$ = this.store.select(DashboardState);
     this.personalInformation =
       this.soeService.getPersonalInformationFromCache();
+    this.formFilterOption();
   }
   ngAfterViewInit(): void {
     this.aircraftDetailModal = new Modal(
@@ -136,159 +132,82 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     } else {
       this.selectedCustomer = '';
     }
-    this.fectDashboardData2(
-      this.sortDateSelected,
-      this.selectedCustomer,
-      this.selectedTypeId
-    );
-    this.initDashboardData(undefined, this.selectedCustomer);
+    this.fectDashboardData(this.formParam.value);
+    this.initDashboardData(this.formParam.value);
     // console.log(this.selectedCustomer);
   }
 
-  formGroup = new FormGroup({
-    partNumber: new FormControl<string>('', [Validators.required]),
-    searchCategory: new FormControl('ahi-master-*'),
-  });
+  formFilterOption(): void {
+    this.formParam = this.fb.group({
+      page: [1],
+      size: [24],
+      endDate: [''],
+      customer: [''],
+      aircraftTypeId: [''],
+    });
+  }
+
+  resetFormFilter(): void {
+    this.formParam.reset();
+  }
 
   onSelectDataByCustomerName(customerName: string): void {
-    this.paginationData.size = 24;
-    this.selectedCustomer = customerName;
-    if (this.selectedCustomer) {
-      this.selectedTypeId = '';
+    this.formParam.get('customer')?.setValue(customerName);
+    this.formParam.get('size')?.setValue('');
+    this.formParam.get('aircraftTypeId')?.setValue('');
+
+    if (this.formParam.get('customer')?.value) {
+      this.fectDashboardData(this.formParam.value);
+      this.initDashboardData(this.formParam.value);
+    } else {
+      this.formParam.get('customer')?.setValue('');
+      this.fectDashboardData(this.formParam.value);
+      this.initDashboardData(this.formParam.value);
     }
-    this.initDashboardData(
-      this.sortDateSelected,
-      this.selectedCustomer,
-      this.selectedTypeId
-    );
-    this.fectDashboardData2(
-      this.sortDateSelected,
-      this.selectedCustomer,
-      this.selectedTypeId
-    );
   }
 
   onAircraftTypeChanged(aircraftTypeId: string): void {
-    this.paginationData.size = 24;
-    this.selectedTypeId = aircraftTypeId !== null ? aircraftTypeId : undefined;
-    this.initDashboardData(
-      this.sortDateSelected,
-      this.selectedCustomer,
-      this.selectedTypeId || undefined
-    );
-    this.fectDashboardData2(
-      this.sortDateSelected,
-      this.selectedCustomer,
-      this.selectedTypeId || undefined
-    );
+    this.formParam.get('aircraftTypeId')?.setValue(aircraftTypeId);
+    this.formParam.get('size')?.setValue('');
+    if (this.formParam.get('aircraftTypeId')?.value) {
+      this.fectDashboardData(this.formParam.value);
+      this.initDashboardData(this.formParam.value);
+    } else {
+      this.formParam.get('aircraftTypeId')?.setValue('');
+      this.fectDashboardData(this.formParam.value);
+      this.initDashboardData(this.formParam.value);
+    }
   }
 
   onInputSortDate(sortDate: string): void {
-    this.sortDateSelected = sortDate;
-    this.paginationData.size = 24;
-    this.initDashboardData(
-      this.sortDateSelected,
-      this.selectedCustomer,
-      this.selectedTypeId
-    );
-    this.fectDashboardData2(
-      this.sortDateSelected,
-      this.selectedCustomer,
-      this.selectedTypeId
-    );
+    this.formParam.get('endDate')?.setValue(sortDate);
+    this.formParam.get('size')?.setValue('');
+    if (this.formParam.get('endDate')?.value) {
+      this.fectDashboardData(this.formParam.value);
+      this.initDashboardData(this.formParam.value);
+    } else {
+      this.formParam.get('endDate')?.setValue('');
+      this.fectDashboardData(this.formParam.value);
+      this.initDashboardData(this.formParam.value);
+    }
   }
 
-  // fetchAircraftType(): void {
-  //   this.dashboardService
-  //     .getAircraftType()
-  //     .pipe(
-  //       catchError((err) => {
-  //         console.error(err);
-  //         return EMPTY;
-  //       }),
-  //       mergeMap((result) => {
-  //         if (result !== null) {
-  //           return from(result.data);
-  //         } else {
-  //           return EMPTY; // Return an empty observable if result is null
-  //         }
-  //       }),
-  //       tap((acType) => {
-  //         this.store.dispatch(DashboardAction.onLoadAircraftType(acType));
-  //       }),
-  //       takeUntil(this._onDestroy$)
-  //     )
-  //     .subscribe();
-  // }
+  loadMoreData(): void {
+    const currentValue = this.formParam.get('size')?.value || 24; // Nilai awal atau 24 jika tidak ada
+    const newValue = currentValue + 24; // Menambahkan 24 ke nilai saat ini
 
-  // fectDashboardData(aircraftTypeId?: number, sortDate?: string): void {
-  //   this.store.dispatch(DashboardAction.onClearAircraftList());
+    this.formParam.get('size')?.setValue(newValue);
+    this.fectDashboardData(this.formParam.value);
+  }
 
-  //   this.dashboardService
-  //     .getCardData(this.paginationData, aircraftTypeId)
-  //     .pipe(
-  //       tap((res) => {
-  //         res.data.forEach((el) => {
-  //           this.dashboardService
-  //             .getAircraftScore(el.aircraftRegistration, sortDate)
-
-  //             .pipe(
-  //               map((score) => {
-
-  //                 let tempAircraft: AircraftDTO = {
-  //                   aircraftGroup: el.aircraftGroup,
-  //                   sapRegistration: el.sapRegistration,
-  //                   aircraftRegistration: el.aircraftRegistration,
-  //                   carrierId: el.carrierId,
-  //                   blockOnDate: el.blockOnDate,
-  //                   blockOnTime: el.blockOnTime,
-  //                   arrivalStation: el.arrivalStation,
-  //                   aircraftType: el.aircraftType,
-  //                   aircraftScore: score.data,
-  //                 };
-
-  //                 return tempAircraft;
-  //               }),
-  //               catchError((error) => {
-  //                 return of({
-  //                   aircraftGroup: el.aircraftGroup,
-  //                   sapRegistration: el.sapRegistration,
-  //                   aircraftRegistration: el.aircraftRegistration,
-  //                   carrierId: el.carrierId,
-  //                   blockOnDate: el.blockOnDate,
-  //                   blockOnTime: el.blockOnTime,
-  //                   arrivalStation: el.arrivalStation,
-  //                   aircraftType: el.aircraftType,
-  //                   aircraftScore: null,
-  //                 });
-  //               })
-  //             )
-  //             .pipe(
-  //               tap((_) => {
-  //                 this.cardData.push(_);
-  //                 this.store.dispatch(DashboardAction.onLoadAircraftList(_));
-  //               })
-  //             )
-  //             .pipe(takeUntil(this._onDestroy$))
-  //             .subscribe();
-  //         });
-  //       }),
-  //       takeUntil(this._onDestroy$)
-  //     )
-  //     .subscribe();
-  // }
-
-  fectDashboardData2(
-    sortDate?: string,
-    customer?: string,
-    aircraftTypeId?: string
-  ): void {
+  // get card data
+  fectDashboardData(param?: ImsPaginationDTO): void {
     this.store.dispatch(DashboardAction.onClearAircraftList());
 
     this.dashboardService
-      .getCardData(this.paginationData, sortDate, customer, aircraftTypeId)
+      .getCardData(param)
       .pipe(
-        timeout(20000),
+        timeout(300000),
         catchError((error) => {
           if (error.name === 'TimeoutError') {
             // Tangani aksi jika waktu maksimum tercapai
@@ -327,15 +246,6 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe();
   }
 
-  loadMoreData(): void {
-    this.paginationData.size += 24;
-    this.fectDashboardData2(
-      this.sortDateSelected,
-      this.selectedCustomer === '' ? this.customerName : this.selectedCustomer,
-      this.selectedTypeId
-    );
-  }
-
   // @HostListener('window:scroll', ['$event'])
   // onScroll(event: Event): void {
   //   const scrollPosition = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
@@ -364,7 +274,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dashboardService
       .getDetailAicraft(aircraft.aircraftRegistration)
       .pipe(
-        timeout(20000),
+        timeout(300000),
         catchError((err) => {
           console.error(
             'Error on DashboardComponent get detailAircraft => ',
@@ -400,7 +310,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dashboardService
       .getApu(aircraftRegistration, sortDate)
       .pipe(
-        timeout(20000),
+        timeout(300000),
         catchError((err) => {
           console.error('Error on DashboardComponent get APU => ', err);
           return EMPTY;
@@ -419,17 +329,13 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // summaryScore, averageHealt, PercentageScore, Difference
-  async initDashboardData(
-    sortDate?: string,
-    customer?: string,
-    aircraftTypeId?: string
-  ): Promise<void> {
+  async initDashboardData(param?: ImsPaginationDTO): Promise<void> {
     this.store.dispatch(DashboardAction.onClearSummaryScore());
 
     this.dashboardService
-      .getAhiSummaryScore(sortDate, customer, aircraftTypeId)
+      .getAhiSummaryScore(param)
       .pipe(
-        timeout(20000),
+        timeout(300000),
         catchError((error) => {
           console.error(
             'Error on DashboardComponent get summryScore => ',
@@ -438,9 +344,9 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
           return EMPTY;
         }),
         tap((result) => {
-          this.initAveragehealth(sortDate, customer, aircraftTypeId);
-          this.initPercentageScoreData(sortDate, customer, aircraftTypeId);
-          this.initDifference(sortDate, customer, aircraftTypeId);
+          this.initAveragehealth(param);
+          this.initPercentageScoreData(param);
+          this.initDifference(param);
           this.store.dispatch(DashboardAction.onLoadSummaryScore(result.data));
         }),
         takeUntil(this._onDestroy$)
@@ -449,17 +355,13 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // Percentage
-  async initPercentageScoreData(
-    sortDate?: string,
-    customer?: string,
-    aircraftTypeId?: string
-  ): Promise<void> {
+  async initPercentageScoreData(param?: ImsPaginationDTO): Promise<void> {
     this.store.dispatch(DashboardAction.onClearAveragePercentage());
 
     this.dashboardService
-      .getAveragePersen(sortDate, customer, aircraftTypeId)
+      .getAveragePersen(param)
       .pipe(
-        timeout(20000),
+        timeout(300000),
         catchError((error) => {
           console.error(
             'Error on DasboardComponent get averagepercent => ',
@@ -479,17 +381,13 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // Average Healt
-  async initAveragehealth(
-    sortDate?: string,
-    customer?: string,
-    aircraftTypeId?: string
-  ): Promise<void> {
+  async initAveragehealth(param?: ImsPaginationDTO): Promise<void> {
     this.store.dispatch(DashboardAction.onClearAverageHealth());
 
     this.dashboardService
-      .getAverageHealt(sortDate, customer, aircraftTypeId)
+      .getAverageHealt(param)
       .pipe(
-        timeout(20000),
+        timeout(300000),
         catchError((error) => {
           console.error(
             'Error on DasboardComponent get averageHealth => ',
@@ -509,17 +407,13 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // Difference value
-  async initDifference(
-    sortDate?: string,
-    customer?: string,
-    aircraftTypeId?: string
-  ): Promise<void> {
+  async initDifference(param?: ImsPaginationDTO): Promise<void> {
     this.store.dispatch(DashboardAction.ocClearDifference());
 
     this.dashboardService
-      .getDifference(sortDate, customer, aircraftTypeId)
+      .getDifference(param)
       .pipe(
-        timeout(20000),
+        timeout(300000),
         catchError((error) => {
           console.error('Error on DasboardComponent get Difference => ', error);
           return EMPTY;

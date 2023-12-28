@@ -174,7 +174,7 @@
       <div class="flex justify-between gap-4">
         <div class="text-center inline-flex">
           <button
-            *ngIf="userRoles.includes('admin')"
+            *ngIf="userRole === 'admin'"
             routerLink="/configuration"
             class="inline-block ml-12 rounded-full p-2 text-md font-medium leading-normal hover:bg-gray-600 text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
           >

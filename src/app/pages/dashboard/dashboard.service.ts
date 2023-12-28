@@ -39,33 +39,27 @@ export class DashboardService extends HttpService {
 
   // Aircraft list Dashboard Card
   getCardData(
-    paginationData: ImsPaginationDTO,
-    sortDate: string,
-    customer: string,
-    aircraftTypeId?: string
+    paginationData: ImsPaginationDTO
   ): Observable<HttpResult<AircraftDTO2[]>> {
-    const queryParams: any = {
-      page: paginationData.page,
-      size: paginationData.size,
-    };
+    let queryParams = new HttpParams();
 
-    if (sortDate) {
-      queryParams.endDate = sortDate;
+    for (const key in paginationData) {
+      if (
+        paginationData[key as keyof ImsPaginationDTO] !== null &&
+        paginationData[key as keyof ImsPaginationDTO] !== undefined &&
+        paginationData[key as keyof ImsPaginationDTO] !== ''
+      ) {
+        queryParams = queryParams.set(
+          key,
+          paginationData[key as keyof ImsPaginationDTO]
+        );
+      }
     }
 
-    if (customer) {
-      queryParams.customer = customer;
-    }
+    const url = `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi/_cards`;
+    const options = { params: queryParams };
 
-    // Hanya tambahkan aircraftTypeId jika tidak bernilai null atau undefined
-    if (aircraftTypeId !== null && aircraftTypeId !== undefined) {
-      queryParams.aircraftTypeId = aircraftTypeId;
-    }
-
-    return this.http.get<HttpResult<AircraftDTO2[]>>(
-      `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi/_cards`,
-      { params: queryParams }
-    );
+    return this.http.get<HttpResult<AircraftDTO2[]>>(url, options);
   }
 
   // filter for Aircraft Type
@@ -77,28 +71,27 @@ export class DashboardService extends HttpService {
 
   // Summary of = Score, Green, Yellow, Red, healt, percentage, & difference
   getAhiSummaryScore(
-    sortDate?: string,
-    customer?: string,
-    aircraftTypeId?: string
+    paginationData: ImsPaginationDTO
   ): Observable<HttpResult<AhiSummaryScoreDTO>> {
-    const queryParams: any = {};
+    let queryParams = new HttpParams();
 
-    if (sortDate) {
-      queryParams.endDate = sortDate;
+    for (const key in paginationData) {
+      if (
+        paginationData[key as keyof ImsPaginationDTO] !== null &&
+        paginationData[key as keyof ImsPaginationDTO] !== undefined &&
+        paginationData[key as keyof ImsPaginationDTO] !== ''
+      ) {
+        queryParams = queryParams.set(
+          key,
+          paginationData[key as keyof ImsPaginationDTO]
+        );
+      }
     }
 
-    if (customer) {
-      queryParams.customer = customer;
-    }
+    const url = `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi/_amount`;
+    const options = { params: queryParams };
 
-    if (aircraftTypeId) {
-      queryParams.aircraftTypeId = aircraftTypeId;
-    }
-
-    return this.http.get<HttpResult<AhiSummaryScoreDTO>>(
-      `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi/_amount`,
-      { params: queryParams }
-    );
+    return this.http.get<HttpResult<AhiSummaryScoreDTO>>(url, options);
   }
 
   // Detail APU
@@ -132,80 +125,77 @@ export class DashboardService extends HttpService {
 
   // Average Healt
   getAverageHealt(
-    sortDate?: string,
-    customer?: string,
-    aircraftTypeId?: string
+    paginationData: ImsPaginationDTO
   ): Observable<HttpResult<number>> {
-    const queryParams: any = {};
+    let queryParams = new HttpParams();
 
-    if (sortDate) {
-      queryParams.endDate = sortDate;
+    for (const key in paginationData) {
+      if (
+        paginationData[key as keyof ImsPaginationDTO] !== null &&
+        paginationData[key as keyof ImsPaginationDTO] !== undefined &&
+        paginationData[key as keyof ImsPaginationDTO] !== ''
+      ) {
+        queryParams = queryParams.set(
+          key,
+          paginationData[key as keyof ImsPaginationDTO]
+        );
+      }
     }
 
-    if (customer) {
-      queryParams.customer = customer;
-    }
+    const url = `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi/_average`;
+    const options = { params: queryParams };
 
-    if (aircraftTypeId) {
-      queryParams.aircraftTypeId = aircraftTypeId;
-    }
-
-    return this.http.get<HttpResult<number>>(
-      `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi/_average`,
-      { params: queryParams }
-    );
+    return this.http.get<HttpResult<number>>(url, options);
   }
 
   // Average Persen
   getAveragePersen(
-    sortDate?: string,
-    customer?: string,
-    aircraftTypeId?: string
+    paginationData: ImsPaginationDTO
   ): Observable<HttpResult<number>> {
-    const queryParams: any = {};
+    let queryParams = new HttpParams();
 
-    if (sortDate) {
-      queryParams.endDate = sortDate;
+    for (const key in paginationData) {
+      if (
+        paginationData[key as keyof ImsPaginationDTO] !== null &&
+        paginationData[key as keyof ImsPaginationDTO] !== undefined &&
+        paginationData[key as keyof ImsPaginationDTO] !== ''
+      ) {
+        queryParams = queryParams.set(
+          key,
+          paginationData[key as keyof ImsPaginationDTO]
+        );
+      }
     }
 
-    if (customer) {
-      queryParams.customer = customer;
-    }
+    const url = `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi/_percent`;
+    const options = { params: queryParams };
 
-    if (aircraftTypeId) {
-      queryParams.aircraftTypeId = aircraftTypeId;
-    }
-
-    return this.http.get<HttpResult<number>>(
-      `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi/_percent`,
-      { params: queryParams }
-    );
+    return this.http.get<HttpResult<number>>(url, options);
   }
 
   // Difference
   getDifference(
-    sortDate?: string,
-    customer?: string,
-    aircraftTypeId?: string
+    paginationData: ImsPaginationDTO
   ): Observable<HttpResult<number>> {
-    const queryParams: any = {};
+    let queryParams = new HttpParams();
 
-    if (sortDate) {
-      queryParams.endDate = sortDate;
+    for (const key in paginationData) {
+      if (
+        paginationData[key as keyof ImsPaginationDTO] !== null &&
+        paginationData[key as keyof ImsPaginationDTO] !== undefined &&
+        paginationData[key as keyof ImsPaginationDTO] !== ''
+      ) {
+        queryParams = queryParams.set(
+          key,
+          paginationData[key as keyof ImsPaginationDTO]
+        );
+      }
     }
 
-    if (customer) {
-      queryParams.customer = customer;
-    }
+    const url = `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi/_difference`;
+    const options = { params: queryParams };
 
-    if (aircraftTypeId) {
-      queryParams.aircraftTypeId = aircraftTypeId;
-    }
-
-    return this.http.get<HttpResult<number>>(
-      `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi/_difference`,
-      { params: queryParams }
-    );
+    return this.http.get<HttpResult<number>>(url, options);
   }
 
   // getAircraftScore(acReg: string): Observable<HttpResult<AircraftScoreDTO>> {
