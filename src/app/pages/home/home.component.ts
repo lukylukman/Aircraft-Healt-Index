@@ -146,8 +146,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   formFilterOption(): void {
     this.formParam = this.fb.group({
-      page: [1],
-      size: [24],
+      page: [null],
+      size: [null],
       endDate: [''],
       customer: [''],
       aircraftTypeId: [''],

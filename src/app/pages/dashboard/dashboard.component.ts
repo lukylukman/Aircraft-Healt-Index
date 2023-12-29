@@ -153,7 +153,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onSelectDataByCustomerName(customerName: string): void {
     this.formParam.get('customer')?.setValue(customerName);
-    this.formParam.get('size')?.setValue('');
+    this.formParam.get('size')?.setValue('24');
     this.formParam.get('aircraftTypeId')?.setValue('');
 
     if (this.formParam.get('customer')?.value) {
@@ -168,7 +168,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onAircraftTypeChanged(aircraftTypeId: string): void {
     this.formParam.get('aircraftTypeId')?.setValue(aircraftTypeId);
-    this.formParam.get('size')?.setValue('');
+    this.formParam.get('size')?.setValue('24');
     if (this.formParam.get('aircraftTypeId')?.value) {
       this.fectDashboardData(this.formParam.value);
       this.initDashboardData(this.formParam.value);
@@ -181,7 +181,8 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onInputSortDate(sortDate: string): void {
     this.formParam.get('endDate')?.setValue(sortDate);
-    this.formParam.get('size')?.setValue('');
+    this.formParam.get('size')?.setValue('24');
+
     if (this.formParam.get('endDate')?.value) {
       this.fectDashboardData(this.formParam.value);
       this.initDashboardData(this.formParam.value);
@@ -193,10 +194,10 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   loadMoreData(): void {
-    const currentValue = this.formParam.get('size')?.value || 24; // Nilai awal atau 24 jika tidak ada
-    const newValue = currentValue + 24; // Menambahkan 24 ke nilai saat ini
+    let currentValue = this.formParam.get('size').value || 24; // Nilai awal adalah 24 jika tidak ada
+    currentValue = +currentValue + 24; // Konversi ke tipe number dan tambahkan 24
 
-    this.formParam.get('size')?.setValue(newValue);
+    this.formParam.get('size')?.setValue(currentValue);
     this.fectDashboardData(this.formParam.value);
   }
 
