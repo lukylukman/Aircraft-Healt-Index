@@ -172,14 +172,11 @@
       <p class="uppercase text-base">Select Customer</p>
       <select
         [id]="id"
-        [(ngModel)]="selectedCustomer"
         class="block w-44 overflow-y-auto p-2 mb-6 text-sm text-white border cursor-pointer border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         (change)="onSelectDataByCustomer($event)"
       >
         <option selected disabled>Choose Customer</option>
-        <option [value]="null" class="uppercase">
-          Select All Customer Data
-        </option>
+        <option value="" class="uppercase">Select All Customer Data</option>
         <option value="customer_ga">GARUDA INDONESIA (GA)</option>
         <option value="customer_citilink">CITILINK (QG)</option>
       </select>
@@ -196,7 +193,7 @@
         (change)="onAircraftTypeChange($event)"
       >
         <option selected disabled>Choose aircraft type</option>
-        <option [value]="null" class="uppercase">Select All Aircraft</option>
+        <option value="" class="uppercase">Select All Aircraft</option>
 
         <ng-container *ngFor="let option of getFilteredAircraftData()">
           <option [value]="option.aircraftType">
@@ -211,7 +208,7 @@
         (change)="onAircraftTypeChange($event)"
       >
         <option selected disabled>Choose aircraft type</option>
-        <option [value]="null" class="uppercase">Select All Aircraft</option>
+        <option value="" class="uppercase">Select All Aircraft</option>
 
         <ng-container *ngFor="let option of aircraftDataCitilink">
           <option [value]="option.aircraftType">

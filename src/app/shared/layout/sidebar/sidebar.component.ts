@@ -214,6 +214,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   onSelectDataByCustomer(event: any) {
     const selectedValue = event.target.value;
+    this.selectedCustomer = selectedValue;
     this.customerName.emit(selectedValue);
   }
 
