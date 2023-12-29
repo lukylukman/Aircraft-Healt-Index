@@ -223,7 +223,7 @@
         (change)="onAircraftTypeChange($event)"
       >
         <option selected disabled>Choose aircraft type</option>
-        <option [value]="null" class="uppercase">Select All Aircraft</option>
+        <option value="" class="uppercase">Select All Aircraft</option>
 
         <ng-container *ngFor="let option of aircraftDataGaruda">
           <option [value]="option.aircraftType">
