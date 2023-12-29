@@ -129,6 +129,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       this.userRoles[0] === 'customer_citilink'
     ) {
       this.selectedCustomer = this.userRoles[0];
+      this.formParam.get('customer')?.setValue(this.userRoles[0]);
     } else {
       this.selectedCustomer = '';
     }
@@ -169,14 +170,20 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   onAircraftTypeChanged(aircraftTypeId: string): void {
     this.formParam.get('aircraftTypeId')?.setValue(aircraftTypeId);
     this.formParam.get('size')?.setValue('24');
-    if (this.formParam.get('aircraftTypeId')?.value) {
-      this.fectDashboardData(this.formParam.value);
-      this.initDashboardData(this.formParam.value);
-    } else {
-      this.formParam.get('aircraftTypeId')?.setValue('');
-      this.fectDashboardData(this.formParam.value);
-      this.initDashboardData(this.formParam.value);
-    }
+
+    const isCitilinkAircraft = [
+      'A320',
+      'A330',
+      'ATR72',
+      'B737Classic',
+    ].includes(aircraftTypeId);
+    const customerValue = isCitilinkAircraft
+      ? 'customer_citilink'
+      : 'customer_ga';
+    this.formParam.get('customer')?.setValue(customerValue);
+
+    this.fectDashboardData(this.formParam.value);
+    this.initDashboardData(this.formParam.value);
   }
 
   onInputSortDate(sortDate: string): void {
