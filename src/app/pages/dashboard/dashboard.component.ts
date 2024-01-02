@@ -91,11 +91,6 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedCardData: any;
   aircraftDetailModal: Modal;
 
-  paginationData: ImsPaginationDTO = {
-    page: 1,
-    size: 24,
-  };
-
   formParam: FormGroup;
 
   dashboardState$: Observable<DashboardFeatureState>;
@@ -243,7 +238,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
             `contains a total of ${this.totalLoadedData} data`
           );
           this.dataNotFound = false;
-          if (this.totalLoadedData == this.paginationData.size) {
+          if (this.totalLoadedData === this.formParam.get('size')?.value) {
             this.btnPaggination = true;
           } else {
             this.btnPaggination = false;
