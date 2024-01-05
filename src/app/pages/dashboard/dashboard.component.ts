@@ -75,7 +75,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   isSearch: boolean = false;
   isAdvance: boolean = false;
   dataNotFound: boolean = false;
-  btnPaggination: boolean = true;
+  btnPaggination: boolean = false;
   isModalOpen: boolean = false;
 
   sortDateSelected: string = '';
@@ -188,6 +188,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.formParam.get('endDate')?.value) {
       this.fectDashboardData(this.formParam.value);
       this.initDashboardData(this.formParam.value);
+      console.log(this.formParam.value);
     } else {
       this.formParam.get('endDate')?.setValue('');
       this.fectDashboardData(this.formParam.value);
@@ -238,11 +239,16 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
             `contains a total of ${this.totalLoadedData} data`
           );
           this.dataNotFound = false;
-          if (this.totalLoadedData === this.formParam.get('size')?.value) {
+          if (this.totalLoadedData == this.formParam.get('size')?.value) {
             this.btnPaggination = true;
           } else {
             this.btnPaggination = false;
           }
+          console.log(
+            this.totalLoadedData,
+            this.formParam.get('size').value,
+            this.btnPaggination
+          );
         }),
         takeUntil(this._onDestroy$)
       )
