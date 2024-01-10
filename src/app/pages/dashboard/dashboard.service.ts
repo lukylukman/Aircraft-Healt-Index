@@ -109,7 +109,7 @@ export class DashboardService extends HttpService {
     }
 
     return this.http.get<HttpResult<ElasticRecordResponse>>(
-      `${environment.host.ahi.url}/ahi/_filter`,
+      `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi/_filter`,
       { params: params }
     );
   }
