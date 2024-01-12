@@ -196,7 +196,7 @@
         <option value="" class="uppercase">Select All Aircraft</option>
 
         <ng-container *ngFor="let option of getFilteredAircraftData()">
-          <option [value]="option.aircraftType">
+          <option [value]="option.aircraftTypeId">
             {{ option.aircraftTypeName }}
           </option>
         </ng-container>

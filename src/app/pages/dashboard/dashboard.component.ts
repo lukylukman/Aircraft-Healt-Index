@@ -96,6 +96,54 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   dashboardState$: Observable<DashboardFeatureState>;
   personalInformation: PersonalInformation;
 
+  aircraftDataCitilink = [
+    {
+      aircraftTypeId: 1,
+      aircraftType: 'A320',
+      aircraftTypeName: 'A320',
+      customer: 'customer_citilink',
+    },
+    {
+      aircraftTypeId: 3,
+      aircraftType: 'A330',
+      aircraftTypeName: 'A330 QG',
+      customer: 'customer_citilink',
+    },
+    {
+      aircraftTypeId: 4,
+      aircraftType: 'ATR72',
+      aircraftTypeName: 'ATR72 QG',
+      customer: 'customer_citilink',
+    },
+    {
+      aircraftTypeId: 5,
+      aircraftType: 'B737Classic',
+      aircraftTypeName: 'B737 Classic',
+      customer: 'customer_citilink',
+    },
+  ];
+
+  aircraftDataGaruda = [
+    {
+      aircraftTypeId: 2,
+      aircraftType: 'A330',
+      aircraftTypeName: 'A330',
+      customer: 'customer_ga',
+    },
+    {
+      aircraftTypeId: 6,
+      aircraftType: 'B737-800',
+      aircraftTypeName: 'B737-800',
+      customer: 'customer_ga',
+    },
+    {
+      aircraftTypeId: 7,
+      aircraftType: 'B777',
+      aircraftTypeName: 'B777',
+      customer: 'customer_ga',
+    },
+  ];
+
   constructor(
     private readonly dashboardService: DashboardService,
     private readonly soeService: UserSoeService,
@@ -163,22 +211,39 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onAircraftTypeChanged(aircraftTypeId: string): void {
-    this.formParam.get('aircraftTypeId')?.setValue(aircraftTypeId);
+    const aircraftType = this.getAircraftTypeById(aircraftTypeId);
+
+    // Set values in the form
+    this.formParam.get('aircraftTypeId')?.setValue(aircraftType);
     this.formParam.get('size')?.setValue('24');
 
-    const isCitilinkAircraft = [
-      'A320',
-      'A330',
-      'ATR72',
-      'B737Classic',
-    ].includes(aircraftTypeId);
-    const customerValue = isCitilinkAircraft
-      ? 'customer_citilink'
-      : 'customer_ga';
+    let customerValue = '';
+
+    if (['1', '3', '4', '5'].includes(aircraftTypeId)) {
+      customerValue = 'customer_citilink';
+    } else if (['2', '6', '7'].includes(aircraftTypeId)) {
+      customerValue = 'customer_ga';
+    } else if (customerValue === '') {
+      customerValue = this.formParam.get('customer').value;
+    } else if (this.formParam.get('customer').value === null) {
+      customerValue = '';
+    }
+    // Set the customer value in the form
     this.formParam.get('customer')?.setValue(customerValue);
 
+    // Fetch and initialize dashboard data
     this.fectDashboardData(this.formParam.value);
     this.initDashboardData(this.formParam.value);
+  }
+
+  getAircraftTypeById(aircraftTypeId: string): string {
+    const foundAircraft = this.aircraftDataCitilink
+      .concat(this.aircraftDataGaruda)
+      .find(
+        (aircraft) => aircraft.aircraftTypeId.toString() === aircraftTypeId
+      );
+
+    return foundAircraft ? foundAircraft.aircraftType : '';
   }
 
   onInputSortDate(sortDate: string): void {
