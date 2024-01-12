@@ -26,9 +26,7 @@ import {
   RouteSidebar,
 } from 'src/app/core/services/route-helper.service';
 import { UserSoeService } from 'src/app/core/services/user.soe.service';
-import {
-  AircraftDTO
-} from 'src/app/pages/dashboard/dto/aircraft.dto';
+import { AircraftDTO } from 'src/app/pages/dashboard/dto/aircraft.dto';
 import { DashboardFeatureState } from 'src/app/pages/dashboard/states/dashboard.feature';
 import { DashboardState } from 'src/app/pages/dashboard/states/dashboard.selector';
 import { environment } from 'src/environments/environment';
