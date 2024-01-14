@@ -19,7 +19,7 @@ export class HttpAhiApiHeader implements HttpInterceptor {
     if (isahiRequest) {
       request = request.clone({
         setHeaders: {
-          'x-api-key': environment.ahiApiKey,
+          'x-api-key': environment.host.ahi.header.xApiKey,
         },
       });
     }
