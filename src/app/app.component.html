@@ -1,11 +1,4 @@
-<!-- <app-main></app-main> -->
-<div
-  *ngIf="
-    userRoles.includes('user') ||
-    userRoles.includes('customer_ga') ||
-    userRoles.includes('customer_citilink')
-  "
->
+<div>
   <app-main></app-main>
 </div>
 <div *ngIf="userRoles.includes('admin')">

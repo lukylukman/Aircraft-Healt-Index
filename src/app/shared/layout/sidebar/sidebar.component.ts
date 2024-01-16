@@ -92,6 +92,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   selectedCustomer: string;
 
+  userRoles: string[] = [];
+
   aircraftDataCitilink = [
     {
       aircraftTypeId: 1,
