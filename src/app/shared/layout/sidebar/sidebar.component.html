@@ -5,11 +5,18 @@
     <!-- Logo -->
 
     <div class="justify-center items-center">
-      <span class="cursor-pointer" (click)="goHome()">
+      <span class="" *ngIf="userRole === 'admin' || userRole === 'user'">
         <img
           src="../../../../assets/images/AHI_Icon.png"
           alt="No Image"
-          class="lg:w-36 md:w-24 sm:w-20 px-2 py-2 mx-auto hover:scale-105 hover:shadow-lg hover:rounded-xl hover:shadow-slate-500 transition-all ease-in-out"
+          class="lg:w-36 md:w-24 sm:w-20 px-2 py-2 mx-auto hover:scale-105 hover:shadow-lg hover:rounded-xl hover:shadow-slate-500 transition-all ease-in-out cursor-pointer"
+        />
+      </span>
+      <span *ngIf="userRole !== 'admin' && userRole !== 'user'">
+        <img
+          src="../../../../assets/images/AHI_Icon.png"
+          alt="No Image"
+          class="lg:w-36 md:w-24 sm:w-20 px-2 py-2 mx-auto transition-all ease-in-out"
         />
       </span>
       <div class="flex flex-row justify-center mt-2">

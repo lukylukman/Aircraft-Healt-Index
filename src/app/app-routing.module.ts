@@ -41,14 +41,22 @@ const routes: Routes = [
   {
     path: 'page404',
     data: {
-      title: '404 page',
-      roles: ['admin'],
+      title: 'Page404',
+      roles: [],
     },
+    // canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./pages/page404/page404.module').then(
-        (m) => m.Page404Module
-      ),
+      import('./pages/page404/page404.module').then((m) => m.Page404Module),
   },
+  // {
+  //   path: 'page404',
+  //   data: {
+  //     title: '404 page',
+  //     // roles: ['admin'],
+  //   },
+  //   loadChildren: () =>
+  //     import('./pages/page404/page404.module').then((m) => m.Page404Module),
+  // },
   // Atur halaman 404 dengan wildcard path '**'
   {
     path: '**',

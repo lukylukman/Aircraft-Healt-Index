@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Page404Component } from './page404.component';
+import { Page404RoutingModule } from './page404-routing.module';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: [Page404Component]
+  imports: [CommonModule, Page404RoutingModule],
+  declarations: [Page404Component],
 })
-export class Page404Module { }
+export class Page404Module {}
