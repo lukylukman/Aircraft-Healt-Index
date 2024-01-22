@@ -80,6 +80,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   sortDateSelected: string = '';
   selectedCustomer: string = '';
+  selectedAircraftId: string = '';
   customerName: string = '';
   userRoles: string[] = [];
   selectedTypeId: string;
@@ -178,7 +179,6 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     this.fectDashboardData(this.formParam.value);
     this.initDashboardData(this.formParam.value);
-    // console.log(this.selectedCustomer);
   }
 
   formFilterOption(): void {
@@ -198,13 +198,39 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   onSelectDataByCustomerName(customerName: string): void {
     this.formParam.get('customer')?.setValue(customerName);
     this.formParam.get('size')?.setValue('24');
-    this.formParam.get('aircraftTypeId')?.setValue('');
+
+    this.formParam
+      .get('aircraftTypeId')
+      ?.setValue(this.getAircraftTypeById(this.selectedAircraftId));
 
     if (this.formParam.get('customer')?.value) {
+      const customer = this.formParam.get('customer')?.value;
+
+      if (customer === 'customer_ga') {
+        if (['1', '3', '4', '5'].includes(this.selectedAircraftId)) {
+          this.formParam.get('aircraftTypeId')?.setValue('');
+        }
+      } else if (customer === 'customer_citilink') {
+        if (['2', '6', '7'].includes(this.selectedAircraftId)) {
+          this.formParam.get('aircraftTypeId')?.setValue('');
+        }
+      }
       this.fectDashboardData(this.formParam.value);
       this.initDashboardData(this.formParam.value);
     } else {
       this.formParam.get('customer')?.setValue('');
+
+      let customerValue = '';
+
+      if (['1', '3', '4', '5'].includes(this.selectedAircraftId)) {
+        customerValue = 'customer_citilink';
+      } else if (['2', '6', '7'].includes(this.selectedAircraftId)) {
+        customerValue = 'customer_ga';
+      } else if (this.formParam.get('customer').value === null) {
+        customerValue = '';
+      }
+      // Set the customer value in the form
+      this.formParam.get('customer')?.setValue(customerValue);
       this.fectDashboardData(this.formParam.value);
       this.initDashboardData(this.formParam.value);
     }
@@ -213,6 +239,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   onAircraftTypeChanged(aircraftTypeId: string): void {
     const aircraftType = this.getAircraftTypeById(aircraftTypeId);
 
+    this.selectedAircraftId = aircraftTypeId;
     // Set values in the form
     this.formParam.get('aircraftTypeId')?.setValue(aircraftType);
     this.formParam.get('size')?.setValue('24');
@@ -227,7 +254,9 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       customerValue = '';
     }
     // Set the customer value in the form
-    this.formParam.get('customer')?.setValue(customerValue);
+    if (this.formParam.get('customer').value === '') {
+      this.formParam.get('customer')?.setValue(customerValue);
+    }
 
     // Fetch and initialize dashboard data
     this.fectDashboardData(this.formParam.value);
@@ -251,7 +280,6 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.formParam.get('endDate')?.value) {
       this.fectDashboardData(this.formParam.value);
       this.initDashboardData(this.formParam.value);
-      console.log(this.formParam.value);
     } else {
       this.formParam.get('endDate')?.setValue('');
       this.fectDashboardData(this.formParam.value);
@@ -307,11 +335,6 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
           } else {
             this.btnPaggination = false;
           }
-          console.log(
-            this.totalLoadedData,
-            this.formParam.get('size').value,
-            this.btnPaggination
-          );
         }),
         takeUntil(this._onDestroy$)
       )
