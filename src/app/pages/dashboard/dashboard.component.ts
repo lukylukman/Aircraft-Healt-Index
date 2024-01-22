@@ -80,7 +80,9 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   sortDateSelected: string = '';
   selectedCustomer: string = '';
+  selectedCustomerName: string = '';
   selectedAircraftId: string = '';
+
   customerName: string = '';
   userRoles: string[] = [];
   selectedTypeId: string;
@@ -196,6 +198,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSelectDataByCustomerName(customerName: string): void {
+    this.selectedCustomerName = customerName;
     this.formParam.get('customer')?.setValue(customerName);
     this.formParam.get('size')?.setValue('24');
 
@@ -218,16 +221,12 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       this.fectDashboardData(this.formParam.value);
       this.initDashboardData(this.formParam.value);
     } else {
-      this.formParam.get('customer')?.setValue('');
-
       let customerValue = '';
 
       if (['1', '3', '4', '5'].includes(this.selectedAircraftId)) {
         customerValue = 'customer_citilink';
       } else if (['2', '6', '7'].includes(this.selectedAircraftId)) {
         customerValue = 'customer_ga';
-      } else if (this.formParam.get('customer').value === null) {
-        customerValue = '';
       }
       // Set the customer value in the form
       this.formParam.get('customer')?.setValue(customerValue);
@@ -242,8 +241,8 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.selectedAircraftId = aircraftTypeId;
     // Set values in the form
     this.formParam.get('aircraftTypeId')?.setValue(aircraftType);
+    this.formParam.get('customer')?.setValue('');
     this.formParam.get('size')?.setValue('24');
-
     let customerValue = '';
 
     if (['1', '3', '4', '5'].includes(aircraftTypeId)) {
@@ -252,11 +251,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       customerValue = 'customer_ga';
     } else if (this.formParam.get('customer').value === null) {
       customerValue = '';
+    } else if (this.formParam.get('aircraftTypeId').value === '') {
+      customerValue = this.selectedCustomerName;
     }
     // Set the customer value in the form
-    if (this.formParam.get('customer').value === '') {
-      this.formParam.get('customer')?.setValue(customerValue);
-    }
+    this.formParam.get('customer')?.setValue(customerValue);
 
     // Fetch and initialize dashboard data
     this.fectDashboardData(this.formParam.value);
