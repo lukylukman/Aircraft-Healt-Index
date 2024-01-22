@@ -223,8 +223,6 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       customerValue = 'customer_citilink';
     } else if (['2', '6', '7'].includes(aircraftTypeId)) {
       customerValue = 'customer_ga';
-    } else if (customerValue === '') {
-      customerValue = this.formParam.get('customer').value;
     } else if (this.formParam.get('customer').value === null) {
       customerValue = '';
     }

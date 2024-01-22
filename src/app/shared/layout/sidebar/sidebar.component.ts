@@ -207,7 +207,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   onAircraftTypeChange(event: any) {
     const selectedValue = event.target.value;
     this.aircraftTypeSelected.emit(selectedValue);
-    // console.log(selectedValue);
+    console.log(selectedValue);
   }
 
   onSelectDataByCustomer(event: any) {

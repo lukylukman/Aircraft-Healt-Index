@@ -1,56 +1,56 @@
 <ng-container *ngIf="dashboardState$ | async as dashboardState">
   <div
-    class="flex flex-col fixed overflow-y-auto no-scrollbar top-0 left-0 z-40 h-screen bg-black shadow-gray shadow-lg text-white p-2"
+    class="fixed top-0 left-0 z-40 flex flex-col h-screen p-2 overflow-y-auto text-white bg-black shadow-lg no-scrollbar shadow-gray"
   >
     <!-- Logo -->
 
-    <div class="justify-center items-center">
+    <div class="items-center justify-center">
       <span class="" *ngIf="userRole === 'admin' || userRole === 'user'">
         <img
           src="../../../../assets/images/AHI_Icon.png"
           alt="No Image"
-          class="lg:w-36 md:w-24 sm:w-20 px-2 py-2 mx-auto hover:scale-105 hover:shadow-lg hover:rounded-xl hover:shadow-slate-500 transition-all ease-in-out cursor-pointer"
+          class="px-2 py-2 mx-auto transition-all ease-in-out cursor-pointer lg:w-36 md:w-24 sm:w-20 hover:scale-105 hover:shadow-lg hover:rounded-xl hover:shadow-slate-500"
         />
       </span>
       <span *ngIf="userRole !== 'admin' && userRole !== 'user'">
         <img
           src="../../../../assets/images/AHI_Icon.png"
           alt="No Image"
-          class="lg:w-36 md:w-24 sm:w-20 px-2 py-2 mx-auto transition-all ease-in-out"
+          class="px-2 py-2 mx-auto transition-all ease-in-out lg:w-36 md:w-24 sm:w-20"
         />
       </span>
       <div class="flex flex-row justify-center mt-2">
         <h1 class="lg:text-5xl md:text-3xl sm:text-2xl font-extralight">
           {{ currentDate | date : "dd" }}
         </h1>
-        <div class="flex-col ml-2 p-0">
-          <h1 class="lg:text-base md:text-sm sm:text-xs font-normal uppercase">
+        <div class="flex-col p-0 ml-2">
+          <h1 class="font-normal uppercase lg:text-base md:text-sm sm:text-xs">
             {{ currentDate | date : "MMMM yyyy" }}
           </h1>
-          <h1 class="lg:text-base md:text-sm sm:text-xs font-normal uppercase">
+          <h1 class="font-normal uppercase lg:text-base md:text-sm sm:text-xs">
             {{ currentDate | date : "EEEE" }}
           </h1>
         </div>
       </div>
     </div>
 
-    <div class="text-right flex flex-col mt-6 mx-auto">
+    <div class="flex flex-col mx-auto mt-6 text-right">
       <span
         *ngIf="!sortDateSelected"
-        class="uppercase px-2 text-white mb-2 border-b py-1 border-gray-400 font-normal text-sm text-center"
+        class="px-2 py-1 mb-2 text-sm font-normal text-center text-white uppercase border-b border-gray-400"
       >
         AN AVERAGE OF TODAY
       </span>
       <span
         *ngIf="sortDateSelected"
-        class="uppercase px-2 text-white mb-2 border-b py-1 border-gray-400 font-normal text-sm text-center"
+        class="px-2 py-1 mb-2 text-sm font-normal text-center text-white uppercase border-b border-gray-400"
       >
         AN AVERAGE ON {{ sortDateSelected }}
       </span>
-      <h4 class="uppercase text-white font-light text-base">Average Health</h4>
+      <h4 class="text-base font-light text-white uppercase">Average Health</h4>
       <div class="flex flex-row items-end justify-end">
         <!-- Menggunakan flex dan justify-end -->
-        <div class="flex-col text-center items-center mr-1">
+        <div class="flex-col items-center mr-1 text-center">
           <app-svg
             [width]="'20'"
             [height]="'22'"
@@ -67,43 +67,43 @@
             {{ dashboardState.ahiSummaryScore?.difference }}
           </h4>
         </div>
-        <h1 class="text-white font-extralight text-3xl">
+        <h1 class="text-3xl text-white font-extralight">
           {{ dashboardState.ahiSummaryScore?.health }}.
         </h1>
         <h4 class="text-xl font-extralight">
           {{ dashboardState.ahiSummaryScore?.decimal | number : "2.0-0" }}
         </h4>
       </div>
-      <h4 class="uppercase text-white font-light text-base">PERCENT Changes</h4>
+      <h4 class="text-base font-light text-white uppercase">PERCENT Changes</h4>
       <p class="text-xs font-light uppercase">1 day ago</p>
       <div class="flex flex-row justify-end">
         <!-- Menggunakan flex dan justify-end -->
-        <h1 class="text-white font-extralight text-3xl">
+        <h1 class="text-3xl text-white font-extralight">
           {{ dashboardState.ahiSummaryScore.percentage }}%
         </h1>
       </div>
     </div>
 
     <!-- Green Yellow Red -->
-    <div class="mt-8 mx-auto text-center items-center">
+    <div class="items-center mx-auto mt-8 text-center">
       <span
         *ngIf="!sortDateSelected"
-        class="uppercase inline-flex px-8 text-white py-1 border-b border-gray-400 font-normal text-sm text-center"
+        class="inline-flex px-8 py-1 text-sm font-normal text-center text-white uppercase border-b border-gray-400"
       >
         total data today
-        <span class="font-semibold text-gray-200 ml-1">{{ totalData }}</span>
+        <span class="ml-1 font-semibold text-gray-200">{{ totalData }}</span>
       </span>
       <span
         *ngIf="sortDateSelected"
-        class="uppercase flex flex-col px-8 text-white py-1 border-b border-gray-400 font-normal text-sm text-center"
+        class="flex flex-col px-8 py-1 text-sm font-normal text-center text-white uppercase border-b border-gray-400"
       >
         <span>Total Data {{ totalData }} on </span>
-        <span class="font-semibold text-gray-200 ml-1">{{
+        <span class="ml-1 font-semibold text-gray-200">{{
           sortDateSelected
         }}</span>
       </span>
       <div class="grid grid-cols-3 mt-2">
-        <div class="text-center items-center">
+        <div class="items-center text-center">
           <p
             [ngClass]="{
               'text-4xl':
@@ -116,12 +116,12 @@
                 dashboardState.ahiSummaryScore.amountOfGreenItems.toString()
                   .length === 3
             }"
-            class="font-extralight mb-2"
+            class="mb-2 font-extralight"
           >
             {{ dashboardState.ahiSummaryScore.amountOfGreenItems }}
           </p>
         </div>
-        <div class="text-center items-center">
+        <div class="items-center text-center">
           <p
             [ngClass]="{
               'text-4xl':
@@ -134,12 +134,12 @@
                 dashboardState.ahiSummaryScore.amountOfYellowItems.toString()
                   .length === 3
             }"
-            class="font-extralight mb-2"
+            class="mb-2 font-extralight"
           >
             {{ dashboardState.ahiSummaryScore.amountOfYellowItems }}
           </p>
         </div>
-        <div class="text-center items-center">
+        <div class="items-center text-center">
           <p
             [ngClass]="{
               'text-4xl':
@@ -152,7 +152,7 @@
                 dashboardState.ahiSummaryScore.amountOfRedItems.toString()
                   .length === 3
             }"
-            class="font-extralight mb-2"
+            class="mb-2 font-extralight"
           >
             {{ dashboardState.ahiSummaryScore.amountOfRedItems }}
           </p>
@@ -175,11 +175,11 @@
       </div>
     </div>
 
-    <div class="ml-6 mt-6 items-center" *ngIf="userRole === 'admin'">
-      <p class="uppercase text-base">Select Customer</p>
+    <div class="items-center mt-6 ml-6" *ngIf="userRole === 'admin'">
+      <p class="text-base uppercase">Select Customer</p>
       <select
         [id]="id"
-        class="block w-44 overflow-y-auto p-2 mb-6 text-sm text-white border cursor-pointer border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="block p-2 mb-6 overflow-y-auto text-sm text-white bg-gray-800 border border-gray-300 rounded-lg cursor-pointer w-44 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         (change)="onSelectDataByCustomer($event)"
       >
         <option selected disabled>Choose Customer</option>
@@ -191,12 +191,12 @@
 
     <!-- Fleet Dropdown -->
     <!-- TODO: Use FormCOntrol -->
-    <div class="ml-6 mt-2 items-center">
-      <p class="uppercase text-lg md:text-base">Fleet</p>
+    <div class="items-center mt-2 ml-6">
+      <p class="text-lg uppercase md:text-base">Fleet</p>
       <select
         *ngIf="userRole === 'admin'"
         [id]="id"
-        class="block max-h-40 overflow-y-auto p-2 mb-6 text-sm text-white border cursor-pointer border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="block p-2 mb-6 overflow-y-auto text-sm text-white bg-gray-800 border border-gray-300 rounded-lg cursor-pointer max-h-40 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         (change)="onAircraftTypeChange($event)"
       >
         <option selected disabled>Choose aircraft type</option>
@@ -211,7 +211,7 @@
       <select
         *ngIf="userRole === 'customer_citilink'"
         [id]="id"
-        class="block max-h-40 overflow-y-auto p-2 mb-6 text-sm text-white border cursor-pointer border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="block p-2 mb-6 overflow-y-auto text-sm text-white bg-gray-800 border border-gray-300 rounded-lg cursor-pointer max-h-40 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         (change)="onAircraftTypeChange($event)"
       >
         <option selected disabled>Choose aircraft type</option>
@@ -226,7 +226,7 @@
       <select
         *ngIf="userRole === 'customer_ga'"
         [id]="id"
-        class="block max-h-40 overflow-y-auto p-2 mb-6 text-sm text-white border cursor-pointer border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="block p-2 mb-6 overflow-y-auto text-sm text-white bg-gray-800 border border-gray-300 rounded-lg cursor-pointer max-h-40 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         (change)="onAircraftTypeChange($event)"
       >
         <option selected disabled>Choose aircraft type</option>
@@ -241,28 +241,28 @@
     </div>
 
     <!-- Sort datepicker -->
-    <div class="ml-6 mt-2 items-center">
-      <p class="uppercase text-lg md:text-base">Select date</p>
+    <div class="items-center mt-2 ml-6">
+      <p class="text-lg uppercase md:text-base">Select date</p>
       <div class="relative max-w-sm">
         <input
           (change)="onInputSortDate($event)"
           datepicker
           datepicker-autohide
           type="date"
-          class="text-white border w-44 cursor-pointer border-gray-300 bg-gray-800 text-sm rounded-lg block p-2"
+          class="block p-2 text-sm text-white bg-gray-800 border border-gray-300 rounded-lg cursor-pointer w-44"
           placeholder="Select date"
           [max]="today"
         />
       </div>
     </div>
 
-    <div class="items-center bottom-8 flex mt-6 justify-center">
+    <div class="flex items-center justify-center mt-6 bottom-8">
       <div>
         <button
           type="button"
           *ngIf="userRole === 'admin'"
           routerLink="/configuration"
-          class="inline-block rounded-full px-2 py-2 text-md font-medium text-center items-center leading-normal hover:bg-gray-500 text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+          class="items-center inline-block px-2 py-2 font-medium leading-normal text-center transition duration-150 ease-in-out rounded-full text-md hover:bg-gray-500 text-neutral-50 hover:border-neutral-100 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -281,12 +281,12 @@
       <div class="ml-6">
         <button
           type="button"
-          class="inline-flex rounded-full px-2 py-2 text-md font-medium text-center items-center leading-normal hover:bg-gray-500 text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+          class="inline-flex items-center px-2 py-2 font-medium leading-normal text-center transition duration-150 ease-in-out rounded-full text-md hover:bg-gray-500 text-neutral-50 hover:border-neutral-100 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
           (click)="onClickLogout()"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 mr-2"
+            class="w-6 h-6 mr-2"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -304,7 +304,7 @@
     </div>
   </div>
 
-  <div class="sm:ml-64 overflow-y-auto no-scrollbar">
+  <div class="overflow-y-auto sm:ml-64 no-scrollbar">
     <div class="m-2">
       <!-- Content -->
       <router-outlet></router-outlet>
