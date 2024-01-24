@@ -170,7 +170,6 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
     // this.fetchAircraftType();
     this.userRoles = this.keycloak.getUserRoles();
-    console.log(this.userRoles);
     if (
       this.userRoles[0] === 'customer_ga' ||
       this.userRoles[0] === 'customer_citilink'
@@ -393,7 +392,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
             this.store.dispatch(
               DashboardAction.onLoadAircraftDetailHil({ data: result.data })
             );
-            this.fetchApuData(
+            this.fetchAircraftRegistrationData(
               aircraft.aircraftRegistration,
               this.sortDateSelected
             );
@@ -404,23 +403,40 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe();
   }
 
-  fetchApuData(aircraftRegistration: string, sortDate?: string): void {
+  fetchAircraftRegistrationData(
+    aircraftRegistration: string,
+    sortDate?: string
+  ): void {
     this.store.dispatch(DashboardAction.onClearApu());
+    this.store.dispatch(DashboardAction.onClearEngineTrend());
+    this.store.dispatch(DashboardAction.onClearEngineGe());
 
     this.dashboardService
       .getApu(aircraftRegistration, sortDate)
       .pipe(
         timeout(300000),
         catchError((err) => {
-          console.error('Error on DashboardComponent get APU => ', err);
+          console.error(
+            'Error on DashboardComponent get Aircraft Registration => ',
+            err
+          );
           return EMPTY;
         }),
         tap((result) => {
           if (result !== null) {
             // Pastikan tidak ada error sebelum melanjutkan
             const apuRecord = result.data.record.apuRecord;
-            // console.log('Data APU => ', result.data.record.apuRecord);
+            const engineTrendRecord = result.data.record.engineTrendRecord;
+            const engineGeRecord = result.data.record.engineGeRecord;
+            console.log(result.data.record);
+
             this.store.dispatch(DashboardAction.onLoadApu({ data: apuRecord }));
+            this.store.dispatch(
+              DashboardAction.onLoadEngineTrend({ data: engineTrendRecord })
+            );
+            this.store.dispatch(
+              DashboardAction.onLoadEngineGe({ data: engineGeRecord })
+            );
           }
         }),
         takeUntil(this._onDestroy$)

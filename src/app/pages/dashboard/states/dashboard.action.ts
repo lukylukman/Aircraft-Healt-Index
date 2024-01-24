@@ -5,7 +5,11 @@ import { AircraftDetailHilDTO } from '../dto/aircraft-detail-hil.dto';
 import { AircraftTypeDTO } from '../dto/aircraft-type.dto';
 import { AircraftDTO, AircraftDTO2 } from '../dto/aircraft.dto';
 import { AverageHealt } from '../dto/average-healt.dto';
-import { APURecordDTO } from '../dto/showMoreHil.dto';
+import {
+  APURecordDTO,
+  EngineGeDTO,
+  EngineTrendDTO,
+} from '../dto/showMoreHil.dto';
 import { DashboardActionType } from './dashboard.action.type';
 import { SetConfigDTO } from '../dto/setConfig.dto';
 
@@ -97,12 +101,31 @@ export const onLoadDifference = createAction(
 );
 
 // APU
-
 export const onClearApu = createAction(DashboardActionType.ON_APU_CLEAR);
 
 export const onLoadApu = createAction(
   DashboardActionType.ON_APU_LOAD,
   props<{ data: APURecordDTO[] }>()
+);
+
+// Engine Trend
+export const onClearEngineTrend = createAction(
+  DashboardActionType.ON_ENGINE_TREND_CLEAR
+);
+
+export const onLoadEngineTrend = createAction(
+  DashboardActionType.ON_ENGINE_TREND_LOAD,
+  props<{ data: EngineTrendDTO[] }>()
+);
+
+// Engine Ge
+export const onClearEngineGe = createAction(
+  DashboardActionType.ON_ENGINE_GE_CLEAR
+);
+
+export const onLoadEngineGe = createAction(
+  DashboardActionType.ON_ENGINE_GE_LOAD,
+  props<{ data: EngineGeDTO[] }>()
 );
 
 // Setting Config

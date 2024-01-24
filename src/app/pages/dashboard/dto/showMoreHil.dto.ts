@@ -12,6 +12,38 @@ export interface APURecordDTO {
   createdAt: string;
 }
 
+// DTO untuk setiap catatan Engine Tren
+export interface EngineTrendDTO {
+  id: string;
+  customerName: string;
+  esn: string;
+  aircraftRegistration: string;
+  position: number;
+  consumptionRate: number;
+  egthdm: number;
+  n1Vib: number;
+  n3Vib: number;
+  rank: number;
+  aircraftType: string | null;
+  engineTrendNegativeScore: number;
+  createdAt: string;
+}
+
+export interface EngineGeDTO {
+  id: string;
+  customerName: string;
+  aircraftRegistration: string;
+  position: number;
+  aircraftType: string | null;
+  egtHotDayMarginSmoothed: number;
+  oilPressureSmoothed: number;
+  fanVibeFwdSmoothed: number;
+  coreVibeRearSmoothed: number;
+  rank: number;
+  engineGeNegativeScore: number;
+  createdAt: string;
+}
+
 // DTO untuk setiap catatan Pack
 export interface PackRecordDTO {
   id: string;

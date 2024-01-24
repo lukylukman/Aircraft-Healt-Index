@@ -12,11 +12,17 @@ import { AircraftDetailHilDTO } from './dto/aircraft-detail-hil.dto';
 import { AircraftTypeDTO } from './dto/aircraft-type.dto';
 import { AircraftDTO2 } from './dto/aircraft.dto';
 import { ImsPaginationDTO } from './dto/ims-pagination.dto';
-import { APURecordDTO } from './dto/showMoreHil.dto';
+import {
+  APURecordDTO,
+  EngineGeDTO,
+  EngineTrendDTO,
+} from './dto/showMoreHil.dto';
 
 export interface ElasticRecordResponse {
   record: {
     apuRecord: APURecordDTO[];
+    engineTrendRecord: EngineTrendDTO[];
+    engineGeRecord: EngineGeDTO[];
   };
 }
 

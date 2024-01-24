@@ -5,7 +5,11 @@ import { AircraftDetailHilDTO } from '../dto/aircraft-detail-hil.dto';
 import { AircraftTypeDTO } from '../dto/aircraft-type.dto';
 import { AircraftDTO, AircraftDTO2 } from '../dto/aircraft.dto';
 import { AverageHealt } from '../dto/average-healt.dto';
-import { APURecordDTO } from '../dto/showMoreHil.dto';
+import {
+  APURecordDTO,
+  EngineGeDTO,
+  EngineTrendDTO,
+} from '../dto/showMoreHil.dto';
 import * as DashboardAction from './dashboard.action';
 import { ElasticRecordResponse } from '../dashboard.service';
 import { SetConfigDTO } from '../dto/setConfig.dto';
@@ -28,6 +32,9 @@ export interface DashboardFeatureState {
   aircraftType: AircraftTypeDTO[];
 
   apu: APURecordDTO[];
+  engineTrend: EngineTrendDTO[];
+  engineGe: EngineGeDTO[];
+
   averageHealt: AverageHealt;
 
   //hil
@@ -46,13 +53,15 @@ const initialState: DashboardFeatureState = {
     health: 0,
     percentage: 0,
     decimal: 0,
-    difference: 0
+    difference: 0,
   },
   aircraftType: [],
   aircraftDetailHil: [],
   apu: [],
   averageHealt: undefined,
-  configData: []
+  configData: [],
+  engineTrend: [],
+  engineGe: [],
 };
 
 export const DashboardFeature = createFeature({
@@ -97,13 +106,10 @@ export const DashboardFeature = createFeature({
       })
     ),
 
-    on(
-      DashboardAction.onClearSummaryScore,
-      (state: DashboardFeatureState) => ({
-        ...state,
-        AhiSummaryScoreDTO: [],
-      })
-    ),
+    on(DashboardAction.onClearSummaryScore, (state: DashboardFeatureState) => ({
+      ...state,
+      AhiSummaryScoreDTO: [],
+    })),
 
     on(
       DashboardAction.onLoadSummaryScore,
@@ -184,22 +190,42 @@ export const DashboardFeature = createFeature({
       ...state,
       apu: [],
     })),
-    on(
-  DashboardAction.onLoadApu,
-    (state: DashboardFeatureState, { data }) => ({
+    on(DashboardAction.onLoadApu, (state: DashboardFeatureState, { data }) => ({
       ...state,
       apu: data,
-    })
-  ),
+    })),
 
-  // Set Config
-  on(
-      DashboardAction.onClearConfigData,
-      (state: DashboardFeatureState) => ({
+    // Engine Trend
+    on(DashboardAction.onClearEngineTrend, (state: DashboardFeatureState) => ({
+      ...state,
+      engineTrend: [],
+    })),
+    on(
+      DashboardAction.onLoadEngineTrend,
+      (state: DashboardFeatureState, { data }) => ({
         ...state,
-        configData: [],
+        engineTrend: data,
       })
     ),
+
+    // Engine Ge
+    on(DashboardAction.onClearEngineGe, (state: DashboardFeatureState) => ({
+      ...state,
+      engineGe: [],
+    })),
+    on(
+      DashboardAction.onLoadEngineGe,
+      (state: DashboardFeatureState, { data }) => ({
+        ...state,
+        engineGe: data,
+      })
+    ),
+
+    // Set Config
+    on(DashboardAction.onClearConfigData, (state: DashboardFeatureState) => ({
+      ...state,
+      configData: [],
+    })),
 
     on(
       DashboardAction.OnLoadConfigData,
@@ -208,8 +234,7 @@ export const DashboardFeature = createFeature({
         configData: [...state.configData, data],
       })
     ),
-    
-    on(DashboardAction.resetDashboardState, () => initialState)
 
+    on(DashboardAction.resetDashboardState, () => initialState)
   ),
 });
