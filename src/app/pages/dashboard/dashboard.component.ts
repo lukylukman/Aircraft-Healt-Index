@@ -277,7 +277,6 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onInputSortDate(sortDate: string): void {
-    console.log(sortDate, 'sortDate');
     this.formParam.get('endDate')?.setValue(sortDate);
     this.formParam.get('size')?.setValue('24');
 
@@ -434,7 +433,6 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
             const bleedRecord = result.data.record.bleedRecord;
             const repetitiveRecord = result.data.record.repetitiveRecord;
             const packRecord = result.data.record.packRecord;
-            console.log(result.data.record);
 
             this.store.dispatch(DashboardAction.onLoadApu({ data: apuRecord }));
             this.store.dispatch(
