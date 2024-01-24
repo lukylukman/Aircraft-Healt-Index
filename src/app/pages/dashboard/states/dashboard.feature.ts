@@ -7,8 +7,11 @@ import { AircraftDTO, AircraftDTO2 } from '../dto/aircraft.dto';
 import { AverageHealt } from '../dto/average-healt.dto';
 import {
   APURecordDTO,
-  EngineGeDTO,
-  EngineTrendDTO,
+  BleedRecordDTO,
+  EngineGeRecordDTO,
+  EngineTrendRecordDTO,
+  PackRecordDTO,
+  RepetitiveRecordDTO,
 } from '../dto/showMoreHil.dto';
 import * as DashboardAction from './dashboard.action';
 import { ElasticRecordResponse } from '../dashboard.service';
@@ -32,8 +35,11 @@ export interface DashboardFeatureState {
   aircraftType: AircraftTypeDTO[];
 
   apu: APURecordDTO[];
-  engineTrend: EngineTrendDTO[];
-  engineGe: EngineGeDTO[];
+  engineTrend: EngineTrendRecordDTO[];
+  engineGe: EngineGeRecordDTO[];
+  bleed: BleedRecordDTO[];
+  repetitive: RepetitiveRecordDTO[];
+  pack: PackRecordDTO[];
 
   averageHealt: AverageHealt;
 
@@ -62,6 +68,9 @@ const initialState: DashboardFeatureState = {
   configData: [],
   engineTrend: [],
   engineGe: [],
+  bleed: [],
+  repetitive: [],
+  pack: [],
 };
 
 export const DashboardFeature = createFeature({
@@ -218,6 +227,45 @@ export const DashboardFeature = createFeature({
       (state: DashboardFeatureState, { data }) => ({
         ...state,
         engineGe: data,
+      })
+    ),
+
+    // Bleed
+    on(DashboardAction.onClearBleed, (state: DashboardFeatureState) => ({
+      ...state,
+      bleed: [],
+    })),
+    on(
+      DashboardAction.onLoadBleed,
+      (state: DashboardFeatureState, { data }) => ({
+        ...state,
+        bleed: data,
+      })
+    ),
+
+    // Repetitive
+    on(DashboardAction.onClearRepetitive, (state: DashboardFeatureState) => ({
+      ...state,
+      repetitive: [],
+    })),
+    on(
+      DashboardAction.onLoadRepetitive,
+      (state: DashboardFeatureState, { data }) => ({
+        ...state,
+        repetitive: data,
+      })
+    ),
+
+    // Pack
+    on(DashboardAction.onClearPack, (state: DashboardFeatureState) => ({
+      ...state,
+      pack: [],
+    })),
+    on(
+      DashboardAction.onLoadPack,
+      (state: DashboardFeatureState, { data }) => ({
+        ...state,
+        pack: data,
       })
     ),
 

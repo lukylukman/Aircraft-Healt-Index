@@ -43,6 +43,18 @@ export enum DashboardActionType {
   ON_ENGINE_GE_LOAD = '[Action: Engine Ge] => On Engine Ge Load',
   ON_ENGINE_GE_CLEAR = '[Action: Engine Ge] => On Engine Ge Clear',
 
+  // BLEED
+  ON_BLEED_LOAD = '[Action: Bleed] => On Bleed Load',
+  ON_BLEED_CLEAR = '[Action: Bleed] => On Bleed Clear',
+
+  // REPETITIVE
+  ON_REPETITIVE_LOAD = '[Action: Repetitive] => On Repetitive Load',
+  ON_REPETITIVE_CLEAR = '[Action: Repetitive] => On Repetitive Clear',
+
+  // PACK
+  ON_PACK_LOAD = '[Action: Pack] => On Pack Load',
+  ON_PACK_CLEAR = '[Action: Pack] => On Pack Clear',
+
   // SETTING CONFIG VALUE
   ON_CONFIG_DATA_CLEAR = '[Action: CONFIG] => On CONFIG DATA Clear',
   ON_CONFIG_DATA_LOAD = '[Action: CONFIG] => On CONFIG DATA Load',

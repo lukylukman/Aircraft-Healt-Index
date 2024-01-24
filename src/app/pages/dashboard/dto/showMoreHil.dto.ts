@@ -13,7 +13,7 @@ export interface APURecordDTO {
 }
 
 // DTO untuk setiap catatan Engine Tren
-export interface EngineTrendDTO {
+export interface EngineTrendRecordDTO {
   id: string;
   customerName: string;
   esn: string;
@@ -29,7 +29,7 @@ export interface EngineTrendDTO {
   createdAt: string;
 }
 
-export interface EngineGeDTO {
+export interface EngineGeRecordDTO {
   id: string;
   customerName: string;
   aircraftRegistration: string;
@@ -41,6 +41,34 @@ export interface EngineGeDTO {
   coreVibeRearSmoothed: number;
   rank: number;
   engineGeNegativeScore: number;
+  createdAt: string;
+}
+
+export interface BleedRecordDTO {
+  id: string;
+  customerName: string;
+  aircraftRegistration: string;
+  date: string;
+  engine1: number;
+  engine2: number;
+  status: string;
+  aircraftType: string;
+  bleedNegativeScore: number;
+  createdAt: string;
+}
+
+export interface RepetitiveRecordDTO {
+  id: string;
+  customerName: string;
+  firstOccurrence: string;
+  lastOccurence: string;
+  aircraftRegistration: string;
+  aircraftType: string;
+  uic: string;
+  status: string;
+  dateStatus: string;
+  amountOfTrouble: number;
+  repetitiveNegativeScore: number;
   createdAt: string;
 }
 

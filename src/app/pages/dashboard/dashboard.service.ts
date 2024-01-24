@@ -14,15 +14,21 @@ import { AircraftDTO2 } from './dto/aircraft.dto';
 import { ImsPaginationDTO } from './dto/ims-pagination.dto';
 import {
   APURecordDTO,
-  EngineGeDTO,
-  EngineTrendDTO,
+  BleedRecordDTO,
+  EngineGeRecordDTO,
+  EngineTrendRecordDTO,
+  PackRecordDTO,
+  RepetitiveRecordDTO,
 } from './dto/showMoreHil.dto';
 
 export interface ElasticRecordResponse {
   record: {
     apuRecord: APURecordDTO[];
-    engineTrendRecord: EngineTrendDTO[];
-    engineGeRecord: EngineGeDTO[];
+    engineTrendRecord: EngineTrendRecordDTO[];
+    engineGeRecord: EngineGeRecordDTO[];
+    bleedRecord: BleedRecordDTO[];
+    repetitiveRecord: RepetitiveRecordDTO[];
+    packRecord: PackRecordDTO[];
   };
 }
 

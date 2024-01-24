@@ -410,6 +410,9 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.store.dispatch(DashboardAction.onClearApu());
     this.store.dispatch(DashboardAction.onClearEngineTrend());
     this.store.dispatch(DashboardAction.onClearEngineGe());
+    this.store.dispatch(DashboardAction.onClearBleed());
+    this.store.dispatch(DashboardAction.onClearRepetitive());
+    this.store.dispatch(DashboardAction.onClearPack());
 
     this.dashboardService
       .getApu(aircraftRegistration, sortDate)
@@ -428,6 +431,9 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
             const apuRecord = result.data.record.apuRecord;
             const engineTrendRecord = result.data.record.engineTrendRecord;
             const engineGeRecord = result.data.record.engineGeRecord;
+            const bleedRecord = result.data.record.bleedRecord;
+            const repetitiveRecord = result.data.record.repetitiveRecord;
+            const packRecord = result.data.record.packRecord;
             console.log(result.data.record);
 
             this.store.dispatch(DashboardAction.onLoadApu({ data: apuRecord }));
@@ -436,6 +442,15 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
             );
             this.store.dispatch(
               DashboardAction.onLoadEngineGe({ data: engineGeRecord })
+            );
+            this.store.dispatch(
+              DashboardAction.onLoadBleed({ data: bleedRecord })
+            );
+            this.store.dispatch(
+              DashboardAction.onLoadRepetitive({ data: repetitiveRecord })
+            );
+            this.store.dispatch(
+              DashboardAction.onLoadPack({ data: packRecord })
             );
           }
         }),

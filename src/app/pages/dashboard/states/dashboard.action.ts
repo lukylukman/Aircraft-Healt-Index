@@ -7,8 +7,11 @@ import { AircraftDTO, AircraftDTO2 } from '../dto/aircraft.dto';
 import { AverageHealt } from '../dto/average-healt.dto';
 import {
   APURecordDTO,
-  EngineGeDTO,
-  EngineTrendDTO,
+  BleedRecordDTO,
+  EngineGeRecordDTO,
+  EngineTrendRecordDTO,
+  PackRecordDTO,
+  RepetitiveRecordDTO,
 } from '../dto/showMoreHil.dto';
 import { DashboardActionType } from './dashboard.action.type';
 import { SetConfigDTO } from '../dto/setConfig.dto';
@@ -115,7 +118,7 @@ export const onClearEngineTrend = createAction(
 
 export const onLoadEngineTrend = createAction(
   DashboardActionType.ON_ENGINE_TREND_LOAD,
-  props<{ data: EngineTrendDTO[] }>()
+  props<{ data: EngineTrendRecordDTO[] }>()
 );
 
 // Engine Ge
@@ -125,7 +128,33 @@ export const onClearEngineGe = createAction(
 
 export const onLoadEngineGe = createAction(
   DashboardActionType.ON_ENGINE_GE_LOAD,
-  props<{ data: EngineGeDTO[] }>()
+  props<{ data: EngineGeRecordDTO[] }>()
+);
+
+// Repetitive
+export const onClearRepetitive = createAction(
+  DashboardActionType.ON_REPETITIVE_CLEAR
+);
+
+export const onLoadRepetitive = createAction(
+  DashboardActionType.ON_REPETITIVE_LOAD,
+  props<{ data: RepetitiveRecordDTO[] }>()
+);
+
+// Bleed
+export const onClearBleed = createAction(DashboardActionType.ON_BLEED_CLEAR);
+
+export const onLoadBleed = createAction(
+  DashboardActionType.ON_BLEED_LOAD,
+  props<{ data: BleedRecordDTO[] }>()
+);
+
+// Pack
+export const onClearPack = createAction(DashboardActionType.ON_PACK_CLEAR);
+
+export const onLoadPack = createAction(
+  DashboardActionType.ON_PACK_LOAD,
+  props<{ data: PackRecordDTO[] }>()
 );
 
 // Setting Config
