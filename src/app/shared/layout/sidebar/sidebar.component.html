@@ -218,7 +218,7 @@
         <option value="" class="uppercase">Select All Aircraft</option>
 
         <ng-container *ngFor="let option of aircraftDataCitilink">
-          <option [value]="option.aircraftType">
+          <option [value]="option.aircraftTypeId">
             {{ option.aircraftTypeName }}
           </option>
         </ng-container>
@@ -233,7 +233,7 @@
         <option value="" class="uppercase">Select All Aircraft</option>
 
         <ng-container *ngFor="let option of aircraftDataGaruda">
-          <option [value]="option.aircraftType">
+          <option [value]="option.aircraftTypeId">
             {{ option.aircraftTypeName }}
           </option>
         </ng-container>

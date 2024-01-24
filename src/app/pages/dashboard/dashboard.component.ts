@@ -170,6 +170,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
     // this.fetchAircraftType();
     this.userRoles = this.keycloak.getUserRoles();
+    console.log(this.userRoles);
     if (
       this.userRoles[0] === 'customer_ga' ||
       this.userRoles[0] === 'customer_citilink'
@@ -252,7 +253,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     } else if (this.formParam.get('customer').value === null) {
       customerValue = '';
     } else if (this.formParam.get('aircraftTypeId').value === '') {
-      customerValue = this.selectedCustomerName;
+      if (this.userRoles[0] === 'admin') {
+        customerValue = this.selectedCustomerName;
+      } else {
+        customerValue = this.userRoles[0];
+      }
     }
     // Set the customer value in the form
     this.formParam.get('customer')?.setValue(customerValue);
@@ -273,6 +278,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onInputSortDate(sortDate: string): void {
+    console.log(sortDate, 'sortDate');
     this.formParam.get('endDate')?.setValue(sortDate);
     this.formParam.get('size')?.setValue('24');
 
