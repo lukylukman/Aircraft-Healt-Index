@@ -243,7 +243,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
       this.sortDateSelected = formattedDate;
       // console.log(`Selected date: ${formattedDate}`);
     } else {
-      console.log('Invalid date input');
+      //invalid date
+      this.sortDate.emit('');
     }
   }
 

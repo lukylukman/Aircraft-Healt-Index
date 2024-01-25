@@ -5,7 +5,14 @@ import { AircraftDetailHilDTO } from '../dto/aircraft-detail-hil.dto';
 import { AircraftTypeDTO } from '../dto/aircraft-type.dto';
 import { AircraftDTO, AircraftDTO2 } from '../dto/aircraft.dto';
 import { AverageHealt } from '../dto/average-healt.dto';
-import { APURecordDTO } from '../dto/showMoreHil.dto';
+import {
+  APURecordDTO,
+  BleedRecordDTO,
+  EngineGeRecordDTO,
+  EngineTrendRecordDTO,
+  PackRecordDTO,
+  RepetitiveRecordDTO,
+} from '../dto/showMoreHil.dto';
 import { DashboardActionType } from './dashboard.action.type';
 import { SetConfigDTO } from '../dto/setConfig.dto';
 
@@ -97,12 +104,57 @@ export const onLoadDifference = createAction(
 );
 
 // APU
-
 export const onClearApu = createAction(DashboardActionType.ON_APU_CLEAR);
 
 export const onLoadApu = createAction(
   DashboardActionType.ON_APU_LOAD,
   props<{ data: APURecordDTO[] }>()
+);
+
+// Engine Trend
+export const onClearEngineTrend = createAction(
+  DashboardActionType.ON_ENGINE_TREND_CLEAR
+);
+
+export const onLoadEngineTrend = createAction(
+  DashboardActionType.ON_ENGINE_TREND_LOAD,
+  props<{ data: EngineTrendRecordDTO[] }>()
+);
+
+// Engine Ge
+export const onClearEngineGe = createAction(
+  DashboardActionType.ON_ENGINE_GE_CLEAR
+);
+
+export const onLoadEngineGe = createAction(
+  DashboardActionType.ON_ENGINE_GE_LOAD,
+  props<{ data: EngineGeRecordDTO[] }>()
+);
+
+// Repetitive
+export const onClearRepetitive = createAction(
+  DashboardActionType.ON_REPETITIVE_CLEAR
+);
+
+export const onLoadRepetitive = createAction(
+  DashboardActionType.ON_REPETITIVE_LOAD,
+  props<{ data: RepetitiveRecordDTO[] }>()
+);
+
+// Bleed
+export const onClearBleed = createAction(DashboardActionType.ON_BLEED_CLEAR);
+
+export const onLoadBleed = createAction(
+  DashboardActionType.ON_BLEED_LOAD,
+  props<{ data: BleedRecordDTO[] }>()
+);
+
+// Pack
+export const onClearPack = createAction(DashboardActionType.ON_PACK_CLEAR);
+
+export const onLoadPack = createAction(
+  DashboardActionType.ON_PACK_LOAD,
+  props<{ data: PackRecordDTO[] }>()
 );
 
 // Setting Config

@@ -5,7 +5,14 @@ import { AircraftDetailHilDTO } from '../dto/aircraft-detail-hil.dto';
 import { AircraftTypeDTO } from '../dto/aircraft-type.dto';
 import { AircraftDTO, AircraftDTO2 } from '../dto/aircraft.dto';
 import { AverageHealt } from '../dto/average-healt.dto';
-import { APURecordDTO } from '../dto/showMoreHil.dto';
+import {
+  APURecordDTO,
+  BleedRecordDTO,
+  EngineGeRecordDTO,
+  EngineTrendRecordDTO,
+  PackRecordDTO,
+  RepetitiveRecordDTO,
+} from '../dto/showMoreHil.dto';
 import * as DashboardAction from './dashboard.action';
 import { ElasticRecordResponse } from '../dashboard.service';
 import { SetConfigDTO } from '../dto/setConfig.dto';
@@ -28,6 +35,12 @@ export interface DashboardFeatureState {
   aircraftType: AircraftTypeDTO[];
 
   apu: APURecordDTO[];
+  engineTrend: EngineTrendRecordDTO[];
+  engineGe: EngineGeRecordDTO[];
+  bleed: BleedRecordDTO[];
+  repetitive: RepetitiveRecordDTO[];
+  pack: PackRecordDTO[];
+
   averageHealt: AverageHealt;
 
   //hil
@@ -46,13 +59,18 @@ const initialState: DashboardFeatureState = {
     health: 0,
     percentage: 0,
     decimal: 0,
-    difference: 0
+    difference: 0,
   },
   aircraftType: [],
   aircraftDetailHil: [],
   apu: [],
   averageHealt: undefined,
-  configData: []
+  configData: [],
+  engineTrend: [],
+  engineGe: [],
+  bleed: [],
+  repetitive: [],
+  pack: [],
 };
 
 export const DashboardFeature = createFeature({
@@ -97,13 +115,10 @@ export const DashboardFeature = createFeature({
       })
     ),
 
-    on(
-      DashboardAction.onClearSummaryScore,
-      (state: DashboardFeatureState) => ({
-        ...state,
-        AhiSummaryScoreDTO: [],
-      })
-    ),
+    on(DashboardAction.onClearSummaryScore, (state: DashboardFeatureState) => ({
+      ...state,
+      AhiSummaryScoreDTO: [],
+    })),
 
     on(
       DashboardAction.onLoadSummaryScore,
@@ -184,22 +199,81 @@ export const DashboardFeature = createFeature({
       ...state,
       apu: [],
     })),
-    on(
-  DashboardAction.onLoadApu,
-    (state: DashboardFeatureState, { data }) => ({
+    on(DashboardAction.onLoadApu, (state: DashboardFeatureState, { data }) => ({
       ...state,
       apu: data,
-    })
-  ),
+    })),
 
-  // Set Config
-  on(
-      DashboardAction.onClearConfigData,
-      (state: DashboardFeatureState) => ({
+    // Engine Trend
+    on(DashboardAction.onClearEngineTrend, (state: DashboardFeatureState) => ({
+      ...state,
+      engineTrend: [],
+    })),
+    on(
+      DashboardAction.onLoadEngineTrend,
+      (state: DashboardFeatureState, { data }) => ({
         ...state,
-        configData: [],
+        engineTrend: data,
       })
     ),
+
+    // Engine Ge
+    on(DashboardAction.onClearEngineGe, (state: DashboardFeatureState) => ({
+      ...state,
+      engineGe: [],
+    })),
+    on(
+      DashboardAction.onLoadEngineGe,
+      (state: DashboardFeatureState, { data }) => ({
+        ...state,
+        engineGe: data,
+      })
+    ),
+
+    // Bleed
+    on(DashboardAction.onClearBleed, (state: DashboardFeatureState) => ({
+      ...state,
+      bleed: [],
+    })),
+    on(
+      DashboardAction.onLoadBleed,
+      (state: DashboardFeatureState, { data }) => ({
+        ...state,
+        bleed: data,
+      })
+    ),
+
+    // Repetitive
+    on(DashboardAction.onClearRepetitive, (state: DashboardFeatureState) => ({
+      ...state,
+      repetitive: [],
+    })),
+    on(
+      DashboardAction.onLoadRepetitive,
+      (state: DashboardFeatureState, { data }) => ({
+        ...state,
+        repetitive: data,
+      })
+    ),
+
+    // Pack
+    on(DashboardAction.onClearPack, (state: DashboardFeatureState) => ({
+      ...state,
+      pack: [],
+    })),
+    on(
+      DashboardAction.onLoadPack,
+      (state: DashboardFeatureState, { data }) => ({
+        ...state,
+        pack: data,
+      })
+    ),
+
+    // Set Config
+    on(DashboardAction.onClearConfigData, (state: DashboardFeatureState) => ({
+      ...state,
+      configData: [],
+    })),
 
     on(
       DashboardAction.OnLoadConfigData,
@@ -208,8 +282,7 @@ export const DashboardFeature = createFeature({
         configData: [...state.configData, data],
       })
     ),
-    
-    on(DashboardAction.resetDashboardState, () => initialState)
 
+    on(DashboardAction.resetDashboardState, () => initialState)
   ),
 });
