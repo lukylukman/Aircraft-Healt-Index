@@ -307,8 +307,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
     icon: 'question',
   })
   onClickLogout() {
-    this.kcService.logout(environment.baseUrl);
-    this.localService.removeData(LocalServiceConst.USER_INFO);
+    this.localService.clearData();
+    this.kcService.logout().then(() => this.kcService.clearToken());
   }
 
   ngOnDestroy(): void {

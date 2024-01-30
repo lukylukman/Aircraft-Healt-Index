@@ -10,6 +10,7 @@ import {
   BleedRecordDTO,
   EngineGeRecordDTO,
   EngineTrendRecordDTO,
+  HilRecordDTO,
   PackRecordDTO,
   RepetitiveRecordDTO,
 } from '../dto/showMoreHil.dto';
@@ -54,7 +55,6 @@ export const onLoadSummaryScore = createAction(
 );
 
 // Aircraft Type
-
 export const onClearAircraftType = createAction(
   DashboardActionType.ON_AIRCRAFT_TYPE_CLEAR
 );
@@ -155,6 +155,14 @@ export const onClearPack = createAction(DashboardActionType.ON_PACK_CLEAR);
 export const onLoadPack = createAction(
   DashboardActionType.ON_PACK_LOAD,
   props<{ data: PackRecordDTO[] }>()
+);
+
+// Hil
+export const onClearHil = createAction(DashboardActionType.ON_HIL_CLEAR);
+
+export const onLoadHil = createAction(
+  DashboardActionType.ON_HIL_LOAD,
+  props<{ data: HilRecordDTO[] }>()
 );
 
 // Setting Config
