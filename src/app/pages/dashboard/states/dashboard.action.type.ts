@@ -55,6 +55,10 @@ export enum DashboardActionType {
   ON_PACK_LOAD = '[Action: Pack] => On Pack Load',
   ON_PACK_CLEAR = '[Action: Pack] => On Pack Clear',
 
+  // HIL
+  ON_HIL_LOAD = '[Action: Hil] => On Hil Load',
+  ON_HIL_CLEAR = '[Action: Hil] => On Hil Clear',
+
   // SETTING CONFIG VALUE
   ON_CONFIG_DATA_CLEAR = '[Action: CONFIG] => On CONFIG DATA Clear',
   ON_CONFIG_DATA_LOAD = '[Action: CONFIG] => On CONFIG DATA Load',

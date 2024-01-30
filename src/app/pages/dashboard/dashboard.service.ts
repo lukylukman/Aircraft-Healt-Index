@@ -17,6 +17,7 @@ import {
   BleedRecordDTO,
   EngineGeRecordDTO,
   EngineTrendRecordDTO,
+  HilRecordDTO,
   PackRecordDTO,
   RepetitiveRecordDTO,
 } from './dto/showMoreHil.dto';
@@ -29,6 +30,7 @@ export interface ElasticRecordResponse {
     bleedRecord: BleedRecordDTO[];
     repetitiveRecord: RepetitiveRecordDTO[];
     packRecord: PackRecordDTO[];
+    hilRecord: HilRecordDTO[];
   };
 }
 
@@ -106,8 +108,8 @@ export class DashboardService extends HttpService {
     return this.http.get<HttpResult<AhiSummaryScoreDTO>>(url, options);
   }
 
-  // Detail APU
-  getApu(
+  // Detail AHI
+  getDetailAHI(
     aircraftRegistration: string,
     sortDate?: string
   ): Observable<HttpResult<ElasticRecordResponse>> {
@@ -123,15 +125,6 @@ export class DashboardService extends HttpService {
     return this.http.get<HttpResult<ElasticRecordResponse>>(
       `${environment.host.ahi.url}/${environment.host.ahi.apiVersion}/ahi/_filter`,
       { params: params }
-    );
-  }
-
-  // Detail Hil Dashboard
-  getDetailAicraft(
-    aircraftRegristration: string
-  ): Observable<HttpResult<AircraftDetailHilDTO[]>> {
-    return this.http.get<HttpResult<AircraftDetailHilDTO[]>>(
-      `${environment.host.ahi.url}/v1/hil/status/${aircraftRegristration}?size=25`
     );
   }
 

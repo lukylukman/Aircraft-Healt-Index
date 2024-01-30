@@ -86,6 +86,44 @@ export interface PackRecordDTO {
   createdAt: string;
 }
 
+export interface HilRecordDTO {
+  id: string;
+  subject: string;
+  description: string;
+  dateOccur: string;
+  dueDate: string;
+  flightNo: string;
+  status: number;
+  category: string;
+  aircraftRegistration: string;
+  aircraftType: string;
+  station: string;
+  optionID: string | null;
+  diffDaysToNow: number;
+  customer: string;
+  priorityId: string;
+  dueStatus: string;
+  statusDescription: string;
+  CategoryNo: number;
+  categoryDescrption: string;
+  categoryAlphabet: string;
+  categoryDueDays: string;
+  hilNegativeScore: number;
+  reason: string;
+  createdAt: string;
+  config: {
+    id: number;
+    uniqueId: string;
+    configName: string;
+    configValue: number;
+    configParentId: number;
+    customerName: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  customerName: string;
+}
+
 // DTO untuk agregasi nilai negatif
 export interface AggregationsDTO {
   packNegativeScore: {

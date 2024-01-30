@@ -10,6 +10,7 @@ import {
   BleedRecordDTO,
   EngineGeRecordDTO,
   EngineTrendRecordDTO,
+  HilRecordDTO,
   PackRecordDTO,
   RepetitiveRecordDTO,
 } from '../dto/showMoreHil.dto';
@@ -40,6 +41,7 @@ export interface DashboardFeatureState {
   bleed: BleedRecordDTO[];
   repetitive: RepetitiveRecordDTO[];
   pack: PackRecordDTO[];
+  hil: HilRecordDTO[];
 
   averageHealt: AverageHealt;
 
@@ -71,6 +73,7 @@ const initialState: DashboardFeatureState = {
   bleed: [],
   repetitive: [],
   pack: [],
+  hil: [],
 };
 
 export const DashboardFeature = createFeature({
@@ -268,6 +271,16 @@ export const DashboardFeature = createFeature({
         pack: data,
       })
     ),
+
+    // Hil
+    on(DashboardAction.onClearHil, (state: DashboardFeatureState) => ({
+      ...state,
+      hil: [],
+    })),
+    on(DashboardAction.onLoadHil, (state: DashboardFeatureState, { data }) => ({
+      ...state,
+      hil: data,
+    })),
 
     // Set Config
     on(DashboardAction.onClearConfigData, (state: DashboardFeatureState) => ({

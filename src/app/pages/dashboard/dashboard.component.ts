@@ -367,39 +367,12 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   openCardDetail(aircraft: AircraftDTO2): void {
     this.onClickDetailAircraft();
     this.store.dispatch(DashboardAction.onDashboardClearSelected());
-    this.store.dispatch(DashboardAction.onClearAircraftDetailHil());
+    this.store.dispatch(DashboardAction.onDashboardSelected(aircraft));
 
-    this.dashboardService
-      .getDetailAicraft(aircraft.aircraftRegistration)
-      .pipe(
-        timeout(300000),
-        catchError((err) => {
-          console.error(
-            'Error on DashboardComponent get detailAircraft => ',
-            err
-          );
-          return EMPTY;
-        }),
-        tap((result) => {
-          if (result !== null) {
-            // Handle response
-            if (result.data.length === 0) {
-              throw Error('There is no data');
-            }
-            this.selectedCard = result.data[0];
-            this.store.dispatch(DashboardAction.onDashboardSelected(aircraft));
-            this.store.dispatch(
-              DashboardAction.onLoadAircraftDetailHil({ data: result.data })
-            );
-            this.fetchAircraftRegistrationData(
-              aircraft.aircraftRegistration,
-              this.sortDateSelected
-            );
-          }
-        }),
-        takeUntil(this._onDestroy$)
-      )
-      .subscribe();
+    this.fetchAircraftRegistrationData(
+      aircraft.aircraftRegistration,
+      this.sortDateSelected
+    );
   }
 
   fetchAircraftRegistrationData(
@@ -412,9 +385,10 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.store.dispatch(DashboardAction.onClearBleed());
     this.store.dispatch(DashboardAction.onClearRepetitive());
     this.store.dispatch(DashboardAction.onClearPack());
+    this.store.dispatch(DashboardAction.onClearHil());
 
     this.dashboardService
-      .getApu(aircraftRegistration, sortDate)
+      .getDetailAHI(aircraftRegistration, sortDate)
       .pipe(
         timeout(300000),
         catchError((err) => {
@@ -433,6 +407,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
             const bleedRecord = result.data.record.bleedRecord;
             const repetitiveRecord = result.data.record.repetitiveRecord;
             const packRecord = result.data.record.packRecord;
+            const hilRecord = result.data.record.hilRecord;
 
             this.store.dispatch(DashboardAction.onLoadApu({ data: apuRecord }));
             this.store.dispatch(
@@ -450,6 +425,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
             this.store.dispatch(
               DashboardAction.onLoadPack({ data: packRecord })
             );
+            this.store.dispatch(DashboardAction.onLoadHil({ data: hilRecord }));
           }
         }),
         takeUntil(this._onDestroy$)

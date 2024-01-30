@@ -82,7 +82,7 @@
                       <span
                         class="w-8 h-8 px-2 py-1 ml-2 text-blue-800 bg-gray-200 rounded-full"
                       >
-                        {{ dashboardState.aircraftDetailHil.length }}
+                        {{ dashboardState.hil.length }}
                       </span>
                     </th>
                   </tr>
@@ -129,83 +129,24 @@
                         />
                       </svg>
                     </td>
-
-                    <ng-container
-                      *ngIf="dashboardState.aircraftDetailHil.length < 1"
-                    >
-                      <td class="items-start px-6 py-2 text-xs text-left">
+                    <td class="px-6 py-4 text-xs">
+                      <ng-container *ngIf="dashboardState.hil.length < 1">
                         <p class="font-semibold text-left text-ahi-blue-600">
                           No Data
                         </p>
-                      </td>
-                    </ng-container>
-
-                    <ng-container
-                      *ngIf="dashboardState.aircraftDetailHil.length >= 1"
-                    >
-                      <td
-                        class="items-start py-2 pl-2 text-xs whitespace-nowrap"
-                      >
-                        <p class="font-semibold text-left text-ahi-blue-600">
-                          {{
-                            dashboardState.aircraftDetailHil[0]
-                              .categoryDescription
-                          }}
-                        </p>
+                      </ng-container>
+                      <ng-container *ngIf="dashboardState.hil.length >= 1">
                         <p class="font-medium text-left">
-                          - Raised on
+                          Hold Item Listed on-watch since
                           <span class="text-ahi-blue-600">{{
-                            dashboardState.aircraftDetailHil[0].dateOccur
-                              | date : "dd-MM-yyyy HH:mm"
+                            dashboardState.hil[0].createdAt
+                              | date : "dd-MM-yyyy"
                           }}</span>
                         </p>
-                        <p class="font-medium text-left">
-                          - Expired on
-                          <span class="text-ahi-blue-600">{{
-                            dashboardState.aircraftDetailHil[0].dueDate
-                              | date : "dd-MM-yyyy HH:mm"
-                          }}</span>
-                        </p>
-                        <p class="mt-6 text-white">.</p>
-                      </td>
-                      <td class="items-start px-6 py-2 text-xs text-left">
-                        <p class="font-semibold text-left text-ahi-blue-600">
-                          Last Follow Up
-                        </p>
                         <p
-                          class="font-medium"
-                          *ngIf="
-                            dashboardState.aircraftDetailHil[0]
-                              ?.followOnDescription &&
-                            dashboardState.aircraftDetailHil[0]
-                              .followOnDescription.length > 100
-                          "
-                        >
-                          {{
-                            dashboardState.aircraftDetailHil[0].followOnDescription.slice(
-                              0,
-                              100
-                            ) + "..."
-                          }}
-                        </p>
-                        <p
-                          class="font-medium"
-                          *ngIf="
-                            dashboardState.aircraftDetailHil[0]
-                              ?.followOnDescription &&
-                            dashboardState.aircraftDetailHil[0]
-                              .followOnDescription.length <= 100
-                          "
-                        >
-                          {{
-                            dashboardState.aircraftDetailHil[0]
-                              .followOnDescription
-                          }}
-                        </p>
-                        <p
-                          *ngIf="dashboardState.aircraftDetailHil.length > 1"
+                          *ngIf="dashboardState.hil.length > 0"
                           (click)="showTab(2)"
-                          class="flex items-center mt-6 text-xs font-medium transition-transform duration-150 ease-in-out cursor-pointer text-ahi-blue-600 hover:scale-105"
+                          class="flex items-center mt-6 text-xs font-medium text-right transition-all duration-150 ease-in-out cursor-pointer text-ahi-blue-600 hover:scale-105"
                         >
                           See more
                           <svg
@@ -221,8 +162,9 @@
                             />
                           </svg>
                         </p>
-                      </td>
-                    </ng-container>
+                      </ng-container>
+                    </td>
+                    <td class="px-6 py-4 text-xs"></td>
                   </tr>
                 </tbody>
               </table>
@@ -793,7 +735,7 @@
                     <span
                       class="w-8 h-8 px-2 py-1 ml-2 text-blue-800 bg-gray-200 rounded-full"
                     >
-                      {{ dashboardState.aircraftDetailHil.length }}
+                      {{ dashboardState.hil.length }}
                     </span>
                   </th>
                 </tr>
@@ -801,7 +743,7 @@
               <tbody class="w-auto">
                 <tr
                   class="transition-colors duration-200 ease-out hover:bg-gray-100"
-                  *ngFor="let item of dashboardState.aircraftDetailHil"
+                  *ngFor="let item of dashboardState.hil"
                 >
                   <td
                     class="px-2 pt-1 font-medium bg-gray-200 whitespace-nowrap"
@@ -847,27 +789,48 @@
                   </td>
                   <td class="py-2 pl-2 text-xs whitespace-nowrap">
                     <p class="font-semibold text-left text-ahi-blue-600">
-                      {{ item.categoryDescription }}
+                      {{ item.aircraftRegistration }}
                     </p>
                     <p class="font-medium text-left">
-                      - Raised on
+                      - Subject
+                      <span class="text-ahi-blue-600">{{ item.subject }}</span>
+                    </p>
+                    <p class="font-medium text-left">
+                      - Flight No.
+                      <span class="text-ahi-blue-600">{{ item.flightNo }}</span>
+                    </p>
+                    <p class="font-medium text-left">
+                      - Date Occur
                       <span class="text-ahi-blue-600">{{
                         item.dateOccur | date : "dd-MM-yyyy HH:mm"
                       }}</span>
                     </p>
                     <p class="font-medium text-left">
-                      - Raised on
+                      - Due Date
                       <span class="text-ahi-blue-600">{{
                         item.dueDate | date : "dd-MM-yyyy HH:mm"
+                      }}</span>
+                    </p>
+                    <p class="font-medium text-left">
+                      - CreatedAt
+                      <span class="text-ahi-blue-600">{{
+                        item.createdAt | date : "dd-MM-yyyy HH:mm"
                       }}</span>
                     </p>
                   </td>
                   <td class="px-6 py-4 text-xs">
                     <p class="font-semibold text-left text-ahi-blue-600">
-                      Last Follow Up
+                      HIL Negative Score
                     </p>
                     <p class="font-medium text-left">
-                      {{ item.followOnDescription }}
+                      {{ item.hilNegativeScore }}
+                    </p>
+                    <br />
+                    <p class="font-semibold text-left text-ahi-blue-600">
+                      Description
+                    </p>
+                    <p class="font-medium text-left">
+                      {{ item.description }}
                     </p>
                   </td>
                 </tr>
