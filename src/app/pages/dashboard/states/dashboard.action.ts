@@ -16,6 +16,8 @@ import {
 } from '../dto/showMoreHil.dto';
 import { DashboardActionType } from './dashboard.action.type';
 import { SetConfigDTO } from '../dto/setConfig.dto';
+import { AsdcsRecordDTO } from '../dto/asdcs.dto';
+import { CmlRecordDTO } from '../dto/cml.dto';
 
 export const onDashboardLoaded = createAction(
   DashboardActionType.ON_DASHBOARD_DATA_LOAD,
@@ -147,6 +149,20 @@ export const onClearBleed = createAction(DashboardActionType.ON_BLEED_CLEAR);
 export const onLoadBleed = createAction(
   DashboardActionType.ON_BLEED_LOAD,
   props<{ data: BleedRecordDTO[] }>()
+);
+
+// Asdcs
+export const onClearAsdcs = createAction(DashboardActionType.ON_ASDCS_CLEAR);
+export const onLoadAsdcs = createAction(
+  DashboardActionType.ON_ASDCS_LOAD,
+  props<{ data: AsdcsRecordDTO[] }>()
+);
+
+// Cml
+export const onClearCml = createAction(DashboardActionType.ON_CML_CLEAR);
+export const onLoadCml = createAction(
+  DashboardActionType.ON_CML_LOAD,
+  props<{ data: CmlRecordDTO[] }>()
 );
 
 // Pack

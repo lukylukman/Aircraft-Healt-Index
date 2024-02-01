@@ -21,6 +21,8 @@ import {
   PackRecordDTO,
   RepetitiveRecordDTO,
 } from './dto/showMoreHil.dto';
+import { AsdcsRecordDTO } from './dto/asdcs.dto';
+import { CmlRecordDTO } from './dto/cml.dto';
 
 export interface ElasticRecordResponse {
   record: {
@@ -31,6 +33,8 @@ export interface ElasticRecordResponse {
     repetitiveRecord: RepetitiveRecordDTO[];
     packRecord: PackRecordDTO[];
     hilRecord: HilRecordDTO[];
+    asdcsRecord: AsdcsRecordDTO[];
+    cmlRecord: CmlRecordDTO[];
   };
 }
 

@@ -47,6 +47,14 @@ export enum DashboardActionType {
   ON_BLEED_LOAD = '[Action: Bleed] => On Bleed Load',
   ON_BLEED_CLEAR = '[Action: Bleed] => On Bleed Clear',
 
+  // ASDCS
+  ON_ASDCS_LOAD = '[Action: Asdcs] => On Asdcs Load',
+  ON_ASDCS_CLEAR = '[Action: Asdcs] => On Asdcs Clear',
+
+  // CML
+  ON_CML_LOAD = '[Action: Cml] => On Cml Load',
+  ON_CML_CLEAR = '[Action: Cml] => On Cml Clear',
+
   // REPETITIVE
   ON_REPETITIVE_LOAD = '[Action: Repetitive] => On Repetitive Load',
   ON_REPETITIVE_CLEAR = '[Action: Repetitive] => On Repetitive Clear',

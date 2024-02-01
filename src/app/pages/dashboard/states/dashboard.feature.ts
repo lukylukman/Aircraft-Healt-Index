@@ -17,6 +17,8 @@ import {
 import * as DashboardAction from './dashboard.action';
 import { ElasticRecordResponse } from '../dashboard.service';
 import { SetConfigDTO } from '../dto/setConfig.dto';
+import { AsdcsRecordDTO } from '../dto/asdcs.dto';
+import { CmlRecordDTO } from '../dto/cml.dto';
 
 const empetyStateDashboard: PaginationResultDTO<AircraftDTO> = {
   data: [],
@@ -42,6 +44,8 @@ export interface DashboardFeatureState {
   repetitive: RepetitiveRecordDTO[];
   pack: PackRecordDTO[];
   hil: HilRecordDTO[];
+  asdcs: AsdcsRecordDTO[];
+  cml: CmlRecordDTO[];
 
   averageHealt: AverageHealt;
 
@@ -74,6 +78,8 @@ const initialState: DashboardFeatureState = {
   repetitive: [],
   pack: [],
   hil: [],
+  asdcs: [],
+  cml: [],
 };
 
 export const DashboardFeature = createFeature({
@@ -245,6 +251,29 @@ export const DashboardFeature = createFeature({
         bleed: data,
       })
     ),
+
+    // Asdcs
+    on(DashboardAction.onClearAsdcs, (state: DashboardFeatureState) => ({
+      ...state,
+      asdcs: [],
+    })),
+    on(
+      DashboardAction.onLoadAsdcs,
+      (state: DashboardFeatureState, { data }) => ({
+        ...state,
+        asdcs: data,
+      })
+    ),
+
+    // Cml
+    on(DashboardAction.onClearCml, (state: DashboardFeatureState) => ({
+      ...state,
+      cml: [],
+    })),
+    on(DashboardAction.onLoadCml, (state: DashboardFeatureState, { data }) => ({
+      ...state,
+      cml: data,
+    })),
 
     // Repetitive
     on(DashboardAction.onClearRepetitive, (state: DashboardFeatureState) => ({

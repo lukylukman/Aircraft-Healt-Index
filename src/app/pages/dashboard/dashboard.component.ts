@@ -408,6 +408,8 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
             const repetitiveRecord = result.data.record.repetitiveRecord;
             const packRecord = result.data.record.packRecord;
             const hilRecord = result.data.record.hilRecord;
+            const asdcsRecord = result.data.record.asdcsRecord;
+            const cmlRecord = result.data.record.cmlRecord;
 
             this.store.dispatch(DashboardAction.onLoadApu({ data: apuRecord }));
             this.store.dispatch(
@@ -426,6 +428,10 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
               DashboardAction.onLoadPack({ data: packRecord })
             );
             this.store.dispatch(DashboardAction.onLoadHil({ data: hilRecord }));
+            this.store.dispatch(
+              DashboardAction.onLoadAsdcs({ data: asdcsRecord })
+            );
+            this.store.dispatch(DashboardAction.onLoadCml({ data: cmlRecord }));
           }
         }),
         takeUntil(this._onDestroy$)
