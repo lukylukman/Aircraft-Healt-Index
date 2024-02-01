@@ -1,7 +1,7 @@
 <app-modal
   (modaltoClose)="resetModal()"
   size="7xl"
-  title="Detail Aircraft Hil"
+  title="Aircraft Detail"
   idSelector="DetailHil"
   [@fadeInOut]
 >
@@ -65,7 +65,7 @@
 
     <!-- Table -->
     <div class="grid grid-cols-2">
-      <!-- Tabel 1 -->
+      <!-- Tabel Hold Item List -->
       <div class="flex flex-col">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
@@ -172,7 +172,7 @@
           </div>
         </div>
       </div>
-      <!-- Tabel 2 -->
+      <!-- Tabel Repetitive Problem -->
       <div class="flex flex-col">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
@@ -261,7 +261,185 @@
           </div>
         </div>
       </div>
-      <!-- Tabel 3 -->
+      <!-- Tabel Bleed -->
+      <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+              <table class="min-w-full text-sm font-light text-center">
+                <thead class="text-left bg-ahi-blue-600">
+                  <tr>
+                    <th
+                      scope="col"
+                      class="px-6 py-4 font-semibold text-white"
+                      colspan="3"
+                    >
+                      Bleed
+                      <span
+                        class="w-8 h-8 px-2 py-1 ml-2 text-blue-800 bg-gray-200 rounded-full"
+                      >
+                        {{ dashboardState.bleed.length }}
+                      </span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="">
+                    <td class="w-16 px-2 pt-1 font-medium bg-gray-200 h-30">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M18 18.86H17.24C16.44 18.86 15.68 19.17 15.12 19.73L13.41 21.42C12.63 22.19 11.36 22.19 10.58 21.42L8.87 19.73C8.31 19.17 7.54 18.86 6.75 18.86H6C4.34 18.86 3 17.53 3 15.89V4.97C3 3.33 4.34 2 6 2H18C19.66 2 21 3.33 21 4.97V15.88C21 17.52 19.66 18.86 18 18.86Z"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-miterlimit="10"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M12.07 8.95005H11.92C11.4146 8.93315 10.9357 8.72011 10.5848 8.3561C10.2338 7.99208 10.0384 7.50569 10.04 7.00005C10.04 5.92005 10.91 5.05005 11.99 5.05005C13.07 5.05005 13.94 5.93005 13.94 7.00005C13.95 8.06005 13.12 8.92005 12.07 8.95005ZM9.25 11.96C7.92 12.85 7.92 14.3 9.25 15.19C10.76 16.2 13.24 16.2 14.75 15.19C16.08 14.3 16.08 12.85 14.75 11.96C13.24 10.96 10.77 10.96 9.25 11.96Z"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </td>
+                    <td class="px-6 py-4 text-xs">
+                      <ng-container *ngIf="dashboardState.bleed.length < 1">
+                        <p class="font-semibold text-left text-ahi-blue-600">
+                          No Data
+                        </p>
+                      </ng-container>
+
+                      <ng-container *ngIf="dashboardState.bleed.length >= 1">
+                        <p class="font-medium text-left">
+                          Bleed Listed on-watch since
+                          <span class="text-ahi-blue-600">{{
+                            dashboardState.bleed[0].createdAt
+                              | date : "dd-MM-yyyy"
+                          }}</span>
+                        </p>
+                        <p
+                          *ngIf="dashboardState.bleed.length > 0"
+                          (click)="showTab(6)"
+                          class="flex items-center mt-6 text-xs font-medium text-right transition-all duration-150 ease-in-out cursor-pointer text-ahi-blue-600 hover:scale-105"
+                        >
+                          See more
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-3 h-3 ml-1"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                              clip-rule="evenodd"
+                            />
+                          </svg>
+                        </p>
+                      </ng-container>
+                    </td>
+                    <td class="px-6 py-4 text-xs"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Tabel Pack Assesment -->
+      <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+              <table class="min-w-full text-sm font-light text-center">
+                <thead class="text-left bg-ahi-blue-600">
+                  <tr>
+                    <th
+                      scope="col"
+                      class="px-6 py-4 font-semibold text-white"
+                      colspan="3"
+                    >
+                      Pack Assesment
+                      <span
+                        class="w-8 h-8 px-2 py-1 ml-2 text-blue-800 bg-gray-200 rounded-full"
+                      >
+                        {{ dashboardState.pack.length }}
+                      </span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="">
+                    <td class="w-16 px-2 pt-1 font-medium bg-gray-200 h-30">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M12.61 2.20999C12.4358 2.07391 12.2211 2 12 2C11.779 2 11.5643 2.07391 11.39 2.20999C9.49003 3.65999 3.88003 8.38999 3.91003 13.9C3.91003 18.36 7.54003 22 12.01 22C16.48 22 20.11 18.37 20.11 13.91C20.12 8.47999 14.5 3.66999 12.61 2.20999Z"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-miterlimit="10"
+                        />
+                      </svg>
+                    </td>
+                    <td class="px-6 py-4 text-xs">
+                      <ng-container *ngIf="dashboardState.pack.length < 1">
+                        <p class="font-semibold text-left text-ahi-blue-600">
+                          No Data
+                        </p>
+                      </ng-container>
+
+                      <ng-container *ngIf="dashboardState.pack.length >= 1">
+                        <p class="font-medium text-left">
+                          Pack Listed on-watch since
+                          <span class="text-ahi-blue-600">{{
+                            dashboardState.pack[0].createdAt
+                              | date : "dd-MM-yyyy"
+                          }}</span>
+                        </p>
+                        <p
+                          *ngIf="dashboardState.pack.length > 0"
+                          (click)="showTab(7)"
+                          class="flex items-center mt-6 text-xs font-medium text-right transition-all duration-150 ease-in-out cursor-pointer text-ahi-blue-600 hover:scale-105"
+                        >
+                          See more
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-3 h-3 ml-1"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                              clip-rule="evenodd"
+                            />
+                          </svg>
+                        </p>
+                      </ng-container>
+                    </td>
+                    <td class="px-6 py-4 text-xs"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- /Modal body -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Tabel APU -->
       <div class="flex flex-col">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
@@ -369,7 +547,7 @@
           </div>
         </div>
       </div>
-      <!-- Tabel 4 -->
+      <!-- Tabel Engine -->
       <div class="flex flex-col">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
@@ -508,7 +686,7 @@
           </div>
         </div>
       </div>
-      <!-- Tabel 5 -->
+      <!-- Tabel ASDCS -->
       <div class="flex flex-col">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
@@ -521,11 +699,11 @@
                       class="px-6 py-4 font-semibold text-white"
                       colspan="3"
                     >
-                      Bleed
+                      ASDCS
                       <span
                         class="w-8 h-8 px-2 py-1 ml-2 text-blue-800 bg-gray-200 rounded-full"
                       >
-                        {{ dashboardState.bleed.length }}
+                        {{ dashboardState.asdcs.length }}
                       </span>
                     </th>
                   </tr>
@@ -558,23 +736,23 @@
                       </svg>
                     </td>
                     <td class="px-6 py-4 text-xs">
-                      <ng-container *ngIf="dashboardState.bleed.length < 1">
+                      <ng-container *ngIf="dashboardState.asdcs.length < 1">
                         <p class="font-semibold text-left text-ahi-blue-600">
                           No Data
                         </p>
                       </ng-container>
 
-                      <ng-container *ngIf="dashboardState.bleed.length >= 1">
+                      <ng-container *ngIf="dashboardState.asdcs.length >= 1">
                         <p class="font-medium text-left">
-                          Bleed Listed on-watch since
+                          ASDCS Listed on-watch since
                           <span class="text-ahi-blue-600">{{
-                            dashboardState.bleed[0].createdAt
+                            dashboardState.asdcs[0].createdAt
                               | date : "dd-MM-yyyy"
                           }}</span>
                         </p>
                         <p
-                          *ngIf="dashboardState.bleed.length > 0"
-                          (click)="showTab(6)"
+                          *ngIf="dashboardState.asdcs.length > 0"
+                          (click)="showTab(8)"
                           class="flex items-center mt-6 text-xs font-medium text-right transition-all duration-150 ease-in-out cursor-pointer text-ahi-blue-600 hover:scale-105"
                         >
                           See more
@@ -601,7 +779,7 @@
           </div>
         </div>
       </div>
-      <!-- Tabel 6 -->
+      <!-- Tabel CML -->
       <div class="flex flex-col">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
@@ -614,11 +792,11 @@
                       class="px-6 py-4 font-semibold text-white"
                       colspan="3"
                     >
-                      Pack Assesment
+                      CML
                       <span
                         class="w-8 h-8 px-2 py-1 ml-2 text-blue-800 bg-gray-200 rounded-full"
                       >
-                        {{ dashboardState.pack.length }}
+                        {{ dashboardState.cml.length }}
                       </span>
                     </th>
                   </tr>
@@ -634,31 +812,40 @@
                         fill="none"
                       >
                         <path
-                          d="M12.61 2.20999C12.4358 2.07391 12.2211 2 12 2C11.779 2 11.5643 2.07391 11.39 2.20999C9.49003 3.65999 3.88003 8.38999 3.91003 13.9C3.91003 18.36 7.54003 22 12.01 22C16.48 22 20.11 18.37 20.11 13.91C20.12 8.47999 14.5 3.66999 12.61 2.20999Z"
+                          d="M18 18.86H17.24C16.44 18.86 15.68 19.17 15.12 19.73L13.41 21.42C12.63 22.19 11.36 22.19 10.58 21.42L8.87 19.73C8.31 19.17 7.54 18.86 6.75 18.86H6C4.34 18.86 3 17.53 3 15.89V4.97C3 3.33 4.34 2 6 2H18C19.66 2 21 3.33 21 4.97V15.88C21 17.52 19.66 18.86 18 18.86Z"
                           stroke="black"
                           stroke-width="1.5"
                           stroke-miterlimit="10"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M12.07 8.95005H11.92C11.4146 8.93315 10.9357 8.72011 10.5848 8.3561C10.2338 7.99208 10.0384 7.50569 10.04 7.00005C10.04 5.92005 10.91 5.05005 11.99 5.05005C13.07 5.05005 13.94 5.93005 13.94 7.00005C13.95 8.06005 13.12 8.92005 12.07 8.95005ZM9.25 11.96C7.92 12.85 7.92 14.3 9.25 15.19C10.76 16.2 13.24 16.2 14.75 15.19C16.08 14.3 16.08 12.85 14.75 11.96C13.24 10.96 10.77 10.96 9.25 11.96Z"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
                         />
                       </svg>
                     </td>
                     <td class="px-6 py-4 text-xs">
-                      <ng-container *ngIf="dashboardState.pack.length < 1">
+                      <ng-container *ngIf="dashboardState.cml.length < 1">
                         <p class="font-semibold text-left text-ahi-blue-600">
                           No Data
                         </p>
                       </ng-container>
 
-                      <ng-container *ngIf="dashboardState.pack.length >= 1">
+                      <ng-container *ngIf="dashboardState.cml.length >= 1">
                         <p class="font-medium text-left">
-                          Pack Listed on-watch since
+                          CML Listed on-watch since
                           <span class="text-ahi-blue-600">{{
-                            dashboardState.pack[0].createdAt
+                            dashboardState.cml[0].createdAt
                               | date : "dd-MM-yyyy"
                           }}</span>
                         </p>
                         <p
-                          *ngIf="dashboardState.pack.length > 0"
-                          (click)="showTab(7)"
+                          *ngIf="dashboardState.cml.length > 0"
+                          (click)="showTab(9)"
                           class="flex items-center mt-6 text-xs font-medium text-right transition-all duration-150 ease-in-out cursor-pointer text-ahi-blue-600 hover:scale-105"
                         >
                           See more
@@ -681,7 +868,6 @@
                   </tr>
                 </tbody>
               </table>
-              <!-- /Modal body -->
             </div>
           </div>
         </div>
@@ -788,49 +974,58 @@
                     </svg>
                   </td>
                   <td class="py-2 pl-2 text-xs whitespace-nowrap">
-                    <p class="font-semibold text-left text-ahi-blue-600">
-                      {{ item.aircraftRegistration }}
+                    <p class="font-semibold text-left">
+                      Status Description :
+                      <span class="text-ahi-blue-600">{{
+                        item.statusDescription
+                      }}</span>
+                    </p>
+                    <p class="font-semibold text-left">
+                      Diff Days To Now :
+                      <span class="text-ahi-blue-600">{{
+                        item.diffDaysToNow
+                      }}</span>
                     </p>
                     <p class="font-medium text-left">
-                      - Subject
+                      Subject :
                       <span class="text-ahi-blue-600">{{ item.subject }}</span>
                     </p>
                     <p class="font-medium text-left">
-                      - Flight No.
+                      Flight No :
                       <span class="text-ahi-blue-600">{{ item.flightNo }}</span>
                     </p>
                     <p class="font-medium text-left">
-                      - Date Occur
+                      Date Occur :
                       <span class="text-ahi-blue-600">{{
                         item.dateOccur | date : "dd-MM-yyyy HH:mm"
                       }}</span>
                     </p>
                     <p class="font-medium text-left">
-                      - Due Date
+                      Due Date :
                       <span class="text-ahi-blue-600">{{
                         item.dueDate | date : "dd-MM-yyyy HH:mm"
                       }}</span>
                     </p>
                     <p class="font-medium text-left">
-                      - CreatedAt
+                      Created at :
                       <span class="text-ahi-blue-600">{{
                         item.createdAt | date : "dd-MM-yyyy HH:mm"
                       }}</span>
                     </p>
                   </td>
                   <td class="px-6 py-4 text-xs">
-                    <p class="font-semibold text-left text-ahi-blue-600">
-                      HIL Negative Score
-                    </p>
-                    <p class="font-medium text-left">
-                      {{ item.hilNegativeScore }}
+                    <p class="font-semibold text-left">
+                      HIL Negative Score :
+                      <span class="text-ahi-blue-600">{{
+                        item.hilNegativeScore
+                      }}</span>
                     </p>
                     <br />
-                    <p class="font-semibold text-left text-ahi-blue-600">
-                      Description
-                    </p>
-                    <p class="font-medium text-left">
-                      {{ item.description }}
+                    <p class="font-semibold text-left">
+                      Description :
+                      <span class="text-ahi-blue-600">{{
+                        item.description
+                      }}</span>
                     </p>
                   </td>
                 </tr>
@@ -940,26 +1135,27 @@
                     </svg>
                   </td>
                   <td class="py-2 pl-2 text-xs whitespace-nowrap">
-                    <p class="font-semibold text-left text-ahi-blue-600">
-                      {{ item.aircraftRegistration }}
+                    <p class="font-semibold text-left">
+                      Rank :
+                      <span class="text-ahi-blue-600">{{ item.rank }}</span>
                     </p>
                     <p class="font-medium text-left">
-                      APUsn
+                      APU SN :
                       <span class="text-ahi-blue-600">{{ item.apuSn }}</span>
                     </p>
                     <p class="font-medium text-left">
-                      - CreatedAt
+                      Created at :
                       <span class="text-ahi-blue-600">{{
                         item.createdAt | date : "dd-MM-yyyy HH:mm"
                       }}</span>
                     </p>
                   </td>
                   <td class="px-6 py-4 text-xs">
-                    <p class="font-semibold text-left text-ahi-blue-600">
-                      - APU negative score
-                    </p>
-                    <p class="font-medium text-left">
-                      {{ item.apuNegativeScore }}
+                    <p class="font-semibold text-left">
+                      APU negative score :
+                      <span class="text-ahi-blue-600">{{
+                        item.apuNegativeScore
+                      }}</span>
                     </p>
                   </td>
                 </tr>
@@ -1032,7 +1228,7 @@
                     <td
                       class="px-2 pt-1 font-medium bg-gray-200 whitespace-nowrap"
                     ></td>
-                    <td class="py-2 pl-2 text-xs whitespace-nowrap">
+                    <td class="py-2 pl-2 text-base whitespace-nowrap">
                       <h1 class="font-bold text-left text-ahi-blue-600">
                         Engine Trend
                       </h1>
@@ -1069,32 +1265,33 @@
                       </svg>
                     </td>
                     <td class="py-2 pl-2 text-xs whitespace-nowrap">
-                      <p class="font-semibold text-left text-ahi-blue-600">
-                        {{ item.aircraftRegistration }}
+                      <p class="font-semibold text-left">
+                        Rank :
+                        <span class="text-ahi-blue-600">{{ item.rank }}</span>
                       </p>
                       <p class="font-medium text-left">
-                        - Esn
+                        ESN :
                         <span class="text-ahi-blue-600">{{ item.esn }}</span>
                       </p>
                       <p class="font-medium text-left">
-                        - Position
+                        Position :
                         <span class="text-ahi-blue-600">{{
                           item.position
                         }}</span>
                       </p>
                       <p class="font-medium text-left">
-                        - CreatedAt
+                        Created at :
                         <span class="text-ahi-blue-600">{{
                           item.createdAt | date : "dd-MM-yyyy HH:mm"
                         }}</span>
                       </p>
                     </td>
                     <td class="px-6 py-4 text-xs">
-                      <p class="font-semibold text-left text-ahi-blue-600">
-                        - Engine negative score
-                      </p>
-                      <p class="font-medium text-left">
-                        {{ item.engineTrendNegativeScore }}
+                      <p class="font-semibold text-left">
+                        Engine negative score :
+                        <span class="text-ahi-blue-600">{{
+                          item.engineTrendNegativeScore
+                        }}</span>
                       </p>
                     </td>
                   </tr>
@@ -1121,9 +1318,9 @@
                     <td
                       class="px-2 pt-1 font-medium bg-gray-200 whitespace-nowrap"
                     ></td>
-                    <td class="py-2 pl-2 text-xs whitespace-nowrap">
+                    <td class="py-2 pl-2 text-base whitespace-nowrap">
                       <h1 class="font-bold text-left text-ahi-blue-600">
-                        Engine Ge
+                        Engine GE
                       </h1>
                     </td>
                   </tr>
@@ -1158,28 +1355,29 @@
                       </svg>
                     </td>
                     <td class="py-2 pl-2 text-xs whitespace-nowrap">
-                      <p class="font-semibold text-left text-ahi-blue-600">
-                        {{ item.aircraftRegistration }}
+                      <p class="font-semibold text-left">
+                        Rank :
+                        <span class="text-ahi-blue-600">{{ item.rank }}</span>
                       </p>
                       <p class="font-medium text-left">
-                        - Position
+                        Position :
                         <span class="text-ahi-blue-600">{{
                           item.position
                         }}</span>
                       </p>
                       <p class="font-medium text-left">
-                        - CreatedAt
+                        Created at :
                         <span class="text-ahi-blue-600">{{
                           item.createdAt | date : "dd-MM-yyyy HH:mm"
                         }}</span>
                       </p>
                     </td>
                     <td class="px-6 py-4 text-xs">
-                      <p class="font-semibold text-left text-ahi-blue-600">
-                        - Engine negative score
-                      </p>
-                      <p class="font-medium text-left">
-                        {{ item.engineGeNegativeScore }}
+                      <p class="font-semibold text-left">
+                        Engine negative score :
+                        <span class="text-ahi-blue-600">{{
+                          item.engineGeNegativeScore
+                        }}</span>
                       </p>
                     </td>
                   </tr>
@@ -1267,34 +1465,35 @@
                     </svg>
                   </td>
                   <td class="py-2 pl-2 text-xs whitespace-nowrap">
-                    <p class="font-semibold text-left text-ahi-blue-600">
-                      {{ item.aircraftRegistration }}
+                    <p class="font-semibold text-left">
+                      Status :
+                      <span class="text-ahi-blue-600">{{ item.status }}</span>
                     </p>
                     <p class="font-medium text-left">
-                      - First Occurrence
+                      First Occurrence :
                       <span class="text-ahi-blue-600">{{
                         item.firstOccurrence | date : "dd-MM-yyyy HH:mm"
                       }}</span>
                     </p>
                     <p class="font-medium text-left">
-                      - Last Occurrence
+                      Last Occurrence :
                       <span class="text-ahi-blue-600">{{
                         item.lastOccurence | date : "dd-MM-yyyy HH:mm"
                       }}</span>
                     </p>
                     <p class="font-medium text-left">
-                      - CreatedAt
+                      Created at :
                       <span class="text-ahi-blue-600">{{
                         item.createdAt | date : "dd-MM-yyyy HH:mm"
                       }}</span>
                     </p>
                   </td>
                   <td class="px-6 py-4 text-xs">
-                    <p class="font-semibold text-left text-ahi-blue-600">
-                      - Repetitive negative score
-                    </p>
-                    <p class="font-medium text-left">
-                      {{ item.repetitiveNegativeScore }}
+                    <p class="font-semibold text-left">
+                      Repetitive negative score :
+                      <span class="text-ahi-blue-600">{{
+                        item.repetitiveNegativeScore
+                      }}</span>
                     </p>
                   </td>
                 </tr>
@@ -1389,28 +1588,29 @@
                     </svg>
                   </td>
                   <td class="py-2 pl-2 text-xs whitespace-nowrap">
-                    <p class="font-semibold text-left text-ahi-blue-600">
-                      {{ item.aircraftRegistration }}
+                    <p class="font-semibold text-left">
+                      Status :
+                      <span class="text-ahi-blue-600">{{ item.status }}</span>
                     </p>
                     <p class="font-medium text-left">
-                      - Date
+                      Date :
                       <span class="text-ahi-blue-600">{{
                         item.date | date : "dd-MM-yyyy HH:mm"
                       }}</span>
                     </p>
                     <p class="font-medium text-left">
-                      - CreatedAt
+                      Created at :
                       <span class="text-ahi-blue-600">{{
                         item.createdAt | date : "dd-MM-yyyy HH:mm"
                       }}</span>
                     </p>
                   </td>
                   <td class="px-6 py-4 text-xs">
-                    <p class="font-semibold text-left text-ahi-blue-600">
-                      - Bleed negative score
-                    </p>
-                    <p class="font-medium text-left">
-                      {{ item.bleedNegativeScore }}
+                    <p class="font-semibold text-left">
+                      Bleed negative score :
+                      <span class="text-ahi-blue-600">{{
+                        item.bleedNegativeScore
+                      }}</span>
                     </p>
                   </td>
                 </tr>
@@ -1496,28 +1696,255 @@
                     </svg>
                   </td>
                   <td class="py-2 pl-2 text-xs whitespace-nowrap">
-                    <p class="font-semibold text-left text-ahi-blue-600">
-                      {{ item.aircraftRegistration }}
+                    <p class="font-semibold text-left">
+                      Status :
+                      <span class="text-ahi-blue-600">{{ item.status }}</span>
                     </p>
                     <p class="font-medium text-left">
-                      - Date
+                      Date :
                       <span class="text-ahi-blue-600">{{
                         item.date | date : "dd-MM-yyyy HH:mm"
                       }}</span>
                     </p>
                     <p class="font-medium text-left">
-                      - CreatedAt
+                      Created at :
                       <span class="text-ahi-blue-600">{{
                         item.createdAt | date : "dd-MM-yyyy HH:mm"
                       }}</span>
                     </p>
                   </td>
                   <td class="px-6 py-4 text-xs">
-                    <p class="font-semibold text-left text-ahi-blue-600">
-                      - Pack negative score
+                    <p class="font-semibold text-left">
+                      Pack negative score :
+                      <span class="text-ahi-blue-600">
+                        {{ item.packNegativeScore }}</span
+                      >
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab See more ASDCS (ASDCS) -->
+  <div
+    class="tab-content"
+    [hidden]="!isTabVisible(8)"
+    *ngIf="dashboardState$ | async as dashboardState"
+  >
+    <!-- Isi Tab -->
+    <div class="flex flex-col" [@fadeInOut]>
+      <div class="overflow-auto sm:-mx-6 lg:-mx-8">
+        <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+          <div class="overflow-hidden">
+            <button
+              (click)="showTab(1)"
+              class="inline-flex items-center mb-4 ml-4 font-medium text-center text-blue-800 transition-all duration-150 ease-in-out hover:scale-105"
+            >
+              Back
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-4 h-4 ml-1"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
+                />
+              </svg>
+            </button>
+            <table class="min-w-full mb-6 text-sm font-light text-center">
+              <thead class="text-left bg-ahi-blue-600">
+                <tr>
+                  <th class=""></th>
+                  <th
+                    scope="col"
+                    class="px-6 py-4 font-semibold text-white"
+                    colspan="3"
+                  >
+                    ASDCS
+                    <span
+                      class="w-8 h-8 px-2 py-1 ml-2 text-blue-800 bg-gray-200 rounded-full"
+                    >
+                      {{ dashboardState.asdcs.length }}
+                    </span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="w-auto">
+                <!-- Repetitive -->
+                <tr
+                  class="transition-colors duration-200 ease-out hover:bg-gray-100"
+                  *ngFor="let item of dashboardState.asdcs"
+                >
+                  <td
+                    class="px-2 pt-1 font-medium bg-gray-200 whitespace-nowrap"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                    >
+                      <path
+                        d="M18 18.86H17.24C16.44 18.86 15.68 19.17 15.12 19.73L13.41 21.42C12.63 22.19 11.36 22.19 10.58 21.42L8.87 19.73C8.31 19.17 7.54 18.86 6.75 18.86H6C4.34 18.86 3 17.53 3 15.89V4.97C3 3.33 4.34 2 6 2H18C19.66 2 21 3.33 21 4.97V15.88C21 17.52 19.66 18.86 18 18.86Z"
+                        stroke="black"
+                        stroke-width="1.5"
+                        stroke-miterlimit="10"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M12.07 8.95005H11.92C11.4146 8.93315 10.9357 8.72011 10.5848 8.3561C10.2338 7.99208 10.0384 7.50569 10.04 7.00005C10.04 5.92005 10.91 5.05005 11.99 5.05005C13.07 5.05005 13.94 5.93005 13.94 7.00005C13.95 8.06005 13.12 8.92005 12.07 8.95005ZM9.25 11.96C7.92 12.85 7.92 14.3 9.25 15.19C10.76 16.2 13.24 16.2 14.75 15.19C16.08 14.3 16.08 12.85 14.75 11.96C13.24 10.96 10.77 10.96 9.25 11.96Z"
+                        stroke="black"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </td>
+                  <td class="py-2 pl-2 text-xs whitespace-nowrap">
+                    <p class="font-medium text-left">
+                      Total Item :
+                      <span class="text-ahi-blue-600">{{
+                        item.itemLength
+                      }}</span>
                     </p>
                     <p class="font-medium text-left">
-                      {{ item.packNegativeScore }}
+                      Created at :
+                      <span class="text-ahi-blue-600">{{
+                        item.createdAt | date : "dd-MM-yyyy HH:mm"
+                      }}</span>
+                    </p>
+                  </td>
+                  <td class="px-6 py-4 text-xs">
+                    <p class="font-semibold text-left">
+                      ASDCS negative score :
+                      <span class="text-ahi-blue-600">{{
+                        item.asdcsNegativeScore
+                      }}</span>
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab See more CML (CML) -->
+  <div
+    class="tab-content"
+    [hidden]="!isTabVisible(9)"
+    *ngIf="dashboardState$ | async as dashboardState"
+  >
+    <!-- Isi Tab -->
+    <div class="flex flex-col" [@fadeInOut]>
+      <div class="overflow-auto sm:-mx-6 lg:-mx-8">
+        <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+          <div class="overflow-hidden">
+            <button
+              (click)="showTab(1)"
+              class="inline-flex items-center mb-4 ml-4 font-medium text-center text-blue-800 transition-all duration-150 ease-in-out hover:scale-105"
+            >
+              Back
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-4 h-4 ml-1"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
+                />
+              </svg>
+            </button>
+            <table class="min-w-full mb-6 text-sm font-light text-center">
+              <thead class="text-left bg-ahi-blue-600">
+                <tr>
+                  <th class=""></th>
+                  <th
+                    scope="col"
+                    class="px-6 py-4 font-semibold text-white"
+                    colspan="3"
+                  >
+                    CML
+                    <span
+                      class="w-8 h-8 px-2 py-1 ml-2 text-blue-800 bg-gray-200 rounded-full"
+                    >
+                      {{ dashboardState.cml.length }}
+                    </span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="w-auto">
+                <!-- Repetitive -->
+                <tr
+                  class="transition-colors duration-200 ease-out hover:bg-gray-100"
+                  *ngFor="let item of dashboardState.cml"
+                >
+                  <td
+                    class="px-2 pt-1 font-medium bg-gray-200 whitespace-nowrap"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                    >
+                      <path
+                        d="M18 18.86H17.24C16.44 18.86 15.68 19.17 15.12 19.73L13.41 21.42C12.63 22.19 11.36 22.19 10.58 21.42L8.87 19.73C8.31 19.17 7.54 18.86 6.75 18.86H6C4.34 18.86 3 17.53 3 15.89V4.97C3 3.33 4.34 2 6 2H18C19.66 2 21 3.33 21 4.97V15.88C21 17.52 19.66 18.86 18 18.86Z"
+                        stroke="black"
+                        stroke-width="1.5"
+                        stroke-miterlimit="10"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M12.07 8.95005H11.92C11.4146 8.93315 10.9357 8.72011 10.5848 8.3561C10.2338 7.99208 10.0384 7.50569 10.04 7.00005C10.04 5.92005 10.91 5.05005 11.99 5.05005C13.07 5.05005 13.94 5.93005 13.94 7.00005C13.95 8.06005 13.12 8.92005 12.07 8.95005ZM9.25 11.96C7.92 12.85 7.92 14.3 9.25 15.19C10.76 16.2 13.24 16.2 14.75 15.19C16.08 14.3 16.08 12.85 14.75 11.96C13.24 10.96 10.77 10.96 9.25 11.96Z"
+                        stroke="black"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </td>
+                  <td class="py-2 pl-2 text-xs whitespace-nowrap">
+                    <p class="font-medium text-left">
+                      Total Item :
+                      <span class="text-ahi-blue-600">{{
+                        item.itemLength
+                      }}</span>
+                    </p>
+                    <p class="font-medium text-left">
+                      Created at :
+                      <span class="text-ahi-blue-600">{{
+                        item.createdAt | date : "dd-MM-yyyy HH:mm"
+                      }}</span>
+                    </p>
+                  </td>
+                  <td class="px-6 py-4 text-xs">
+                    <p class="font-semibold text-left">
+                      CML negative score :
+                      <span class="text-ahi-blue-600">{{
+                        item.cmlNegativeScore
+                      }}</span>
                     </p>
                   </td>
                 </tr>
