@@ -72,6 +72,8 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
   selectedFile: File;
   isRangeAircraftSystem: boolean = false;
   isRangeEngineApu: boolean = false;
+  isRangeStructrue: boolean = false;
+  isRangeCabin: boolean = false;
   addNewCustomer: Modal;
   inputNewCs: string;
   errorMessage: string = '';
@@ -99,12 +101,19 @@ export class DataComponent implements OnInit, OnDestroy, AfterContentInit {
   ngOnInit(): void {
     this.createForm();
     // this.initCustomerListName();
+    this.initDefaultCustomer();
   }
 
   createForm(): void {
     this.AddDataForm = this.formBuilder.group({
       upload_file: ['', [Validators.required]],
     });
+  }
+
+  initDefaultCustomer() {
+    this.selectedOption = 'GA';
+    this.customerName = 'GA';
+    this.getConfigData();
   }
 
   initCustomerListName(): void {

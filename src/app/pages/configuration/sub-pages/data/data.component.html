@@ -1,9 +1,9 @@
 <div [@fadeInOut] class="">
   <nav
-    class="bg-transparent border-b border-ahi-blue-600 ml-10 dark:bg-gray-900"
+    class="ml-10 bg-transparent border-b border-ahi-blue-600 dark:bg-gray-900"
   >
     <div
-      class="max-w-screen-xl flex h-20 flex-wrap items-center justify-start pl-2 pt-6"
+      class="flex flex-wrap items-center justify-start h-20 max-w-screen-xl pt-6 pl-2"
     >
       <a
         class="flex items-center cursor-pointer {{
@@ -14,7 +14,7 @@
         (click)="showUpdate = true; showCalculation = false"
       >
         <span
-          class="self-center text-base font-normal whitespace-nowrap text-white dark:text-white"
+          class="self-center text-base font-normal text-white whitespace-nowrap dark:text-white"
           >Update</span
         >
       </a>
@@ -27,14 +27,14 @@
         (click)="showUpdate = false; showCalculation = true"
       >
         <span
-          class="text-base font-normal whitespace-nowrap text-white dark:text-white"
-          >Calculation</span
-        >
+          class="text-base font-normal text-white whitespace-nowrap dark:text-white"
+          >Calculation
+        </span>
       </a>
       <button
         data-collapse-toggle="navbar-default"
         type="button"
-        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        class="inline-flex items-center justify-center w-10 h-10 p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
         aria-controls="navbar-default"
         aria-expanded="false"
       >
@@ -59,34 +59,34 @@
   </nav>
   <!-- header -->
   <!-- customerName -->
-  <div class="flex justify-start mt-6 ml-10 gap-4">
+  <div class="flex justify-start gap-4 mt-6 ml-10">
     <div
-      class="bg-ahi-blue-900 w-40 cursor-pointer h-28 shadow-md hover:scale-105 rounded-lg ease-in-out transition-all duration-200"
+      class="w-40 transition-all duration-200 ease-in-out rounded-lg shadow-md cursor-pointer bg-ahi-blue-900 h-28 hover:scale-105"
       #pilihan1
       [class.selected]="selectedOption === 'GA'"
       (click)="selectCustomer('GA')"
     >
       <div class="px-4 py-2">
-        <h2 class="text-sm text-white font-normal mt-14">Garuda</h2>
-        <h2 class="text-sm text-white font-normal">Indonesia (GA)</h2>
+        <h2 class="text-sm font-normal text-white mt-14">Garuda</h2>
+        <h2 class="text-sm font-normal text-white">Indonesia (GA)</h2>
       </div>
     </div>
 
     <div
-      class="bg-ahi-blue-900 w-40 h-28 cursor-pointer shadow-md hover:scale-105 rounded-lg ease-in-out transition-all duration-200"
+      class="w-40 transition-all duration-200 ease-in-out rounded-lg shadow-md cursor-pointer bg-ahi-blue-900 h-28 hover:scale-105"
       #pilihan2
       [class.selected]="selectedOption === 'CITILINK'"
       (click)="selectCustomer('CITILINK')"
     >
       <div class="px-4 py-2">
-        <h2 class="text-sm text-white font-normal mt-16">CITILINK (QG)</h2>
+        <h2 class="mt-16 text-sm font-normal text-white">CITILINK (QG)</h2>
       </div>
     </div>
     <!-- <button (click)="openModalAddNewCustomer()" class="bg-ahi-blue-900 w-30 h-28 cursor-pointer shadow-md hover:scale-105 rounded-lg ease-in-out transition-all duration-200 text-sm text-white px-5 py-2.5 text-center">
                     <hero-icon
                       name="plus-circle"
                       type="outline"
-                      class="h-8 w-8 cursor-pointer text-white duration-200"
+                      class="w-8 h-8 text-white duration-200 cursor-pointer"
                     ></hero-icon
                     ><p>Add New</p>
     </button> -->
@@ -99,15 +99,15 @@
     <form (ngSubmit)="uploadFile(fileInput.files[0], dataTypeSelect.value)">
       <!-- Loading progress -->
       <div class="ml-10">
-        <div class="flex justify-start items-center mt-2 mb-1">
+        <div class="flex items-center justify-start mt-2 mb-1">
           <span
             *ngIf="isUploading"
-            class="text-base animate-pulse font-medium text-white dark:text-white"
+            class="text-base font-medium text-white animate-pulse dark:text-white"
             >Loading
           </span>
           <span
             *ngIf="isUploading"
-            class="text-sm ml-10 font-medium text-ahi-blue-1000 dark:text-white"
+            class="ml-10 text-sm font-medium text-ahi-blue-1000 dark:text-white"
             >{{ uploadProgress }}%</span
           >
         </div>
@@ -123,11 +123,11 @@
       </div>
 
       <!-- Update data -->
-      <div class="mt-6 ml-10 flex flex-row items-center text-center">
-        <h4 class="text-white text-left w-40">Update data</h4>
+      <div class="flex flex-row items-center mt-6 ml-10 text-center">
+        <h4 class="w-40 text-left text-white">Update data</h4>
         <input
           #fileInput
-          class="block ml-4 w-64 text-xs text-ahi-blue-1000 border border-gray-300 rounded-lg cursor-pointer bg-ahi-blue-900 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+          class="block w-64 ml-4 text-xs border border-gray-300 rounded-lg cursor-pointer text-ahi-blue-1000 bg-ahi-blue-900 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
           type="file"
           name="upload_file"
           (change)="onFileSelected($event)"
@@ -135,12 +135,12 @@
       </div>
 
       <!-- Select data type -->
-      <div class="mt-6 ml-10 items-center text-center flex flex-row">
-        <h4 class="text-white text-left w-40">Select data type</h4>
+      <div class="flex flex-row items-center mt-6 ml-10 text-center">
+        <h4 class="w-40 text-left text-white">Select data type</h4>
         <select
           #dataTypeSelect
           id="small"
-          class="ml-4 w-48 p-2 text-sm text-white border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-ahi-blue-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="w-48 p-2 ml-4 text-sm text-white border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-ahi-blue-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
           <option disabled selected>Select</option>
           <option value="APU">APU</option>
@@ -154,11 +154,11 @@
       <!-- Upload button -->
       <button
         type="submit"
-        class="bg-ahi-green-500 mt-6 ml-10 inline-flex items-center text-white py-2 px-4 rounded hover:bg-ahi-green-600 focus:outline-none focus:bg-ahi-green-600"
+        class="inline-flex items-center px-4 py-2 mt-6 ml-10 text-white rounded bg-ahi-green-500 hover:bg-ahi-green-600 focus:outline-none focus:bg-ahi-green-600"
       >
         Upload<svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5 ml-1"
+          class="w-5 h-5 ml-1"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -177,18 +177,18 @@
   <div
     *ngIf="showCalculation"
     [@fadeInOut]
-    class="bg-gradient-to-r h-full from-ahi-blue-800 to-ahi-blue-600"
+    class="h-full bg-gradient-to-r from-ahi-blue-800 to-ahi-blue-600"
   >
     <div *ngIf="dashboardState$ | async as dashboardState" class="ml-6">
-      <div class="ml-2 mt-6">
-        <div class="mt-6 ml-2 flex flex-row text-center">
+      <div class="mt-6 ml-2">
+        <div class="flex flex-row mt-6 ml-2 text-center">
           <div>
-            <h4 class="text-white w-44 text-left">Score Weight</h4>
-            <h4 class="text-white text-sm font-light w-44 text-left">100%</h4>
+            <h4 class="text-left text-white w-44">Score Weight</h4>
+            <h4 class="text-sm font-light text-left text-white w-44">100%</h4>
           </div>
           <button
             (click)="restoreConfigValue()"
-            class="block w-60 mb-5 px-2 py-2.5 text-sm text-white rounded-lg cursor-pointer bg-ahi-blue-900 hover:bg-ahi-primary-color-500 transition-colors duration-200 ease-out focus:outline-none "
+            class="block w-60 mb-5 px-2 py-2.5 text-sm text-white rounded-lg cursor-pointer bg-ahi-blue-900 hover:bg-ahi-primary-color-500 transition-colors duration-200 ease-out focus:outline-none"
             id="small_size"
           >
             Restore Original Weight
@@ -201,15 +201,25 @@
           <table class="table-fixed border-spacing-2">
             <tbody>
               <tr>
-                <td class="py-2 w-40 text-left">
+                <td class="w-40 py-2 text-left">
                   <span class="text-white">{{
                     dashboardState.configData[0]?.configName
                   }}</span>
                 </td>
-                <td class="px-4 py-2 text-center items-center w-1/4">
-                  <label *ngIf="dashboardState.configData && dashboardState.configData[0]?.configName" 
-                  class="relative inline-flex mx-auto items-center cursor-pointer">
-                    <input [(ngModel)]="isRangeAircraftSystem" type="checkbox" value="" class="sr-only peer" />
+                <td class="items-center w-1/4 px-4 py-2 text-center">
+                  <label
+                    *ngIf="
+                      dashboardState.configData &&
+                      dashboardState.configData[0]?.configName
+                    "
+                    class="relative inline-flex items-center mx-auto cursor-pointer"
+                  >
+                    <input
+                      [(ngModel)]="isRangeAircraftSystem"
+                      type="checkbox"
+                      value=""
+                      class="sr-only peer"
+                    />
                     <div
                       class="w-11 h-6 bg-ahi-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-sm peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-sm after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-ahi-blue-1000"
                     ></div>
@@ -220,26 +230,34 @@
           </table>
         </div>
         <!-- Table Aircraft System  -->
-        <div class="ml-12 mt-4">
+        <div class="mt-4 ml-12">
           <table class="table-fixed">
             <tbody>
               <tr *ngFor="let item of dashboardState.configData?.slice(1, 9)">
                 <td class="px-4 py-2">
-                  <span [ngClass]="{'text-opacity-60': !isRangeAircraftSystem}" class="text-white font-normal">{{
-                    item.configName
-                  }}</span>
+                  <span
+                    [ngClass]="{ 'text-opacity-60': !isRangeAircraftSystem }"
+                    class="font-normal text-white"
+                    >{{ item.configName }}</span
+                  >
                 </td>
-                <td class=" text-center w-2/4">
+                <td class="w-2/4 text-center">
                   <div class="flex flex-col">
-                    <div [ngClass]="{'cursor-not-allowed': !isRangeAircraftSystem, 'opacity-60': !isRangeAircraftSystem}" class="inline-flex text-center items-center mt-5">
-                      <h4 class="text-white mr-2">-</h4>
+                    <div
+                      [ngClass]="{
+                        'cursor-not-allowed': !isRangeAircraftSystem,
+                        'opacity-60': !isRangeAircraftSystem
+                      }"
+                      class="inline-flex items-center mt-5 text-center"
+                    >
+                      <h4 class="mr-2 text-white">-</h4>
                       <input
                         [disabled]="!isRangeAircraftSystem"
                         id="small-range"
                         type="range"
                         [(ngModel)]="item.configValue"
                         step="1"
-                        class="w-80 mx-auto h-1 bg-gray-200 rounded-lg appearance-none range-sm dark:bg-gray-700"
+                        class="h-1 mx-auto bg-gray-200 rounded-lg appearance-none w-80 range-sm dark:bg-gray-700"
                         [ngStyle]="{
                           background:
                             'linear-gradient(90deg, #00b8eb ' +
@@ -248,15 +266,18 @@
                             item.configValue +
                             '%)'
                         }"
-                        (change)="updateConfigWeight(item.uniqueId, item.configValue)"
+                        (change)="
+                          updateConfigWeight(item.uniqueId, item.configValue)
+                        "
                       />
-                      <h4 class="text-white ml-2">+</h4>
+                      <h4 class="ml-2 text-white">+</h4>
                     </div>
-                    
                   </div>
-                  <span [ngClass]="{'text-opacity-60': !isRangeAircraftSystem}" class="text-white mt-2 text-sm font-normal">{{
-                      item.configValue
-                    }}</span>
+                  <span
+                    [ngClass]="{ 'text-opacity-60': !isRangeAircraftSystem }"
+                    class="mt-2 text-sm font-normal text-white"
+                    >{{ item.configValue }}</span
+                  >
                 </td>
               </tr>
               <!-- <tr
@@ -264,13 +285,13 @@
                 *ngFor="let subItemHil of dashboardState.configData.slice(5, 9)"
               >
                 <td class="px-4 py-2">
-                  <span [ngClass]="{'text-opacity-60': !isRangeAircraftSystem}" class="text-white font-normal">{{
+                  <span [ngClass]="{'text-opacity-60': !isRangeAircraftSystem}" class="font-normal text-white">{{
                     subItemHil.configName
                   }}</span>
                 </td>
-                <td class="px-4 py-2 text-center items-center w-2/4">
+                <td class="items-center w-2/4 px-4 py-2 text-center">
                   <div class="flex flex-col">
-                    <div [ngClass]="{'cursor-not-allowed': !isRangeAircraftSystem, 'opacity-60': !isRangeAircraftSystem}" class="inline-flex text-center items-center mt-5">
+                    <div [ngClass]="{'cursor-not-allowed': !isRangeAircraftSystem, 'opacity-60': !isRangeAircraftSystem}" class="inline-flex items-center mt-5 text-center">
                       <h4 class="text-white">-</h4>
                       <input
                       [disabled]="!isRangeAircraftSystem"
@@ -278,7 +299,7 @@
                       type="range"
                       [(ngModel)]="subItemHil.configValue"
                       step="1"
-                      class="w-80 mx-auto h-1 bg-gray-200 rounded-lg appearance-none range-sm dark:bg-gray-700"
+                      class="h-1 mx-auto bg-gray-200 rounded-lg appearance-none w-80 range-sm dark:bg-gray-700"
                       [ngStyle]="{
                         background:
                           'linear-gradient(90deg, #00b8eb ' +
@@ -291,7 +312,7 @@
                       <h4 class="text-white">+</h4>
                     </div>
                   </div>
-                  <span [ngClass]="{'text-opacity-60': !isRangeAircraftSystem}" class="text-white text-sm font-normal">{{
+                  <span [ngClass]="{'text-opacity-60': !isRangeAircraftSystem}" class="text-sm font-normal text-white">{{
                       subItemHil.configValue
                     }}</span>
                 </td>
@@ -306,15 +327,25 @@
           <table class="table-fixed border-spacing-2">
             <tbody>
               <tr>
-                <td class="py-2 w-40 text-left">
+                <td class="w-40 py-2 text-left">
                   <span class="text-white">{{
                     dashboardState.configData[9]?.configName
                   }}</span>
                 </td>
-                <td class="px-4 py-2 text-center items-center w-1/4">
-                  <label *ngIf="dashboardState.configData && dashboardState.configData[9]?.configName" 
-                  class="relative inline-flex mx-auto items-center cursor-pointer">
-                    <input [(ngModel)]="isRangeEngineApu" type="checkbox" value="" class="sr-only peer" />
+                <td class="items-center w-1/4 px-4 py-2 text-center">
+                  <label
+                    *ngIf="
+                      dashboardState.configData &&
+                      dashboardState.configData[9]?.configName
+                    "
+                    class="relative inline-flex items-center mx-auto cursor-pointer"
+                  >
+                    <input
+                      [(ngModel)]="isRangeEngineApu"
+                      type="checkbox"
+                      value=""
+                      class="sr-only peer"
+                    />
                     <div
                       class="w-11 h-6 bg-ahi-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-sm peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-sm after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-ahi-blue-1000"
                     ></div>
@@ -326,26 +357,34 @@
         </div>
 
         <!-- Table Engine & APU -->
-        <div class="ml-12 mt-4">
+        <div class="mt-4 ml-12">
           <table class="table-fixed">
             <tbody>
               <tr *ngFor="let item of dashboardState.configData?.slice(10, 12)">
                 <td class="px-4 py-2">
-                  <span [ngClass]="{'text-opacity-60': !isRangeEngineApu}" class="text-white font-normal">{{
-                    item.configName
-                  }}</span>
+                  <span
+                    [ngClass]="{ 'text-opacity-60': !isRangeEngineApu }"
+                    class="font-normal text-white"
+                    >{{ item.configName }}</span
+                  >
                 </td>
-                <td class=" text-center w-2/4">
+                <td class="w-2/4 text-center">
                   <div class="flex flex-col">
-                    <div [ngClass]="{'cursor-not-allowed': !isRangeEngineApu, 'opacity-60': !isRangeEngineApu}" class="inline-flex text-center items-center mt-5">
-                      <h4 class="text-white mr-2">-</h4>
+                    <div
+                      [ngClass]="{
+                        'cursor-not-allowed': !isRangeEngineApu,
+                        'opacity-60': !isRangeEngineApu
+                      }"
+                      class="inline-flex items-center mt-5 text-center"
+                    >
+                      <h4 class="mr-2 text-white">-</h4>
                       <input
                         [disabled]="!isRangeEngineApu"
                         id="small-range"
                         type="range"
                         [(ngModel)]="item.configValue"
                         step="1"
-                        class="w-80 mx-auto h-1 bg-gray-200 rounded-lg appearance-none range-sm dark:bg-gray-700"
+                        class="h-1 mx-auto bg-gray-200 rounded-lg appearance-none w-80 range-sm dark:bg-gray-700"
                         [ngStyle]="{
                           background:
                             'linear-gradient(90deg, #00b8eb ' +
@@ -354,15 +393,198 @@
                             item.configValue +
                             '%)'
                         }"
-                        (change)="updateConfigWeight(item.uniqueId, item.configValue)"
+                        (change)="
+                          updateConfigWeight(item.uniqueId, item.configValue)
+                        "
                       />
-                      <h4 class="text-white ml-2">+</h4>
+                      <h4 class="ml-2 text-white">+</h4>
                     </div>
-                    
                   </div>
-                  <span [ngClass]="{'text-opacity-60': !isRangeEngineApu}" class="text-white mt-2 text-sm font-normal">{{
-                      item.configValue
-                    }}</span>
+                  <span
+                    [ngClass]="{ 'text-opacity-60': !isRangeEngineApu }"
+                    class="mt-2 text-sm font-normal text-white"
+                    >{{ item.configValue }}</span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Structure -->
+      <div class="mt-6 ml-4" [@fadeInOut]>
+        <div class="flex flex-row">
+          <table class="table-fixed border-spacing-2">
+            <tbody>
+              <tr>
+                <td class="w-40 py-2 text-left">
+                  <span class="text-white">{{
+                    dashboardState.configData[12]?.configName
+                  }}</span>
+                </td>
+                <td class="items-center w-1/4 px-4 py-2 text-center">
+                  <label
+                    *ngIf="
+                      dashboardState.configData &&
+                      dashboardState.configData[12]?.configName
+                    "
+                    class="relative inline-flex items-center mx-auto cursor-pointer"
+                  >
+                    <input
+                      [(ngModel)]="isRangeStructrue"
+                      type="checkbox"
+                      value=""
+                      class="sr-only peer"
+                    />
+                    <div
+                      class="w-11 h-6 bg-ahi-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-sm peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-sm after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-ahi-blue-1000"
+                    ></div>
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Table Structure -->
+        <div class="mt-4 ml-12">
+          <table class="table-fixed">
+            <tbody>
+              <tr *ngFor="let item of dashboardState.configData?.slice(13, 14)">
+                <td class="px-4 py-2">
+                  <span
+                    [ngClass]="{ 'text-opacity-60': !isRangeStructrue }"
+                    class="font-normal text-white"
+                    >{{ item.configName }}</span
+                  >
+                </td>
+                <td class="w-2/4 text-center">
+                  <div class="flex flex-col">
+                    <div
+                      [ngClass]="{
+                        'cursor-not-allowed': !isRangeStructrue,
+                        'opacity-60': !isRangeStructrue
+                      }"
+                      class="inline-flex items-center mt-5 text-center"
+                    >
+                      <h4 class="mr-2 text-white">-</h4>
+                      <input
+                        [disabled]="!isRangeStructrue"
+                        id="small-range"
+                        type="range"
+                        [(ngModel)]="item.configValue"
+                        step="1"
+                        class="h-1 mx-auto bg-gray-200 rounded-lg appearance-none w-80 range-sm dark:bg-gray-700"
+                        [ngStyle]="{
+                          background:
+                            'linear-gradient(90deg, #00b8eb ' +
+                            item.configValue +
+                            '%, #ccc ' +
+                            item.configValue +
+                            '%)'
+                        }"
+                        (change)="
+                          updateConfigWeight(item.uniqueId, item.configValue)
+                        "
+                      />
+                      <h4 class="ml-2 text-white">+</h4>
+                    </div>
+                  </div>
+                  <span
+                    [ngClass]="{ 'text-opacity-60': !isRangeStructrue }"
+                    class="mt-2 text-sm font-normal text-white"
+                    >{{ item.configValue }}</span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Cabin -->
+      <div class="mt-6 ml-4" [@fadeInOut]>
+        <div class="flex flex-row">
+          <table class="table-fixed border-spacing-2">
+            <tbody>
+              <tr>
+                <td class="w-40 py-2 text-left">
+                  <span class="text-white">{{
+                    dashboardState.configData[14]?.configName
+                  }}</span>
+                </td>
+                <td class="items-center w-1/4 px-4 py-2 text-center">
+                  <label
+                    *ngIf="
+                      dashboardState.configData &&
+                      dashboardState.configData[14]?.configName
+                    "
+                    class="relative inline-flex items-center mx-auto cursor-pointer"
+                  >
+                    <input
+                      [(ngModel)]="isRangeCabin"
+                      type="checkbox"
+                      value=""
+                      class="sr-only peer"
+                    />
+                    <div
+                      class="w-11 h-6 bg-ahi-blue-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-sm peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-sm after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-ahi-blue-1000"
+                    ></div>
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Table Structure -->
+        <div class="mt-4 ml-12">
+          <table class="table-fixed">
+            <tbody>
+              <tr *ngFor="let item of dashboardState.configData?.slice(15, 16)">
+                <td class="px-4 py-2">
+                  <span
+                    [ngClass]="{ 'text-opacity-60': !isRangeCabin }"
+                    class="font-normal text-white"
+                    >{{ item.configName }}</span
+                  >
+                </td>
+                <td class="w-2/4 text-center">
+                  <div class="flex flex-col">
+                    <div
+                      [ngClass]="{
+                        'cursor-not-allowed': !isRangeCabin,
+                        'opacity-60': !isRangeCabin
+                      }"
+                      class="inline-flex items-center mt-5 text-center"
+                    >
+                      <h4 class="mr-2 text-white">-</h4>
+                      <input
+                        [disabled]="!isRangeCabin"
+                        id="small-range"
+                        type="range"
+                        [(ngModel)]="item.configValue"
+                        step="1"
+                        class="h-1 mx-auto bg-gray-200 rounded-lg appearance-none w-80 range-sm dark:bg-gray-700"
+                        [ngStyle]="{
+                          background:
+                            'linear-gradient(90deg, #00b8eb ' +
+                            item.configValue +
+                            '%, #ccc ' +
+                            item.configValue +
+                            '%)'
+                        }"
+                        (change)="
+                          updateConfigWeight(item.uniqueId, item.configValue)
+                        "
+                      />
+                      <h4 class="ml-2 text-white">+</h4>
+                    </div>
+                  </div>
+                  <span
+                    [ngClass]="{ 'text-opacity-60': !isRangeCabin }"
+                    class="mt-2 text-sm font-normal text-white"
+                    >{{ item.configValue }}</span
+                  >
                 </td>
               </tr>
             </tbody>
